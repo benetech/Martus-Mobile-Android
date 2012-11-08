@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.martus.android"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="11" />
+	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:name="org.martus.android.MartusApplication" >
+        <activity
+            android:name="org.martus.android.MartusActivity"
+            android:launchMode="singleTask"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+<!--            <intent-filter>
+              <action android:name="android.intent.action.SEND" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <data android:mimeType="image/*" />
+            </intent-filter>-->
+
+        </activity>
+       <activity android:name=".PingServer"></activity>
+       <activity android:name=".SettingsActivity" android:label="@string/settings_title"></activity>
+       <activity android:name=".DesktopKeyActivity" android:label="You must first import a desktop key"></activity>
+       <activity
+           android:name=".BulletinActivity"
+           android:screenOrientation="portrait"
+           android:configChanges="orientation"
+           android:label="Create bulletin">
+           <intent-filter>
+             <action android:name="android.intent.action.SEND" />
+             <category android:name="android.intent.category.DEFAULT" />
+             <data android:mimeType="*/*" />
+           </intent-filter>
+       </activity>
+    </application>
+
+</manifest>
