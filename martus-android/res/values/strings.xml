@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Martus</string>
+    <string name="version">1.20130128</string>
+    <string name="create_sample_bulletin">Create Bulletin</string>
+    <string name="error_message">Error</string>
+    <string name="confirm_default">Are you sure?</string>
+
+    <!-- ============================== -->
+    <!--  settings screen  -->
+    <!-- ============================== -->
+    <string name="user_preferences">User Settings</string>
+    <string name="title_author_preference">Author</string>
+    <string name="summary_author_preference">Author</string>
+    <string name="dialog_title_author_preference">Author</string>
+    <string name="title_language_preference">Bulletin language</string>
+    <string name="summary_language_preference">Bulletin language</string>
+    <string name="dialog_title_language_preference">Bulletin language</string>
+    <string name="settings_title">Settings</string>
+    <string name="retry_server">Re-enter</string>
+    <string name="cancel_server">Cancel</string>
+    <string name="title_timeout_preference">Timeout</string>
+    <string name="summary_timeout_preference">In minutes</string>
+    <string name="dialog_title_timeout_preference">Time out duration</string>
+
+    <!-- ============================== -->
+    <!--  main screen  -->
+    <!-- ============================== -->
+    <string name="alert_dialog_password">Password:</string>
+    <string name="alert_dialog_confirm_password">Confirm Password:</string>
+    <string name="alert_dialog_magic_word">Magic Word:</string>
+    <string name="password_dialog_title">Login</string>
+    <string name="magic_word_dialog_title">Enter Magic Word</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="password_dialog_cancel">Cancel</string>
+    <string name="create_account_dialog_cancel">Exit</string>
+    <string name="incorrect_password">Incorrect Password</string>
+    <string name="error_create_account">Problem creating account</string>
+    <string name="error_getting_server_key">Problem connecting to server</string>
+    <string name="no_upload_rights">Incorrect magic word</string>
+    <string name="create_account_dialog_title">Create new password</string>
+    <string name="quit_menu_title">Logout</string>
+    <string name="server_menu_title">Choose Server</string>
+    <string name="market_orbot">market://search?q=pname:org.torproject.android</string>
+    <string name="install_orbot_">Install Orbot</string>
+    <string name="you_must_have_orbot">You must have Orbot installed</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="start_orbot_">Start Orbot</string>
+    <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
+        running. Would you like to start it?
+    </string>
+    <string name="use_tor">Use Tor</string>
+    <string name="create_password_hint">New password</string>
+    <string name="confirm_password_hint">Repeat password</string>
+    <string name="enter_password_hint">Enter password</string>
+    <string name="enter_magic_word_hint">Enter Magic Word</string>
+    <string name="settings_pwd_equal">Passwords match</string>
+    <string name="settings_pwd_not_equal">Passwords don\'t match!</string>
+    <string name="invalid_password">Password must be at least 8 characters</string>
+    <string name="invalid_magic_word">Invalid Magic Word</string>
+    <string name="success_magic_word">Success - you can now upload bulletins!</string>
+    <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
+    <string name="tor_explanation">Tor is an open network that helps defend against a form of network surveillance known as traffic analysis.
+        Tor protects you by bouncing your communications around a distributed network all around the world. It will make sending bulletins much slower.</string>
+    <string formatted="false" name="tor_link">https://www.torproject.org</string>
+    <string name="progress_confirming_magic_word">Confirming Magic Word</string>
+    <string name="confirm_reset_install">Reset to freshly installed state?</string>
+    <string name="confirm_reset_install_extra_no_pending">You are okay to reset as there are no unsent bulletins.</string>
+    <plurals name="confirm_reset_install_extra">
+        <item quantity="one">You will lose %1$s failed or currently sending bulletin that would be resent on your next login.</item>
+        <item quantity="other">You will lose %1$s failed or currently sending bulletins that would be resent on your next login.</item>
+    </plurals>
+    <string name="reset_to_install">Reset to freshly installed state</string>
+    <string name="ping_server_menu_item">Check Server</string>
+    <string name="ping_result_ok">Server is up</string>
+    <string name="ping_result_down">Server is down</string>
+    <string name="no_network_connection">Device has no network connection!</string>
+    <string name="no_network_create_bulletin_warning">Any bulletins you try to send will fail and be resent next time you log in with network access.</string>
+    <string name="logout_while_sending_title">Can\'t logout yet</string>
+    <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
+    <string name="reset_while_sending_title">Can\'t reset yet</string>
+    <string name="confirm_tamper_reset_title">Your setup information may have been tampered with</string>
+    <string name="confirm_tamper_reset_message">In the interest of security, please reset to a freshly installed state. Pressing the Yes button will start the reset. Martus can not function with a tampered settings file, so pressing No will exit the app.</string>
+    <string name="view_public_code_menu_item">View Public Code</string>
+    <string name="view_public_code_dialog_title">Public Code</string>
+    <string name="view_public_code_dialog_error">Unable to show Public Code</string>
+    <string formatted="false" name="contact_us_info">If you have any questions or feedback on Martus, please email info@martus.org</string>
+
+    <!-- ============================== -->
+    <!--  bulletin screen  -->
+    <!-- ============================== -->
+    <string name="gingerbread_extra_help_text">(Press the Menu button to Add attachments or Send)</string>
+    <string name="send_bulletin">Send</string>
+    <string name="add_attachment">Add attachment</string>
+    <string name="enter_summary">Optional Summary</string>
+    <string name="default_author">Unknown Author</string>
+    <string name="title_hint">Title</string>
+    <string name="bulletin_cancel">Cancel</string>
+    <string name="problem_creating_bulletin">Couldn\'t create new bulletin</string>
+    <string name="problem_adding_attachment">Problem adding attachment to bulletin</string>
+    <string name="problem_getting_files_for_attachments">Problem adding attachment to bulletin</string>
+    <string name="problem_getting_attachment">Problem adding attachment to bulletin</string>
+    <string name="bulletin_sending_progress">Sending…</string>
+    <string name="bulletin_packaging_progress">Encrypting and zipping…</string>
+    <string name="failure_zipping_bulletin">Failed zipping bulletin</string>
+    <string name="failure_choosing_file">Failed choosing file</string>
+    <string name="attachment_no_longer_exists">Couldn\'t send because the following attachment, %1$s , has been deleted from the device</string>
+    <string name="confirm_cancel_bulletin">Cancel this Bulletin?</string>
+    <string name="confirm_remove_attachment">Remove %1$s ?</string>
+    <string name="must_login_first_title">You must first login!</string>
+    <string name="must_login_first_message">Before sending this bulletin</string>
+    <string name="install_file_explorer">Try another file explorer</string>
+    <string name="fetching_picasa_image">Fetching Picasa image</string>
+    <string name="fetched_picasa_image">Got Picasa image</string>
+
+    <!-- ============================== -->
+    <!--  choose server screen  -->
+    <!-- ============================== -->
+    <string name="invalid_server_ip">Invalid Server IP</string>
+    <string name="invalid_server_code">Invalid Server Public Code</string>
+    <string name="successful_server_choice">Successfully connected to server!</string>
+    <string name="error_computing_public_code">Problem saving server preferences</string>
+    <string name="progress_connecting_to_server">Connecting to server</string>
+
+    <!-- ============================== -->
+    <!--  desktop key screen  -->
+    <!-- ============================== -->
+    <string name="desktop_sync_public_code">First enter desktop Public Code:</string>
+    <string name="desktop_sync_title">Import Desktop Account</string>
+    <string name="desktop_sync_choose_file">Then choose Desktop Account file</string>
+    <string name="desktop_public_code_hint">Desktop Account Public Code</string>
+    <string name="invalid_public_account_file">Invalid Desktop Account public information file</string>
+    <string name="invalid_public_code">Public Code doesn\'t match file</string>
+    <string name="public_code_validation_empty">Public Code can\'t be empty</string>
+    <string name="select_file_picker">Select a file chooser</string>
+    <string name="attachments_label">Attachments (press and hold to remove) :</string>
+    <string name="server_ip_label">Server IP Address:</string>
+    <string name="server_ip_hint">Enter Server IP address</string>
+    <string name="server_public_code_label">Server Public Code:</string>
+    <string name="server_public_code_hint">Enter Server Public Code</string>
+    <string name="choose_server_title">Choose Server</string>
+    <string name="choose_file">Martus File Chooser</string>
+    <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
+    <string formatted="false" name="file_explorer_store_link">play.google.com/store/search?q=%22open+source%22+file+manager+explorer</string>
+
+    <!-- ============================== -->
+    <!--  notification bar  -->
+    <!-- ============================== -->
+    <string name="successful_send_notification">Bulletin sent!</string>
+    <string name="failed_send_notification">Send failed due to: %1$s . Will be retried on next login.</string>
+    <string name="failure_send_notification">Sending bulletin failed</string>
+    <string name="starting_send_notification">Sending …</string>
+    <string name="notification_title">Martus - %1$s</string>
+
+
+</resources>
