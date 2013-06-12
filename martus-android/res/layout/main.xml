@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+    	android:id="@+id/createScreen"
+       	android:layout_width="wrap_content"
+      	android:layout_height="wrap_content"
+        android:onClick="sendBulletin"
+      	android:text="@string/create_sample_bulletin"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dip"
+        android:layout_marginBottom="40dip"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/use_tor"
+        android:id="@+id/checkBox_use_tor"
+        android:layout_gravity="left|center_vertical"
+        android:singleLine="true"
+        android:shadowRadius="4"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowColor="#7a7a7a"
+        android:onClick="onTorChecked"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tor_link"
+        android:id="@+id/textView1"
+        android:autoLink="web"
+        android:layout_gravity="left"
+        android:paddingLeft="8dip"
+            />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/tor_explanation"
+        android:id="@+id/textView"
+        android:layout_gravity="center|left"
+        android:padding="8dip"
+        />
+
+</LinearLayout>
