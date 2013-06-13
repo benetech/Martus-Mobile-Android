@@ -3,3 +3,5 @@ syntax: regexp
 ^aFileChooser/local\.properties$
 syntax: regexp
 ^actionbarSherlock/library/local\.properties$
+^martus-android/bin$
+^martus-android/gen$
