@@ -135,7 +135,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 		return client.execute("MartusServer." + method, params);
 	}
 
-	private void logging(String message)
+	protected void logging(String message)
 	{
 		Timestamp stamp = new Timestamp(System.currentTimeMillis());
 		System.out.println(stamp + " " + message);
@@ -157,7 +157,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 
 	String server;
 	int[] ports;
-	private TorTransportWrapper transport;
+	protected TorTransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
 }

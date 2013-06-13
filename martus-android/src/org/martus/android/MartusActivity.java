@@ -15,7 +15,7 @@ import org.martus.android.dialog.CreateAccountDialog;
 import org.martus.android.dialog.LoginDialog;
 import org.martus.android.dialog.MagicWordDialog;
 import org.martus.android.dialog.ModalConfirmationDialog;
-import org.martus.clientside.ClientSideNetworkGateway;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
@@ -70,7 +70,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     public static final int MAX_LOGIN_ATTEMPTS = 3;
     private String serverPublicKey;
 
-    private ClientSideNetworkGateway gateway = null;
+    private MobileClientSideNetworkGateway gateway = null;
     private String serverIP;
     private int invalidLogins;
     private CheckBox torCheckbox;
@@ -361,7 +361,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         if (serverPublicKey.isEmpty()) {
             return false;
         }
-        gateway = ClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication)getApplication()).getTransport());
+        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication) getApplication()).getTransport());
         return true;
     }
 
@@ -448,7 +448,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
         SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
-        gateway = ClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication)getApplication()).getTransport());
+        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication)getApplication()).getTransport());
 
         Intent resendService = new Intent(MartusActivity.this, ResendService.class);
         resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
@@ -691,7 +691,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         @Override
         protected NetworkResponse doInBackground(Object... params) {
 
-            final ClientSideNetworkGateway gateway = (ClientSideNetworkGateway)params[0];
+            final MobileClientSideNetworkGateway gateway = (MobileClientSideNetworkGateway)params[0];
             final MartusSecurity signer = (MartusSecurity)params[1];
             final String magicWord = (String)params[2];
 

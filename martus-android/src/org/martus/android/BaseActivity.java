@@ -277,4 +277,9 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
+
+	public long getInactivityTimeout()
+	{
+		return inactivityTimeout;
+	}
 }

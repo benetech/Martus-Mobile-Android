@@ -2,7 +2,7 @@ package org.martus.android;
 
 import java.io.File;
 
-import org.martus.client.bulletinstore.ClientBulletinStore;
+import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.StandardFieldSpecs;
 
@@ -18,7 +18,7 @@ public class AppConfig {
     public static final String LOG_LABEL = "martus";
 
     private static AppConfig instance;
-    private ClientBulletinStore store;
+    private MobileClientBulletinStore store;
     private MartusSecurity martusCrypto;
 
     public static void initInstance(File cacheDir, Context context ) {
@@ -39,7 +39,7 @@ public class AppConfig {
             Log.e(LOG_LABEL, "unable to initialize crypto", e);
         }
 
-        store = new ClientBulletinStore(martusCrypto);
+        store = new MobileClientBulletinStore(martusCrypto);
         try {
             store.doAfterSigninInitialization(cacheDir);
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class AppConfig {
         return martusCrypto;
     }
 
-    public ClientBulletinStore getStore() {
+    public MobileClientBulletinStore getStore() {
         return store;
     }
 
