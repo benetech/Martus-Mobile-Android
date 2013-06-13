@@ -14,7 +14,8 @@ public class LogOutProcess implements Runnable {
 
     public LogOutProcess(BaseActivity myActivity) {
         this.myActivity = myActivity;
-	    Log.i(AppConfig.LOG_LABEL, "logout process my activity is " + myActivity.getClass().getName());
+	    Log.i(AppConfig.LOG_LABEL, "logout process my activity is " + myActivity.getClass().getName() +
+			    " timeout is " + myActivity.getInactivityTimeout());
     }
 
     @Override

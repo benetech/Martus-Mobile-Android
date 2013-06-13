@@ -2,7 +2,7 @@ package org.martus.android;
 
 import java.io.File;
 
-import org.martus.clientside.ClientSideNetworkGateway;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinZipImporter;
 import org.martus.common.crypto.MartusSecurity;
@@ -37,7 +37,7 @@ public class ResendService extends IntentService implements ProgressUpdater {
 
         final String serverIP = intent.getStringExtra(SettingsActivity.KEY_SERVER_IP);
         final String serverPublicKey = intent.getStringExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY);
-        final ClientSideNetworkGateway mGateway = ClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey,((MartusApplication)getApplication()).getTransport());
+        final MobileClientSideNetworkGateway mGateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey,((MartusApplication)getApplication()).getTransport());
 
         final File cacheDir = getApplicationContext().getCacheDir();
         File failedDir = new File (cacheDir, UploadBulletinTask.FAILED_BULLETINS_DIR);
