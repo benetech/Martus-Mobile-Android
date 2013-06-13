@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.martus.clientside.ClientSideNetworkGateway;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
@@ -42,14 +43,14 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
 
         final UniversalId uid = (UniversalId)params[0];
         final File zippedFile = (File)params[1];
-        final ClientSideNetworkGateway gateway = (ClientSideNetworkGateway)params[2];
+        final MobileClientSideNetworkGateway gateway = (MobileClientSideNetworkGateway)params[2];
         final MartusSecurity signer = (MartusSecurity)params[3];
 
 
         return doSend(uid, zippedFile, gateway, signer, this, myApplication);
     }
 
-    public static String doSend(UniversalId uid, File zippedFile, ClientSideNetworkGateway gateway,
+    public static String doSend(UniversalId uid, File zippedFile, MobileClientSideNetworkGateway gateway,
                                 MartusSecurity signer, ProgressUpdater updater, Context context) {
         String result = null;
 
@@ -122,7 +123,7 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
         }
     }
 
-     public static String uploadBulletinZipFile(UniversalId uid, File tempFile, ClientSideNetworkGateway gateway, MartusCrypto crypto, ProgressUpdater fileSender)
+     public static String uploadBulletinZipFile(UniversalId uid, File tempFile, MobileClientSideNetworkGateway gateway, MartusCrypto crypto, ProgressUpdater fileSender)
         		throws
                     MartusUtilities.FileTooLargeException, IOException, MartusCrypto.MartusSignatureException
     {

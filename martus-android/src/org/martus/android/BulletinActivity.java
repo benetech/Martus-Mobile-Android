@@ -16,11 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
-import org.martus.client.bulletinstore.ClientBulletinStore;
-import org.martus.clientside.ClientSideNetworkGateway;
+import org.martus.client.bulletinstore.MobileClientBulletinStore;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.HQKey;
 import org.martus.common.HQKeys;
-import org.martus.common.MartusUtilities;
 import org.martus.common.bulletin.AttachmentProxy;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.crypto.MartusCrypto;
@@ -71,10 +70,10 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 1;
     private static final String PICASA_INDICATOR = "picasa";
 
-    private ClientBulletinStore store;
+    private MobileClientBulletinStore store;
     private HQKey hqKey;
     private String serverPublicKey;
-    private ClientSideNetworkGateway gateway = null;
+    private MobileClientSideNetworkGateway gateway = null;
     private String serverIP;
     private boolean autoLogout;
 
@@ -107,7 +106,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         hqKey = new HQKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
         store = AppConfig.getInstance().getStore();
         updateSettings();
-        gateway = ClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication)getApplication()).getTransport());
+        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication) getApplication()).getTransport());
 
         titleText = (EditText)findViewById(R.id.createBulletinTitle);
         summaryText = (EditText)findViewById(R.id.bulletinSummary);

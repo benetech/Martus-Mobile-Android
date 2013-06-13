@@ -423,7 +423,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	String server;
 	int[] ports;
 	int timeoutSecondsForGetServerInfo;
-	private TorTransportWrapper transport;
+	protected TorTransportWrapper transport;
 	
 	static Vector RESULT_NO_SERVER;
 
