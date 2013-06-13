@@ -1,7 +1,13 @@
 
 syntax: regexp
 ^aFileChooser/local\.properties$
+^aFileChooser/bin$
+^aFileChooser/gen$
 syntax: regexp
 ^actionbarSherlock/library/local\.properties$
+^actionbarSherlock/library/bin$
+^actionbarSherlock/library/gen$
 ^martus-android/bin$
 ^martus-android/gen$
+^out$
+^.idea$
