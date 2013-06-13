@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.martus.android.dialog.LoginDialog;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
+import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.Exceptions;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
@@ -112,7 +113,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
         showProgressDialog(getString(R.string.progress_connecting_to_server));
 
-        NonSSLNetworkAPI server = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP);
+        NonSSLNetworkAPI server = new MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP);
         MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
 
         final AsyncTask <Object, Void, String> keyTask = new PublicKeyTask();

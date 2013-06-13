@@ -4,7 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.martus.client.bulletinstore.ClientBulletinStore;
+import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinZipUtilities;
 
@@ -31,7 +31,7 @@ public class ZipBulletinTask extends AsyncTask<Object, Integer, File> {
     protected File doInBackground(Object... params) {
 
         final File cacheDir = (File)params[0];
-        final ClientBulletinStore store = (ClientBulletinStore)params[1];
+        final MobileClientBulletinStore store = (MobileClientBulletinStore)params[1];
 
         File file = null;
 
