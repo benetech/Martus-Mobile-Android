@@ -44,6 +44,7 @@ import java.util.zip.ZipFile;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusCrypto;
@@ -51,7 +52,6 @@ import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.database.Database.RecordHiddenException;
 import org.martus.common.database.DatabaseKey;
 import org.martus.common.database.ReadableDatabase;
-import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.common.packet.AttachmentPacket;
 import org.martus.common.packet.BulletinHeaderPacket;
 import org.martus.util.StreamFilter;
@@ -426,14 +426,14 @@ public class MartusUtilities
 		}
 	}
 
-	public static SSLSocketFactory createSocketFactory(SimpleX509TrustManager tm) throws Exception
+	public static SSLSocketFactory createSocketFactory(X509TrustManager tm) throws Exception
 	{
 		SSLContext sslContext = createSSLContext(tm);
 		return sslContext.getSocketFactory();
 	
 	}
 
-	public static SSLContext createSSLContext(SimpleX509TrustManager tm) throws Exception
+	public static SSLContext createSSLContext(TrustManager tm) throws Exception
 	{
 		TrustManager []tma = {tm};
 		SSLContext sslContext = SSLContext.getInstance( "TLS" );

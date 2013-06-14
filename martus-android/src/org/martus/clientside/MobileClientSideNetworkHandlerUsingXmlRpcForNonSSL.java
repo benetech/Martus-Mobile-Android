@@ -39,10 +39,10 @@ import org.apache.xmlrpc.util.SAXParsers;
 import org.martus.common.MartusLogger;
 import org.martus.common.network.TorTransportWrapper;
 
-public class MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcForNonSSL
+public class MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer
 
 {
-	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName)
+	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName) throws Exception
 	{
 		super(serverName, (TorTransportWrapper)null);
 	}

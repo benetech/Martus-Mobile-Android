@@ -27,13 +27,14 @@ package org.martus.common.network;
 
 import java.io.File;
 
+import javax.net.ssl.TrustManager;
+
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.ProgressMeterInterface;
 
-import android.util.Log;
 import com.subgraph.orchid.TorClient;
 import com.subgraph.orchid.TorInitializationListener;
 import com.subgraph.orchid.xmlrpc.OrchidXmlRpcTransportFactory;
@@ -130,7 +131,7 @@ public class TorTransportWrapper
 		}
 	}
 	
-	public XmlRpcTransportFactory createTransport(XmlRpcClient client, SimpleX509TrustManager tm)	throws Exception 
+	public XmlRpcTransportFactory createTransport(XmlRpcClient client, TrustManager tm)	throws Exception 
 	{
 		if(!isTorActive)
 			return null;
@@ -143,7 +144,7 @@ public class TorTransportWrapper
 
 	void updateProgress(String message, int percent)
 	{
-		Log.i("martus","Tor initialization: " + percent + "% - " + message);
+		MartusLogger.log("Tor initialization: " + percent + "% - " + message);
 		if(progressMeter != null)
 			progressMeter.updateProgressMeter(percent, 100);
 		updateStatus();
@@ -151,7 +152,7 @@ public class TorTransportWrapper
 
 	void updateProgressComplete()
 	{
-		Log.i("martus","Tor initialization complete");
+		MartusLogger.log("Tor initialization complete");
 		isTorReady = true;
 		updateStatus();
 	}
@@ -177,7 +178,7 @@ public class TorTransportWrapper
 		tor.addInitializationListener(new TorInitializationHandler());
 	}
 	
-	private XmlRpcTransportFactory createRealTorTransportFactory(XmlRpcClient client, SimpleX509TrustManager tm) throws Exception
+	private XmlRpcTransportFactory createRealTorTransportFactory(XmlRpcClient client, TrustManager tm) throws Exception
 	{
 		XmlRpcTransportFactory factory = null;
 		factory = new OrchidXmlRpcTransportFactory(client, tor, MartusUtilities.createSSLContext(tm));

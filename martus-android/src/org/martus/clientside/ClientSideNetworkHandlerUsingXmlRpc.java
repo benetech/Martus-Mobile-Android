@@ -35,13 +35,11 @@ import java.util.Vector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
-import org.apache.xmlrpc.util.SAXParsers;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.ClientSideNetworkInterface;
@@ -73,7 +71,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		transport = transportToUse;
 
 		timeoutSecondsForGetServerInfo = DEFAULT_GET_SERVER_INFO_TIMEOUT_SECONDS;
-
+		
 		RESULT_NO_SERVER = new Vector();
 		RESULT_NO_SERVER.add(NetworkInterfaceConstants.NO_SERVER);
 		
@@ -91,14 +89,14 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			throw new SSLSocketSetupException();
 		}
 	}
-
-	public void setTimeoutGetServerInfo(int newTimeoutSeconds)
+	
+	public void setTimeoutGetServerInfo(int newTimeoutSeconds) 
 	{
 		MartusLogger.log("Setting getServerInfo timeout to " + newTimeoutSeconds + " seconds");
 		timeoutSecondsForGetServerInfo = newTimeoutSeconds;
 	}
 
-	private void restrictCipherSuites() throws NoSuchAlgorithmException 
+	public static void restrictCipherSuites() throws NoSuchAlgorithmException 
 	{
 		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
 		String[] rawCipherSuites = socketFactory.getDefaultCipherSuites();
@@ -368,13 +366,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
 			if(!wasNoSuchMethodException && !wasTimeoutException && !wasConnectionRefusedException)
 			{
-				MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
+				MartusLogger.log("ClientSideNetworkHandlerUsingXmlRpc:callServer XmlRpcException=" + e);
 				MartusLogger.logException(e);
 			}
 		}
 		catch (Exception e)
 		{
-			System.out.println("ServerInterfaceXmlRpcHandler:callServer Exception=" + e);
+			System.out.println("ClientSideNetworkHandlerUsingXmlRpc:callServer Exception=" + e);
 			e.printStackTrace();
 		}
 		return null;
@@ -401,7 +399,6 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverUrl));
-		SAXParsers.setSAXParserFactory(SAXParserFactory.newInstance());
 		client.setConfig(config);
 		
 		Stopwatch sw = new Stopwatch();
