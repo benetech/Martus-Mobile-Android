@@ -113,8 +113,17 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
         showProgressDialog(getString(R.string.progress_connecting_to_server));
 
-        NonSSLNetworkAPI server = new MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP);
-        MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
+	    NonSSLNetworkAPI server = null;
+	    try
+	    {
+		    server = new MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP);
+	    } catch (Exception e)
+	    {
+		    Log.e(AppConfig.LOG_LABEL, "problem creating client side network handler using xml for non ssl", e);
+		    showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
+		    return;
+	    }
+	    MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
 
         final AsyncTask <Object, Void, String> keyTask = new PublicKeyTask();
         keyTask.execute(server, martusCrypto);
