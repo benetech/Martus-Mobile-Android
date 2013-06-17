@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.crypto.MobileMartusSecurity;
 import org.martus.common.fieldspec.StandardFieldSpecs;
 
 import android.content.Context;
@@ -34,7 +35,7 @@ public class AppConfig {
     private AppConfig(File cacheDir, Context context) {
         // Constructor hidden because this is a singleton
         try {
-            martusCrypto = new MartusSecurity();
+            martusCrypto = new MobileMartusSecurity();
         } catch (Exception e) {
             Log.e(LOG_LABEL, "unable to initialize crypto", e);
         }

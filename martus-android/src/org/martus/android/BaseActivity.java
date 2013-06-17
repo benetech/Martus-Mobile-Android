@@ -12,6 +12,7 @@ import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusKeyPair;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.crypto.MobileMartusSecurity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -261,7 +262,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         try {
             MartusKeyPair keyPair = original.getKeyPair();
             byte[] data = keyPair.getKeyPairData();
-            cryptoCopy = new MartusSecurity();
+            cryptoCopy = new MobileMartusSecurity();
             cryptoCopy.setKeyPairFromData(data);
             cryptoCopy.setShouldWriteAuthorDecryptableData(false);
         } catch (Exception e) {
