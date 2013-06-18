@@ -27,41 +27,52 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside;
 
 import javax.xml.parsers.SAXParserFactory;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
-import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.apache.xmlrpc.util.SAXParsers;
-import org.martus.common.MartusLogger;
+import org.martus.android.AppConfig;
+import org.martus.common.network.NetworkInterfaceConstants;
+import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.TorTransportWrapper;
+
+import android.util.Log;
 
 public class MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer
 
 {
-	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName) throws Exception
+	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse) throws Exception
 	{
-		super(serverName, (TorTransportWrapper)null);
+		super(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
 	}
 
 	@Override
 	public Object callServerAtPort(String serverName, String method, Vector params, int port)
-		throws MalformedURLException, XmlRpcException, IOException
+		throws Exception
 	{
+		if(!(getTransport().isReady()))
+		{
+			Log.w(AppConfig.LOG_LABEL, "Warning: JTor transport not ready for " + method);
+			return new String[] { NetworkInterfaceConstants.TRANSPORT_NOT_READY };
+		}
+
 		if(ClientPortOverride.useInsecurePorts)
 			port += 9000;
 		
-		final String serverUrl = "http://" + serverName + ":" + port + "/RPC2";
-		MartusLogger.logVerbose("MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
+		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
+		Log.d(AppConfig.LOG_LABEL, "MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
 
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
 		XmlRpcClient client = new XmlRpcClient();
-		
+		XmlRpcTransportFactory transportFactory = getTransport().createTransport(client, getTm());
+		if(transportFactory != null)
+			client.setTransportFactory(transportFactory);
+
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverUrl));
 		SAXParsers.setSAXParserFactory(SAXParserFactory.newInstance());

@@ -258,11 +258,21 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 		return true;
 	}
 
+	protected KeyCollectingX509TrustManager getTm()
+	{
+		return tm;
+	}
+
+	protected TorTransportWrapper getTransport()
+	{
+		return transport;
+	}
+
 	public static final String MARTUS_SERVER_PING_RESPONSE = "MartusServer";
 
 	String server;
 	int[] ports;
-	protected TorTransportWrapper transport;
+	private TorTransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
 	private KeyCollectingX509TrustManager tm;
