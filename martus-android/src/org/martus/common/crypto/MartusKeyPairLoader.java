@@ -40,11 +40,6 @@ import java.security.spec.RSAPublicKeySpec;
 public class MartusKeyPairLoader
 {
 
-	public static KeyPair load(DataInputStream in) throws Exception
-	{
-		return load(in, new DefaultSecurityProviderAccessor());
-	}
-
 	public static KeyPair load(DataInputStream in, SecurityProviderAccessor securityProviderAccessor) throws Exception
 	{
 		MartusKeyPairLoader loader = new MartusKeyPairLoader(securityProviderAccessor);

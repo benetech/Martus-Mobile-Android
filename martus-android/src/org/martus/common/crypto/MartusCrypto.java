@@ -374,4 +374,6 @@ public abstract class MartusCrypto
 	protected static final int IV_BYTE_COUNT = 16;
 	protected static final int TOKEN_BYTE_COUNT = 16;
 
+	public static final String SECURITY_PROVIDER_BOUNCYCASTLE = "BC";
+
 }
