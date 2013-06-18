@@ -147,6 +147,7 @@
     <!-- ============================== -->
     <string name="invalid_server_ip">Invalid Server IP</string>
     <string name="invalid_server_code">Invalid Server Public Code</string>
+    <string name="invalid_server_info">Invalid Server Information Entered</string>
     <string name="successful_server_choice">Successfully connected to server!</string>
     <string name="error_computing_public_code">Problem saving server preferences</string>
     <string name="progress_connecting_to_server">Connecting to server</string>

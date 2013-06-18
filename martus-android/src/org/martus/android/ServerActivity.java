@@ -1,9 +1,9 @@
 package org.martus.android;
 
 import java.io.File;
+import java.util.Vector;
 
 import org.martus.android.dialog.LoginDialog;
-import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.Exceptions;
 import org.martus.common.MartusUtilities;
@@ -116,7 +116,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 	    NonSSLNetworkAPI server = null;
 	    try
 	    {
-		    server = new MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP);
+		    server = new MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIP, ((MartusApplication)getApplication()).getTransport());
 	    } catch (Exception e)
 	    {
 		    Log.e(AppConfig.LOG_LABEL, "problem creating client side network handler using xml for non ssl", e);
@@ -125,15 +125,15 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 	    }
 	    MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
 
-        final AsyncTask <Object, Void, String> keyTask = new PublicKeyTask();
+        final AsyncTask <Object, Void, Vector> keyTask = new PublicKeyTask();
         keyTask.execute(server, martusCrypto);
     }
 
-    private void processResult(String serverPublicKey) {
+    private void processResult(Vector serverInformation) {
         dialog.dismiss();
         try {
-            if (null == serverPublicKey) {
-                showErrorMessage(getString(R.string.invalid_server_ip), getString(R.string.error_message));
+            if (null == serverInformation || serverInformation.isEmpty()) {
+                showErrorMessage(getString(R.string.invalid_server_info), getString(R.string.error_message));
                 return;
             }
         } catch (Exception e) {
@@ -142,6 +142,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
             return;
         }
 
+	    String serverPublicKey = (String)serverInformation.get(1);
         try {
             if (confirmServerPublicKey(serverCode, serverPublicKey)) {
                 SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
@@ -217,26 +218,21 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         }
     }
 
-    private class PublicKeyTask extends AsyncTask<Object, Void, String> {
+    private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
         @Override
-        protected String doInBackground(Object... params) {
+        protected Vector doInBackground(Object... params) {
 
             final NonSSLNetworkAPI server = (NonSSLNetworkAPI)params[0];
             final MartusSecurity security = (MartusSecurity)params[1];
-            String result = null;
+            Vector result = null;
 
-            try {
-                result = server.getServerPublicKey(security);
-            } catch (Exceptions.ServerNotAvailableException e) {
-                Log.e(AppConfig.LOG_LABEL, "server not available", e);
-            } catch (MartusUtilities.PublicInformationInvalidException e) {
-                Log.e(AppConfig.LOG_LABEL, "invalid public info", e);
-            }
+            result = server.getServerInformation();
+
             return result;
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Vector result) {
             super.onPostExecute(result);
             processResult(result);
         }
