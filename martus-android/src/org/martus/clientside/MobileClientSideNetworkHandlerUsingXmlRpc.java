@@ -64,7 +64,7 @@ public class MobileClientSideNetworkHandlerUsingXmlRpc
 
 	public Object executeXmlRpc(String serverName, String method, Vector params, int port) throws Exception
 	{
-		if(!transport.isReady())
+		if(!(getTransport().isReady()))
 		{
 			MartusLogger.log("Warning: JTor transport not ready for " + method);
 			return new String[] { NetworkInterfaceConstants.TRANSPORT_NOT_READY };
@@ -77,7 +77,7 @@ public class MobileClientSideNetworkHandlerUsingXmlRpc
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
 		XmlRpcClient client = new XmlRpcClient();
-		XmlRpcTransportFactory transportFactory = transport.createTransport(client, tm);
+		XmlRpcTransportFactory transportFactory = getTransport().createTransport(client, tm);
 		if(transportFactory != null)
 			client.setTransportFactory(transportFactory);
 		
