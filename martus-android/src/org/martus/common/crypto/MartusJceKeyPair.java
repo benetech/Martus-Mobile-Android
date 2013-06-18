@@ -60,11 +60,6 @@ public class MartusJceKeyPair extends MartusKeyPair
 		providerAccessor = securityProviderAccessor;
 		setJceKeyPair(keyPair);
 	}
-	
-	public MartusJceKeyPair(SecureRandom randomGenerator) throws Exception
-	{
-		this(randomGenerator, null);
-	}
 
 	public MartusJceKeyPair(SecureRandom randomGenerator, SecurityProviderAccessor securityProviderAccessor) throws Exception
 	{

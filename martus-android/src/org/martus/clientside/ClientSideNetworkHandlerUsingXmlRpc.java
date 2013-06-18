@@ -415,12 +415,17 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return tm;
 	}
 
+	protected TorTransportWrapper getTransport()
+	{
+		return transport;
+	}
+
 	static int indexOfPortThatWorkedLast = 0;
 	SimpleX509TrustManager tm;
 	String server;
 	int[] ports;
 	int timeoutSecondsForGetServerInfo;
-	protected TorTransportWrapper transport;
+	private TorTransportWrapper transport;
 	
 	static Vector RESULT_NO_SERVER;
 

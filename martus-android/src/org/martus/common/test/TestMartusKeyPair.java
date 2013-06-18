@@ -57,7 +57,8 @@ public class TestMartusKeyPair extends TestCaseEnhanced
 		
 		objects = new Vector();
 
-		MartusJceKeyPair jceKeyPair = new MartusJceKeyPair(rand);
+		SecurityProviderAccessor providerAccessor = new DefaultSecurityProviderAccessor();
+		MartusJceKeyPair jceKeyPair = new MartusJceKeyPair(rand, providerAccessor);
 		objects.add(jceKeyPair);
 
 //		MartusDirectCryptoKeyPair directKeyPair = new MartusDirectCryptoKeyPair(rand);
