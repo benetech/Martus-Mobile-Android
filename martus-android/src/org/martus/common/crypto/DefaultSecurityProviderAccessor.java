@@ -13,7 +13,7 @@ public class DefaultSecurityProviderAccessor implements SecurityProviderAccessor
 	@Override
 	public String getSecurityProviderName()
 	{
-		return MartusKeyPairDataConstants.SECURITY_PROVIDER_BOUNCYCASTLE;
+		return MartusCrypto.SECURITY_PROVIDER_BOUNCYCASTLE;
 	}
 
 	@Override

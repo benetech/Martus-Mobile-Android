@@ -55,9 +55,10 @@ import org.martus.util.StreamableBase64;
 
 public class MartusJceKeyPair extends MartusKeyPair
 {
-	public MartusJceKeyPair(KeyPair keyPair)
+	public MartusJceKeyPair(KeyPair keyPair, SecurityProviderAccessor securityProviderAccessor)
 	{
-		setJceKeyPair(keyPair);		
+		providerAccessor = securityProviderAccessor;
+		setJceKeyPair(keyPair);
 	}
 	
 	public MartusJceKeyPair(SecureRandom randomGenerator) throws Exception
@@ -67,13 +68,7 @@ public class MartusJceKeyPair extends MartusKeyPair
 
 	public MartusJceKeyPair(SecureRandom randomGenerator, SecurityProviderAccessor securityProviderAccessor) throws Exception
 	{
-		if (securityProviderAccessor == null)
-		{
-			providerAccessor = new DefaultSecurityProviderAccessor();
-		} else {
-			providerAccessor = securityProviderAccessor;
-		}
-
+		providerAccessor = securityProviderAccessor;
 		rand = randomGenerator;
 	}
 	
@@ -116,7 +111,7 @@ public class MartusJceKeyPair extends MartusKeyPair
 	public void createRSA(int publicKeyBits) throws Exception
 	{
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM_NAME,
-                MartusKeyPairDataConstants.SECURITY_PROVIDER_SPONGYCASTLE);
+				getProviderName());
 		keyPairGenerator.initialize(publicKeyBits, rand);
 		setJceKeyPair(keyPairGenerator.genKeyPair());
 	}

@@ -10,10 +10,11 @@ import org.spongycastle.jce.provider.BouncyCastleProvider;
  */
 public class MobileSecurityProviderAccessor implements SecurityProviderAccessor
 {
+
 	@Override
 	public String getSecurityProviderName()
 	{
-		return MartusKeyPairDataConstants.SECURITY_PROVIDER_SPONGYCASTLE;
+		return SECURITY_PROVIDER_SPONGYCASTLE;
 	}
 
 	@Override
@@ -21,4 +22,6 @@ public class MobileSecurityProviderAccessor implements SecurityProviderAccessor
 	{
 		return new BouncyCastleProvider();
 	}
+
+	public static final String SECURITY_PROVIDER_SPONGYCASTLE = "SC";
 }
