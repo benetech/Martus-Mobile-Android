@@ -40,15 +40,15 @@ import java.security.spec.RSAPublicKeySpec;
 public class MartusKeyPairLoader
 {
 
-	public static KeyPair load(DataInputStream in, SecurityProviderAccessor securityProviderAccessor) throws Exception
+	public static KeyPair load(DataInputStream in, SecurityContext securityContext) throws Exception
 	{
-		MartusKeyPairLoader loader = new MartusKeyPairLoader(securityProviderAccessor);
+		MartusKeyPairLoader loader = new MartusKeyPairLoader(securityContext);
 		return loader.readKeyPair(in);
 	}
 
-	private MartusKeyPairLoader(SecurityProviderAccessor securityProviderAccessor)
+	private MartusKeyPairLoader(SecurityContext securityContext)
 	{
-		this.providerAccessor = securityProviderAccessor;
+		this.providerAccessor = securityContext;
 	}
 
 	KeyPair readKeyPair(DataInputStream in) throws Exception
@@ -590,5 +590,5 @@ public class MartusKeyPairLoader
 	BigInteger privateExponent;
 	MartusKeyPair gotKeyPair;
 
-	private SecurityProviderAccessor providerAccessor;
+	private SecurityContext providerAccessor;
 }

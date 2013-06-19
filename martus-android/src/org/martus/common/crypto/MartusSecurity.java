@@ -51,9 +51,7 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -73,8 +71,6 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 
 import org.martus.android.AppConfig;
-import org.spongycastle.jce.X509Principal;
-import org.spongycastle.x509.X509V1CertificateGenerator;
 import org.martus.common.MartusConstants;
 import org.martus.common.MartusLogger;
 import org.martus.common.network.SimpleX509TrustManager;
@@ -91,13 +87,13 @@ public class MartusSecurity extends MartusCrypto
 		this(null);
 	}
 
-	public MartusSecurity(SecurityProviderAccessor securityProviderAccessor) throws CryptoInitializationException
+	public MartusSecurity(SecurityContext securityContext) throws CryptoInitializationException
 	{
-		if (securityProviderAccessor == null)
+		if (securityContext == null)
 		{
-			providerAccessor = new DefaultSecurityProviderAccessor();
+			this.securityContext = new DefaultSecurityContext();
 		} else {
-			providerAccessor = securityProviderAccessor;
+			this.securityContext = securityContext;
 		}
 
 		if(rand == null)
@@ -113,7 +109,7 @@ public class MartusSecurity extends MartusCrypto
 
 	synchronized void initialize(SecureRandom randToUse)throws CryptoInitializationException
 	{
-		insertHighestPriorityProvider(providerAccessor.createSecurityProvider());
+		insertHighestPriorityProvider(securityContext.createSecurityProvider());
 
 		try
 		{
@@ -122,7 +118,7 @@ public class MartusSecurity extends MartusCrypto
 			sessionKeyGenerator = KeyGenerator.getInstance(SESSION_ALGORITHM_NAME, "BC");
 			keyFactory = SecretKeyFactory.getInstance(PBE_ALGORITHM, "BC");
 
-			keyPair = new MartusJceKeyPair(randToUse, providerAccessor);
+			keyPair = new MartusJceKeyPair(randToUse, securityContext);
 		}
 		catch(Exception e)
 		{
@@ -885,51 +881,9 @@ public class MartusSecurity extends MartusCrypto
 	}
 
 	public X509Certificate createCertificate(RSAPublicKey publicKey, RSAPrivateCrtKey privateKey)
-			throws SecurityException, SignatureException, InvalidKeyException, CertificateEncodingException, IllegalStateException, NoSuchAlgorithmException
+				throws SecurityException, SignatureException, InvalidKeyException, CertificateEncodingException, IllegalStateException, NoSuchAlgorithmException
 	{
-		Hashtable attrs = new Hashtable();
-
-		Vector ord = new Vector();
-		Vector values = new Vector();
-
-		ord.addElement(X509Principal.C);
-		ord.addElement(X509Principal.O);
-		ord.addElement(X509Principal.L);
-		ord.addElement(X509Principal.ST);
-		ord.addElement(X509Principal.EmailAddress);
-
-		final String certificateCountry = "US";
-		final String certificateOrganization = "Benetech";
-		final String certificateLocation = "Palo Alto";
-		final String certificateState = "CA";
-		final String certificateEmail = "martus@benetech.org";
-
-		values.addElement(certificateCountry);
-		values.addElement(certificateOrganization);
-		values.addElement(certificateLocation);
-		values.addElement(certificateState);
-		values.addElement(certificateEmail);
-
-		attrs.put(X509Principal.C, certificateCountry);
-		attrs.put(X509Principal.O, certificateOrganization);
-		attrs.put(X509Principal.L, certificateLocation);
-		attrs.put(X509Principal.ST, certificateState);
-		attrs.put(X509Principal.EmailAddress, certificateEmail);
-
-		// create a certificate
-		X509V1CertificateGenerator  certGen1 = new X509V1CertificateGenerator();
-
-		certGen1.setSerialNumber(createCertificateSerialNumber());
-		certGen1.setIssuerDN(new X509Principal(ord, attrs));
-		certGen1.setNotBefore(new Date(System.currentTimeMillis() - 50000));
-		certGen1.setNotAfter(new Date(System.currentTimeMillis() + 50000));
-		certGen1.setSubjectDN(new X509Principal(ord, values));
-		certGen1.setPublicKey( publicKey );
-		certGen1.setSignatureAlgorithm("MD5WithRSAEncryption");
-
-		// self-sign it
-		X509Certificate cert = certGen1.generate( privateKey );
-		return cert;
+		return securityContext.createCertificate(publicKey, privateKey, rand);
 	}
 
 	protected static byte[] createDigest(ByteArrayInputStream in)
@@ -995,5 +949,5 @@ public class MartusSecurity extends MartusCrypto
 	private SecretKeyFactory keyFactory;
 
     private boolean shouldWriteAuthorDecryptableData = true;
-	private SecurityProviderAccessor providerAccessor;
+	private SecurityContext securityContext;
 }

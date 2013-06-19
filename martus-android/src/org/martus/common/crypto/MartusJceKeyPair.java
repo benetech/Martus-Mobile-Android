@@ -55,15 +55,15 @@ import org.martus.util.StreamableBase64;
 
 public class MartusJceKeyPair extends MartusKeyPair
 {
-	public MartusJceKeyPair(KeyPair keyPair, SecurityProviderAccessor securityProviderAccessor)
+	public MartusJceKeyPair(KeyPair keyPair, SecurityContext securityContext)
 	{
-		providerAccessor = securityProviderAccessor;
+		providerAccessor = securityContext;
 		setJceKeyPair(keyPair);
 	}
 
-	public MartusJceKeyPair(SecureRandom randomGenerator, SecurityProviderAccessor securityProviderAccessor) throws Exception
+	public MartusJceKeyPair(SecureRandom randomGenerator, SecurityContext securityContext) throws Exception
 	{
-		providerAccessor = securityProviderAccessor;
+		providerAccessor = securityContext;
 		rand = randomGenerator;
 	}
 	
@@ -274,7 +274,7 @@ public class MartusJceKeyPair extends MartusKeyPair
 
 	private static SecureRandom rand;
 	private KeyPair jceKeyPair;
-	private static SecurityProviderAccessor providerAccessor;
+	private static SecurityContext providerAccessor;
 
 	static final String RSA_ALGORITHM_NAME = "RSA";
 	private static final String RSA_ALGORITHM = "RSA/NONE/PKCS1Padding";
