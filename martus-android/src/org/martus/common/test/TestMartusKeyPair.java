@@ -34,13 +34,13 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Vector;
 
-import org.martus.common.crypto.DefaultSecurityProviderAccessor;
+import org.martus.common.crypto.DefaultSecurityContext;
 import org.martus.common.crypto.MartusJceKeyPair;
 import org.martus.common.crypto.MartusKeyPair;
 import org.martus.common.crypto.MartusKeyPairLoader;
 import org.martus.common.crypto.MartusKeyPairSaver;
 import org.martus.common.crypto.MockMartusSecurity;
-import org.martus.common.crypto.SecurityProviderAccessor;
+import org.martus.common.crypto.SecurityContext;
 import org.martus.util.StreamableBase64;
 import org.martus.util.TestCaseEnhanced;
 
@@ -57,7 +57,7 @@ public class TestMartusKeyPair extends TestCaseEnhanced
 		
 		objects = new Vector();
 
-		SecurityProviderAccessor providerAccessor = new DefaultSecurityProviderAccessor();
+		SecurityContext providerAccessor = new DefaultSecurityContext();
 		MartusJceKeyPair jceKeyPair = new MartusJceKeyPair(rand, providerAccessor);
 		objects.add(jceKeyPair);
 
@@ -116,7 +116,7 @@ public class TestMartusKeyPair extends TestCaseEnhanced
 //			System.out.println(gotPrivate.getClass().getName());
 //			System.out.println(gotPublic.getClass().getName());
 
-			SecurityProviderAccessor providerAccessor = new DefaultSecurityProviderAccessor();
+			SecurityContext providerAccessor = new DefaultSecurityContext();
 			MartusKeyPair gotKeyPair = new MartusJceKeyPair(MartusKeyPairLoader.load(in, providerAccessor), providerAccessor);
 			verifyEncryptDecrypt(keyOwner, gotKeyPair);
 			verifyEncryptDecrypt(gotKeyPair, keyOwner);
@@ -155,7 +155,7 @@ public class TestMartusKeyPair extends TestCaseEnhanced
 		byte[] dataResults = rawOut.toByteArray();
 		ByteArrayInputStream rawIn = new ByteArrayInputStream(dataResults);
 		DataInputStream in = new DataInputStream(rawIn);
-		SecurityProviderAccessor providerAccessor = new DefaultSecurityProviderAccessor();
+		SecurityContext providerAccessor = new DefaultSecurityContext();
 		MartusJceKeyPair loaded = new MartusJceKeyPair(MartusKeyPairLoader.load(in, providerAccessor), providerAccessor);
 		
 		verifyEncryptDecrypt(loaded, keyPair);

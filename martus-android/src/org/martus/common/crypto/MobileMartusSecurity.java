@@ -8,6 +8,6 @@ public class MobileMartusSecurity extends MartusSecurity
 {
 	public MobileMartusSecurity() throws CryptoInitializationException
 	{
-		super(new MobileSecurityProviderAccessor());
+		super(new MobileSecurityContext());
 	}
 }
