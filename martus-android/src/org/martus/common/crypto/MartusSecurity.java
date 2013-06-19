@@ -308,20 +308,6 @@ public class MartusSecurity extends MartusCrypto
 			EncryptionException,
 			NoKeyPairException
 	{
-/*        String tempPublicKey =  null;
-       if (! shouldWriteAuthorDecryptableData) {
-            try {
-                MartusSecurity tempSecurity = new MartusSecurity();
-                tempSecurity.createKeyPair();
-                tempPublicKey = tempSecurity.getPublicKeyString();
-                Log.e("martus", "temp key is " + tempPublicKey);
-            } catch (CryptoInitializationException e) {
-                Log.e("martus", "unable to create temp security", e);
-                //todo : is this what we want?
-                throw new NoKeyPairException();
-            }
-        }
-        String publicKeyString = shouldWriteAuthorDecryptableData ? getPublicKeyString() : "";*/
         String publicKeyString = getPublicKeyString();
 		encrypt(plainStream, cipherStream, sessionKey, publicKeyString);
 	}
