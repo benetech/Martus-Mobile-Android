@@ -54,6 +54,15 @@
             unless="sdk.dir"
     />
 
+    <path id="android.antlibs">
+        <pathelement path="${sdk.dir}/tools/lib/ant-tasks.jar" />
+    </path>
+
+    <taskdef name="xpath"
+            classname="com.android.ant.XPathTask"
+            classpathref="android.antlibs" />
+
+
     <!--
         Import per project custom build rules if present at the root of the project.
         This is the place to put custom intermediary targets such as:
@@ -66,6 +75,20 @@
             -post-build
             -pre-clean
     -->
+    <target name="-pre-compile">
+        <if condition="${build.is.mode.release}">
+            <then>
+                <echo>-pre-build RELEASEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</echo>
+                <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName"
+                    output="versionName" default="unknown"/>
+                <tstamp/>
+                <replace dir="${source.dir}" includes="**/VersionBuildDate.*" summary="yes">
+                    <replacefilter  token="#{BUILDDATE}" value="android-beta-${TODAY}-${versionName}" />
+                </replace>
+            </then>
+        </if>
+    </target>
+
     <import file="custom_rules.xml" optional="true" />
 
     <!-- Import the actual build file.
