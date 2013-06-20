@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Martus" default="help">
-
+    <property name="source.dir" value="copied_src" />
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
          Version Control Systems. -->
@@ -75,14 +75,24 @@
             -post-build
             -pre-clean
     -->
+    <target name="-pre-clean">
+        <delete dir="copied_src" verbose="${verbose}" />
+    </target>
+
+    <target name="-pre-build">
+        <copy todir="copied_src">
+            <fileset dir="src"/>
+          </copy>
+    </target>
+
     <target name="-pre-compile">
         <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName"
             output="versionName" default="unknown"/>
         <tstamp>
-          <format property="BUILD_TIME" pattern="yyyy-MM-dd hh:mm"/>
+          <format property="BUILD_TIME" pattern="yyyy-MM-dd.hh:mm"/>
         </tstamp>
-        <replace dir="${source.dir}" includes="**/VersionBuildDate.*" summary="yes">
-            <replacefilter  token="#{BUILDDATE}" value="android-beta - ${BUILD_TIME} - v${versionName}" />
+        <replace dir="copied_src" includes="**/VersionBuildDate.*" summary="yes">
+            <replacefilter  token="#{BUILDDATE}" value="android-${BUILD_TIME}" />
         </replace>
     </target>
 
