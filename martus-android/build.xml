@@ -78,7 +78,6 @@
     <target name="-pre-compile">
         <if condition="${build.is.mode.release}">
             <then>
-                <echo>-pre-build RELEASEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</echo>
                 <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName"
                     output="versionName" default="unknown"/>
                 <tstamp/>
