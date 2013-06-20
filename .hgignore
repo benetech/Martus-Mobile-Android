@@ -9,5 +9,6 @@ syntax: regexp
 ^actionbarSherlock/library/gen$
 ^martus-android/bin$
 ^martus-android/gen$
+^martus-android/src/org/martus/common/VersionBuildDate\.java$
 ^out$
 ^.idea$
