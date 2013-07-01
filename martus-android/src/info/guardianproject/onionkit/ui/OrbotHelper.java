@@ -1,11 +1,17 @@
 package info.guardianproject.onionkit.ui;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 
 import org.martus.android.OrbotHandler;
@@ -21,6 +27,7 @@ public class OrbotHelper {
     public final static String ACTION_START_TOR = "org.torproject.android.START_TOR";
     public final static String ACTION_REQUEST_HS = "org.torproject.android.REQUEST_HS_PORT";
     public final static int HS_REQUEST_CODE = 9999;
+	public static final String MD5_FINGERPRINT_ORBOT = "32eee48b742ffc17c405061a543e2141";
 
     private Context mContext = null;
 
@@ -36,17 +43,36 @@ public class OrbotHelper {
         return (procId != -1);
     }
 
-    public boolean isOrbotInstalled()
+    public boolean isOrbotInstalled() throws SignatureException
     {
         return isAppInstalled(URI_ORBOT);
     }
 
-    private boolean isAppInstalled(String uri) {
+    private boolean isAppInstalled(String uri) throws SignatureException
+    {
         PackageManager pm = mContext.getPackageManager();
-        boolean installed = false;
+        boolean installed;
         try {
             pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
             installed = true;
+
+	        for (Signature sig : mContext.getPackageManager().getPackageInfo(uri, PackageManager.GET_SIGNATURES).signatures) {
+		        MessageDigest m;
+		        String md5 = null;
+		        try
+		        {
+			        m = MessageDigest.getInstance("MD5");
+			        m.update(sig.toByteArray());
+                    md5 = new BigInteger(1, m.digest()).toString(16);
+		        } catch (NoSuchAlgorithmException e)
+		        {
+			        e.printStackTrace();
+		        }
+		        if (md5 == null || !(md5.equals(MD5_FINGERPRINT_ORBOT)))
+                {
+                    throw new SignatureException();
+                }
+	          }
         } catch (PackageManager.NameNotFoundException e) {
             installed = false;
         }

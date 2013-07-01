@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.SignatureException;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -116,10 +117,16 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
                 showMagicWordDialog();
             }
             OrbotHelper oc = new OrbotHelper(this);
-            if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
-                torCheckbox.setChecked(false);
-            }
-            verifySetupInfo();
+	        try
+	        {
+		        if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
+		            torCheckbox.setChecked(false);
+		        }
+	        } catch (SignatureException e)
+	        {
+		        torCheckbox.setChecked(false);
+	        }
+	        verifySetupInfo();
         } else {
             if (isAccountCreated()) {
                 showLoginDialog();
@@ -345,6 +352,8 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
                 }
             } catch (Exception e) {
                 Log.e(AppConfig.LOG_LABEL, "Tor check failed", e);
+	            showMessage(this, getString(R.string.invalid_orbot_message), getString(R.string.invalid_orbot_title));
+	            torCheckbox.setChecked(false);
             }
 
         } else {
