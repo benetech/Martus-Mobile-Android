@@ -59,6 +59,8 @@
     <string name="you_must_have_orbot">You must have Orbot installed</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="invalid_orbot_message">Please re-install Orbot from the Google Play Store</string>
+    <string name="invalid_orbot_title">Invalid Orbot Installation</string>
     <string name="start_orbot_">Start Orbot</string>
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
         running. Would you like to start it?</string>
