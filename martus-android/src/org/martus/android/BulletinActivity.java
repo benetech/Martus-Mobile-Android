@@ -17,7 +17,6 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
-import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.HQKey;
 import org.martus.common.HQKeys;
 import org.martus.common.bulletin.AttachmentProxy;
@@ -72,9 +71,6 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
     private MobileClientBulletinStore store;
     private HQKey hqKey;
-    private String serverPublicKey;
-    private MobileClientSideNetworkGateway gateway = null;
-    private String serverIP;
     private boolean autoLogout;
 
     private Bulletin bulletin;
@@ -105,8 +101,6 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
         hqKey = new HQKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
         store = AppConfig.getInstance().getStore();
-        updateSettings();
-        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication) getApplication()).getTransport());
 
         titleText = (EditText)findViewById(R.id.createBulletinTitle);
         summaryText = (EditText)findViewById(R.id.bulletinSummary);
@@ -422,12 +416,6 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         return mySettings.getString(SettingsActivity.KEY_DEFAULT_LANGUAGE, Locale.getDefault().getLanguage());
     }
 
-    private void updateSettings() {
-        SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
-        serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
-        serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
-    }
-
     @Override
     public void onSent(String result) {
         try {
@@ -482,7 +470,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         AsyncTask<Object, Integer, String> uploadTask = new UploadBulletinTask((MartusApplication)getApplication(),
                 this, bulletinId);
         MartusSecurity cryptoCopy = cloneSecurity(AppConfig.getInstance().getCrypto());
-        uploadTask.execute(bulletin.getUniversalId(), zippedFile, gateway, cryptoCopy);
+        uploadTask.execute(bulletin.getUniversalId(), zippedFile, getNetworkGateway(), cryptoCopy);
         createEmptyBulletinAndClearFields();
         parentApp.setIgnoreInactivity(false);
         resetInactivityTimer();

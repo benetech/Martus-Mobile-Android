@@ -10,7 +10,6 @@ import android.app.Application;
  */
 public class MartusApplication extends Application {
 
-	private TorTransportWrapper transport;
     public static boolean ignoreInactivity = false;
 
     public void setIgnoreInactivity(boolean ignore) {
@@ -32,11 +31,10 @@ public class MartusApplication extends Application {
     protected void initSingletons()
     {
         AppConfig.initInstance(this.getCacheDir(), this.getApplicationContext());
-	    transport = TorTransportWrapper.create();
     }
 
 	public TorTransportWrapper getTransport()
 	{
-		return transport;
+		return AppConfig.getInstance().getTransport();
 	}
 }
