@@ -8,6 +8,7 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.InstallExplorerDialog;
 import org.martus.android.dialog.LoginDialog;
 import org.martus.android.dialog.LoginRequiredDialog;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusKeyPair;
@@ -235,6 +236,10 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     {
         return AppConfig.getInstance().getCrypto();
     }
+
+	protected MobileClientSideNetworkGateway getNetworkGateway() {
+		return AppConfig.getInstance().getCurrentNetworkInterfaceGateway();
+	}
 
     protected void verifySignedPrefsFile(String fileName) throws MartusUtilities.FileVerificationException {
         File prefsFile = getPrefsFile(fileName);

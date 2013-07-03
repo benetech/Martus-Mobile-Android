@@ -71,7 +71,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     public static final int MAX_LOGIN_ATTEMPTS = 3;
     private String serverPublicKey;
 
-    private MobileClientSideNetworkGateway gateway = null;
     private String serverIP;
     private int invalidLogins;
     private CheckBox torCheckbox;
@@ -370,7 +369,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         if (serverPublicKey.isEmpty()) {
             return false;
         }
-        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication) getApplication()).getTransport());
+	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
         return true;
     }
 
@@ -457,7 +456,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
         SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
-        gateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey, ((MartusApplication)getApplication()).getTransport());
+	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
 
         Intent resendService = new Intent(MartusActivity.this, ResendService.class);
         resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
@@ -531,7 +530,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         showProgressDialog(getString(R.string.progress_confirming_magic_word));
 
         final AsyncTask<Object, Void, NetworkResponse> rightsTask = new UploadRightsTask();
-        rightsTask.execute(gateway, martusCrypto, magicWord);
+        rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
     }
 
     private void processMagicWordResponse(NetworkResponse response) {
