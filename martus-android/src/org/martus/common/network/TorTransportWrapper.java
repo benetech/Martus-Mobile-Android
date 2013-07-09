@@ -154,6 +154,7 @@ public class TorTransportWrapper
 		MartusLogger.log("Tor initialization: " + percent + "% - " + message);
 		if(progressMeter != null)
 		{
+			progressMeter.setStatusMessage(message);
 			progressMeter.updateProgressMeter(percent, 100);
 			updateStatus();
 		}
