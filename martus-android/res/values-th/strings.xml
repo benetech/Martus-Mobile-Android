@@ -39,16 +39,16 @@
     <string name="error_getting_server_key">"ปัญหาการเชื่อมต่อไปยังเซิร์ฟเวอร์"</string>
     <string name="no_upload_rights">"คำวิเศษที่ไม่ถูกต้อง"</string>
     <string name="create_account_dialog_title">"สร้างรหัสผ่านใหม่"</string>
-    <string name="quit_menu_title">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။"</string>
-    <string name="server_menu_title">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။</string>
+    <string name="quit_menu_title">"ออกจากระบบ"</string>
+    <string name="server_menu_title">"เลือกเซิร์ฟเวอร์"</string>
     <string name="market_orbot">"market://search?q=pname:org.torproject.android"</string>
     <string name="install_orbot_">"ตั้ง Orbot"</string>
     <string name="you_must_have_orbot">"คุณต้องมีการติดตั้ง Orbot"</string>
-    <string name="yes">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။่"</string>
-    <string name="no">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။่"</string>
-    <string name="start_orbot_">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။ม Orbot"</string>
+    <string name="yes">"ใช่"</string>
+    <string name="no">"ไม่ใช่"</string>
+    <string name="start_orbot_">"เริ่ม Orbot"</string>
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">"Orbot ไม่ได้ทำงาน คุณต้องการที่จะเริ่มต้นหรือไม่"</string>
-    <string name="use_tor">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။้ Tor"</string>
+    <string name="use_tor">"ใช้ Tor"</string>
     <string name="create_password_hint">"รหัสผ่านใหม่:"</string>
     <string name="confirm_password_hint">"ทำซ้ำรหัสผ่าน"</string>
     <string name="enter_password_hint">"ใส่รหัสผ่าน"</string>
@@ -68,8 +68,8 @@
         <item quantity="one">"คุณจะสูญเสีย %1$s ล้มเหลวหรือยังส่งประกาศว่าจะไม่พอใจจะเข้าสู่ระบบเมื่อต่อไปของคุณ"</item>
         <item quantity="other">"คุณจะสูญเสีย %1$s ล้มเหลวหรือยังส่งแถลงการณ์ว่าจะไม่พอใจจะเข้าสู่ระบบเมื่อต่อไปของคุณ"</item>
     </plurals>
-    <string name="reset_to_install">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။"</string>
-    <string name="ping_server_menu_item">"ဆာဗာတြင္ရွိေသာ စာေစာင္မ်ားသာ ျပပါ။"</string>
+    <string name="reset_to_install">"ตั้งกลับไปที่รัฐติดตั้งสด"</string>
+    <string name="ping_server_menu_item">"ตรวจสอบเซิร์ฟเวอร์"</string>
     <string name="ping_result_ok">"เซิร์ฟเวอร์ขึ้น"</string>
     <string name="ping_result_down">"เซิร์ฟเวอร์จะลง"</string>
     <string name="no_network_connection">"อุปกรณ์เชื่อมต่อเครือข่ายมีไม่!"</string>

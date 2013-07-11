@@ -68,7 +68,7 @@
         <item quantity="other">"ستفقد %1$s فشل أو إرسال نشرات حاليا أن تستاء على تسجيل الدخول الخاص بك المقبل."</item>
     </plurals>
     <string name="reset_to_install">"لإعادة تثبيت الدولة طازجة"</string>
-    <string name="ping_server_menu_item">"ဆော့ဖ်ဝဲနှင့် ပတ်သက်သော သတင်းးအချက်အလက်များအတွက်"</string>
+    <string name="ping_server_menu_item">"تحقق خادم"</string>
     <string name="ping_result_ok">"الخادم هو ما يصل"</string>
     <string name="ping_result_down">"الملقم باستمرار"</string>
     <string name="no_network_connection">"لا يوجد لديه جهاز اتصال الشبكة!"</string>
