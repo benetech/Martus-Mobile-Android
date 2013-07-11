@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;

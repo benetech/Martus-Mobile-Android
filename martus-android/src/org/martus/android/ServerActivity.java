@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import org.martus.android.dialog.LoginDialog;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
-import org.martus.common.Exceptions;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;

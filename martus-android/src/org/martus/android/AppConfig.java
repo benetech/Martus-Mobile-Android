@@ -9,6 +9,7 @@ import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.crypto.MobileMartusSecurity;
 import org.martus.common.fieldspec.StandardFieldSpecs;
 import org.martus.common.network.ClientSideNetworkInterface;
+import org.martus.common.network.MobileOrchidProgressMeter;
 import org.martus.common.network.TorTransportWrapper;
 
 import android.content.Context;
@@ -70,9 +71,32 @@ public class AppConfig {
         store.setTopSectionFieldSpecs(StandardFieldSpecs.getDefaultTopSetionFieldSpecs());
         store.setBottomSectionFieldSpecs(StandardFieldSpecs.getDefaultBottomSectionFieldSpecs());
 
+	    startOrStopTorAsRequested();
 
     }
 
+	public void startOrStopTorAsRequested() {
+		boolean isTorEnabled = false;
+		int newTimeout;
+		if(isTorEnabled)
+			newTimeout = ClientSideNetworkHandlerUsingXmlRpc.TOR_GET_SERVER_INFO_TIMEOUT_SECONDS;
+		else
+			newTimeout = ClientSideNetworkHandlerUsingXmlRpc.WITHOUT_TOR_GET_SERVER_INFO_TIMEOUT_SECONDS;
+
+		// NOTE: force the handler to be created if it wasn't already
+		getCurrentNetworkInterfaceHandler();
+		boolean isServerConfigured = (currentNetworkInterfaceHandler != null);
+		if(isServerConfigured)
+			currentNetworkInterfaceHandler.setTimeoutGetServerInfo(newTimeout);
+
+		if(isTorEnabled)
+		{
+			transport.setProgressMeter(new MobileOrchidProgressMeter());
+			transport.startInSameThread();
+		}
+		else
+			transport.stop();
+	}
 
     public MartusSecurity getCrypto() {
         return martusCrypto;
