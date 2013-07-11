@@ -26,31 +26,17 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.clientside;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Vector;
 
-import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.apache.xmlrpc.util.SAXParsers;
 import org.martus.common.MartusLogger;
-import org.martus.common.MartusUtilities;
-import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
-import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
-import org.martus.common.network.SSLUtilities;
-import org.martus.common.network.SimpleHostnameVerifier;
-import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.common.network.TorTransportWrapper;
-import org.martus.util.Stopwatch;
 
 public class MobileClientSideNetworkHandlerUsingXmlRpc
 	extends ClientSideNetworkHandlerUsingXmlRpc
@@ -86,12 +72,7 @@ public class MobileClientSideNetworkHandlerUsingXmlRpc
 		SAXParsers.setSAXParserFactory(SAXParserFactory.newInstance());
 		client.setConfig(config);
 		
-		Stopwatch sw = new Stopwatch();
 		Object result = client.execute("MartusServer." + method, params);
-		sw.stop();
-		final int MAX_EXPECTED_TIME_MILLIS = 60 * 1000;
-		if(sw.elapsed() > MAX_EXPECTED_TIME_MILLIS)
-			System.out.println("SLOW SERVER: " + new Date() + " " + serverUrl + " " + method + " " + sw.elapsed()/1000 + " seconds");
 		return result;
 	}
 

@@ -17,8 +17,8 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
-import org.martus.common.HQKey;
-import org.martus.common.HQKeys;
+import org.martus.common.HeadquartersKey;
+import org.martus.common.HeadquartersKeys;
 import org.martus.common.bulletin.AttachmentProxy;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.crypto.MartusCrypto;
@@ -70,7 +70,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private static final String PICASA_INDICATOR = "picasa";
 
     private MobileClientBulletinStore store;
-    private HQKey hqKey;
+    private HeadquartersKey hqKey;
     private boolean autoLogout;
 
     private Bulletin bulletin;
@@ -99,7 +99,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         }
 
         SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
-        hqKey = new HQKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
+        hqKey = new HeadquartersKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
         store = AppConfig.getInstance().getStore();
 
         titleText = (EditText)findViewById(R.id.createBulletinTitle);
@@ -405,7 +405,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     {
         Bulletin b = store.createEmptyBulletin();
         b.set(Bulletin.TAGLANGUAGE, getDefaultLanguageForNewBulletin());
-        b.setAuthorizedToReadKeys(new HQKeys(hqKey));
+        b.setAuthorizedToReadKeys(new HeadquartersKeys(hqKey));
         b.setDraft();
         b.setAllPrivate(true);
         return b;
