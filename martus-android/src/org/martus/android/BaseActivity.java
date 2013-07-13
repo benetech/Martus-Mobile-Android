@@ -3,6 +3,7 @@ package org.martus.android;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.InstallExplorerDialog;
@@ -21,6 +22,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -65,8 +68,9 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         //Comment out for production build
         //BugSenseHandler.initAndStartSession(this, ExternalKeys.BUGSENSE_KEY);
         parentApp = (MartusApplication) this.getApplication();
-        confirmationDialogTitle = getString(R.string.confirm_default);
+	    AppConfig.setLang(getActivityName(), getResources().getConfiguration().locale.getLanguage());
         mySettings = PreferenceManager.getDefaultSharedPreferences(this);
+	    confirmationDialogTitle = getString(R.string.confirm_default);
 	    initInactivityHandler();
 	    martusCrypto = AppConfig.getInstance().getCrypto();
     }
@@ -186,6 +190,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     public void onResume() {
         super.onResume();
         resetInactivityTimer();
+	    confirmLanguage();
     }
 
     @Override
@@ -287,5 +292,34 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 	public long getInactivityTimeout()
 	{
 		return inactivityTimeout;
+	}
+
+	protected void confirmLanguage()
+	{
+		Resources res = getResources();
+		Configuration conf = res.getConfiguration();
+
+		String currentLanguage = AppConfig.getLang(getActivityName());
+		boolean useZawgyi = mySettings.getBoolean(SettingsActivity.KEY_USE_ZAWGYI, false);
+
+		String lang = (useZawgyi) ?SettingsActivity. ZAWGYI_LANGUAGE_CODE : Locale.getDefault().getLanguage();
+        if (! "".equals(lang) && ! currentLanguage.equals(lang))
+        {
+	        conf.locale = new Locale(lang);
+            getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
+	        AppConfig.setLang(getActivityName(),lang);
+	        invalidateOptionsMenu();
+	        refreshView();
+        }
+	}
+
+	public String getActivityName()
+	{
+		return this.getClass().getSimpleName();
+	}
+
+	public void refreshView()
+	{
+
 	}
 }

@@ -1,16 +1,21 @@
 package org.martus.android;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 //import com.bugsense.trace.BugSenseHandler;
 
@@ -27,7 +32,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String KEY_DESKTOP_PUBLIC_KEY = "desktop_public_keystring";
     public static final String KEY_SERVER_PUBLIC_KEY = "server_public_keystring";
     public static final String KEY_KEY_PAIR = "key_pair";
+	public static final String KEY_USE_ZAWGYI = "zawgyi_preference";
     public static final String DEFAULT_TIMEOUT_MINUTES = "7";
+	public static final String ZAWGYI_LANGUAGE_CODE = "my";
 
     String[] languageNamesArray;
     String[] languageCodesArray;
@@ -83,6 +90,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 final int index = Arrays.asList(timeoutValuesArray).indexOf(timeoutValue);
                 preference.setSummary(timeoutNamesArray[index]);
                 BaseActivity.setTimeout(Integer.valueOf(timeoutValue));
+            } else if (key.equals(KEY_USE_ZAWGYI)) {
+	            boolean useZawgyi = sharedPreferences.getBoolean(key, false);
+	            confirmLanguage(useZawgyi);
             } else {
                 // Set summary to be the selected value
                 preference.setSummary(sharedPreferences.getString(key, ""));
@@ -125,4 +135,21 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         //BugSenseHandler.closeSession(SettingsActivity.this);
     }
 
+	protected void confirmLanguage(boolean useZawgyi)
+		{
+		Resources res = getResources();
+		Configuration conf = res.getConfiguration();
+
+		String lang = (useZawgyi) ? "my" : Locale.getDefault().getLanguage();
+        if (! "".equals(lang) && ! conf.locale.getLanguage().equals(lang))
+        {
+	        conf.locale = new Locale(lang);
+            getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
+	        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1)
+	        {
+	            invalidateOptionsMenu();
+	        }
+	        onCreate(null);
+        }
+	}
 }

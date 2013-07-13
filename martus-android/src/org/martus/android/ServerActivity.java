@@ -217,6 +217,12 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         }
     }
 
+	@Override
+	public void refreshView()
+	{
+		setContentView(R.layout.choose_server);
+	}
+
     private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
         @Override
         protected Vector doInBackground(Object... params) {
