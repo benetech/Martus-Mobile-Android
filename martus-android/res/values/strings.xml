@@ -34,6 +34,9 @@
     <string name="title_timeout_preference">Timeout</string>
     <string name="summary_timeout_preference">In minutes</string>
     <string name="dialog_title_timeout_preference">Time out duration</string>
+    <string name="title_zawgyi_preference">Use Zawgyi Font</string>
+    <string name="zawgyi_preference_on">Using Zawgyi for UI and input</string>
+    <string name="zawgyi_preference_off">Using phone default language</string>
 
     <!-- ============================== -->
     <!--  main screen  -->

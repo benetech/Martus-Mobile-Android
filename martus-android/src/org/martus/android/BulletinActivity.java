@@ -561,6 +561,12 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         return file;
     }
 
+	@Override
+	public void refreshView()
+	{
+		setContentView(R.layout.send_bulletin_linear);
+	}
+
     private class PicasaImageTask extends AsyncTask<Uri, Void, File> {
         @Override
         protected File doInBackground(Uri... uris) {

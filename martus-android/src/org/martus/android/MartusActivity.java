@@ -695,6 +695,11 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         }
     }
 
+	public void refreshView()
+	{
+		setContentView(R.layout.main);
+	}
+
     private class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
         @Override
         protected NetworkResponse doInBackground(Object... params) {

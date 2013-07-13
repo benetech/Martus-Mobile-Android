@@ -1,6 +1,7 @@
 package org.martus.android;
 
 import java.io.File;
+import java.util.HashMap;
 
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpc;
@@ -33,6 +34,7 @@ public class AppConfig {
     private String serverIP;
 	private ClientSideNetworkInterface currentNetworkInterfaceHandler;
 	private MobileClientSideNetworkGateway currentNetworkInterfaceGateway;
+	private static HashMap<String, String> langMap;
 
     public static void initInstance(File cacheDir, Context context ) {
         if (instance == null) {
@@ -67,7 +69,6 @@ public class AppConfig {
             Log.e(LOG_LABEL, "unable to initialize store", e);
         }
 
-        //store = new MobileBulletinStore(martusCrypto);
         store.setTopSectionFieldSpecs(StandardFieldSpecs.getDefaultTopSetionFieldSpecs());
         store.setBottomSectionFieldSpecs(StandardFieldSpecs.getDefaultBottomSectionFieldSpecs());
 
@@ -151,5 +152,19 @@ public class AppConfig {
         serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
     }
+
+	public static void setLang(String activity, String languageCode)
+	{
+		if (langMap == null)
+			langMap = new HashMap<String, String>();
+		langMap.put(activity, languageCode);
+	}
+
+	public static String getLang(String activity)
+	{
+		if (langMap.isEmpty())
+			return null;
+		return langMap.get(activity);
+	}
 
 }
