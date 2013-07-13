@@ -65,7 +65,14 @@ public class MobileClientBulletinStore extends BulletinStore
 
 	public void doAfterSigninInitialization(File dataRootDirectory, Database db) throws FileVerificationException, MissingAccountMapException, MissingAccountMapSignatureException
 	{
-		super.doAfterSigninInitialization(dataRootDirectory, db);
+		try
+		{
+			super.doAfterSigninInitialization(dataRootDirectory, db);
+		} catch (FileVerificationException e)
+		{
+			//do nothing because mobile doesn't have an account map to verify
+		}
+
 
 		topSectionFieldSpecs = StandardFieldSpecs.getDefaultTopSetionFieldSpecs();
 		bottomSectionFieldSpecs = StandardFieldSpecs.getDefaultBottomSectionFieldSpecs();
