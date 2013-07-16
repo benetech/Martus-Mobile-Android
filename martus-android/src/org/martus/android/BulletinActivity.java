@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.PatternSyntaxException;
 
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
@@ -25,6 +26,7 @@ import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.packet.UniversalId;
+import org.martus.common.utilities.BurmeseUtilities;
 import org.martus.util.StreamCopier;
 
 import android.content.ActivityNotFoundException;
@@ -388,9 +390,26 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         indeterminateDialog.show(getSupportFragmentManager(), "dlg_zipping");
 
         String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
-        bulletin.set(Bulletin.TAGAUTHOR, author);
         String title = titleText.getText().toString().trim();
         String summary = summaryText.getText().toString().trim();
+
+	    /*boolean useZawgyi = mySettings.getBoolean(SettingsActivity.KEY_USE_ZAWGYI, false);
+	    if (useZawgyi)
+	    {
+		    try
+		    {
+			    author = BurmeseUtilities.getStorable(author);
+			    title = BurmeseUtilities.getStorable(title);
+			    summary = BurmeseUtilities.getStorable(summary);
+		    }  catch (PatternSyntaxException e)
+		    {
+			    Log.e(AppConfig.LOG_LABEL, "problem converting to unicode from Zawgyi", e);
+			    indeterminateDialog.dismiss();
+			    throw e;
+		    }
+	    }*/
+
+	    bulletin.set(Bulletin.TAGAUTHOR, author);
         bulletin.set(Bulletin.TAGTITLE, title);
         bulletin.set(Bulletin.TAGSUMMARY, summary);
         stopInactivityTimer();

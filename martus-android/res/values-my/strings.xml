@@ -128,7 +128,7 @@
     <string name="add_attachment">myAdd attachment</string>
     <string name="enter_summary">myOptional Summary</string>
     <string name="default_author">Unknown ေရးသားသူ</string>
-    <string name="title_hint">myTitle</string>
+    <string name="title_hint">ေခါင္းစီး</string>
     <string name="bulletin_cancel">ရပ္ဆိုင္းပါ </string>
     <string name="problem_creating_bulletin">myCouldn\'t create new bulletin</string>
     <string name="problem_adding_attachment">myProblem adding attachment to bulletin</string>
