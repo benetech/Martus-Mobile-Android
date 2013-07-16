@@ -33,7 +33,7 @@
     <!-- Whether action menu items should be displayed in ALLCAPS or not.
          Defaults to true. If this is not appropriate for specific locales
          it should be disabled in that locale's resources. -->
-    <bool name="abs__config_actionMenuItemAllCaps">true</bool>
+    <bool name="abs__config_actionMenuItemAllCaps">false</bool>
 
     <!-- Whether action menu items should obey the "withText" showAsAction
          flag. This may be set to false for situations where space is

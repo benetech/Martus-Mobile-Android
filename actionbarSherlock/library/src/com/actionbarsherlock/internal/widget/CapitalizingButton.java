@@ -22,7 +22,7 @@ public class CapitalizingButton extends Button {
         super(context, attrs);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R_styleable_Button);
-        mAllCaps = a.getBoolean(R_styleable_Button_textAllCaps, true);
+        mAllCaps = a.getBoolean(R_styleable_Button_textAllCaps, false);
         a.recycle();
     }
 
