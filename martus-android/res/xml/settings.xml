@@ -29,13 +29,13 @@
                 android:entryValues="@array/values_language_preference"
                 android:dialogTitle="@string/dialog_title_language_preference" />
 
-        <SwitchPreference
+<!--        <SwitchPreference
                 android:key="zawgyi_preference"
                 android:defaultValue="false"
                 android:title="@string/title_zawgyi_preference"
                 android:summaryOff="@string/zawgyi_preference_off"
                 android:summaryOn="@string/zawgyi_preference_on"
-        />
+        />-->
 
     </PreferenceCategory>
 
