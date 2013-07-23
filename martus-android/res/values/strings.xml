@@ -56,7 +56,7 @@
     <string name="create_account_dialog_title">Create new password</string>
     <string name="quit_menu_title">Logout</string>
     <string name="server_menu_title">Select Server</string>
-    <!-- Do Not Translate next line-->
+    <!-- Do Not Translate this line-->
     <string name="market_orbot">market://search?q=pname:org.torproject.android</string>
     <string name="install_orbot_">Install Orbot</string>
     <string name="you_must_have_orbot">You must have Orbot installed</string>
@@ -67,6 +67,7 @@
     <string name="start_orbot_">Start Orbot</string>
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
         running. Would you like to start it?</string>
+    <!-- Do Not Translate the URL that starts with https://-->
     <string formatted="false" name="use_tor"><b>Use Tor</b> ( Improves security but slows sending of bulletins, https://www.torproject.org )</string>
     <string name="create_password_hint">New password</string>
     <string name="confirm_password_hint">Repeat password</string>
@@ -79,11 +80,11 @@
     <string name="success_magic_word">Success - you can now upload bulletins!</string>
     <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
     <string name="tor_explanation">Improves security but slows sending of bulletins.</string>
-    <!-- Do Not Translate next line-->
+    <!-- Do Not Translate this line-->
     <string formatted="false" name="tor_link">https://www.torproject.org</string>
     <string name="progress_confirming_magic_word">Confirming Magic Word</string>
     <string name="confirm_reset_install">Are you sure you want to delete?</string>
-    <string name="confirm_reset_install_extra_no_pending">You will not lose any unsent bulletins if you delete.</string>
+    <string name="confirm_reset_install_extra_no_pending"> </string>
     <plurals name="confirm_reset_install_extra">
         <item quantity="one">You will lose %1$s failed or currently sending bulletin that would be resent on your next login.</item>
         <item quantity="other">You will lose %1$s failed or currently sending bulletins that would be resent on your next login.</item>
@@ -99,7 +100,7 @@
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
     <string name="confirm_tamper_reset_title">Your setup information may have been tampered with</string>
-    <string name="confirm_tamper_reset_message">In the interest of security, please reset to a freshly installed state. Pressing the Yes button will start the reset. Martus can not function with a tampered settings file, so pressing No will exit the app.</string>
+    <string name="confirm_tamper_reset_message">In the interest of security, please delete your account. Pressing the Yes button will start this process. Martus will not work with a corrupted settings file, so pressing No will exit.</string>
     <string name="view_docs_menu">View Documentation</string>
     <string name="feedback_menu">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
@@ -111,7 +112,7 @@
     <string name="tools_menu">Tools</string>
     <string name="export_public_account_id_menu_item">Export Public Account ID</string>
     <string name="export_public_account_id_dialog_title">Export Public Account Error</string>
-    <string name="export_public_account_id_dialog_error">Unable to export account ID</string>
+    <string name="export_public_account_id_dialog_error">Unable to export Account ID</string>
     <string name="export_public_account_id_success">Exported to %1$s</string>
     <string formatted="false" name="contact_us_info">If you have any questions or feedback on Martus, please email info@martus.org</string>
     <string formatted="false" name="view_docs_info">https://www.martus.org/mobile/docs </string>
@@ -133,8 +134,6 @@
     <string name="bulletin_cancel">Cancel</string>
     <string name="problem_creating_bulletin">Couldn\'t create new bulletin</string>
     <string name="problem_adding_attachment">Problem adding attachment to bulletin</string>
-    <string name="problem_getting_files_for_attachments">Problem adding attachment to bulletin</string>
-    <string name="problem_getting_attachment">Problem adding attachment to bulletin</string>
     <string name="bulletin_sending_progress">Sending…</string>
     <string name="bulletin_packaging_progress">Encrypting and zipping…</string>
     <string name="failure_zipping_bulletin">Failed zipping bulletin</string>
@@ -142,8 +141,8 @@
     <string name="attachment_no_longer_exists">Couldn\'t send because the following attachment, %1$s , has been deleted from the device</string>
     <string name="confirm_cancel_bulletin">Cancel this Bulletin?</string>
     <string name="confirm_remove_attachment">Remove %1$s ?</string>
-    <string name="must_login_first_title">You must first login!</string>
-    <string name="must_login_first_message">Before sending this bulletin</string>
+    <string name="must_login_first_title">Warning!</string>
+    <string name="must_login_first_message">You must first login before sending this bulletin</string>
     <string name="install_file_explorer">Try another file explorer</string>
     <string name="fetching_picasa_image">Fetching Picasa image</string>
     <string name="fetched_picasa_image">Got Picasa image</string>
@@ -151,7 +150,7 @@
     <!-- ============================== -->
     <!--  choose server screen  -->
     <!-- ============================== -->
-    <string name="invalid_server_ip">Invalid Server IP</string>
+    <string name="invalid_server_ip">Invalid Server IP Address</string>
     <string name="invalid_server_code">Invalid Server Public Code</string>
     <string name="invalid_server_info">Invalid Server Information Entered</string>
     <string name="successful_server_choice">Successfully connected to server!</string>
@@ -168,17 +167,17 @@
     <string name="invalid_public_account_file">Invalid Desktop Account public information file</string>
     <string name="invalid_public_code">Public Code doesn\'t match file</string>
     <string name="public_code_validation_empty">Public Code can\'t be empty</string>
-    <string name="select_file_picker">Select a file chooser</string>
+    <string name="select_file_picker">Select a file explorer</string>
     <string name="attachments_add_label">Attachments (press paperclip to add) :</string>
     <string name="attachments_added_label">Attachments (press and hold to remove) :</string>
     <string name="server_ip_label">Server IP Address:</string>
-    <string name="server_ip_hint">Enter Server IP address</string>
+    <string name="server_ip_hint">Enter Server IP Address</string>
     <string name="server_public_code_label">Server Public Code:</string>
     <string name="server_public_code_hint">Enter Server Public Code</string>
     <string name="choose_server_title">Choose Server</string>
-    <string name="choose_file">Martus File Chooser</string>
+    <string name="choose_file">Martus File Explorer</string>
     <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
-    <!-- Do Not Translate next line-->
+    <!-- Do Not Translate this line-->
     <string formatted="false" name="file_explorer_store_link">play.google.com/store/search?q=%22open+source%22+file+manager+explorer</string>
 
     <!-- ============================== -->
@@ -188,7 +187,7 @@
     <string name="failed_send_notification">Send failed due to: %1$s . Will be retried on next login.</string>
     <string name="failure_send_notification">Sending bulletin failed</string>
     <string name="starting_send_notification">Sending …</string>
-    <!-- Do Not Translate next line-->
+    <!-- Do Not Translate this line-->
     <string name="notification_title">Martus - %1$s</string>
 
 
