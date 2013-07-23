@@ -42,6 +42,8 @@
         android:title="@string/help_menu" >
         <menu>
 
+            <item android:id="@+id/view_docs_menu_item"
+                android:title="@string/view_docs_menu" />
 
             <item android:id="@+id/feedback_menu_item"
                 android:title="@string/feedback_menu" />

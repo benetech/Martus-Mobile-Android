@@ -67,7 +67,7 @@
     <string name="start_orbot_">Start Orbot</string>
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
         running. Would you like to start it?</string>
-    <string name="use_tor">Use Tor</string>
+    <string formatted="false" name="use_tor"><b>Use Tor</b> ( Improves security but slows sending of bulletins, https://www.torproject.org )</string>
     <string name="create_password_hint">New password</string>
     <string name="confirm_password_hint">Repeat password</string>
     <string name="enter_password_hint">Enter password</string>
@@ -78,8 +78,7 @@
     <string name="invalid_magic_word">Invalid Magic Word</string>
     <string name="success_magic_word">Success - you can now upload bulletins!</string>
     <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
-    <string name="tor_explanation">Tor is an open network that helps defend against a form of network surveillance known as traffic analysis.
-        Tor protects you by bouncing your communications around a distributed network all around the world. It will make sending bulletins much slower.</string>
+    <string name="tor_explanation">Improves security but slows sending of bulletins.</string>
     <!-- Do Not Translate next line-->
     <string formatted="false" name="tor_link">https://www.torproject.org</string>
     <string name="progress_confirming_magic_word">Confirming Magic Word</string>
@@ -101,6 +100,7 @@
     <string name="reset_while_sending_title">Can\'t reset yet</string>
     <string name="confirm_tamper_reset_title">Your setup information may have been tampered with</string>
     <string name="confirm_tamper_reset_message">In the interest of security, please reset to a freshly installed state. Pressing the Yes button will start the reset. Martus can not function with a tampered settings file, so pressing No will exit the app.</string>
+    <string name="view_docs_menu">View Documentation</string>
     <string name="feedback_menu">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
     <string name="help_menu">Help</string>
@@ -114,6 +114,7 @@
     <string name="export_public_account_id_dialog_error">Unable to export account ID</string>
     <string name="export_public_account_id_success">Exported to %1$s</string>
     <string formatted="false" name="contact_us_info">If you have any questions or feedback on Martus, please email info@martus.org</string>
+    <string formatted="false" name="view_docs_info">https://www.martus.org/mobile/docs </string>
     <string name="show_version">Show Version</string>
     <string name="send_dialog_email">Email</string>
     <string name="send_dialog_bulletin">Martus Bulletin</string>

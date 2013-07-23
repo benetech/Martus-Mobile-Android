@@ -234,6 +234,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	        case R.id.feedback_menu_item:
 		        showContactUs();
 		        return true;
+	        case R.id.view_docs_menu_item:
+		        showViewDocs();
+		        return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -246,6 +249,18 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setIcon(android.R.drawable.ic_dialog_email)
 		     .setTitle(R.string.feedback_dialog_title)
+		     .setView(view)
+		     .setPositiveButton(R.string.alert_dialog_ok, new SimpleOkayButtonListener())
+		     .show();
+	}
+
+	private void showViewDocs()
+	{
+		LayoutInflater li = LayoutInflater.from(this);
+		View view = li.inflate(R.layout.view_docs, null);
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setIcon(android.R.drawable.ic_dialog_info)
+		     .setTitle(R.string.view_docs_menu)
 		     .setView(view)
 		     .setPositiveButton(R.string.alert_dialog_ok, new SimpleOkayButtonListener())
 		     .show();
