@@ -258,7 +258,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "problem getting files for attachments", e);
-            showMessage(this, getString(R.string.problem_getting_files_for_attachments), getString(R.string.error_message));
+            showMessage(this, getString(R.string.problem_adding_attachment), getString(R.string.error_message));
         }
 
         return attachments;
@@ -301,7 +301,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
                             }
                         } catch (Exception e) {
                             Log.e(AppConfig.LOG_LABEL, "problem getting attachment", e);
-                            Toast.makeText(this, getString(R.string.problem_getting_attachment), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.problem_adding_attachment), Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else if (resultCode == RESULT_CANCELED) {
