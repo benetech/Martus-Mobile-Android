@@ -12,7 +12,7 @@
 <!--     as grammatically appropriate.-->
 
 <resources>
-
+    <!-- Do Not Translate this line-->
     <string name="app_name">Martus</string>
     <string name="create_sample_bulletin">Create Bulletin</string>
     <string name="error_message">Error</string>
