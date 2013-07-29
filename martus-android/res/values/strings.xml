@@ -190,7 +190,7 @@
     <string name="server_ip_hint">Enter Server IP Address</string>
     <string name="server_public_code_label">Server Public Code:</string>
     <string name="server_public_code_hint">Enter Server Public Code</string>
-    <string name="choose_server_title">Choose Server</string>
+    <string name="choose_server_title">Select Server</string>
     <!-- Do Not Translate the word Martus-->
     <string name="choose_file">Martus File Explorer</string>
     <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
