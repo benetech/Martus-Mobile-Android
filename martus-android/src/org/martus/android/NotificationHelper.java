@@ -72,7 +72,7 @@ public class NotificationHelper {
         //update notification to indicate completion
         int icon;
         if (null != resultMsg) {
-            icon = android.R.drawable.stat_sys_download_done;
+            icon = R.drawable.av_upload;
             if (!resultMsg.equals(NetworkInterfaceConstants.OK)) {
                 icon = android.R.drawable.stat_notify_error;
             }
