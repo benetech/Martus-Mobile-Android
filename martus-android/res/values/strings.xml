@@ -74,7 +74,8 @@
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
         running. Would you like to start it?</string>
     <!-- Do Not Translate the URL that starts with https://-->
-    <string formatted="false" name="use_tor"><b>Use Tor</b> ( May improve security but slows sending of bulletins, https://www.torproject.org )</string>
+    <string formatted="false" name="use_tor"><b>Use Tor</b> ( May improve security but slows sending of bulletins )</string>
+    <string formatted="false" name="tor_link">https://www.torproject.org</string>
     <string name="create_password_hint">New password</string>
     <string name="confirm_password_hint">Repeat password</string>
     <string name="enter_password_hint">Enter password</string>
