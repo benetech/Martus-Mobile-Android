@@ -137,8 +137,10 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private void chooseAttachment() {
         shouldShowInstallExplorer = false;
         try {
-            Intent chooseFile = FileUtils.createGetContentIntent();
-            Intent intent = Intent.createChooser(chooseFile, "Choose an attachment");
+	        Intent intent = new Intent();
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, ACTIVITY_CHOOSE_ATTACHMENT);
         } catch (ActivityNotFoundException e) {
             Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
