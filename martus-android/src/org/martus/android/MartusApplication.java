@@ -3,6 +3,7 @@ package org.martus.android;
 import org.martus.common.network.TorTransportWrapper;
 
 import android.app.Application;
+import android.util.Log;
 
 /**
  * @author roms
@@ -25,6 +26,7 @@ public class MartusApplication extends Application {
     {
         super.onCreate();
 
+	    PRNGFixes.apply();
         initSingletons();
     }
 
