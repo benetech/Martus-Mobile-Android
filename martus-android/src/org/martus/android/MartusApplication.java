@@ -32,7 +32,7 @@ public class MartusApplication extends Application {
 
     protected void initSingletons()
     {
-        AppConfig.initInstance(this.getCacheDir(), this.getApplicationContext());
+        AppConfig.initInstance(this.getCacheDir().getParentFile(), this.getApplicationContext());
     }
 
 	public TorTransportWrapper getTransport()

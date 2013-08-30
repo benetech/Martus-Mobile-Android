@@ -418,7 +418,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         parentApp.setIgnoreInactivity(true);
 
         final AsyncTask<Object, Integer, File> zipTask = new ZipBulletinTask(bulletin, this);
-        zipTask.execute(getCacheDir(), store);
+        zipTask.execute(getCacheDir().getParentFile(), store);
 
     }
 
@@ -501,7 +501,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         AttachmentProxy[] attachmentProxies = bulletin.getPublicAttachments();
         for (AttachmentProxy proxy : attachmentProxies) {
             String label = proxy.getLabel();
-            File file = new File(getCacheDir(), label);
+            File file = new File(getCacheDir().getParentFile(), label);
             if (file.exists()) {
                 file.delete();
             }
@@ -511,7 +511,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private void removeCachedUnsentAttachments() {
         Set<String> filenames = bulletinAttachments.keySet();
         for (String filename : filenames) {
-            File file = new File(getCacheDir(), filename);
+            File file = new File(getCacheDir().getParentFile(), filename);
             if (file.exists()) {
                 file.delete();
             }
@@ -573,7 +573,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
     private File createFileFromInputStream(InputStream inputStream, String fileName) throws IOException {
 
-        File file = new File(getCacheDir(), fileName);
+        File file = new File(getCacheDir().getParentFile(), fileName);
         BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
         StreamCopier streamCopier = new StreamCopier();
         streamCopier.copyStream(inputStream, outputStream);

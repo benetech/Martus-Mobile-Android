@@ -30,14 +30,14 @@ public class ZipBulletinTask extends AsyncTask<Object, Integer, File> {
     @Override
     protected File doInBackground(Object... params) {
 
-        final File cacheDir = (File)params[0];
+        final File currentBulletinDir = (File)params[0];
         final MobileClientBulletinStore store = (MobileClientBulletinStore)params[1];
 
         File file = null;
 
         try {
             store.saveBulletin(bulletin);
-            file = File.createTempFile("tmp_send_" + getCurrentTimeStamp(), ".zip", cacheDir);
+            file = File.createTempFile("tmp_send_" + getCurrentTimeStamp(), ".zip", currentBulletinDir);
             BulletinZipUtilities.exportBulletinPacketsFromDatabaseToZipFile(store.getDatabase(), bulletin.getDatabaseKey(), file, bulletin.getSignatureGenerator());
         } catch (Exception e) {
             Log.e("martus", "problem serializing bulletin to zip", e);
