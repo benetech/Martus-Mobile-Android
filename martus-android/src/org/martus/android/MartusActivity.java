@@ -310,19 +310,23 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         }
     }
 
+	private void clearCacheDir() {
+		clearDirectory(getCacheDir());
+	}
+
     private void clearPrefsDir() {
         File prefsDirFile = new File(getCacheDir().getParent(), PREFS_DIR);
         clearDirectory(prefsDirFile);
     }
 
     private void clearFailedBulletinsDir() {
-            File prefsDirFile = new File(getCacheDir(), UploadBulletinTask.FAILED_BULLETINS_DIR);
+            File prefsDirFile = new File(getCacheDir().getParentFile(), UploadBulletinTask.FAILED_BULLETINS_DIR);
             clearDirectory(prefsDirFile);
             prefsDirFile.delete();
         }
 
     private void removePacketsDir() {
-        File packetsDirFile = new File(getCacheDir(), PACKETS_DIR);
+        File packetsDirFile = new File(getCacheDir().getParentFile(), PACKETS_DIR);
         clearDirectory(packetsDirFile);
         packetsDirFile.delete();
     }
@@ -617,11 +621,11 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
     private int getNumberOfUnsentBulletins() {
         int pendingBulletins;
-        final File cacheDir = getCacheDir();
-        final String[] sendingBulletinNames = cacheDir.list(new ZipFileFilter());
+        final File unsentBulletinsDir = getCacheDir().getParentFile();
+        final String[] sendingBulletinNames = unsentBulletinsDir.list(new ZipFileFilter());
         pendingBulletins = sendingBulletinNames.length;
 
-        File failedDir = new File (cacheDir, UploadBulletinTask.FAILED_BULLETINS_DIR);
+        File failedDir = new File (unsentBulletinsDir, UploadBulletinTask.FAILED_BULLETINS_DIR);
         if (failedDir.exists()) {
             final String[] failedBulletins = failedDir.list(new ZipFileFilter());
             pendingBulletins += failedBulletins.length;
@@ -638,10 +642,11 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         logout();
         clearPrefsDir();
         clearFailedBulletinsDir();
-        final File cacheDir = getCacheDir();
-        final String[] names = cacheDir.list(new ZipFileFilter());
+	    clearCacheDir();
+        final File unsentBulletinsDir = getCacheDir().getParentFile();
+        final String[] names = unsentBulletinsDir.list(new ZipFileFilter());
         for (String name : names) {
-            File zipFile = new File(cacheDir, name);
+            File zipFile = new File(unsentBulletinsDir, name);
             zipFile.delete();
         }
         finish();

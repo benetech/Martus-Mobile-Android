@@ -40,7 +40,7 @@ public class ResendService extends IntentService implements ProgressUpdater {
         final String serverPublicKey = intent.getStringExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY);
         final MobileClientSideNetworkGateway mGateway = MobileClientSideNetworkGateway.buildGateway(serverIP, serverPublicKey,((MartusApplication)getApplication()).getTransport());
 
-        final File cacheDir = getApplicationContext().getCacheDir();
+        final File cacheDir = getApplicationContext().getCacheDir().getParentFile();
         File failedDir = new File (cacheDir, UploadBulletinTask.FAILED_BULLETINS_DIR);
         if (failedDir.exists()) {
             final String[] names = failedDir.list(new ZipFileFilter());

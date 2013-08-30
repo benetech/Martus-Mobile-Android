@@ -72,8 +72,8 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
                 if ((null != result) && (result.equals(NetworkInterfaceConstants.OK))) {
                     zippedFile.delete();
                 } else {
-                    if (zippedFile.getParentFile().equals(context.getCacheDir())) {
-                        File failedBulletinsDir = new File (zippedFile.getParent(), FAILED_BULLETINS_DIR);
+                    if (zippedFile.getParentFile().equals(context.getCacheDir().getParentFile())) {
+                        File failedBulletinsDir = new File (context.getCacheDir().getParent(), FAILED_BULLETINS_DIR);
                         failedBulletinsDir.mkdirs();
                         File movedFile = new File(failedBulletinsDir.toString(), zippedFile.getName());
                         boolean successfulMove = zippedFile.renameTo(movedFile);
