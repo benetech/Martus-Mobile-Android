@@ -425,30 +425,41 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         return keyPairString.length() > 1;
     }
 
+	private class CreateAccountTask extends AsyncTask<Object, Void, Void> {
+	        @Override
+	        protected Void doInBackground(Object... params) {
 
+		        martusCrypto.createKeyPair();
+		        char[] passwordArray = (char[])params[0];
 
-    private void createAccount(char[] password)  {
-        martusCrypto.createKeyPair();
+	            try {
+	                ByteArrayOutputStream out = new ByteArrayOutputStream();
+	                martusCrypto.writeKeyPair(out, passwordArray);
+	                out.close();
+	                byte[] keyPairData = out.toByteArray();
 
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            martusCrypto.writeKeyPair(out, password);
-            out.close();
-            byte[] keyPairData = out.toByteArray();
+	                // write keypair to prefs
+	                // need to first base64 encode so we can write to prefs
+	                String encodedKeyPair = Base64.encodeToString(keyPairData, Base64.NO_WRAP);
 
-            // write keypair to prefs
-            // need to first base64 encode so we can write to prefs
-            String encodedKeyPair = Base64.encodeToString(keyPairData, Base64.NO_WRAP);
+	                // write to prefs
+	                SharedPreferences.Editor editor = mySettings.edit();
+	                editor.putString(SettingsActivity.KEY_KEY_PAIR, encodedKeyPair);
+	                editor.commit();
+	            } catch (Exception e) {
+	                Log.e(AppConfig.LOG_LABEL, "Problem creating account", e);
+	                showMessage(MartusActivity.this, getString(R.string.error_create_account), getString(R.string.error_message));
+	            }
+		        return null;
+	        }
 
-            // write to prefs
-            SharedPreferences.Editor editor = mySettings.edit();
-            editor.putString(SettingsActivity.KEY_KEY_PAIR, encodedKeyPair);
-            editor.commit();
-        } catch (Exception e) {
-            Log.e(AppConfig.LOG_LABEL, "Problem creating account", e);
-            showMessage(MartusActivity.this, getString(R.string.error_create_account), getString(R.string.error_message));
-        }
-    }
+	        @Override
+	        protected void onPostExecute(Void result) {
+	            super.onPostExecute(result);
+	            dialog.dismiss();
+		        onResume();
+	        }
+	    }
 
     private void updateSettings() {
         SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
@@ -525,8 +536,10 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         if (failed) {
             showCreateAccountDialog();
         } else {
-            createAccount(password);
-	        onResume();
+	        showProgressDialog(getString(R.string.progress_creating_account));
+            final AsyncTask<Object, Void, Void> createAccountTask = new CreateAccountTask();
+	        createAccountTask.execute(new Object[]{password});
+
         }
     }
 
