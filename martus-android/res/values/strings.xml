@@ -133,6 +133,7 @@
     <string name="send_dialog_bulletin">Martus Bulletin</string>
     <string name="send_dialog_title">Send Via</string>
     <string name="exported_account_id_file_confirmation">Exported To</string>
+    <string name="progress_creating_account">Creating Account</string>
 
     <!-- ============================== -->
     <!--  bulletin screen  -->
