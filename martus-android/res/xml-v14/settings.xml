@@ -29,7 +29,7 @@
                 android:entryValues="@array/values_language_preference"
                 android:dialogTitle="@string/dialog_title_language_preference" />
 
-        <CheckBoxPreference
+        <SwitchPreference
                 android:key="wifi_only_preference"
                 android:defaultValue="false"
                 android:title="@string/title_wifi_only_preference"
@@ -37,7 +37,7 @@
                 android:summaryOff="@string/wifi_only_preference_off"
         />
 
-<!--        <CheckBoxPreference
+<!--        <SwitchPreference
                 android:key="zawgyi_preference"
                 android:defaultValue="false"
                 android:title="@string/title_zawgyi_preference"
