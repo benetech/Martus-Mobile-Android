@@ -36,7 +36,7 @@ public class NotificationHelper {
         final Notification notification = new NotificationCompat.Builder(mContext)
                  .setContentTitle(mTitle)
                  .setContentText(subject)
-                 .setSmallIcon(android.R.drawable.stat_notify_sync)
+                 .setSmallIcon(android.R.drawable.stat_sys_upload)
                  .setOngoing(true)
                  .setProgress(100, 0, false)
                  .setAutoCancel(true)
@@ -53,7 +53,7 @@ public class NotificationHelper {
         final Notification notification = new NotificationCompat.Builder(mContext)
                  .setContentTitle(mTitle)
                  .setContentText(subject)
-                 .setSmallIcon(android.R.drawable.stat_notify_sync)
+                 .setSmallIcon(android.R.drawable.stat_sys_upload)
                  .setOngoing(true)
                  .setProgress(100, progress, false)
                  .build();
@@ -72,7 +72,7 @@ public class NotificationHelper {
         //update notification to indicate completion
         int icon;
         if (null != resultMsg) {
-            icon = R.drawable.av_upload;
+            icon = android.R.drawable.stat_sys_upload_done;
             if (!resultMsg.equals(NetworkInterfaceConstants.OK)) {
                 icon = android.R.drawable.stat_notify_error;
             }
