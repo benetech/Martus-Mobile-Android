@@ -12,7 +12,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.PatternSyntaxException;
 
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
@@ -350,7 +349,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
             showInstallExplorerDialog();
             shouldShowInstallExplorer = false;
         }
-        if (! isNetworkAvailable()) {
+        if (! NetworkUtilities.isNetworkAvailable(this)) {
             showMessage(this, getString(R.string.no_network_create_bulletin_warning),
                     getString(R.string.no_network_connection));
         }

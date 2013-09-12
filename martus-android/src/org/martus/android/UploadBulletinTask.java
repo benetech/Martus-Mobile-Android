@@ -54,7 +54,8 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
         String result = null;
 
         try {
-            result = uploadBulletinZipFile(uid, zippedFile, gateway, signer, updater);
+	        if (NetworkUtilities.isNetworkAvailable(context))
+                result = uploadBulletinZipFile(uid, zippedFile, gateway, signer, updater);
         } catch (MartusUtilities.FileTooLargeException e) {
             Log.e(AppConfig.LOG_LABEL, "file too large to upload", e);
             result = e.getMessage();

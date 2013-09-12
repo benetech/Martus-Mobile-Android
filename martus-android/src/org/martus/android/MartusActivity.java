@@ -291,7 +291,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 		}
 
     private void pingServer() {
-        if (! isNetworkAvailable()) {
+        if (! NetworkUtilities.isNetworkAvailable(this)) {
             Toast.makeText(this, getString(R.string.no_network_connection), Toast.LENGTH_LONG).show();
             return;
         }
@@ -488,10 +488,12 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
 	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
 
-        Intent resendService = new Intent(MartusActivity.this, ResendService.class);
-        resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
-        resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
-        startService(resendService);
+	    if (NetworkUtilities.isNetworkAvailable(this)) {
+	        Intent resendService = new Intent(MartusActivity.this, ResendService.class);
+	        resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
+	        resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
+	        startService(resendService);
+	    }
 
         Intent intent = getIntent();
         int returnTo = intent.getIntExtra(RETURN_TO, 0);

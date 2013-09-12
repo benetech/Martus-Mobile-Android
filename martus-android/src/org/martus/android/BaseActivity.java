@@ -226,12 +226,6 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         }
     }
 
-    protected boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnected();
-    }
-
     public void close() {
         setResult(EXIT_RESULT_CODE);
         finish();
