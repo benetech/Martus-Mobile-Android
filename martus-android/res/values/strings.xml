@@ -37,6 +37,9 @@
     <string name="title_zawgyi_preference">Use Zawgyi Font</string>
     <string name="zawgyi_preference_on">Using Zawgyi for UI and input</string>
     <string name="zawgyi_preference_off">Using phone default language</string>
+    <string name="title_wifi_only_preference">Use Wi-Fi only</string>
+    <string name="wifi_only_preference_on">Use only Wi-Fi</string>
+    <string name="wifi_only_preference_off">Use Wi-Fi or mobile data</string>
 
     <!-- ============================== -->
     <!--  main screen  -->
@@ -101,8 +104,8 @@
     <string name="ping_server_menu_item">Check Server</string>
     <string name="ping_result_ok">Server is up</string>
     <string name="ping_result_down">Server is down</string>
-    <string name="no_network_connection">Device has no network connection!</string>
-    <string name="no_network_create_bulletin_warning">Any bulletins you try to send will fail and be resent next time you log in with network access.</string>
+    <string name="no_network_connection">Device has no available network connection!</string>
+    <string name="no_network_create_bulletin_warning">Any bulletins you try to send will fail and be resent next time you log in with network access. (You may have Wi-Fi only checked in Settings)</string>
     <string name="logout_while_sending_title">Can\'t logout yet</string>
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
