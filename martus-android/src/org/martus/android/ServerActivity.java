@@ -2,6 +2,8 @@ package org.martus.android;
 
 import java.io.File;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.martus.android.dialog.LoginDialog;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
@@ -42,6 +44,12 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
     private Activity myActivity;
     private String serverIP;
     private String serverCode;
+
+	private static final String IP_ADDRESS_PATTERN =
+	        "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +107,9 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
     public void confirmServer(View view) {
         serverIP = textIp.getText().toString().trim();
-        if (serverIP.length() < MIN_SERVER_IP) {
+	    serverIP = serverIP.replace("*", ".");
+        serverIP = serverIP.replace("#", ".");
+        if ((serverIP.length() < MIN_SERVER_IP) || (! validate(serverIP))) {
             showErrorMessage(getString(R.string.invalid_server_ip), getString(R.string.error_message));
             return;
         }
@@ -221,6 +231,12 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 	public void refreshView()
 	{
 		setContentView(R.layout.choose_server);
+	}
+
+	public static boolean validate(final String ip) {
+      Pattern pattern = Pattern.compile(IP_ADDRESS_PATTERN);
+      Matcher matcher = pattern.matcher(ip);
+      return matcher.matches();
 	}
 
     private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
