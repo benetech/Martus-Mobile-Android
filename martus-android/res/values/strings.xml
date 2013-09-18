@@ -212,6 +212,16 @@
     <!-- Do Not Translate this line-->
     <string name="notification_title">Martus - %1$s</string>
 
+    <!-- form labels -->
+    <string name="label_author">Author</string>
+    <string name="label_organization">Organization</string>
+    <string name="label_title">Title</string>
+    <string name="label_location">Location</string>
+    <string name="label_keywords">Keywords</string>
+    <string name="label_entrydate">Entry Date</string>
+    <string name="label_summary">Summary</string>
+    <string name="label_publicinfo">Public Info</string>
+
 
 
 </resources>
