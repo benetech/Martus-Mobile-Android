@@ -38,9 +38,13 @@ public class ODKUtils
 	private static final String ODK_TAG_TEXT = "text";
 	private static final String ODK_TAG_BIND = "bind";
 	private static final String ODK_TAG_INPUT = "input";
+	private static final String ODK_TAG_CONSTRAINT = "constraint";
 	private static final String ODK_TAG_SINGLE_SELECT = "select1";
+	private static final String ODK_ATTRIBUTE_APPEARANCE = "appearance";
 	private static final String ODK_ATTRIBUTE_REF = "ref";
 	private static final String ODK_ATTRIBUTE_ID = "id";
+	private static final String DEFAULT_MINIMUM_DATE = "date('1900-01-01')";
+	private static final String BLANK_DATE = "today()";
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -127,7 +131,7 @@ public class ODKUtils
 
 		    createInstanceSection(serializer, fields);
 		    createITextSection(serializer, fields);
-		    createBindSection(serializer, fields);
+		    createBindSection(serializer, fields, context);
 
 		    serializer.endTag("", "model");
 	        serializer.endTag("", "h:head");
@@ -210,7 +214,7 @@ public class ODKUtils
 		serializer.endTag("", "itext");
 	}
 
-	private static void createBindSection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
+	private static void createBindSection(XmlSerializer serializer, FieldSpec[] fields, Context context) throws IOException
 	{
 		serializer.startTag("", ODK_TAG_BIND);
 		serializer.attribute("", "nodeset", "/data/meta/instanceID");
@@ -228,24 +232,52 @@ public class ODKUtils
 				}
 				if (field.getType().isDate()) {
 					DateFieldSpec dateField = (DateFieldSpec)field;
-					boolean hasConstraint = false;
-					Log.w(AppConfig.LOG_LABEL, "min date is " + dateField.getMinimumDate());
-					if (dateField.getMinimumDate() != null && dateField.getMinimumDate().length() > 0) {
-						hasConstraint = true;
-						serializer.attribute("",  "constraint", ". >= today()");
-						// constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"
-						// constraint=". &gt;= today()"
+
+					String rawMinDate = DEFAULT_MINIMUM_DATE;
+					String formattedMinDate = null;
+					if (dateField.getMinimumDate() != null) {
+						if (dateField.getMinimumDate().length() > 0) {
+							rawMinDate =  dateField.getMinimumDate();
+						} else {
+							formattedMinDate =  BLANK_DATE;
+						}
 					}
-					Log.w(AppConfig.LOG_LABEL, "max date is " + dateField.getMaximumDate());
-					if (hasConstraint) {
-						serializer.attribute("", "jr:constraintMsg", "data validation failed");
+					if (formattedMinDate == null) {
+						formattedMinDate = formatDateForODK(rawMinDate);
 					}
+
+					String rawMaxDate = null;
+					String formattedMaxDate = null;
+					if (dateField.getMaximumDate() != null) {
+						if (dateField.getMaximumDate().length() > 0) {
+							rawMaxDate = dateField.getMaximumDate();
+							formattedMaxDate = formatDateForODK(rawMaxDate);
+						} else {
+							formattedMaxDate =  BLANK_DATE;
+						}
+					}
+					if (formattedMaxDate != null)
+						serializer.attribute("",  ODK_TAG_CONSTRAINT, "(. >= " + formattedMinDate + " and . <= " + formattedMaxDate + ")");
+					else
+						serializer.attribute("", ODK_TAG_CONSTRAINT, ". >= " + formattedMinDate);
+
+					String stringMinDate = (formattedMinDate.equals(BLANK_DATE)) ? "today" : rawMinDate;
+
+					String validationMessage = context.getString(R.string.date_validation_min, stringMinDate);
+					if (formattedMaxDate != null) {
+						String stringMaxDate = (formattedMaxDate.equals(BLANK_DATE)) ? "today" : rawMaxDate;
+						validationMessage = context.getString(R.string.date_validation_min_max, stringMinDate, stringMaxDate);
+					}
+					serializer.attribute("", "jr:constraintMsg", validationMessage);
 				}
-				// constraint="(. &gt; '2013-09-01' and . &lt; '2013-09-16')" jr:constraintMsg="Value must be between 2013-09-01 and 2013-09-16"
-				// constraint="(. &gt; '2000-01-05" jr:constraintMsg="data validation failed"
 	            serializer.endTag("", ODK_TAG_BIND);
 			}
 		}
+	}
+
+	private static String formatDateForODK(String dateString)
+	{
+		return "date('" + dateString + "')";
 	}
 
 	private static void createBodySection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
@@ -255,6 +287,7 @@ public class ODKUtils
             if (isCompatibleField(field)) {
 	            if (field.getType().isDropdown()) {
 		            serializer.startTag("", ODK_TAG_SINGLE_SELECT);
+		            serializer.attribute("", ODK_ATTRIBUTE_APPEARANCE, "minimal");
 		            serializer.attribute("", ODK_ATTRIBUTE_REF, "/data/" + field.getTag());
 		            serializer.startTag("", ODK_TAG_LABEL);
 		            serializer.attribute("", ODK_ATTRIBUTE_REF, "jr:itext('/data/" + field.getTag() + ":label')");
