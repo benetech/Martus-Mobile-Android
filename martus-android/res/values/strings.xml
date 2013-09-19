@@ -221,6 +221,9 @@
     <string name="label_entrydate">Entry Date</string>
     <string name="label_summary">Summary</string>
     <string name="label_publicinfo">Public Info</string>
+    <string name="date_validation_min">Date must be on or after %1$s .</string>
+    <string name="date_validation_min_max">Date must be on or after %1$s  and on or before %2$s.</string>
+
 
 
 
