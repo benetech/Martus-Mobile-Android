@@ -7,10 +7,12 @@ import java.io.StringWriter;
 import java.util.Set;
 
 import org.martus.common.FieldSpecCollection;
+import org.martus.common.PoolOfReusableChoicesLists;
+import org.martus.common.ReusableChoices;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.fieldspec.ChoiceItem;
+import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
-import org.martus.common.fieldspec.DropDownFieldSpec;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldType;
 import org.xmlpull.v1.XmlSerializer;
@@ -45,6 +47,7 @@ public class ODKUtils
 	private static final String ODK_ATTRIBUTE_ID = "id";
 	private static final String DEFAULT_MINIMUM_DATE = "date('1900-01-01')";
 	private static final String BLANK_DATE = "today()";
+	private static ChoiceItem[] booleanChoices;
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -52,7 +55,12 @@ public class ODKUtils
 			return false;
 		}
 		FieldType type = field.getType();
-		return type.isString() || type.isMultiline() || type.isDate() || type.isDropdown();
+		if (type.isDropdown())  {
+			CustomDropDownFieldSpec dropDownFieldSpec = (CustomDropDownFieldSpec) field;
+			if (!dropDownFieldSpec.hasDataSource())
+		   	    return true;
+		}
+		return type.isString() || type.isMultiline() || type.isDate() || type.isBoolean();
 	}
 
 	private static void addStandardLabels(Context context, FieldSpecCollection specCollection) {
@@ -70,6 +78,8 @@ public class ODKUtils
 		if (type.getTypeName().equals("DATE"))
 			return "date";
 		if (type.getTypeName().equals("DROPDOWN"))
+			return "select1";
+		if (type.getTypeName().equals("BOOLEAN"))
 			return "select1";
 		return "";
 	}
@@ -130,13 +140,13 @@ public class ODKUtils
 		    serializer.startTag("", "model");
 
 		    createInstanceSection(serializer, fields);
-		    createITextSection(serializer, fields);
+		    createITextSection(serializer, fields, context, specCollection);
 		    createBindSection(serializer, fields, context);
 
 		    serializer.endTag("", "model");
 	        serializer.endTag("", "h:head");
 
-		    createBodySection(serializer, fields);
+		    createBodySection(serializer, fields, context, specCollection);
 	        serializer.endTag("", "h:html");
 	        serializer.endDocument();
 
@@ -172,6 +182,8 @@ public class ODKUtils
 				serializer.startTag("", field.getTag());
 				if (field.getDefaultValue() != null && !field.getType().isDate() && field.getDefaultValue().length() > 0) {
 					serializer.text(field.getDefaultValue());
+				} else if (field.getType().isBoolean()) {
+					serializer.text("0");
 				}
 				serializer.endTag("", field.getTag());
 			}
@@ -180,7 +192,7 @@ public class ODKUtils
 		serializer.endTag("", "instance");
 	}
 
-	private static void createITextSection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
+	private static void createITextSection(XmlSerializer serializer, FieldSpec[] fields, Context context, FieldSpecCollection fieldCollection) throws IOException
 	{
 		serializer.startTag("", "itext");
 		serializer.startTag("", "translation");
@@ -194,24 +206,59 @@ public class ODKUtils
                 serializer.endTag("", ODK_TAG_VALUE);
                 serializer.endTag("", ODK_TAG_TEXT);
 	            if (field.getType().isDropdown()) {
-		            DropDownFieldSpec dropdownSpec = (DropDownFieldSpec)field;
+		            CustomDropDownFieldSpec dropdownSpec = (CustomDropDownFieldSpec)field;
 		            ChoiceItem[] choices = dropdownSpec.getAllChoices();
-		            int counter = 0;
-		            for (ChoiceItem choice: choices) {
-			            if (choice.getCode() != null && choice.getCode().length() > 0) {
-				            serializer.startTag("", ODK_TAG_TEXT);
-				            serializer.attribute("", ODK_ATTRIBUTE_ID, "/data/" + field.getTag()+":option" + counter++);
-				            serializer.startTag("", ODK_TAG_VALUE);
-				            serializer.text(choice.getLabel());
-				            serializer.endTag("", ODK_TAG_VALUE);
-				            serializer.endTag("", ODK_TAG_TEXT);
-			            }
+		            if (choices.length < 1) {
+			            choices = getReusableChoices(fieldCollection, dropdownSpec);
 		            }
+		            createTextTagsFromChoices(serializer, field, choices);
+	            } else if (field.getType().isBoolean()) {
+		            ChoiceItem[] choices = getBooleanChoiceItems(context);
+		            createTextTagsFromChoices(serializer, field, choices);
 	            }
             }
 		}
 		serializer.endTag("", "translation");
 		serializer.endTag("", "itext");
+	}
+
+	private static ChoiceItem[] getReusableChoices(FieldSpecCollection fieldCollection, CustomDropDownFieldSpec dropdownSpec)
+	{
+		ChoiceItem[] choices;PoolOfReusableChoicesLists choicesListPool =  fieldCollection.getAllReusableChoiceLists();
+		CustomDropDownFieldSpec customDropDown = dropdownSpec;
+		String[] choiceCodes = customDropDown.getReusableChoicesCodes();
+		ReusableChoices newChoices = new ReusableChoices("", "");
+		for (String code : choiceCodes) {
+			ReusableChoices reusableChoices = choicesListPool.getChoices(code);
+			newChoices.addAll(reusableChoices.getChoices());
+		}
+		choices = newChoices.getChoices();
+		return choices;
+	}
+
+	private static ChoiceItem[] getBooleanChoiceItems(Context context)
+	{
+		if (booleanChoices == null) {
+			booleanChoices = new ChoiceItem[2];
+			booleanChoices[0] = new ChoiceItem("1", context.getString(R.string.boolean_true));
+			booleanChoices[1] = new ChoiceItem("0", context.getString(R.string.boolean_false));
+		}
+		return booleanChoices;
+	}
+
+	private static void createTextTagsFromChoices(XmlSerializer serializer, FieldSpec field, ChoiceItem[] choices) throws IOException
+	{
+		int counter = 0;
+		for (ChoiceItem choice: choices) {
+			if (choice.getCode() != null && choice.getCode().length() > 0) {
+				serializer.startTag("", ODK_TAG_TEXT);
+				serializer.attribute("", ODK_ATTRIBUTE_ID, "/data/" + field.getTag()+":option" + counter++);
+				serializer.startTag("", ODK_TAG_VALUE);
+				serializer.text(choice.getLabel());
+				serializer.endTag("", ODK_TAG_VALUE);
+				serializer.endTag("", ODK_TAG_TEXT);
+			}
+		}
 	}
 
 	private static void createBindSection(XmlSerializer serializer, FieldSpec[] fields, Context context) throws IOException
@@ -280,35 +327,30 @@ public class ODKUtils
 		return "date('" + dateString + "')";
 	}
 
-	private static void createBodySection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
+	private static void createBodySection(XmlSerializer serializer, FieldSpec[] fields, Context context, FieldSpecCollection fieldCollection) throws IOException
 	{
 		serializer.startTag("", "h:body");
 		for (FieldSpec field: fields) {
             if (isCompatibleField(field)) {
-	            if (field.getType().isDropdown()) {
+	            if (field.getType().isDropdown() || field.getType().isBoolean()) {
 		            serializer.startTag("", ODK_TAG_SINGLE_SELECT);
-		            serializer.attribute("", ODK_ATTRIBUTE_APPEARANCE, "minimal");
+		            if (field.getType().isDropdown())
+		                serializer.attribute("", ODK_ATTRIBUTE_APPEARANCE, "minimal");
 		            serializer.attribute("", ODK_ATTRIBUTE_REF, "/data/" + field.getTag());
 		            serializer.startTag("", ODK_TAG_LABEL);
 		            serializer.attribute("", ODK_ATTRIBUTE_REF, "jr:itext('/data/" + field.getTag() + ":label')");
 		            serializer.endTag("", ODK_TAG_LABEL);
-
-		            DropDownFieldSpec dropdownSpec = (DropDownFieldSpec)field;
-                    ChoiceItem[] choices = dropdownSpec.getAllChoices();
-                    int counter = 0;
-                    for (ChoiceItem choice: choices) {
-	                    if (choice.getCode() != null && choice.getCode().length() > 0) {
-				            serializer.startTag("", ODK_TAG_ITEM);
-				            serializer.startTag("", ODK_TAG_LABEL);
-				            serializer.attribute("", ODK_ATTRIBUTE_REF, "jr:itext('/data/" + field.getTag() + ":option" + counter + "')");
-				            serializer.endTag("", ODK_TAG_LABEL);
-		                    serializer.startTag("", ODK_TAG_VALUE);
-		                    serializer.text(choice.getCode());
-		                    serializer.endTag("", ODK_TAG_VALUE);
-				            serializer.endTag("", ODK_TAG_ITEM);
-		                    counter++;
-	                    }
-                    }
+		            ChoiceItem[] choices;
+		            if (field.getType().isDropdown()) {
+			            CustomDropDownFieldSpec dropdownSpec = (CustomDropDownFieldSpec)field;
+                        choices = dropdownSpec.getAllChoices();
+			            if (choices.length < 1) {
+                            choices = getReusableChoices(fieldCollection, dropdownSpec);
+                        }
+		            } else {
+			            choices = getBooleanChoiceItems(context);
+		            }
+		            createItemTagsFromChoices(serializer, field, choices);
 		            serializer.endTag("", ODK_TAG_SINGLE_SELECT);
 	            } else {
 		            serializer.startTag("", ODK_TAG_INPUT);
@@ -321,6 +363,24 @@ public class ODKUtils
             }
 		}
 		serializer.endTag("", "h:body");
+	}
+
+	private static void createItemTagsFromChoices(XmlSerializer serializer, FieldSpec field, ChoiceItem[] choices) throws IOException
+	{
+		int counter = 0;
+		for (ChoiceItem choice: choices) {
+			if (choice.getCode() != null && choice.getCode().length() > 0) {
+						serializer.startTag("", ODK_TAG_ITEM);
+						serializer.startTag("", ODK_TAG_LABEL);
+						serializer.attribute("", ODK_ATTRIBUTE_REF, "jr:itext('/data/" + field.getTag() + ":option" + counter + "')");
+						serializer.endTag("", ODK_TAG_LABEL);
+				serializer.startTag("", ODK_TAG_VALUE);
+				serializer.text(choice.getCode());
+				serializer.endTag("", ODK_TAG_VALUE);
+						serializer.endTag("", ODK_TAG_ITEM);
+				counter++;
+			}
+		}
 	}
 
 }
