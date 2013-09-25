@@ -54,7 +54,7 @@ public class DesktopKeyActivity extends BaseActivity {
             Intent intent = Intent.createChooser(chooseFile, getString(R.string.select_file_picker));
             startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
         } catch (Exception e) {
-            Log.e("martus", "Failed choosing file", e);
+            Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
             e.printStackTrace();
         }
     }
