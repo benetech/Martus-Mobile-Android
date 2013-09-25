@@ -118,6 +118,10 @@ public class MobileClientBulletinStore extends BulletinStore
 	{
 		return createEmptyBulletin(getTopSectionFieldSpecs(), getBottomSectionFieldSpecs());
 	}
+
+	public Bulletin createEmptyCustomBulletin(FieldSpecCollection topSectionSpecs) throws Exception{
+		return createEmptyBulletin(topSectionSpecs, getBottomSectionFieldSpecs());
+	}
 	
 	public Bulletin createEmptyBulletin(FieldSpecCollection topSectionSpecs, FieldSpecCollection bottomSectionSpecs) throws Exception
 	{
