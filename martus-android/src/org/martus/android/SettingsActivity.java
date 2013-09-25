@@ -34,8 +34,20 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String KEY_SERVER_PUBLIC_KEY = "server_public_keystring";
     public static final String KEY_KEY_PAIR = "key_pair";
 	public static final String KEY_USE_ZAWGYI = "zawgyi_preference";
+	public static final String KEY_FONT_SIZE = "font_size";
     public static final String DEFAULT_TIMEOUT_MINUTES = "7";
 	public static final String ZAWGYI_LANGUAGE_CODE = "my";
+
+	public static final String NAVIGATION_SWIPE = "swipe";
+	public static final String NAVIGATION_BUTTONS = "buttons";
+
+	public static final String CONSTRAINT_BEHAVIOR_ON_SWIPE = "on_swipe";
+	public static final String CONSTRAINT_BEHAVIOR_DEFAULT = "on_swipe";
+
+	public static final String KEY_COMPLETED_DEFAULT = "default_completed";
+
+	public static final String KEY_NAVIGATION = "navigation";
+	public static final String KEY_CONSTRAINT_BEHAVIOR = "constraint_behavior";
 
     String[] languageNamesArray;
     String[] languageCodesArray;

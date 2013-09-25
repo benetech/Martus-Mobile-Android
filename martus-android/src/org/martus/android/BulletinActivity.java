@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.javarosa.core.model.FormIndex;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.form.api.FormEntryController;
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
@@ -27,6 +30,8 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.BurmeseUtilities;
 import org.martus.util.StreamCopier;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.logic.FormController;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -86,6 +91,8 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private boolean shouldShowInstallExplorer = false;
     private IndeterminateProgressDialog indeterminateDialog;
     private DeterminateProgressDialog determinateDialog;
+
+	boolean haveFormInfo = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,6 +174,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
                     return;
                 }
             }
+	        bulletin.getTopSectionFieldSpecs();
             zipBulletin(bulletin);
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Failed zipping bulletin", e);
@@ -353,6 +361,18 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
             showMessage(this, getString(R.string.no_network_create_bulletin_warning),
                     getString(R.string.no_network_connection));
         }
+
+	    Intent intent = getIntent();
+        if (intent != null) {
+	        haveFormInfo = intent.getBooleanExtra(MartusActivity.HAVE_FORM, false);
+	        if (haveFormInfo) {
+		        titleText.setVisibility(View.GONE);
+		        summaryText.setVisibility(View.GONE);
+		        createEmptyBulletinAndClearFields();
+		        return;
+	        }
+        }
+	    haveFormInfo = false;
     }
 
 	@Override
@@ -390,29 +410,57 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         indeterminateDialog = IndeterminateProgressDialog.newInstance();
         indeterminateDialog.show(getSupportFragmentManager(), "dlg_zipping");
 
-        String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
-        String title = titleText.getText().toString().trim();
-        String summary = summaryText.getText().toString().trim();
+	    if (haveFormInfo) {
+		    FormController formController = Collect.getInstance().getFormController();
 
-	    /*boolean useZawgyi = mySettings.getBoolean(SettingsActivity.KEY_USE_ZAWGYI, false);
-	    if (useZawgyi)
-	    {
-		    try
-		    {
-			    author = BurmeseUtilities.getStorable(author);
-			    title = BurmeseUtilities.getStorable(title);
-			    summary = BurmeseUtilities.getStorable(summary);
-		    }  catch (PatternSyntaxException e)
-		    {
-			    Log.e(AppConfig.LOG_LABEL, "problem converting to unicode from Zawgyi", e);
-			    indeterminateDialog.dismiss();
-			    throw e;
-		    }
-	    }*/
+            FormIndex i = formController.getFormIndex();
+            formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
 
-	    bulletin.set(Bulletin.TAGAUTHOR, author);
-        bulletin.set(Bulletin.TAGTITLE, title);
-        bulletin.set(Bulletin.TAGSUMMARY, summary);
+            int event;
+            while ((event =
+                    formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
+                if (event != FormEntryController.EVENT_QUESTION) {
+                    continue;
+                } else {
+                    IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
+                    String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
+                    if (answer != null) {
+	                    String tag =  questionID.substring(6, questionID.length() - 6);
+	                    String value = answer.getDisplayText();
+	                    Log.w(AppConfig.LOG_LABEL, "tag is " + tag);
+                        Log.w(AppConfig.LOG_LABEL, "answer is " + value);
+	                    bulletin.set(tag, value);
+                    }
+                }
+            }
+	    }  else {
+
+	        String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
+	        String title = titleText.getText().toString().trim();
+	        String summary = summaryText.getText().toString().trim();
+
+		    /*boolean useZawgyi = mySettings.getBoolean(SettingsActivity.KEY_USE_ZAWGYI, false);
+		    if (useZawgyi)
+		    {
+			    try
+			    {
+				    author = BurmeseUtilities.getStorable(author);
+				    title = BurmeseUtilities.getStorable(title);
+				    summary = BurmeseUtilities.getStorable(summary);
+			    }  catch (PatternSyntaxException e)
+			    {
+				    Log.e(AppConfig.LOG_LABEL, "problem converting to unicode from Zawgyi", e);
+				    indeterminateDialog.dismiss();
+				    throw e;
+			    }
+		    }*/
+
+		    bulletin.set(Bulletin.TAGAUTHOR, author);
+	        bulletin.set(Bulletin.TAGTITLE, title);
+	        bulletin.set(Bulletin.TAGSUMMARY, summary);
+	    }
+
+
         stopInactivityTimer();
         parentApp.setIgnoreInactivity(true);
 
@@ -423,7 +471,12 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
     private Bulletin createBulletin() throws Exception
     {
-        Bulletin b = store.createEmptyBulletin();
+        Bulletin b;
+	    if (haveFormInfo) {
+			b = store.createEmptyCustomBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs());
+	    } else  {
+			b = store.createEmptyBulletin();
+	    }
         b.set(Bulletin.TAGLANGUAGE, getDefaultLanguageForNewBulletin());
         b.setAuthorizedToReadKeys(new HeadquartersKeys(hqKey));
         b.setDraft();

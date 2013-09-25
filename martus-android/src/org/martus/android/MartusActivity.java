@@ -3,10 +3,12 @@ package org.martus.android;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.Vector;
 
 import org.apache.xmlrpc.XmlRpcException;
@@ -17,13 +19,20 @@ import org.martus.android.dialog.LoginDialog;
 import org.martus.android.dialog.MagicWordDialog;
 import org.martus.android.dialog.ModalConfirmationDialog;
 import org.martus.clientside.MobileClientSideNetworkGateway;
+import org.martus.common.FieldCollection;
+import org.martus.common.FieldSpecCollection;
+import org.martus.common.HeadquartersKey;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.fieldspec.CustomFieldTemplate;
+import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
+import org.odk.collect.android.activities.FormEntryActivity;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -42,6 +51,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Xml;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,7 +87,10 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
     static final int ACTIVITY_DESKTOP_KEY = 2;
     public static final int ACTIVITY_BULLETIN = 3;
+	final static int ACTIVITY_CHOOSE_FORM = 4;
     public static final String RETURN_TO = "return_to";
+    public static final String FORM_NAME= "formName";
+    public static final String HAVE_FORM= "haveForm";
     private final static String pingPath = "/RPC2";
     private int confirmationType;
 
@@ -85,7 +98,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+
 
         torCheckbox = (CheckBox)findViewById(R.id.checkBox_use_tor);
         updateSettings();
@@ -142,8 +155,42 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         if (requestCode == EXIT_REQUEST_CODE && resultCode == EXIT_RESULT_CODE) {
             AppConfig.getInstance().getCrypto().clearKeyPair();
             finish();
+        }  else if (requestCode == ACTIVITY_CHOOSE_FORM) {
+	        if (resultCode == RESULT_OK){
+		        SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
+                HeadquartersKey hqKey = new HeadquartersKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
+
+                Uri uri = data.getData();
+                String filePath = uri.getPath();
+
+                try {
+	                CustomFieldTemplate template = new CustomFieldTemplate();
+	                Vector authorizedKeys = new Vector<String>();
+                    authorizedKeys.add(hqKey.getPublicKey());
+	                if(template.importTemplate(martusCrypto, new File(filePath), authorizedKeys))
+                    {
+	                    String topSectionXML = template.getImportedTopSectionText();
+
+                        if (topSectionXML.length() > 0) {
+	                        FieldSpecCollection fields = FieldCollection.parseXml(topSectionXML);
+	                        MartusApplication.getInstance().setCustomTopSectionSpecs(fields);
+	                        ODKUtils.writeXml(this, fields);
+	                        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
+	                        intent.putExtra(MartusActivity.FORM_NAME, "Martus.xml");
+	                        startActivity(intent);
+                        }
+                    }
+                } catch (Exception e) {
+                    showMessage(this, "Invalid form file", getString(R.string.error_message));
+                    Log.e(AppConfig.LOG_LABEL, "problem getting form file", e);
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                //shouldShowInstallExplorer = true;
+            }
         }
     }
+
+
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -161,6 +208,21 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         Intent intent = new Intent(MartusActivity.this, BulletinActivity.class);
         startActivityForResult(intent, EXIT_REQUEST_CODE) ;
     }
+
+	public void loadForm(View view) {
+
+
+		try {
+            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+            chooseFile.setType("file/*");
+            Intent intent = Intent.createChooser(chooseFile, getString(R.string.select_file_picker));
+            startActivityForResult(intent, ACTIVITY_CHOOSE_FORM);
+        } catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
+            e.printStackTrace();
+        }
+
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
