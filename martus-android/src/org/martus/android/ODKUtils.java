@@ -23,11 +23,11 @@ import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldType;
+import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.logic.FormController;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -38,10 +38,6 @@ import android.util.Xml;
  */
 public class ODKUtils
 {
-
-	public static final String ODK_ROOT = Environment.getExternalStorageDirectory()
-	            + File.separator + "odk";
-    public static final String FORMS_PATH = ODK_ROOT + File.separator + "forms";
 
 	private static final String ODK_TAG_LABEL = "label";
 	private static final String ODK_TAG_VALUE = "value";
@@ -60,6 +56,7 @@ public class ODKUtils
 	public static final String STRING_FALSE = "odk_simulate_False";
 	private static ChoiceItem[] booleanChoices;
 	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
+	public static final String MARTUS_CUSTOM_ODK_FORM = "Martus.xml";
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -128,8 +125,8 @@ public class ODKUtils
 	public static String writeXml(Context context, FieldSpecCollection specCollection){
 
 		// temp throwaway code to delete temp file used to pass odk xml to ODK app
-		File dir = new File(FORMS_PATH);
-		File file = new File(dir, "Martus.xml");
+		File dir = new File(Collect.FORMS_PATH);
+		File file = new File(dir, MARTUS_CUSTOM_ODK_FORM);
 		file.delete();
 
 		addStandardLabels(context, specCollection);
@@ -164,12 +161,11 @@ public class ODKUtils
 
 		    // temp throwaway code to pass odk xml to separate ODK app
 		    try {
-	            File outfile = new File(FORMS_PATH, "Martus.xml");
-		            outfile.createNewFile();
-	                FileOutputStream fos = new FileOutputStream(outfile);
-	                fos.write(writer.toString().getBytes());
-	                fos.flush();
-	                fos.close();
+	            File outfile = new File(Collect.FORMS_PATH, MARTUS_CUSTOM_ODK_FORM);
+                FileOutputStream fos = new FileOutputStream(outfile);
+                fos.write(writer.toString().getBytes());
+                fos.flush();
+                fos.close();
 	        } catch (Exception e) {
 	            Log.e(AppConfig.LOG_LABEL, "problem writing odk xml file", e);
 	        }
