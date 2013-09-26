@@ -166,6 +166,7 @@
     <string name="fetching_picasa_image">Fetching Picasa image</string>
     <!-- Do Not Translate the word Picasa-->
     <string name="fetched_picasa_image">Got Picasa image</string>
+    <string name="custom_form_transition">This is your chance to add any attachments or press back to edit form entry.</string>
 
     <!-- ============================== -->
     <!--  choose server screen  -->

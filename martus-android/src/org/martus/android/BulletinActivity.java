@@ -113,6 +113,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         titleText = (EditText)findViewById(R.id.createBulletinTitle);
         summaryText = (EditText)findViewById(R.id.bulletinSummary);
 	    attachmentsHelpText = (TextView)findViewById(R.id.attachments_help_text);
+	    (findViewById(R.id.custom_form_transition)).setVisibility(View.VISIBLE);
         if (null == bulletin) {
             attachmentAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
             createEmptyBulletinAndClearFields();
@@ -368,7 +369,9 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 	        if (haveFormInfo) {
 		        titleText.setVisibility(View.GONE);
 		        summaryText.setVisibility(View.GONE);
-		        createEmptyBulletinAndClearFields();
+		        if (bulletinAttachments.isEmpty()) {
+		            createEmptyBulletinAndClearFields();
+		        }
 		        return;
 	        }
         }
@@ -385,7 +388,9 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 	@Override
 	public void onBackPressed()
 	{
-        showConfirmationDialog();
+		if (!haveFormInfo)
+            showConfirmationDialog();
+		super.onBackPressed();
 	}
 
 	@Override
