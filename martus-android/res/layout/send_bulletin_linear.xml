@@ -35,6 +35,16 @@
                 android:gravity="left|top"
                 android:layout_marginBottom="8dp"
                 android:textSize="18sp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_form_transition"
+                android:id="@+id/custom_form_transition"
+                android:layout_marginTop="4dip"
+                android:textSize="18sp"
+                android:visibility="gone"
+                />
     </LinearLayout>
 
     <TextView
