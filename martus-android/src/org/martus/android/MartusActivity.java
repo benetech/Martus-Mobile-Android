@@ -3,12 +3,10 @@ package org.martus.android;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.Vector;
 
 import org.apache.xmlrpc.XmlRpcException;
@@ -26,13 +24,11 @@ import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.CustomFieldTemplate;
-import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
 import org.odk.collect.android.activities.FormEntryActivity;
-import org.xmlpull.v1.XmlSerializer;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -176,7 +172,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	                        MartusApplication.getInstance().setCustomTopSectionSpecs(fields);
 	                        ODKUtils.writeXml(this, fields);
 	                        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
-	                        intent.putExtra(MartusActivity.FORM_NAME, "Martus.xml");
+	                        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
 	                        startActivity(intent);
                         }
                     }

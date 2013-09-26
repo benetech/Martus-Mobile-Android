@@ -14,16 +14,11 @@
 
 package org.odk.collect.android.application;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
-import android.preference.PreferenceManager;
+import android.util.Log;
 
-import org.martus.android.R;
-import org.martus.android.SettingsActivity;
+import org.martus.android.AppConfig;
 import org.odk.collect.android.database.ActivityLogger;
 import org.odk.collect.android.logic.FormController;
 import org.odk.collect.android.logic.PropertyManager;
@@ -39,18 +34,13 @@ import java.io.File;
 public class Collect  {
 
     // Storage paths
-    public static final String ODK_ROOT = Environment.getExternalStorageDirectory()
-            + File.separator + "odk";
-    public static final String FORMS_PATH = ODK_ROOT + File.separator + "forms";
-    public static final String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
-    public static final String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
-    public static final String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
-    public static final String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
-    public static final String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
-    public static final String TMPXML_PATH = CACHE_PATH + File.separator + "tmp.xml";
-    public static final String LOG_PATH = ODK_ROOT + File.separator + "log";
-
-    public static final String DEFAULT_FONTSIZE = "21";
+    public static String ODK_ROOT;
+    public static String FORMS_PATH;
+    public static String INSTANCES_PATH;
+    public static String CACHE_PATH;
+    public static String METADATA_PATH;
+    public static String TMPFILE_PATH;
+    public static String TMPDRAWFILE_PATH;
 
     private ActivityLogger mActivityLogger;
     private FormController mFormController = null;
@@ -143,6 +133,15 @@ public class Collect  {
 	    }
 
 	private Collect(Context context) {
+		ODK_ROOT = context.getCacheDir().getParent() + File.separator + "odk";
+		FORMS_PATH = ODK_ROOT + File.separator + "forms";
+		INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
+		CACHE_PATH = ODK_ROOT + File.separator + ".cache";
+		METADATA_PATH = ODK_ROOT + File.separator + "metadata";
+		TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
+		TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
+
+
 		this.context = context;
 		PropertyManager mgr = new PropertyManager(context);
         mActivityLogger = new ActivityLogger(
