@@ -4,17 +4,26 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.Set;
 
+import org.javarosa.core.model.Constants;
+import org.javarosa.core.model.FormIndex;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.utils.DateUtils;
+import org.javarosa.form.api.FormEntryController;
+import org.javarosa.form.api.FormEntryPrompt;
 import org.martus.common.FieldSpecCollection;
 import org.martus.common.PoolOfReusableChoicesLists;
 import org.martus.common.ReusableChoices;
+import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldType;
+import org.odk.collect.android.logic.FormController;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
@@ -47,7 +56,10 @@ public class ODKUtils
 	private static final String ODK_ATTRIBUTE_ID = "id";
 	private static final String DEFAULT_MINIMUM_DATE = "date('1900-01-01')";
 	private static final String BLANK_DATE = "today()";
+	public static final String STRING_TRUE = "odk_simulate_True";
+	public static final String STRING_FALSE = "odk_simulate_False";
 	private static ChoiceItem[] booleanChoices;
+	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -183,7 +195,7 @@ public class ODKUtils
 				if (field.getDefaultValue() != null && !field.getType().isDate() && field.getDefaultValue().length() > 0) {
 					serializer.text(field.getDefaultValue());
 				} else if (field.getType().isBoolean()) {
-					serializer.text("0");
+					serializer.text(STRING_FALSE);
 				}
 				serializer.endTag("", field.getTag());
 			}
@@ -240,8 +252,8 @@ public class ODKUtils
 	{
 		if (booleanChoices == null) {
 			booleanChoices = new ChoiceItem[2];
-			booleanChoices[0] = new ChoiceItem("1", context.getString(R.string.boolean_true));
-			booleanChoices[1] = new ChoiceItem("0", context.getString(R.string.boolean_false));
+			booleanChoices[0] = new ChoiceItem(STRING_TRUE, context.getString(R.string.boolean_true));
+			booleanChoices[1] = new ChoiceItem(STRING_FALSE, context.getString(R.string.boolean_false));
 		}
 		return booleanChoices;
 	}
@@ -382,5 +394,39 @@ public class ODKUtils
 			}
 		}
 	}
+
+	public static void populateBulletin(Bulletin bulletin, FormController formController)
+		{
+			FormIndex i = formController.getFormIndex();
+			formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
+
+			int event;
+			while ((event =
+			        formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
+			    if (event != FormEntryController.EVENT_QUESTION) {
+			        continue;
+			    } else {
+			        IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
+				    FormEntryPrompt questionPrompt = formController.getQuestionPrompt();
+			        String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
+				    int dataType = questionPrompt.getDataType();
+			        if (answer != null) {
+				        String tag =  questionID.substring(6, questionID.length() - 6);
+				        String value = answer.getDisplayText();
+				        if (dataType == Constants.DATATYPE_DATE) {
+					        value = DateUtils.format((Date) answer.getValue(), DATE_FORMAT_MARTUS);
+				        } else if (dataType == Constants.DATATYPE_CHOICE) {
+					        if (value.equals(ODKUtils.STRING_TRUE)) {
+						        value = FieldSpec.TRUESTRING;
+					        } else if (value.equals(ODKUtils.STRING_FALSE)) {
+						        value = FieldSpec.FALSESTRING;
+					        }
+				        }
+				        Log.w(AppConfig.LOG_LABEL, "setting value of " + value);
+				        bulletin.set(tag, value);
+			        }
+			    }
+			}
+		}
 
 }

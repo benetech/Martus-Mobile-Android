@@ -13,9 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.javarosa.core.model.FormIndex;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.form.api.FormEntryController;
+
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
@@ -74,6 +72,8 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private static final int CONFIRMATION_TYPE_CANCEL_BULLETIN = 0;
     private static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 1;
     private static final String PICASA_INDICATOR = "picasa";
+
+
 
     private MobileClientBulletinStore store;
     private HeadquartersKey hqKey;
@@ -418,26 +418,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 	    if (haveFormInfo) {
 		    FormController formController = Collect.getInstance().getFormController();
 
-            FormIndex i = formController.getFormIndex();
-            formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
-
-            int event;
-            while ((event =
-                    formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
-                if (event != FormEntryController.EVENT_QUESTION) {
-                    continue;
-                } else {
-                    IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
-                    String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
-                    if (answer != null) {
-	                    String tag =  questionID.substring(6, questionID.length() - 6);
-	                    String value = answer.getDisplayText();
-	                    Log.w(AppConfig.LOG_LABEL, "tag is " + tag);
-                        Log.w(AppConfig.LOG_LABEL, "answer is " + value);
-	                    bulletin.set(tag, value);
-                    }
-                }
-            }
+		    ODKUtils.populateBulletin(bulletin, formController);
 	    }  else {
 
 	        String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
@@ -474,7 +455,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
     }
 
-    private Bulletin createBulletin() throws Exception
+	private Bulletin createBulletin() throws Exception
     {
         Bulletin b;
 	    if (haveFormInfo) {
