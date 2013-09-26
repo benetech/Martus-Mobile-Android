@@ -19,7 +19,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.os.Build;
-import android.view.MenuItem;
+
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * Compatibility utilities for backward-compatible support of Android APIs above SDK 8
