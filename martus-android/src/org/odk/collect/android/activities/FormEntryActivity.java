@@ -29,6 +29,7 @@ import org.javarosa.form.api.FormEntryPrompt;
 import org.javarosa.model.xform.XFormsModule;
 import org.javarosa.xpath.XPathTypeMismatchException;
 import org.martus.android.AppConfig;
+import org.martus.android.BaseActivity;
 import org.martus.android.BulletinActivity;
 import org.martus.android.MartusActivity;
 import org.martus.android.MartusApplication;
@@ -41,7 +42,6 @@ import org.odk.collect.android.listeners.FormSavedListener;
 import org.odk.collect.android.logic.FormController;
 import org.odk.collect.android.logic.FormController.FailedConstraint;
 import org.odk.collect.android.logic.PropertyManager;
-import org.odk.collect.android.preferences.AdminPreferencesActivity;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
 import org.odk.collect.android.provider.InstanceProviderAPI;
 import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
@@ -82,8 +82,6 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -102,6 +100,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 /**
  * FormEntryActivity is responsible for displaying questions, animating
  * transitions between questions, and allowing the user to enter data.
@@ -109,7 +111,7 @@ import android.widget.Toast;
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Thomas Smyth, Sassafras Tech Collective (tom@sassafrastech.com; constraint behavior option)
  */
-public class FormEntryActivity extends Activity implements AnimationListener,
+public class FormEntryActivity extends BaseActivity implements AnimationListener,
 		FormLoaderListener, FormSavedListener, AdvanceToNextListener,
 		OnGestureListener {
 	private static final String t = "FormEntryActivity";
@@ -204,7 +206,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		LEFT, RIGHT, FADE
 	}
 
-	private SharedPreferences mAdminPreferences;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -221,8 +222,8 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		}
 
 		setContentView(R.layout.form_entry);
-		setTitle(getString(R.string.app_name) + " > "
-				+ getString(R.string.loading_form));
+/*		setTitle(getString(R.string.app_name) + " > "
+				+ getString(R.string.loading_form));*/
 		Log.w("ODK", "onCreate  FormEntryActivity");
 
 		mBeenSwiped = false;
@@ -233,9 +234,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		mGestureDetector = new GestureDetector(this);
 		mQuestionHolder = (LinearLayout) findViewById(R.id.questionholder);
 
-		// get admin preference settings
-		mAdminPreferences = getSharedPreferences(
-				AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
 
 		mNextButton = (ImageButton) findViewById(R.id.form_forward_button);
 		mNextButton.setOnClickListener(new OnClickListener() {
@@ -608,29 +606,29 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		FormController formController = Collect.getInstance()
 				.getFormController();
 
-		boolean useability;
-		useability = mAdminPreferences.getBoolean(
-				AdminPreferencesActivity.KEY_SAVE_MID, true);
+		boolean useability = true;
+/*		useability = mAdminPreferences.getBoolean(
+				AdminPreferencesActivity.KEY_SAVE_MID, true);*/
 
 		menu.findItem(MENU_SAVE).setVisible(useability).setEnabled(useability);
 
-		useability = mAdminPreferences.getBoolean(
-				AdminPreferencesActivity.KEY_JUMP_TO, true);
+/*		useability = mAdminPreferences.getBoolean(
+				AdminPreferencesActivity.KEY_JUMP_TO, true);*/
 
 		menu.findItem(MENU_HIERARCHY_VIEW).setVisible(useability)
 				.setEnabled(useability);
 
-		useability = mAdminPreferences.getBoolean(
-				AdminPreferencesActivity.KEY_CHANGE_LANGUAGE, true)
-				&& (formController != null)
+		useability = (formController != null)
 				&& formController.getLanguages() != null
 				&& formController.getLanguages().length > 1;
 
 		menu.findItem(MENU_LANGUAGES).setVisible(useability)
 				.setEnabled(useability);
 
-		useability = mAdminPreferences.getBoolean(
-				AdminPreferencesActivity.KEY_ACCESS_SETTINGS, true);
+/*		useability = mAdminPreferences.getBoolean(
+				AdminPreferencesActivity.KEY_ACCESS_SETTINGS, true);*/
+
+		useability = true;
 
 		menu.findItem(MENU_PREFERENCES).setVisible(useability)
 				.setEnabled(useability);
@@ -732,7 +730,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(android.view.MenuItem item) {
 		/*
 		 * We don't have the right view here, so we store the View's ID as the
 		 * item ID and loop through the possible views to find the one the user
@@ -761,7 +759,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	/**
 	 * If we're loading, then we pass the loading thread to our next instance.
 	 */
-	@Override
+/*	@Override
 	public Object onRetainNonConfigurationInstance() {
 		FormController formController = Collect.getInstance()
 				.getFormController();
@@ -780,7 +778,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 			saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
 		}
 		return null;
-	}
+	}*/
 
 	/**
 	 * Creates a view given the View type and an event
@@ -793,8 +791,8 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	private View createView(int event, boolean advancingPage) {
 		FormController formController = Collect.getInstance()
 				.getFormController();
-		setTitle(getString(R.string.app_name) + " > "
-				+ formController.getFormTitle());
+/*		setTitle(getString(R.string.app_name) + " > "
+				+ formController.getFormTitle());*/
 
 		switch (event) {
 		case FormEntryController.EVENT_BEGINNING_OF_FORM:
@@ -890,10 +888,10 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 					.findViewById(R.id.mark_finished));
 			instanceComplete.setChecked(isInstanceComplete(true));
 
-			if (!mAdminPreferences.getBoolean(
+/*			if (!mAdminPreferences.getBoolean(
 					AdminPreferencesActivity.KEY_MARK_AS_FINALIZED, true)) {
 				instanceComplete.setVisibility(View.GONE);
-			}
+			}*/
 
 			// edittext to change the displayed name of the instance
 			final EditText saveAs = (EditText) endView
@@ -961,13 +959,13 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 			}
 
 			// override the visibility settings based upon admin preferences
-			if (!mAdminPreferences.getBoolean(
+/*			if (!mAdminPreferences.getBoolean(
 					AdminPreferencesActivity.KEY_SAVE_AS, true)) {
 				saveAs.setVisibility(View.GONE);
 				TextView sa = (TextView) endView
 						.findViewById(R.id.save_form_as);
 				sa.setVisibility(View.GONE);
-			}
+			}*/
 
 			// Create 'save' button
 			((Button) endView.findViewById(R.id.save_exit_button))
@@ -1541,15 +1539,11 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		FormController formController = Collect.getInstance()
 				.getFormController();
 		String[] items;
-		if (mAdminPreferences.getBoolean(AdminPreferencesActivity.KEY_SAVE_MID,
-				true)) {
-			String[] two = { getString(R.string.keep_changes),
-					getString(R.string.do_not_save) };
-			items = two;
-		} else {
-			String[] one = { getString(R.string.do_not_save) };
-			items = one;
-		}
+
+		String[] two = { getString(R.string.keep_changes),
+				getString(R.string.do_not_save) };
+		items = two;
+
 
 		Collect.getInstance().getActivityLogger()
 				.logInstanceAction(this, "createQuitDialog", "show");
@@ -1582,10 +1576,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 							// the admin menu, then case 0 actually becomes
 							// 'discard and exit'
 							// whereas if it's enabled it's 'save and exit'
-							if (mAdminPreferences
-									.getBoolean(
-											AdminPreferencesActivity.KEY_SAVE_MID,
-											true)) {
+
 								Collect.getInstance()
 										.getActivityLogger()
 										.logInstanceAction(this,
@@ -1593,15 +1584,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 												"saveAndExit");
 								saveDataToDisk(EXIT, isInstanceComplete(false),
 										null);
-							} else {
-								Collect.getInstance()
-										.getActivityLogger()
-										.logInstanceAction(this,
-												"createQuitDialog",
-												"discardAndExit");
-								removeTempInstance();
-								finishReturnInstance();
-							}
+
 							break;
 
 						case 1: // discard changes and exit
@@ -1900,7 +1883,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		FormController formController = Collect.getInstance()
 				.getFormController();
 		dismissDialogs();
@@ -1918,7 +1901,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		FormController formController = Collect.getInstance()
 				.getFormController();
