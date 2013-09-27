@@ -880,115 +880,15 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		case FormEntryController.EVENT_END_OF_FORM:
 			View endView = View.inflate(this, R.layout.form_entry_end, null);
 			((TextView) endView.findViewById(R.id.description))
-					.setText(getString(R.string.save_enter_data_description,
-							formController.getFormTitle()));
-
-			// checkbox for if finished or ready to send
-			final CheckBox instanceComplete = ((CheckBox) endView
-					.findViewById(R.id.mark_finished));
-			instanceComplete.setChecked(isInstanceComplete(true));
-
-/*			if (!mAdminPreferences.getBoolean(
-					AdminPreferencesActivity.KEY_MARK_AS_FINALIZED, true)) {
-				instanceComplete.setVisibility(View.GONE);
-			}*/
-
-			// edittext to change the displayed name of the instance
-			final EditText saveAs = (EditText) endView
-					.findViewById(R.id.save_name);
-
-			// disallow carriage returns in the name
-			InputFilter returnFilter = new InputFilter() {
-				public CharSequence filter(CharSequence source, int start,
-						int end, Spanned dest, int dstart, int dend) {
-					for (int i = start; i < end; i++) {
-						if (Character.getType((source.charAt(i))) == Character.CONTROL) {
-							return "";
-						}
-					}
-					return null;
-				}
-			};
-			saveAs.setFilters(new InputFilter[] { returnFilter });
+					.setText(getString(R.string.save_enter_data_description));
 
 			String saveName = formController.getSubmissionMetadata().instanceName;
-			if (saveName == null) {
-				// no meta/instanceName field in the form -- see if we have a
-				// name for this instance from a previous save attempt...
-				//todo : Rom
-/*				if (getContentResolver().getType(getIntent().getData()) == InstanceColumns.CONTENT_ITEM_TYPE) {
-					Uri instanceUri = getIntent().getData();
-					Cursor instance = null;
-					try {
-						instance = getContentResolver().query(instanceUri,
-								null, null, null, null);
-						if (instance.getCount() == 1) {
-							instance.moveToFirst();
-							saveName = instance
-									.getString(instance
-											.getColumnIndex(InstanceColumns.DISPLAY_NAME));
-						}
-					} finally {
-						if (instance != null) {
-							instance.close();
-						}
-					}
-				}*/
-				if (saveName == null) {
-					// last resort, default to the form title
-					saveName = formController.getFormTitle();
-				}
-				// present the prompt to allow user to name the form
-				TextView sa = (TextView) endView
-						.findViewById(R.id.save_form_as);
-				sa.setVisibility(View.VISIBLE);
-				saveAs.setText(saveName);
-				saveAs.setEnabled(true);
-				saveAs.setVisibility(View.VISIBLE);
-			} else {
-				// if instanceName is defined in form, this is the name -- no
-				// revisions
-				// display only the name, not the prompt, and disable edits
-				TextView sa = (TextView) endView
-						.findViewById(R.id.save_form_as);
-				sa.setVisibility(View.GONE);
-				saveAs.setText(saveName);
-				saveAs.setEnabled(false);
-				saveAs.setBackgroundColor(Color.WHITE);
-				saveAs.setVisibility(View.VISIBLE);
-			}
-
-			// override the visibility settings based upon admin preferences
-/*			if (!mAdminPreferences.getBoolean(
-					AdminPreferencesActivity.KEY_SAVE_AS, true)) {
-				saveAs.setVisibility(View.GONE);
-				TextView sa = (TextView) endView
-						.findViewById(R.id.save_form_as);
-				sa.setVisibility(View.GONE);
-			}*/
-
 			// Create 'save' button
 			((Button) endView.findViewById(R.id.save_exit_button))
 					.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							Collect.getInstance()
-									.getActivityLogger()
-									.logInstanceAction(
-											this,
-											"createView.saveAndExit",
-											instanceComplete.isChecked() ? "saveAsComplete"
-													: "saveIncomplete");
-							// Form is marked as 'saved' here.
-							if (saveAs.getText().length() < 1) {
-								Toast.makeText(FormEntryActivity.this,
-										R.string.save_as_error,
-										Toast.LENGTH_SHORT).show();
-							} else {
-								saveDataToDisk(EXIT, instanceComplete
-										.isChecked(), saveAs.getText()
-										.toString());
-							}
+							saveDataToDisk(EXIT, true, "Martus");
 						}
 					});
 
@@ -997,28 +897,6 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 					.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-
-/*							Log.w("ODK", "should show answers");
-							FormController formController = Collect.getInstance().getFormController();
-
-							FormIndex i = formController.getFormIndex();
-							formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
-
-					        int event;
-					        while ((event =
-							        formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
-					            if (event != FormEntryController.EVENT_QUESTION) {
-					                continue;
-					            } else {
-					                IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
-						            Log.w("ODK", "question id is " + formController.getQuestionPrompt().getQuestion().getTextID());
-						            Log.w("ODK", "shortText is " + formController.getQuestionPrompt().getShortText());
-						            if (answer != null)
-						                Log.w("ODK", "answer is " + answer.getDisplayText());
-					            }
-					        }*/
-
-							//formController.jumpToIndex(i);
 
 							Intent intent = new Intent(FormEntryActivity.this, BulletinActivity.class);
 							intent.putExtra(MartusActivity.HAVE_FORM, true);
