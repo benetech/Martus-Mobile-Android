@@ -57,6 +57,7 @@ public class ODKUtils
 	private static ChoiceItem[] booleanChoices;
 	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
 	public static final String MARTUS_CUSTOM_ODK_FORM = "Martus.xml";
+	public static final String MARTUS_CUSTOM_TEMPLATE = "martus.mct";
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -122,7 +123,7 @@ public class ODKUtils
 		return "";
 	}
 
-	public static String writeXml(Context context, FieldSpecCollection specCollection){
+	public static void writeXml(Context context, FieldSpecCollection specCollection){
 
 		// temp throwaway code to delete temp file used to pass odk xml to ODK app
 		File dir = new File(Collect.FORMS_PATH);
@@ -169,8 +170,6 @@ public class ODKUtils
 	        } catch (Exception e) {
 	            Log.e(AppConfig.LOG_LABEL, "problem writing odk xml file", e);
 	        }
-
-	        return writer.toString();
 	    } catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }
