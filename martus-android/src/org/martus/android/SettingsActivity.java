@@ -12,8 +12,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
@@ -55,6 +57,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     String[] timeoutNamesArray;
     String[] timeoutValuesArray;
 
+	String[] navigationNamesArray;
+	String[] navigationValuesArray;
+
+	String[] fontSizeNamesArray;
+	String[] fontSizeValuesArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +80,16 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         timeoutNamesArray = getResources().getStringArray(R.array.entries_timeout_preference);
         timeoutValuesArray = getResources().getStringArray(R.array.values_timeout_preference);
 
+	    navigationNamesArray = getResources().getStringArray(R.array.navigation_entries);
+	    navigationValuesArray = getResources().getStringArray(R.array.navigation_entry_values);
+
+	    fontSizeNamesArray = getResources().getStringArray(R.array.font_size_entries);
+	    fontSizeValuesArray = getResources().getStringArray(R.array.font_size_entry_values);
+
         addPreferencesFromResource(R.xml.settings);
         SharedPreferences mySettings = getPreferenceScreen().getSharedPreferences();
 
         Map<String, ?> allPrefs = mySettings.getAll();
-
 
         //Initialize summaries of previously set settings
         Set<String> prefKeys = allPrefs.keySet();
@@ -108,6 +121,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	            confirmLanguage(useZawgyi);
             } else if (key.equals(KEY_WIFI_ONLY)) {
                 //do nothing
+            } else if (key.equals(KEY_NAVIGATION)) {
+	            final String navigationValue = sharedPreferences.getString(key, "?");
+	            final int index = Arrays.asList(navigationValuesArray).indexOf(navigationValue);
+	            preference.setSummary(navigationNamesArray[index]);
+            } else if (key.equals(KEY_FONT_SIZE)) {
+                final String sizeValue = sharedPreferences.getString(key, "?");
+                final int index = Arrays.asList(fontSizeValuesArray).indexOf(sizeValue);
+                preference.setSummary(fontSizeNamesArray[index]);
             } else {
                 // Set summary to be the selected value
                 preference.setSummary(sharedPreferences.getString(key, ""));

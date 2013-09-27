@@ -29,6 +29,8 @@
                 android:entryValues="@array/values_language_preference"
                 android:dialogTitle="@string/dialog_title_language_preference" />
 
+
+
         <CheckBoxPreference
                 android:key="wifi_only_preference"
                 android:defaultValue="false"
@@ -45,36 +47,34 @@
                 android:summaryOn="@string/zawgyi_preference_on"
         />-->
 
+
+
     </PreferenceCategory>
 
     <PreferenceCategory
             android:key="@string/client"
             android:title="@string/client" >
-           <ListPreference
-                android:id="@+id/navigation"
-                android:defaultValue="swipe"
-                android:dialogTitle="@string/navigation"
-                android:entries="@array/navigation_entries"
-                android:entryValues="@array/navigation_entry_values"
-                android:key="navigation"
-                android:title="@string/navigation" />
-            <ListPreference
-                android:id="@+id/constraint_behavior"
-                android:defaultValue="on_swipe"
-                android:dialogTitle="@string/constraint_behavior"
-                android:entries="@array/constraint_behavior_entries"
-                android:entryValues="@array/constraint_behavior_entry_values"
-                android:key="constraint_behavior"
-                android:title="@string/constraint_behavior" />
-            <ListPreference
-                android:id="@+id/font_size"
-                android:defaultValue="21"
-                android:dialogTitle="@string/change_font_size"
-                android:entries="@array/font_size_entries"
-                android:entryValues="@array/font_size_entry_values"
-                android:key="font_size"
-                android:title="@string/font_size" />
-        </PreferenceCategory>
+
+        <ListPreference
+            android:id="@+id/navigation"
+            android:defaultValue="swipe"
+            android:dialogTitle="@string/navigation"
+            android:summary="@string/navigation"
+            android:entries="@array/navigation_entries"
+            android:entryValues="@array/navigation_entry_values"
+            android:key="navigation"
+            android:title="@string/navigation" />
+
+        <ListPreference
+            android:id="@+id/font_size"
+            android:defaultValue="21"
+            android:dialogTitle="@string/change_font_size"
+            android:entries="@array/font_size_entries"
+            android:entryValues="@array/font_size_entry_values"
+            android:key="font_size"
+            android:title="@string/font_size" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
 
