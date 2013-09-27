@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -72,7 +74,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     private static final int CONFIRMATION_TYPE_CANCEL_BULLETIN = 0;
     private static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 1;
     private static final String PICASA_INDICATOR = "picasa";
-
+	private static final SimpleDateFormat MARTUS_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 
     private MobileClientBulletinStore store;
@@ -421,7 +423,6 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 		    ODKUtils.populateBulletin(bulletin, formController);
 	    }  else {
 
-	        String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
 	        String title = titleText.getText().toString().trim();
 	        String summary = summaryText.getText().toString().trim();
 
@@ -441,11 +442,14 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 			    }
 		    }*/
 
-		    bulletin.set(Bulletin.TAGAUTHOR, author);
 	        bulletin.set(Bulletin.TAGTITLE, title);
 	        bulletin.set(Bulletin.TAGSUMMARY, summary);
 	    }
-
+	    bulletin.set(Bulletin.TAGENTRYDATE, MARTUS_FORMAT.format(new Date()));
+	    String enteredAuthor = bulletin.get(Bulletin.TAGAUTHOR);
+	    if (enteredAuthor == null || enteredAuthor.length() < 1) {
+		    bulletin.set(Bulletin.TAGAUTHOR, mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author)));
+	    }
 
         stopInactivityTimer();
         parentApp.setIgnoreInactivity(true);
