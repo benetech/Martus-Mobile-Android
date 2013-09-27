@@ -41,6 +41,9 @@ public class Collect  {
     public static String METADATA_PATH;
     public static String TMPFILE_PATH;
     public static String TMPDRAWFILE_PATH;
+	public static final String FORMS_DIR_NAME = "odk";
+
+    public static String MARTUS_TEMPLATE_PATH;
 
     private ActivityLogger mActivityLogger;
     private FormController mFormController = null;
@@ -79,7 +82,7 @@ public class Collect  {
         }
 
         String[] dirs = {
-                ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH
+                ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, MARTUS_TEMPLATE_PATH
         };
 
         for (String dirName : dirs) {
@@ -133,13 +136,14 @@ public class Collect  {
 	    }
 
 	private Collect(Context context) {
-		ODK_ROOT = context.getCacheDir().getParent() + File.separator + "odk";
+		ODK_ROOT = context.getCacheDir().getParent() + File.separator + FORMS_DIR_NAME;
 		FORMS_PATH = ODK_ROOT + File.separator + "forms";
 		INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
 		CACHE_PATH = ODK_ROOT + File.separator + ".cache";
 		METADATA_PATH = ODK_ROOT + File.separator + "metadata";
 		TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
 		TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
+		MARTUS_TEMPLATE_PATH = ODK_ROOT + File.separator + "template";
 
 
 		this.context = context;

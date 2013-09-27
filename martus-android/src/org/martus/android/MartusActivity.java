@@ -2,7 +2,11 @@ package org.martus.android;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
@@ -29,6 +33,7 @@ import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
 import org.odk.collect.android.activities.FormEntryActivity;
+import org.odk.collect.android.application.Collect;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -163,7 +168,8 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	                CustomFieldTemplate template = new CustomFieldTemplate();
 	                Vector authorizedKeys = new Vector<String>();
                     authorizedKeys.add(hqKey.getPublicKey());
-	                if(template.importTemplate(martusCrypto, new File(filePath), authorizedKeys))
+	                File customTemplate = new File(filePath);
+	                if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
                     {
 	                    String topSectionXML = template.getImportedTopSectionText();
 
@@ -176,6 +182,10 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	                        startActivity(intent);
                         }
                     }
+
+
+	                deleteExistingTemplate();
+	                copyFile(customTemplate, new File(Collect.MARTUS_TEMPLATE_PATH, ODKUtils.MARTUS_CUSTOM_TEMPLATE));
                 } catch (Exception e) {
                     showMessage(this, "Invalid form file", getString(R.string.error_message));
                     Log.e(AppConfig.LOG_LABEL, "problem getting form file", e);
@@ -186,6 +196,12 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         }
     }
 
+	private void deleteExistingTemplate()
+	{
+		File dir = new File(Collect.MARTUS_TEMPLATE_PATH);
+		File file = new File(dir, ODKUtils.MARTUS_CUSTOM_TEMPLATE);
+		file.delete();
+	}
 
 
 	@Override
@@ -201,13 +217,20 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	}
 
     public void sendBulletin(View view) {
-        Intent intent = new Intent(MartusActivity.this, BulletinActivity.class);
-        startActivityForResult(intent, EXIT_REQUEST_CODE) ;
+	    File dir = new File(Collect.FORMS_PATH);
+        File file = new File(dir, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
+
+	    if (file.exists()) {
+		    Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
+            intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
+            startActivity(intent);
+	    } else {
+	        Intent intent = new Intent(MartusActivity.this, BulletinActivity.class);
+	        startActivityForResult(intent, EXIT_REQUEST_CODE) ;
+	    }
     }
 
-	public void loadForm(View view) {
-
-
+	public void loadForm() {
 		try {
             Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("file/*");
@@ -217,7 +240,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
             e.printStackTrace();
         }
-
 	}
 
     @Override
@@ -295,6 +317,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	        case R.id.view_docs_menu_item:
 		        showViewDocs();
 		        return true;
+	        case R.id.load_form_menu_item:
+                loadForm();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -387,6 +412,12 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         File packetsDirFile = new File(getCacheDir().getParentFile(), PACKETS_DIR);
         clearDirectory(packetsDirFile);
         packetsDirFile.delete();
+    }
+
+	private void removeFormsDir() {
+        File formsDirFile = new File(getCacheDir().getParentFile(), Collect.FORMS_DIR_NAME);
+        clearDirectory(formsDirFile);
+		formsDirFile.delete();
     }
 
     public static void logout() {
@@ -709,6 +740,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     @Override
     public void onConfirmationAccepted() {
         removePacketsDir();
+	    removeFormsDir();
         clearPreferences(mySettings.edit());
         clearPreferences(getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE).edit());
         clearPreferences(getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE).edit());
@@ -791,6 +823,30 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	public void refreshView()
 	{
 		setContentView(R.layout.main);
+	}
+
+	public void copyFile(File src, File dst) throws IOException {
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+		    in = new FileInputStream(src);
+		    out = new FileOutputStream(dst);
+
+		    // Transfer bytes from in to out
+		    byte[] buf = new byte[1024];
+		    int len;
+		    while ((len = in.read(buf)) > 0) {
+		        out.write(buf, 0, len);
+		    }
+		} catch (Exception e) {
+			Log.e(AppConfig.LOG_LABEL, "problem copying template ", e);
+		} finally {
+			if (in != null)
+				in.close();
+			if (out != null)
+				out.close();
+		}
+
 	}
 
     private class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {

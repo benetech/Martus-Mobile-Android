@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -20,12 +21,15 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
+import org.martus.common.FieldCollection;
+import org.martus.common.FieldSpecCollection;
 import org.martus.common.HeadquartersKey;
 import org.martus.common.HeadquartersKeys;
 import org.martus.common.bulletin.AttachmentProxy;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.fieldspec.CustomFieldTemplate;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.BurmeseUtilities;
@@ -463,6 +467,21 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     {
         Bulletin b;
 	    if (haveFormInfo) {
+		    if (MartusApplication.getInstance().getCustomTopSectionSpecs() == null) {
+			    CustomFieldTemplate template = new CustomFieldTemplate();
+                Vector authorizedKeys = new Vector<String>();
+                authorizedKeys.add(hqKey.getPublicKey());
+                File customTemplate = new File(Collect.MARTUS_TEMPLATE_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_TEMPLATE);
+                if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
+                {
+                    String topSectionXML = template.getImportedTopSectionText();
+
+                    if (topSectionXML.length() > 0) {
+                        FieldSpecCollection fields = FieldCollection.parseXml(topSectionXML);
+                        MartusApplication.getInstance().setCustomTopSectionSpecs(fields);
+                    }
+                }
+		    }
 			b = store.createEmptyCustomBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs());
 	    } else  {
 			b = store.createEmptyBulletin();
