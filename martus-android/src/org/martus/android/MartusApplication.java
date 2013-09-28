@@ -27,6 +27,7 @@ public class MartusApplication extends Application {
 
 	public static final String DEFAULT_FONTSIZE = "21";
 	private FieldSpecCollection customTopSectionSpecs;
+	private FieldSpecCollection customBottomSectionSpecs;
 	private static MartusApplication singleton = null;
 
     public static MartusApplication getInstance() {
@@ -74,6 +75,16 @@ public class MartusApplication extends Application {
 		this.customTopSectionSpecs = customTopSectionSpecs;
 	}
 
+	public FieldSpecCollection getCustomBottomSectionSpecs()
+	{
+		return customBottomSectionSpecs;
+	}
+
+	public void setCustomBottomSectionSpecs(FieldSpecCollection customBottomSectionSpecs)
+	{
+		this.customBottomSectionSpecs = customBottomSectionSpecs;
+	}
+
 	public static int getQuestionFontsize() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MartusApplication
 		        .getInstance());
@@ -82,21 +93,5 @@ public class MartusApplication extends Application {
         int questionFontsize = Integer.valueOf(question_font);
         return questionFontsize;
     }
-
-    public String getVersionedAppName() {
-        String versionDetail = "";
-        try {
-            PackageInfo pinfo;
-            pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int versionNumber = pinfo.versionCode;
-            String versionName = pinfo.versionName;
-            versionDetail = " " + versionName + " (" + versionNumber + ")";
-        } catch (PackageManager.NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return getString(R.string.app_name) + versionDetail;
-    }
-
 
 }
