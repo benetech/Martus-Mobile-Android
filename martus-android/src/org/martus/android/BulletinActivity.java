@@ -467,7 +467,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     {
         Bulletin b;
 	    if (haveFormInfo) {
-		    if (MartusApplication.getInstance().getCustomTopSectionSpecs() == null) {
+		    if (MartusApplication.getInstance().getCustomTopSectionSpecs() == null || MartusApplication.getInstance().getCustomBottomSectionSpecs() == null) {
 			    CustomFieldTemplate template = new CustomFieldTemplate();
                 Vector authorizedKeys = new Vector<String>();
                 authorizedKeys.add(hqKey.getPublicKey());
@@ -475,14 +475,16 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
                 if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
                 {
                     String topSectionXML = template.getImportedTopSectionText();
+	                String bottomSectionXML = template.getImportedBottomSectionText();
 
-                    if (topSectionXML.length() > 0) {
-                        FieldSpecCollection fields = FieldCollection.parseXml(topSectionXML);
-                        MartusApplication.getInstance().setCustomTopSectionSpecs(fields);
-                    }
+                    FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
+                    MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
+	                FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
+	                MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
+
                 }
 		    }
-			b = store.createEmptyCustomBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs());
+			b = store.createEmptyBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs(), MartusApplication.getInstance().getCustomBottomSectionSpecs());
 	    } else  {
 			b = store.createEmptyBulletin();
 	    }

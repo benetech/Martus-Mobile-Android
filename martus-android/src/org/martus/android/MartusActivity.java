@@ -28,6 +28,7 @@ import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.CustomFieldTemplate;
+import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
@@ -172,17 +173,20 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	                if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
                     {
 	                    String topSectionXML = template.getImportedTopSectionText();
+	                    String bottomSectionXML = template.getImportedBottomSectionText();
 
-                        if (topSectionXML.length() > 0) {
-	                        FieldSpecCollection fields = FieldCollection.parseXml(topSectionXML);
-	                        MartusApplication.getInstance().setCustomTopSectionSpecs(fields);
-	                        ODKUtils.writeXml(this, fields);
-	                        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
-	                        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
-	                        startActivity(intent);
-                        }
+                        FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
+                        FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
+                        MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
+                        MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
+
+	                    FieldSpecCollection allFields = mergeIntoOneSpecCollection(topFields, bottomFields);
+
+                        ODKUtils.writeXml(this, allFields);
+                        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
+                        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
+                        startActivity(intent);
                     }
-
 
 	                deleteExistingTemplate();
 	                copyFile(customTemplate, new File(Collect.MARTUS_TEMPLATE_PATH, ODKUtils.MARTUS_CUSTOM_TEMPLATE));
@@ -195,6 +199,18 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             }
         }
     }
+
+	private FieldSpecCollection mergeIntoOneSpecCollection(FieldSpecCollection topFields, FieldSpecCollection bottomFields)
+	{
+		FieldSpecCollection allFields = new FieldSpecCollection(topFields.asArray());
+		allFields.addAllReusableChoicesLists(topFields.getAllReusableChoiceLists());
+		FieldSpec[] bottomSpecs = bottomFields.asArray();
+		for (FieldSpec spec: bottomSpecs) {
+			allFields.add(spec);
+		}
+		allFields.addAllReusableChoicesLists(bottomFields.getAllReusableChoiceLists());
+		return allFields;
+	}
 
 	private void deleteExistingTemplate()
 	{
