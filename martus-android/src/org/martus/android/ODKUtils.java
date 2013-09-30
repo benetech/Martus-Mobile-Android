@@ -39,6 +39,15 @@ import android.util.Xml;
 public class ODKUtils
 {
 
+	private static final String ODK_TAG_HTML = "h:html";
+	private static final String ODK_TAG_HEAD = "h:head";
+	private static final String ODK_TAG_TITLE = "h:title";
+	private static final String ODK_TAG_MODEL = "model";
+	private static final String ODK_TAG_META = "meta";
+	private static final String ODK_TAG_DATA = "data";
+	private static final String ODK_TAG_INSTANCE = "instance";
+	private static final String ODK_TAG_ITEXT = "itext";
+	private static final String ODK_TAG_TRANSLATION = "translation";
 	private static final String ODK_TAG_BODY = "h:body";
 	private static final String ODK_TAG_LABEL = "label";
 	private static final String ODK_TAG_VALUE = "value";
@@ -49,6 +58,8 @@ public class ODKUtils
 	private static final String ODK_TAG_CONSTRAINT = "constraint";
 	private static final String ODK_TAG_SINGLE_SELECT = "select1";
 	private static final String ODK_TAG_GROUP = "group";
+	private static final String ODK_ATTRIBUTE_TYPE = "type";
+	private static final String ODK_ATTRIBUTE_NODESET = "nodeset";
 	private static final String ODK_ATTRIBUTE_APPEARANCE = "appearance";
 	private static final String ODK_ATTRIBUTE_REF = "ref";
 	private static final String ODK_ATTRIBUTE_ID = "id";
@@ -90,13 +101,13 @@ public class ODKUtils
 	}
 
 	private static String getODKType(FieldType type) {
-		if (type.getTypeName().equals("STRING")  || type.getTypeName().equals("MULTILINE"))
+		if (type.isString()  || type.isMultiline())
 			return "string";
-		if (type.getTypeName().equals("DATE"))
+		if (type.isDate())
 			return "date";
-		if (type.getTypeName().equals("DROPDOWN"))
+		if (type.isDropdown())
 			return "select1";
-		if (type.getTypeName().equals("BOOLEAN"))
+		if (type.isBoolean())
 			return "select1";
 		return "";
 	}
@@ -144,27 +155,27 @@ public class ODKUtils
 	    try {
 	        serializer.setOutput(writer);
 	        serializer.startDocument("UTF-8", true);
-	        serializer.startTag("", "h:html");
+	        serializer.startTag("", ODK_TAG_HTML);
 		    serializer.attribute("", "xmlns", "http://www.w3.org/2002/xforms");
 		    serializer.attribute("", "xmlns:h", "http://www.w3.org/1999/xhtml");
 		    serializer.attribute("", "xmlns:ev", "http://www.w3.org/2001/xml-events");
 		    serializer.attribute("", "xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
 		    serializer.attribute("", "xmlns:jr", "http://openrosa.org/javarosa");
-		    serializer.startTag("","h:head");
-		    serializer.startTag("", "h:title");
+		    serializer.startTag("", ODK_TAG_HEAD);
+		    serializer.startTag("", ODK_TAG_TITLE);
 		    serializer.text("Martus");
-		    serializer.endTag("", "h:title");
-		    serializer.startTag("", "model");
+		    serializer.endTag("", ODK_TAG_TITLE);
+		    serializer.startTag("", ODK_TAG_MODEL);
 
 		    createInstanceSection(serializer, fields);
 		    createITextSection(serializer, fields, context, specCollection);
 		    createBindSection(serializer, fields, context);
 
-		    serializer.endTag("", "model");
-	        serializer.endTag("", "h:head");
+		    serializer.endTag("", ODK_TAG_MODEL);
+	        serializer.endTag("", ODK_TAG_HEAD);
 
 		    createBodySection(serializer, fields, context, specCollection);
-	        serializer.endTag("", "h:html");
+	        serializer.endTag("", ODK_TAG_HTML);
 	        serializer.endDocument();
 
 		    // temp throwaway code to pass odk xml to separate ODK app
@@ -184,13 +195,13 @@ public class ODKUtils
 
 	private static void createInstanceSection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
 	{
-		serializer.startTag("", "instance");
-		serializer.startTag("", "data");
+		serializer.startTag("", ODK_TAG_INSTANCE);
+		serializer.startTag("", ODK_TAG_DATA);
 		serializer.attribute("", "id", "build_Martus");
-		serializer.startTag("", "meta");
+		serializer.startTag("", ODK_TAG_META);
 		serializer.startTag("", "instanceID");
 		serializer.endTag("", "instanceID");
-		serializer.endTag("", "meta");
+		serializer.endTag("", ODK_TAG_META);
 		for (FieldSpec field: fields){
 			if (isCompatibleField(field)) {
 				serializer.startTag("", field.getTag());
@@ -202,14 +213,14 @@ public class ODKUtils
 				serializer.endTag("", field.getTag());
 			}
 		}
-		serializer.endTag("", "data");
-		serializer.endTag("", "instance");
+		serializer.endTag("", ODK_TAG_DATA);
+		serializer.endTag("", ODK_TAG_INSTANCE);
 	}
 
 	private static void createITextSection(XmlSerializer serializer, FieldSpec[] fields, Context context, FieldSpecCollection fieldCollection) throws IOException
 	{
-		serializer.startTag("", "itext");
-		serializer.startTag("", "translation");
+		serializer.startTag("", ODK_TAG_ITEXT);
+		serializer.startTag("", ODK_TAG_TRANSLATION);
 		serializer.attribute("","lang", "eng");
 		for (FieldSpec field: fields) {
             if (isCompatibleField(field)) {
@@ -232,15 +243,14 @@ public class ODKUtils
 	            }
             }
 		}
-		serializer.endTag("", "translation");
-		serializer.endTag("", "itext");
+		serializer.endTag("", ODK_TAG_TRANSLATION);
+		serializer.endTag("", ODK_TAG_ITEXT);
 	}
 
 	private static ChoiceItem[] getReusableChoices(FieldSpecCollection fieldCollection, CustomDropDownFieldSpec dropdownSpec)
 	{
 		ChoiceItem[] choices;PoolOfReusableChoicesLists choicesListPool =  fieldCollection.getAllReusableChoiceLists();
-		CustomDropDownFieldSpec customDropDown = dropdownSpec;
-		String[] choiceCodes = customDropDown.getReusableChoicesCodes();
+		String[] choiceCodes = dropdownSpec.getReusableChoicesCodes();
 		ReusableChoices newChoices = new ReusableChoices("", "");
 		for (String code : choiceCodes) {
 			ReusableChoices reusableChoices = choicesListPool.getChoices(code);
@@ -278,16 +288,16 @@ public class ODKUtils
 	private static void createBindSection(XmlSerializer serializer, FieldSpec[] fields, Context context) throws IOException
 	{
 		serializer.startTag("", ODK_TAG_BIND);
-		serializer.attribute("", "nodeset", "/data/meta/instanceID");
-		serializer.attribute("", "type", "string");
+		serializer.attribute("", ODK_ATTRIBUTE_NODESET, "/data/meta/instanceID");
+		serializer.attribute("", ODK_ATTRIBUTE_TYPE, "string");
 		serializer.attribute("", "readonly", "true()");
 		serializer.attribute("", "calculate", "concat('uuid:', uuid())");
 		serializer.endTag("", ODK_TAG_BIND);
 		for (FieldSpec field: fields) {
 			if (isCompatibleField(field)) {
 				serializer.startTag("", ODK_TAG_BIND);
-				serializer.attribute("", "nodeset", "/data/" + field.getTag());
-				serializer.attribute("", "type", getODKType(field.getType()));
+				serializer.attribute("", ODK_ATTRIBUTE_NODESET, "/data/" + field.getTag());
+				serializer.attribute("", ODK_ATTRIBUTE_TYPE, getODKType(field.getType()));
 				if (field.isRequiredField()) {
 					serializer.attribute("", "required", "true()");
 				}
@@ -412,7 +422,7 @@ public class ODKUtils
 
 	public static void populateBulletin(Bulletin bulletin, FormController formController)
 		{
-			FormIndex i = formController.getFormIndex();
+			formController.getFormIndex();
 			formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
 
 			int event;
