@@ -22,7 +22,9 @@ import java.io.InputStream;
 import org.javarosa.core.model.FormDef;
 import org.javarosa.core.services.transport.payload.ByteArrayPayload;
 import org.javarosa.form.api.FormEntryController;
+import org.martus.android.AppConfig;
 import org.martus.android.MartusApplication;
+import org.martus.android.ODKUtils;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.listeners.FormSavedListener;
 import org.odk.collect.android.logic.FormController;
@@ -211,7 +213,6 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
      * Blocking write of the instance data to a temp file. Used to safeguard data
      * during intent launches for, e.g., taking photos.
      *
-     * @param tempPath
      * @return
      */
     public static String blockingExportTempData() {
@@ -251,7 +252,8 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         try {
         	payload = formController.getFilledInFormXml();
             // write out xml
-        	String instancePath = formController.getInstancePath().getAbsolutePath();
+        	//String instancePath = formController.getInstancePath().getAbsolutePath();
+	        String instancePath = Collect.INSTANCES_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE;
             exportXmlFile(payload, instancePath);
 
         } catch (IOException e) {
@@ -264,7 +266,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         // Since we saved a reloadable instance, it is flagged as re-openable so that if any error
         // occurs during the packaging of the data for the server fails (e.g., encryption),
         // we can still reopen the filled-out form and re-save it at a later time.
-        updateInstanceDatabase(true, true);
+        //updateInstanceDatabase(true, true);
 
         if ( markCompleted ) {
             // now see if the packaging of the data for the server would make it
@@ -286,6 +288,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
 
             File instanceXml = formController.getInstancePath();
             File submissionXml = new File(instanceXml.getParentFile(), "submission.xml");
+	        Log.w(AppConfig.LOG_LABEL, " @@@@ submissionXml = " + submissionXml.getAbsolutePath());
             // write out submission.xml -- the data to actually submit to aggregate
             exportXmlFile(payload, submissionXml.getAbsolutePath());
 

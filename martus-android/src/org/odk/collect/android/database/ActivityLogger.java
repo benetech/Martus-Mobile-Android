@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import org.javarosa.core.model.FormIndex;
+import org.martus.android.AppConfig;
 import org.odk.collect.android.logic.FormController;
 
 import android.app.Activity;
@@ -27,6 +28,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 /**
  * Log all user interface activity into a SQLite database. Logging is disabled by default.
@@ -138,7 +140,7 @@ public final class ActivityLogger {
 
 
     private void log(String object, String context, String action, String instancePath, FormIndex index, String param1, String param2) {
-
+		Log.i(AppConfig.LOG_LABEL, "Object is " + object + ", context is " + context + ", action is "+ action + ", param1 is " + param1 + ", Param2 is " + param2);
     }
 
     public void logScrollAction(Object t, int distance) {
