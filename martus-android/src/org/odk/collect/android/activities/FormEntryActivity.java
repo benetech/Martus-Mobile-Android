@@ -33,6 +33,7 @@ import org.martus.android.BaseActivity;
 import org.martus.android.BulletinActivity;
 import org.martus.android.MartusActivity;
 import org.martus.android.MartusApplication;
+import org.martus.android.ODKUtils;
 import org.martus.android.R;
 import org.martus.android.SettingsActivity;
 import org.odk.collect.android.application.Collect;
@@ -100,6 +101,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -224,7 +226,6 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		setContentView(R.layout.form_entry);
 /*		setTitle(getString(R.string.app_name) + " > "
 				+ getString(R.string.loading_form));*/
-		Log.w("ODK", "onCreate  FormEntryActivity");
 
 		mBeenSwiped = false;
 		mAlertDialog = null;
@@ -327,6 +328,10 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 
 			Intent intent = getIntent();
 			if (intent != null) {
+				instancePath = Collect.INSTANCES_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE;
+				File instanceFile = new File(instancePath);
+				if (! instanceFile.exists())
+					instancePath = null;
 
 				String formName = intent.getStringExtra(MartusActivity.FORM_NAME);
 				mFormPath = Collect.FORMS_PATH + File.separator +  formName;

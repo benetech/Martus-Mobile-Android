@@ -7,6 +7,7 @@ import java.util.Date;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinZipUtilities;
+import org.odk.collect.android.application.Collect;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class ZipBulletinTask extends AsyncTask<Object, Integer, File> {
             store.saveBulletin(bulletin);
             file = File.createTempFile("tmp_send_" + getCurrentTimeStamp(), ".zip", currentBulletinDir);
             BulletinZipUtilities.exportBulletinPacketsFromDatabaseToZipFile(store.getDatabase(), bulletin.getDatabaseKey(), file, bulletin.getSignatureGenerator());
+
+	        removeSavedFormData();
         } catch (Exception e) {
             Log.e("martus", "problem serializing bulletin to zip", e);
         }
@@ -46,7 +49,13 @@ public class ZipBulletinTask extends AsyncTask<Object, Integer, File> {
         return file;
     }
 
-    @Override
+	private void removeSavedFormData()
+	{
+		File instanceFile = new File(new File(Collect.INSTANCES_PATH), ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE);
+		instanceFile.delete();
+	}
+
+	@Override
     protected void onPreExecute() {
         super.onPreExecute();
     }

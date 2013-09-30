@@ -70,6 +70,7 @@ public class ODKUtils
 	private static ChoiceItem[] booleanChoices;
 	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
 	public static final String MARTUS_CUSTOM_ODK_FORM = "Martus.xml";
+	public static final String MARTUS_CUSTOM_ODK_INSTANCE = "instance.xml";
 	public static final String MARTUS_CUSTOM_TEMPLATE = "martus.mct";
 
 	private static boolean isBodyCompatibleField(FieldSpec field) {
