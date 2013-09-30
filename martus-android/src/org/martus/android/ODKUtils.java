@@ -39,6 +39,7 @@ import android.util.Xml;
 public class ODKUtils
 {
 
+	private static final String ODK_TAG_BODY = "h:body";
 	private static final String ODK_TAG_LABEL = "label";
 	private static final String ODK_TAG_VALUE = "value";
 	private static final String ODK_TAG_ITEM = "item";
@@ -47,6 +48,7 @@ public class ODKUtils
 	private static final String ODK_TAG_INPUT = "input";
 	private static final String ODK_TAG_CONSTRAINT = "constraint";
 	private static final String ODK_TAG_SINGLE_SELECT = "select1";
+	private static final String ODK_TAG_GROUP = "group";
 	private static final String ODK_ATTRIBUTE_APPEARANCE = "appearance";
 	private static final String ODK_ATTRIBUTE_REF = "ref";
 	private static final String ODK_ATTRIBUTE_ID = "id";
@@ -58,6 +60,11 @@ public class ODKUtils
 	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
 	public static final String MARTUS_CUSTOM_ODK_FORM = "Martus.xml";
 	public static final String MARTUS_CUSTOM_TEMPLATE = "martus.mct";
+
+	private static boolean isBodyCompatibleField(FieldSpec field) {
+		FieldType type = field.getType();
+		return type.isSectionStart() || isCompatibleField(field);
+	}
 
 	private static boolean isCompatibleField(FieldSpec field)  {
 		if (field.getTag().equals(BulletinConstants.TAGENTRYDATE)) {
@@ -125,7 +132,7 @@ public class ODKUtils
 
 	public static void writeXml(Context context, FieldSpecCollection specCollection){
 
-		// temp throwaway code to delete temp file used to pass odk xml to ODK app
+		// delete cached ODK form file
 		File dir = new File(Collect.FORMS_PATH);
 		File file = new File(dir, MARTUS_CUSTOM_ODK_FORM);
 		file.delete();
@@ -336,9 +343,10 @@ public class ODKUtils
 
 	private static void createBodySection(XmlSerializer serializer, FieldSpec[] fields, Context context, FieldSpecCollection fieldCollection) throws IOException
 	{
-		serializer.startTag("", "h:body");
+		boolean insideSection = false;
+		serializer.startTag("", ODK_TAG_BODY );
 		for (FieldSpec field: fields) {
-            if (isCompatibleField(field)) {
+            if (isBodyCompatibleField(field)) {
 	            if (field.getType().isDropdown() || field.getType().isBoolean()) {
 		            serializer.startTag("", ODK_TAG_SINGLE_SELECT);
 		            if (field.getType().isDropdown())
@@ -359,6 +367,11 @@ public class ODKUtils
 		            }
 		            createItemTagsFromChoices(serializer, field, choices);
 		            serializer.endTag("", ODK_TAG_SINGLE_SELECT);
+	            } else if (field.getType().isSectionStart()) {
+		            endGroupIfNeeded(serializer, insideSection);
+		            serializer.startTag("", ODK_TAG_GROUP);
+		            serializer.attribute("", ODK_ATTRIBUTE_APPEARANCE, "field-list");
+		            insideSection = true;
 	            } else {
 		            serializer.startTag("", ODK_TAG_INPUT);
 		            serializer.attribute("", ODK_ATTRIBUTE_REF, "/data/" + field.getTag());
@@ -369,7 +382,14 @@ public class ODKUtils
 	            }
             }
 		}
-		serializer.endTag("", "h:body");
+		endGroupIfNeeded(serializer, insideSection);
+		serializer.endTag("", ODK_TAG_BODY );
+	}
+
+	private static void endGroupIfNeeded(XmlSerializer serializer, boolean insideSection) throws IOException
+	{
+		if (insideSection)
+			serializer.endTag("", ODK_TAG_GROUP);
 	}
 
 	private static void createItemTagsFromChoices(XmlSerializer serializer, FieldSpec field, ChoiceItem[] choices) throws IOException
