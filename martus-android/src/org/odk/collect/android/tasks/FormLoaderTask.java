@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.javarosa.core.model.FormDef;
@@ -39,7 +38,9 @@ import org.javarosa.model.xform.XFormsModule;
 import org.javarosa.xform.parse.XFormParseException;
 import org.javarosa.xform.parse.XFormParser;
 import org.javarosa.xform.util.XFormUtils;
-import org.martus.android.MartusApplication;
+import org.martus.android.AppConfig;
+import org.martus.android.MartusCryptoFileUtils;
+import org.martus.android.ODKUtils;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.database.ItemsetDbAdapter;
 import org.odk.collect.android.listeners.FormLoaderListener;
@@ -227,19 +228,18 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             // import existing data into formdef
             if (mInstancePath != null) {
             	File instance = new File(mInstancePath);
-            	File shadowInstance = SaveToDiskTask.savepointFile(instance);
-            	if ( shadowInstance.exists() &&
-            		 ( shadowInstance.lastModified() > instance.lastModified()) ) {
-            		// the savepoint is newer than the saved value of the instance.
-            		// use it.
-            		usedSavepoint = true;
-            		instance = shadowInstance;
-           			Log.w(t,"Loading instance from shadow file: " + shadowInstance.getAbsolutePath());
-            	}
             	if ( instance.exists() ) {
 	                // This order is important. Import data, then initialize.
-	                importData(instance, fec);
-	                fd.initialize(false);
+		            try {
+			            File encryptedDataFile = new File(new File(Collect.INSTANCES_PATH), ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE);
+                        File sigFile = new File(new File(Collect.INSTANCES_PATH), ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE_SIG);
+		                byte[] savedData = MartusCryptoFileUtils.verifyAndReadSignedFile(encryptedDataFile, sigFile, AppConfig.getInstance().getCrypto());
+			            importData(savedData, fec);
+                        fd.initialize(false);
+		            } catch (Exception e) {
+			            Log.e(AppConfig.LOG_LABEL, "problem reading saved form data ", e);
+			            fd.initialize(true);
+		            }
             	} else {
             		fd.initialize(true);
             	}
@@ -337,10 +337,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
     }
 
 
-    public boolean importData(File instanceFile, FormEntryController fec) {
-        // convert files into a byte array
-        byte[] fileBytes = FileUtils.getFileAsBytes(instanceFile);
-
+    public boolean importData(byte[] fileBytes, FormEntryController fec) {
         // get the root of the saved and template instances
         TreeElement savedRoot = XFormParser.restoreDataModel(fileBytes, null).getRoot();
         TreeElement templateRoot = fec.getModel().getForm().getInstance().getRoot().deepCopy(true);

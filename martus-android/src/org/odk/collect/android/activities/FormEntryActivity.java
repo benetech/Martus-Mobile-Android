@@ -15,7 +15,6 @@
 package org.odk.collect.android.activities;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -32,7 +31,6 @@ import org.martus.android.AppConfig;
 import org.martus.android.BaseActivity;
 import org.martus.android.BulletinActivity;
 import org.martus.android.MartusActivity;
-import org.martus.android.MartusApplication;
 import org.martus.android.ODKUtils;
 import org.martus.android.R;
 import org.martus.android.SettingsActivity;
@@ -54,7 +52,6 @@ import org.odk.collect.android.utilities.MediaUtils;
 import org.odk.collect.android.views.ODKView;
 import org.odk.collect.android.widgets.QuestionWidget;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -72,8 +69,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -101,9 +96,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
@@ -367,7 +360,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 						formController.getXPath(waiting));
 			}
 			// save the instance to a temp path...
-			SaveToDiskTask.blockingExportTempData();
+			//SaveToDiskTask.blockingExportTempData();
 		}
 		outState.putBoolean(NEWFORM, false);
 		outState.putString(KEY_ERROR, mErrorMessage);
@@ -1011,7 +1004,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		case FormEntryController.EVENT_GROUP:
 			// create a savepoint
 			if ((++viewCount) % SAVEPOINT_INTERVAL == 0) {
-				SaveToDiskTask.blockingExportTempData();
+				//SaveToDiskTask.blockingExportTempData();
 			}
 			next = createView(event, true);
 			showView(next, AnimationType.RIGHT);
@@ -1058,7 +1051,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 					|| event == FormEntryController.EVENT_QUESTION) {
 				// create savepoint
 				if ((++viewCount) % SAVEPOINT_INTERVAL == 0) {
-					SaveToDiskTask.blockingExportTempData();
+					//SaveToDiskTask.blockingExportTempData();
 				}
 			}
 			View next = createView(event, false);
@@ -1405,7 +1398,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		}
 
 		mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), exit,
-				complete, updatedSaveName);
+				complete, updatedSaveName, AppConfig.getInstance().getCrypto());
 		mSaveToDiskTask.setFormSavedListener(this);
 		showDialog(SAVING_DIALOG);
 		// show dialog before we execute...
