@@ -1,6 +1,8 @@
 package org.martus.android;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -18,6 +20,7 @@ import org.martus.common.PoolOfReusableChoicesLists;
 import org.martus.common.ReusableChoices;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
+import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
@@ -71,6 +74,7 @@ public class ODKUtils
 	private static final String DATE_FORMAT_MARTUS = "%Y-%m-%d";
 	public static final String MARTUS_CUSTOM_ODK_FORM = "Martus.xml";
 	public static final String MARTUS_CUSTOM_ODK_INSTANCE = "instance.xml";
+	public static final String MARTUS_CUSTOM_ODK_INSTANCE_SIG = "instance.sig";
 	public static final String MARTUS_CUSTOM_TEMPLATE = "martus.mct";
 
 	private static boolean isBodyCompatibleField(FieldSpec field) {
@@ -422,37 +426,55 @@ public class ODKUtils
 	}
 
 	public static void populateBulletin(Bulletin bulletin, FormController formController)
-		{
-			formController.getFormIndex();
-			formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
+	{
+		formController.getFormIndex();
+		formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
 
-			int event;
-			while ((event =
-			        formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
-			    if (event != FormEntryController.EVENT_QUESTION) {
-			        continue;
-			    } else {
-			        IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
-				    FormEntryPrompt questionPrompt = formController.getQuestionPrompt();
-			        String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
-				    int dataType = questionPrompt.getDataType();
-			        if (answer != null) {
-				        String tag =  questionID.substring(6, questionID.length() - 6);
-				        String value = answer.getDisplayText();
-				        if (dataType == Constants.DATATYPE_DATE) {
-					        value = DateUtils.format((Date) answer.getValue(), DATE_FORMAT_MARTUS);
-				        } else if (dataType == Constants.DATATYPE_CHOICE) {
-					        if (value.equals(ODKUtils.STRING_TRUE)) {
-						        value = FieldSpec.TRUESTRING;
-					        } else if (value.equals(ODKUtils.STRING_FALSE)) {
-						        value = FieldSpec.FALSESTRING;
-					        }
+		int event;
+		while ((event =
+		        formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
+		    if (event != FormEntryController.EVENT_QUESTION) {
+		        continue;
+		    } else {
+		        IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
+			    FormEntryPrompt questionPrompt = formController.getQuestionPrompt();
+		        String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
+			    int dataType = questionPrompt.getDataType();
+		        if (answer != null) {
+			        String tag =  questionID.substring(6, questionID.length() - 6);
+			        String value = answer.getDisplayText();
+			        if (dataType == Constants.DATATYPE_DATE) {
+				        value = DateUtils.format((Date) answer.getValue(), DATE_FORMAT_MARTUS);
+			        } else if (dataType == Constants.DATATYPE_CHOICE) {
+				        if (value.equals(ODKUtils.STRING_TRUE)) {
+					        value = FieldSpec.TRUESTRING;
+				        } else if (value.equals(ODKUtils.STRING_FALSE)) {
+					        value = FieldSpec.FALSESTRING;
 				        }
-				        Log.w(AppConfig.LOG_LABEL, "setting value of " + value);
-				        bulletin.set(tag, value);
 			        }
-			    }
-			}
+			        bulletin.set(tag, value);
+		        }
+		    }
 		}
+	}
+
+	public void encryptAndWriteFileAndSignatureFile(File file, File signatureFile,
+			byte[] plainText, MartusSecurity martusCrypto) throws Exception
+	{
+		ByteArrayInputStream encryptedInputStream = new ByteArrayInputStream(plainText);
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		martusCrypto.encrypt(encryptedInputStream, fileOutputStream);
+
+		fileOutputStream.close();
+		encryptedInputStream.close();
+
+		FileInputStream in = new FileInputStream(file);
+		byte[] signature = martusCrypto.createSignatureOfStream(in);
+		in.close();
+
+		FileOutputStream out = new FileOutputStream(signatureFile);
+		out.write(signature);
+		out.close();
+	}
 
 }

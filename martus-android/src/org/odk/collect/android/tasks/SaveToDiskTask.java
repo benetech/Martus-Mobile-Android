@@ -24,15 +24,15 @@ import org.javarosa.core.services.transport.payload.ByteArrayPayload;
 import org.javarosa.form.api.FormEntryController;
 import org.martus.android.AppConfig;
 import org.martus.android.MartusApplication;
+import org.martus.android.MartusCryptoFileUtils;
 import org.martus.android.ODKUtils;
+import org.martus.common.crypto.MartusSecurity;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.listeners.FormSavedListener;
 import org.odk.collect.android.logic.FormController;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
 import org.odk.collect.android.provider.InstanceProviderAPI;
 import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.utilities.EncryptionUtils;
-import org.odk.collect.android.utilities.EncryptionUtils.EncryptedFormInformation;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -54,6 +54,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
     private Boolean mMarkCompleted;
     private Uri mUri;
     private String mInstanceName;
+	private MartusSecurity mMartusCrypto;
 
     public static final int SAVED = 500;
     public static final int SAVE_ERROR = 501;
@@ -62,11 +63,12 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
     public static final int SAVED_AND_EXIT = 504;
 
 
-    public SaveToDiskTask(Uri uri, Boolean saveAndExit, Boolean markCompleted, String updatedName) {
+    public SaveToDiskTask(Uri uri, Boolean saveAndExit, Boolean markCompleted, String updatedName, MartusSecurity crypto) {
         mUri = uri;
         mSave = saveAndExit;
         mMarkCompleted = markCompleted;
         mInstanceName = updatedName;
+	    mMartusCrypto = crypto;
     }
 
 
@@ -234,7 +236,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
             return null;
         } finally {
         	long end = System.currentTimeMillis();
-        	Log.i(t, "Savepoint ms: " + Long.toString(end - start));
+        	Log.i(t, "Savepoint ms: " + Long.toString(end - start) + " to file, " + temp.getAbsolutePath());
         }
     }
 
@@ -255,6 +257,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         	//String instancePath = formController.getInstancePath().getAbsolutePath();
 	        String instancePath = Collect.INSTANCES_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE;
             exportXmlFile(payload, instancePath);
+	        exportSecureXmlFile(payload, mMartusCrypto);
 
         } catch (IOException e) {
             Log.e(t, "Error creating serialized payload");
@@ -262,102 +265,6 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
             return false;
         }
 
-        // update the mUri. We have exported the reloadable instance, so update status...
-        // Since we saved a reloadable instance, it is flagged as re-openable so that if any error
-        // occurs during the packaging of the data for the server fails (e.g., encryption),
-        // we can still reopen the filled-out form and re-save it at a later time.
-        //updateInstanceDatabase(true, true);
-
-        if ( markCompleted ) {
-            // now see if the packaging of the data for the server would make it
-        	// non-reopenable (e.g., encryption or send an SMS or other fraction of the form).
-            boolean canEditAfterCompleted = formController.isSubmissionEntireForm();
-            boolean isEncrypted = false;
-
-            // build a submission.xml to hold the data being submitted
-            // and (if appropriate) encrypt the files on the side
-
-            // pay attention to the ref attribute of the submission profile...
-            try {
-                payload = formController.getSubmissionXml();
-            } catch (IOException e) {
-                Log.e(t, "Error creating serialized payload");
-                e.printStackTrace();
-                return false;
-            }
-
-            File instanceXml = formController.getInstancePath();
-            File submissionXml = new File(instanceXml.getParentFile(), "submission.xml");
-	        Log.w(AppConfig.LOG_LABEL, " @@@@ submissionXml = " + submissionXml.getAbsolutePath());
-            // write out submission.xml -- the data to actually submit to aggregate
-            exportXmlFile(payload, submissionXml.getAbsolutePath());
-
-            // see if the form is encrypted and we can encrypt it...
-            EncryptedFormInformation formInfo = EncryptionUtils.getEncryptedFormInformation(mUri,
-            		formController.getSubmissionMetadata());
-            if ( formInfo != null ) {
-                // if we are encrypting, the form cannot be reopened afterward
-                canEditAfterCompleted = false;
-                // and encrypt the submission (this is a one-way operation)...
-                if ( !EncryptionUtils.generateEncryptedSubmission(instanceXml, submissionXml, formInfo) ) {
-                    return false;
-                }
-                isEncrypted = true;
-            }
-
-            // At this point, we have:
-            // 1. the saved original instanceXml,
-            // 2. all the plaintext attachments
-            // 2. the submission.xml that is the completed xml (whether encrypting or not)
-            // 3. all the encrypted attachments if encrypting (isEncrypted = true).
-            //
-            // NEXT:
-            // 1. Update the instance database (with status complete).
-            // 2. Overwrite the instanceXml with the submission.xml
-            //    and remove the plaintext attachments if encrypting
-
-            updateInstanceDatabase(false, canEditAfterCompleted);
-
-	        if (  !canEditAfterCompleted ) {
-	            // AT THIS POINT, there is no going back.  We are committed
-	            // to returning "success" (true) whether or not we can
-	            // rename "submission.xml" to instanceXml and whether or
-	            // not we can delete the plaintext media files.
-	        	//
-	        	// Handle the fall-out for a failed "submission.xml" rename
-	        	// in the InstanceUploader task.  Leftover plaintext media
-	        	// files are handled during form deletion.
-
-	            // delete the restore Xml file.
-	            if ( !instanceXml.delete() ) {
-	                Log.e(t, "Error deleting " + instanceXml.getAbsolutePath()
-	                		+ " prior to renaming submission.xml");
-	                return true;
-	            }
-
-	            // rename the submission.xml to be the instanceXml
-	            if ( !submissionXml.renameTo(instanceXml) ) {
-	                Log.e(t, "Error renaming submission.xml to " + instanceXml.getAbsolutePath());
-	                return true;
-	            }
-	        } else {
-	        	// try to delete the submissionXml file, since it is
-	        	// identical to the existing instanceXml file
-	        	// (we don't need to delete and rename anything).
-	            if ( !submissionXml.delete() ) {
-	                Log.w(t, "Error deleting " + submissionXml.getAbsolutePath()
-	                		+ " (instance is re-openable)");
-	            }
-	        }
-
-            // if encrypted, delete all plaintext files
-            // (anything not named instanceXml or anything not ending in .enc)
-            if ( isEncrypted ) {
-                if ( !EncryptionUtils.deletePlaintextFiles(instanceXml) ) {
-                    Log.e(t, "Error deleting plaintext files for " + instanceXml.getAbsolutePath());
-                }
-            }
-        }
         return true;
     }
 
@@ -403,6 +310,27 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         return false;
     }
 
+	/**
+	     * This method actually writes the xml to disk.
+	     * @param payload
+	     * @param martusCrypto
+	     * @return
+	     */
+	    private static boolean exportSecureXmlFile(ByteArrayPayload payload, MartusSecurity martusCrypto) {
+		    try {
+
+	            InputStream is = payload.getPayloadStream();
+
+			    File encryptedDataFile = new File(new File(Collect.INSTANCES_PATH), ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE);
+			    File sigFile = new File(new File(Collect.INSTANCES_PATH), ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE_SIG);
+			    MartusCryptoFileUtils.encryptAndWriteFileAndSignatureFile(encryptedDataFile, sigFile, is, martusCrypto);
+			    return true;
+	        } catch (Exception e) {
+				Log.e(AppConfig.LOG_LABEL, "problem saving data", e);
+		    }
+		    return false;
+	    }
+
 
     @Override
     protected void onPostExecute(Integer result) {
@@ -418,6 +346,8 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
             mSavedListener = fsl;
         }
     }
+
+
 
 
 }
