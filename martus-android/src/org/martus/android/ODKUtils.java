@@ -31,6 +31,8 @@ import org.odk.collect.android.logic.FormController;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -172,7 +174,7 @@ public class ODKUtils
 		    serializer.endTag("", ODK_TAG_TITLE);
 		    serializer.startTag("", ODK_TAG_MODEL);
 
-		    createInstanceSection(serializer, fields);
+		    createInstanceSection(serializer, fields, context);
 		    createITextSection(serializer, fields, context, specCollection);
 		    createBindSection(serializer, fields, context);
 
@@ -198,7 +200,7 @@ public class ODKUtils
 	    }
 	}
 
-	private static void createInstanceSection(XmlSerializer serializer, FieldSpec[] fields) throws IOException
+	private static void createInstanceSection(XmlSerializer serializer, FieldSpec[] fields, Context context) throws IOException
 	{
 		serializer.startTag("", ODK_TAG_INSTANCE);
 		serializer.startTag("", ODK_TAG_DATA);
@@ -214,6 +216,11 @@ public class ODKUtils
 					serializer.text(field.getDefaultValue());
 				} else if (field.getType().isBoolean()) {
 					serializer.text(STRING_FALSE);
+				} else if (field.getTag().equals(BulletinConstants.TAGAUTHOR)) {
+					//todo: set default author
+					SharedPreferences mySettings = PreferenceManager.getDefaultSharedPreferences(context);
+					String defaultAuthor = mySettings.getString(SettingsActivity.KEY_AUTHOR, context.getString(R.string.default_author));
+					serializer.text(defaultAuthor);
 				}
 				serializer.endTag("", field.getTag());
 			}

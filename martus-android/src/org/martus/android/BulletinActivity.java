@@ -452,7 +452,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 	    bulletin.set(Bulletin.TAGENTRYDATE, MARTUS_FORMAT.format(new Date()));
 	    String enteredAuthor = bulletin.get(Bulletin.TAGAUTHOR);
 	    if (enteredAuthor == null || enteredAuthor.length() < 1) {
-		    bulletin.set(Bulletin.TAGAUTHOR, mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author)));
+		    bulletin.set(Bulletin.TAGAUTHOR, getString(R.string.default_author));
 	    }
 
         stopInactivityTimer();
