@@ -370,6 +370,15 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
+
+		Log.i(AppConfig.LOG_LABEL, " requestCode = " + requestCode + " and resultCode = " + resultCode);
+		if (requestCode == REQUEST_SEND_FORM) {
+			if (resultCode == CLOSE_FORM_RESULT_CODE) {
+				finish();
+			}
+			return;
+		}
+
 		FormController formController = Collect.getInstance()
 				.getFormController();
 		if (formController == null) {
@@ -898,7 +907,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 
 							Intent intent = new Intent(FormEntryActivity.this, BulletinActivity.class);
 							intent.putExtra(MartusActivity.HAVE_FORM, true);
-	                        startActivity(intent);
+	                        startActivityForResult(intent, REQUEST_SEND_FORM);
 
 						}
 					});
