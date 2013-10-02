@@ -47,6 +47,8 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 
     public static final int EXIT_RESULT_CODE = 10;
     public static final int EXIT_REQUEST_CODE = 10;
+	public static final int CLOSE_FORM_RESULT_CODE = 101;
+	public static final int REQUEST_SEND_FORM = 102;
     public static final String PREFS_DESKTOP_KEY = "desktopHQ";
     public static final String PREFS_SERVER_IP = "serverIP";
     protected static final String PREFS_DIR = "shared_prefs";

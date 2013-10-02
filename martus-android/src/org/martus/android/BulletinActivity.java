@@ -513,6 +513,8 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
             MartusActivity.logout();
             setResult(EXIT_RESULT_CODE);
         }
+	    if (haveFormInfo)
+		    setResult(CLOSE_FORM_RESULT_CODE);
         finish();
     }
 
