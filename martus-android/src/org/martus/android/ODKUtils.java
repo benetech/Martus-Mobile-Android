@@ -217,7 +217,6 @@ public class ODKUtils
 				} else if (field.getType().isBoolean()) {
 					serializer.text(STRING_FALSE);
 				} else if (field.getTag().equals(BulletinConstants.TAGAUTHOR)) {
-					//todo: set default author
 					SharedPreferences mySettings = PreferenceManager.getDefaultSharedPreferences(context);
 					String defaultAuthor = mySettings.getString(SettingsActivity.KEY_AUTHOR, context.getString(R.string.default_author));
 					serializer.text(defaultAuthor);
