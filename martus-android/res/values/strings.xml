@@ -182,11 +182,12 @@
     <!-- ============================== -->
     <!--  desktop key screen  -->
     <!-- ============================== -->
-    <string name="desktop_sync_public_code">First enter desktop Public Code:</string>
+    <string name="desktop_sync_public_code">Then enter desktop Public Code:</string>
     <string name="desktop_sync_title">Import Desktop Account</string>
-    <string name="desktop_sync_choose_file">Then choose Desktop Account file</string>
+    <string name="desktop_sync_choose_file">Choose a Desktop Account file</string>
     <string name="desktop_public_code_hint">Desktop Account Public Code</string>
-    <string name="invalid_public_account_file">Invalid Desktop Account public information file</string>
+    <string name="invalid_public_account_file">Invalid Desktop Account file</string>
+    <string name="valid_public_account_file">Valid Desktop Account file</string>
     <string name="invalid_public_code">Public Code doesn\'t match file</string>
     <string name="public_code_validation_empty">Public Code can\'t be empty</string>
     <string name="select_file_picker">Select a file explorer</string>
