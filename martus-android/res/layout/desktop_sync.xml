@@ -5,6 +5,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dip">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="6dip"
+            android:text="@string/desktop_sync_choose_file"
+            android:contentDescription="@string/desktop_sync_choose_file"
+            android:onClick="chooseKeyFile"
+            android:id="@+id/desktopKeyChooseFile"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/desktopFileStatus"
+            android:contentDescription="@string/valid_public_account_file"
+            android:background="@drawable/navigation_accept"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="6dip"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+
     <TextView
             android:text="@string/desktop_sync_public_code"
             android:layout_marginTop="20dip"
@@ -25,6 +56,7 @@
             android:capitalize="none"
             android:gravity="fill_horizontal"
             android:hint="@string/desktop_public_code_hint"
+            android:imeOptions="actionDone"
             android:id="@+id/desktopCodeText"/>
 
     <Button
@@ -32,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:layout_marginRight="20dip"
-            android:layout_gravity="right"
-            android:text="@string/desktop_sync_choose_file"
-            android:contentDescription="@string/desktop_sync_choose_file"
-            android:onClick="chooseKeyFile"
-            android:id="@+id/desktopKeyChooseFile"/>
+            android:onClick="confirmKey"
+            android:text="@string/alert_dialog_ok"
+            android:contentDescription="@string/alert_dialog_ok"
+            android:id="@+id/publicCodeEnter"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dip"/>
 </LinearLayout>

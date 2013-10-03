@@ -14,21 +14,28 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * @author roms
  *         Date: 10/24/12
  */
-public class DesktopKeyActivity extends BaseActivity {
+public class DesktopKeyActivity extends BaseActivity implements TextView.OnEditorActionListener {
 
     final int ACTIVITY_CHOOSE_FILE = 1;
 
-    private EditText editText_code;
+    private EditText editTextPublicCode;
+	private Button chooseFileButton;
+	private ImageView accountFileStatusImage;
     private Activity activity;
     private boolean shouldShowInstallExplorer = false;
+	private String extractedPublicKey;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,18 +43,17 @@ public class DesktopKeyActivity extends BaseActivity {
         setContentView(R.layout.desktop_sync);
         activity = this;
 
-        editText_code = (EditText)findViewById(R.id.desktopCodeText);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        editTextPublicCode = (EditText)findViewById(R.id.desktopCodeText);
+	    editTextPublicCode.setOnEditorActionListener(this);
+	    chooseFileButton = (Button)findViewById(R.id.desktopKeyChooseFile);
+	    accountFileStatusImage = (ImageView)findViewById(R.id.desktopFileStatus);
+	    extractedPublicKey = null;
+	    chooseFileButton.requestFocus();
     }
 
     public void chooseKeyFile(View view) {
         shouldShowInstallExplorer = false;
-        String code = editText_code.getText().toString().trim();
-        if ("".equals(code)) {
-            editText_code.requestFocus();
-            showMessage(activity, getString(R.string.public_code_validation_empty), getString(R.string.error_message));
-            return;
-        }
+
         try {
             Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("file/*");
@@ -55,7 +61,6 @@ public class DesktopKeyActivity extends BaseActivity {
             startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
-            e.printStackTrace();
         }
     }
 
@@ -64,15 +69,15 @@ public class DesktopKeyActivity extends BaseActivity {
         switch(requestCode) {
             case ACTIVITY_CHOOSE_FILE: {
                 if (resultCode == RESULT_OK){
+	                extractedPublicKey = null;
                     Uri uri = data.getData();
-                    String filePath = uri.getPath();
-
-                    try {
-                        setPublicKey(new File(filePath));
-                    } catch (Exception e) {
-                        showMessage(activity, getString(R.string.invalid_public_account_file), getString(R.string.error_message));
-                        Log.e("martus", "problem getting HQ key", e);
-                    }
+	                String path = uri.getPath();
+	                try {
+	                    extractedPublicKey = extractPublicInfo(new File(path));
+		                accountFileStatusImage.setVisibility(View.VISIBLE);
+	                } catch (Exception e) {
+		                displayInvalidAccountFile();
+	                }
                 } else if (resultCode == RESULT_CANCELED) {
                     shouldShowInstallExplorer = true;
                 }
@@ -81,7 +86,14 @@ public class DesktopKeyActivity extends BaseActivity {
         }
     }
 
-    @Override
+	private void displayInvalidAccountFile()
+	{
+		showMessage(activity, getString(R.string.invalid_public_account_file), getString(R.string.error_message));
+		chooseFileButton.requestFocus();
+		accountFileStatusImage.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
     public void onResume() {
         super.onResume();
         if (shouldShowInstallExplorer) {
@@ -90,19 +102,48 @@ public class DesktopKeyActivity extends BaseActivity {
         }
     }
 
-    public void setPublicKey(File importFile) throws Exception {
-        String publicKeyString = extractPublicInfo(importFile);
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+	        confirmKey(editTextPublicCode);
+            return true;
+        }
+        return false;
+    }
 
-        String publicCode = MartusCrypto.computePublicCode(publicKeyString);
-        if(!confirmPublicCode(publicCode, editText_code.getText().toString().trim())) {
+	public void confirmKey(View view) {
+		String code = editTextPublicCode.getText().toString().trim();
+        if ("".equals(code)) {
+            editTextPublicCode.requestFocus();
+            showMessage(activity, getString(R.string.public_code_validation_empty), getString(R.string.error_message));
+            return;
+        }
+
+		if (extractedPublicKey == null) {
+			displayInvalidAccountFile();
+			return;
+		}
+
+		try {
+            setPublicKey();
+        } catch (Exception e) {
+            showMessage(activity, getString(R.string.invalid_public_account_file), getString(R.string.error_message));
+            Log.e("martus", "problem getting HQ key", e);
+        }
+	}
+
+    public void setPublicKey() throws Exception {
+
+        String publicCode = MartusCrypto.computePublicCode(extractedPublicKey);
+        if(!confirmPublicCode(publicCode, editTextPublicCode.getText().toString().trim())) {
             showMessage(activity, getString(R.string.invalid_public_code), getString(R.string.error_message));
+	        editTextPublicCode.requestFocus();
             return;
         }
 
         SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
         SharedPreferences.Editor editor = HQSettings.edit();
 
-        editor.putString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, publicKeyString);
+        editor.putString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, extractedPublicKey);
         editor.commit();
 
 
