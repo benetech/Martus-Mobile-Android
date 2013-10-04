@@ -133,12 +133,10 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
                     MartusUtilities.FileTooLargeException, IOException, MartusCrypto.MartusSignatureException
     {
         final int totalSize = MartusUtilities.getCappedFileLength(tempFile);
-	    //int offset = 0;
-        int offset = getOffsetToStartUploading(uid, tempFile, gateway, crypto);
-	    Log.w(AppConfig.LOG_LABEL, "@@@@@@@ upload offset is " + offset);
+        int offset = gateway.getOffsetToStartUploading(uid, tempFile, crypto);
         byte[] rawBytes = new byte[NetworkInterfaceConstants.CLIENT_MAX_CHUNK_SIZE];
         FileInputStream inputStream = new FileInputStream(tempFile);
-	    //inputStream.skip(offset);
+	    inputStream.skip(offset);
         String result = null;
         while(true)
         {
@@ -169,48 +167,4 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
     public void showProgress(int value) {
         publishProgress(value);
     }
-
-	public static int getOffsetToStartUploading(UniversalId uid, File tempFile, MobileClientSideNetworkGateway gateway, MartusCrypto crypto)
-		{
-			String authorId = uid.getAccountId();
-			String bulletinLocalId = uid.getLocalId();
-			try
-			{
-				PartialUploadStatus status = gateway.getPartialUploadStatus(crypto, authorId, bulletinLocalId);
-				if(!status.hasPartialUpload())
-					return 0;
-
-				if(status.lengthOfPartialUpload() > Integer.MAX_VALUE)
-					return 0;
-
-				int partialLength = (int)status.lengthOfPartialUpload();
-				Log.w(AppConfig.LOG_LABEL, "Partial upload found, length=" + partialLength);
-				String sha1Base64OnServer = status.sha1OfPartialUpload();
-				String sha1Base64Here = getPartialDigest(tempFile, partialLength);
-				if(sha1Base64Here.equals(sha1Base64OnServer))
-					return partialLength;
-
-				Log.w(AppConfig.LOG_LABEL, "Partial upload mismatch; will upload from scratch");
-				return 0;
-			}
-			catch (Exception e)
-			{
-				MartusLogger.logException(e);
-				return 0;
-			}
-		}
-
-		public static String getPartialDigest(File file, long partialLength) throws Exception
-		{
-			InputStream in = new FileInputStream(file);
-			try
-			{
-				byte[] digest = MartusSecurity.createPartialDigest(in, partialLength);
-				return StreamableBase64.encode(digest);
-			}
-			finally
-			{
-				in.close();
-			}
-		}
 }
