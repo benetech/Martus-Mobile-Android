@@ -145,7 +145,7 @@ public class Collect  {
 		TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
 		MARTUS_TEMPLATE_PATH = ODK_ROOT + File.separator + "template";
 
-
+		createODKDirs();
 		this.context = context;
 		PropertyManager mgr = new PropertyManager(context);
         mActivityLogger = new ActivityLogger(
