@@ -6,10 +6,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.martus.android.dialog.LoginDialog;
+import org.martus.android.dialog.MagicWordDialog;
+import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.network.NetworkInterfaceConstants;
+import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.util.StreamableBase64;
 
@@ -34,7 +38,7 @@ import com.actionbarsherlock.view.MenuItem;
  * @author roms
  *         Date: 12/10/12
  */
-public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
+public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener, MagicWordDialog.MagicWordDialogListener {
 
     private static final int MIN_SERVER_CODE = 20;
     private static final int MIN_SERVER_IP = 7;
@@ -93,6 +97,14 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         super.onResume();
 		if (haveVerifiedServerInfo())
             showLoginDialog();
+		else {
+			if (confirmServerPublicKey()) {
+				boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
+	            if (!canUpload) {
+	                showMagicWordDialog();
+	            }
+			}
+		}
     }
 
 	@Override
@@ -167,7 +179,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
                 File serverIpFile = getPrefsFile(PREFS_SERVER_IP);
                 MartusUtilities.createSignatureFileFromFile(serverIpFile, getSecurity());
-
+	            showMagicWordDialog();
 
             } else {
                 showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
@@ -179,7 +191,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
             return;
         }
 
-        this.finish();
+
     }
 
     private boolean confirmServerPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception {
@@ -212,8 +224,9 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 	}
 
     private boolean haveVerifiedServerInfo() {
+	    boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
 	    String serverIP =  getServerIP();
-        return serverIP.length() > 1;
+        return ((serverIP.length() > 1) && canUpload);
     }
 
     private class CancelButtonHandler implements DialogInterface.OnClickListener {
@@ -238,6 +251,69 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
       Matcher matcher = pattern.matcher(ip);
       return matcher.matches();
 	}
+
+	private void showMagicWordDialog() {
+        MagicWordDialog magicWordDialog = MagicWordDialog.newInstance();
+        magicWordDialog.show(getSupportFragmentManager(), "dlg_magicWord");
+    }
+
+    public void onFinishMagicWordDialog(TextView magicWordText) {
+        String magicWord = magicWordText.getText().toString().trim();
+        if (magicWord.isEmpty()) {
+            Toast.makeText(this, getString(R.string.invalid_magic_word), Toast.LENGTH_SHORT).show();
+            showMagicWordDialog();
+            return;
+        }
+        showProgressDialog(getString(R.string.progress_confirming_magic_word));
+
+        final AsyncTask<Object, Void, NetworkResponse> rightsTask = new UploadRightsTask();
+        rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
+    }
+
+    private void processMagicWordResponse(NetworkResponse response) {
+        dialog.dismiss();
+        try {
+             if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
+                 Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();
+                 showMagicWordDialog();
+             } else {
+                 Toast.makeText(this, getString(R.string.success_magic_word), Toast.LENGTH_SHORT).show();
+                 SharedPreferences.Editor editor = mySettings.edit();
+                 editor.putBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, true);
+                 editor.commit();
+	             this.finish();
+             }
+        } catch (Exception e) {
+             Log.e(AppConfig.LOG_LABEL, "Problem verifying upload rights", e);
+             Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+	private class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
+	        @Override
+	        protected NetworkResponse doInBackground(Object... params) {
+
+	            final MobileClientSideNetworkGateway gateway = (MobileClientSideNetworkGateway)params[0];
+	            final MartusSecurity signer = (MartusSecurity)params[1];
+	            final String magicWord = (String)params[2];
+
+	            NetworkResponse result = null;
+
+	            try {
+	                result = gateway.getUploadRights(signer, magicWord);
+	            } catch (MartusCrypto.MartusSignatureException e) {
+	                Log.e(AppConfig.LOG_LABEL, "problem getting upload rights", e);
+	            }
+
+	            return result;
+	        }
+
+	        @Override
+	        protected void onPostExecute(NetworkResponse result) {
+	            super.onPostExecute(result);
+	            processMagicWordResponse(result);
+	        }
+	    }
 
     private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
         @Override

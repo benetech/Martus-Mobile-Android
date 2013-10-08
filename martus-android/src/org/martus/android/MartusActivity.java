@@ -66,7 +66,7 @@ import com.actionbarsherlock.view.MenuItem;
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 public class MartusActivity extends BaseActivity implements LoginDialog.LoginDialogListener,
-        CreateAccountDialog.CreateAccountDialogListener, MagicWordDialog.MagicWordDialogListener, OrbotHandler {
+        CreateAccountDialog.CreateAccountDialogListener, OrbotHandler {
 
     public final static String PROXY_HOST = "127.0.0.1"; //test the local device proxy provided by Orbot/Tor
     public final static int PROXY_HTTP_PORT = 8118; //default for Orbot/Tor
@@ -126,10 +126,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
                 return;
             }
 
-            boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
-            if (!canUpload) {
-                showMagicWordDialog();
-            }
+
             OrbotHelper oc = new OrbotHelper(this);
 	        try
 	        {
@@ -488,15 +485,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         }
     }
 
-    private boolean confirmServerPublicKey() {
-        updateSettings();
-        if (serverPublicKey.isEmpty()) {
-            return false;
-        }
-	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
-        return true;
-    }
-
     private void verifySetupInfo() {
         try {
             verifySavedDesktopKeyFile();
@@ -654,41 +642,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         this.finish();
     }
 
-    private void showMagicWordDialog() {
-        MagicWordDialog magicWordDialog = MagicWordDialog.newInstance();
-        magicWordDialog.show(getSupportFragmentManager(), "dlg_magicWord");
-    }
-
-    public void onFinishMagicWordDialog(TextView magicWordText) {
-        String magicWord = magicWordText.getText().toString().trim();
-        if (magicWord.isEmpty()) {
-            Toast.makeText(this, getString(R.string.invalid_magic_word), Toast.LENGTH_SHORT).show();
-            showMagicWordDialog();
-            return;
-        }
-        showProgressDialog(getString(R.string.progress_confirming_magic_word));
-
-        final AsyncTask<Object, Void, NetworkResponse> rightsTask = new UploadRightsTask();
-        rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
-    }
-
-    private void processMagicWordResponse(NetworkResponse response) {
-        dialog.dismiss();
-        try {
-             if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
-                 Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();
-                 showMagicWordDialog();
-             } else {
-                 Toast.makeText(this, getString(R.string.success_magic_word), Toast.LENGTH_SHORT).show();
-                 SharedPreferences.Editor editor = mySettings.edit();
-                 editor.putBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, true);
-                 editor.commit();
-             }
-        } catch (Exception e) {
-             Log.e(AppConfig.LOG_LABEL, "Problem verifying upload rights", e);
-             Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private static void clearDirectory(final File dir) {
         if (dir!= null && dir.isDirectory()) {
@@ -865,31 +818,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
 	}
 
-    private class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
-        @Override
-        protected NetworkResponse doInBackground(Object... params) {
 
-            final MobileClientSideNetworkGateway gateway = (MobileClientSideNetworkGateway)params[0];
-            final MartusSecurity signer = (MartusSecurity)params[1];
-            final String magicWord = (String)params[2];
-
-            NetworkResponse result = null;
-
-            try {
-                result = gateway.getUploadRights(signer, magicWord);
-            } catch (MartusCrypto.MartusSignatureException e) {
-                Log.e(AppConfig.LOG_LABEL, "problem getting upload rights", e);
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(NetworkResponse result) {
-            super.onPostExecute(result);
-            processMagicWordResponse(result);
-        }
-    }
 
     private class PingTask extends AsyncTask<XmlRpcClient, Void, String> {
         @Override

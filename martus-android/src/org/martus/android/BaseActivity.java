@@ -318,4 +318,13 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 	{
 
 	}
+
+	protected boolean confirmServerPublicKey() {
+	    SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
+        if ( serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "").isEmpty()) {
+            return false;
+        }
+	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
+        return true;
+    }
 }
