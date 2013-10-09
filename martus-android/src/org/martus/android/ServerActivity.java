@@ -45,6 +45,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
     private EditText textIp;
     private EditText textCode;
+	private EditText textMagicWord;
     private Activity myActivity;
     private String serverIP;
     private String serverCode;
@@ -62,7 +63,8 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         myActivity = this;
         textIp = (EditText)findViewById(R.id.serverIpText);
         textCode = (EditText)findViewById(R.id.serverCodeText);
-        textCode.setOnEditorActionListener(this);
+	    textMagicWord = (EditText)findViewById(R.id.serverMagicText);
+	    textMagicWord.setOnEditorActionListener(this);
 
 	    if (haveVerifiedServerInfo()) {
             ActionBar actionBar = getSupportActionBar();
@@ -123,12 +125,21 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         serverIP = serverIP.replace("#", ".");
         if ((serverIP.length() < MIN_SERVER_IP) || (! validate(serverIP))) {
             showErrorMessage(getString(R.string.invalid_server_ip), getString(R.string.error_message));
+	        textIp.requestFocus();
             return;
         }
 
         serverCode = textCode.getText().toString().trim();
         if (serverCode.length() < MIN_SERVER_CODE) {
             showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
+	        textCode.requestFocus();
+            return;
+        }
+
+	    String magicWord = textMagicWord.getText().toString().trim();
+        if (magicWord.isEmpty()) {
+	        showErrorMessage(getString(R.string.invalid_magic_word), getString(R.string.error_message));
+            textMagicWord.requestFocus();
             return;
         }
 
@@ -179,7 +190,11 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
                 File serverIpFile = getPrefsFile(PREFS_SERVER_IP);
                 MartusUtilities.createSignatureFileFromFile(serverIpFile, getSecurity());
-	            showMagicWordDialog();
+
+	            showProgressDialog(getString(R.string.progress_confirming_magic_word));
+	            String magicWord = textMagicWord.getText().toString().trim();
+                final AsyncTask<Object, Void, NetworkResponse> rightsTask = new UploadRightsTask();
+                rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
 
             } else {
                 showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
@@ -315,7 +330,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 	        }
 	    }
 
-    private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
+    class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
         @Override
         protected Vector doInBackground(Object... params) {
 

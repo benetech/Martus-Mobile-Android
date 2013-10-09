@@ -1,6 +1,5 @@
 package org.martus.android;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,28 +9,21 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
-import java.util.Arrays;
 import java.util.Vector;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.martus.android.dialog.CreateAccountDialog;
 import org.martus.android.dialog.LoginDialog;
-import org.martus.android.dialog.MagicWordDialog;
 import org.martus.android.dialog.ModalConfirmationDialog;
-import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.FieldCollection;
 import org.martus.common.FieldSpecCollection;
 import org.martus.common.HeadquartersKey;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.CustomFieldTemplate;
 import org.martus.common.fieldspec.FieldSpec;
-import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
-import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
 import org.odk.collect.android.activities.FormEntryActivity;
 import org.odk.collect.android.application.Collect;
@@ -49,11 +41,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.util.Base64;
 import android.util.Log;
-import android.util.Xml;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,19 +54,14 @@ import com.actionbarsherlock.view.MenuItem;
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 public class MartusActivity extends BaseActivity implements LoginDialog.LoginDialogListener,
-        CreateAccountDialog.CreateAccountDialogListener, OrbotHandler {
+        OrbotHandler {
 
-    public final static String PROXY_HOST = "127.0.0.1"; //test the local device proxy provided by Orbot/Tor
-    public final static int PROXY_HTTP_PORT = 8118; //default for Orbot/Tor
-    public final static int PROXY_SOCKS_PORT = 9050; //default for Orbot/Tor
 	public static final String ACCOUNT_ID_FILENAME = "Mobile_Public_Account_ID.mpi";
 
     private static final String PACKETS_DIR = "packets";
     private static final String SERVER_COMMAND_PREFIX = "MartusServer.";
     private static final int CONFIRMATION_TYPE_RESET = 0;
     private static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 1;
-
-	public static final String NEW_ACCOUNT_DIALOG_TAG = "dlg_new_account";
 
     public static final int MAX_LOGIN_ATTEMPTS = 3;
     private String serverPublicKey;
@@ -117,12 +100,12 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     public void onResume() {
         super.onResume();
         if (martusCrypto.hasKeyPair()) {
-            if (!checkDesktopKey()) {
+            if (!confirmServerPublicKey()) {
+                Intent intent = new Intent(MartusActivity.this, TorIntroActivity.class);
+                startActivity(intent);
                 return;
             }
-            if (!confirmServerPublicKey()) {
-                Intent intent = new Intent(MartusActivity.this, ServerActivity.class);
-                startActivityForResult(intent, EXIT_REQUEST_CODE);
+	        if (!checkDesktopKey()) {
                 return;
             }
 
@@ -142,7 +125,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             if (isAccountCreated()) {
                 showLoginDialog();
             } else {
-                showCreateAccountDialog();
+	            Intent intent = new Intent(MartusActivity.this, CreateAccountActivity.class);
+                startActivityForResult(intent, EXIT_REQUEST_CODE);
+                return;
             }
         }
         updateSettings();
@@ -518,51 +503,11 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         return keyPairString.length() > 1;
     }
 
-	private class CreateAccountTask extends AsyncTask<Object, Void, Void> {
-	        @Override
-	        protected Void doInBackground(Object... params) {
-
-		        martusCrypto.createKeyPair();
-		        char[] passwordArray = (char[])params[0];
-
-	            try {
-	                ByteArrayOutputStream out = new ByteArrayOutputStream();
-	                martusCrypto.writeKeyPair(out, passwordArray);
-	                out.close();
-	                byte[] keyPairData = out.toByteArray();
-
-	                // write keypair to prefs
-	                // need to first base64 encode so we can write to prefs
-	                String encodedKeyPair = Base64.encodeToString(keyPairData, Base64.NO_WRAP);
-
-	                // write to prefs
-	                SharedPreferences.Editor editor = mySettings.edit();
-	                editor.putString(SettingsActivity.KEY_KEY_PAIR, encodedKeyPair);
-	                editor.commit();
-	            } catch (Exception e) {
-	                Log.e(AppConfig.LOG_LABEL, "Problem creating account", e);
-	                showMessage(MartusActivity.this, getString(R.string.error_create_account), getString(R.string.error_message));
-	            }
-		        return null;
-	        }
-
-	        @Override
-	        protected void onPostExecute(Void result) {
-	            super.onPostExecute(result);
-	            dialog.dismiss();
-		        onResume();
-	        }
-	    }
-
     private void updateSettings() {
         SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
         serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
     }
-
-
-
-
 
     @Override
     public void onFinishPasswordDialog(TextView passwordText) {
@@ -597,49 +542,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             startActivity(destination);
         }
         onResume();
-    }
-
-
-
-
-    void showCreateAccountDialog() {
-        CreateAccountDialog newAccountDialog = CreateAccountDialog.newInstance();
-        newAccountDialog.show(getSupportFragmentManager(), NEW_ACCOUNT_DIALOG_TAG);
-    }
-
-    public void onFinishNewAccountDialog(TextView passwordText, TextView confirmPasswordText) {
-
-        boolean failed = false;
-        char[] password = passwordText.getText().toString().trim().toCharArray();
-        char[] confirmPassword = confirmPasswordText.getText().toString().trim().toCharArray();
-        if (password.length < MIN_PASSWORD_SIZE) {
-            Toast.makeText(MartusActivity.this,
-            R.string.invalid_password, Toast.LENGTH_SHORT).show();
-            failed = true;
-        }
-        if (!Arrays.equals(password, confirmPassword)) {
-            Toast.makeText(MartusActivity.this,
-            R.string.settings_pwd_not_equal, Toast.LENGTH_SHORT).show();
-            failed = true;
-        }
-
-	    DialogFragment dialogFragment = (DialogFragment)getSupportFragmentManager().findFragmentByTag(NEW_ACCOUNT_DIALOG_TAG);
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
-        }
-
-        if (failed) {
-            showCreateAccountDialog();
-        } else {
-	        showProgressDialog(getString(R.string.progress_creating_account));
-            final AsyncTask<Object, Void, Void> createAccountTask = new CreateAccountTask();
-	        createAccountTask.execute(new Object[]{password});
-
-        }
-    }
-
-    public void onCancelNewAccountDialog() {
-        this.finish();
     }
 
 
@@ -818,9 +720,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
 	}
 
-
-
-    private class PingTask extends AsyncTask<XmlRpcClient, Void, String> {
+    class PingTask extends AsyncTask<XmlRpcClient, Void, String> {
         @Override
         protected String doInBackground(XmlRpcClient... clients) {
 
