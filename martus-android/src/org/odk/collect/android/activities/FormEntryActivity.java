@@ -97,6 +97,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
@@ -584,15 +585,15 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 				.logInstanceAction(this, "onCreateOptionsMenu", "show");
 		super.onCreateOptionsMenu(menu);
 
-		CompatibilityUtils.setShowAsAction(
+/*		CompatibilityUtils.setShowAsAction(
 				menu.add(0, MENU_SAVE, 0, R.string.save_all_answers).setIcon(
 						android.R.drawable.ic_menu_save),
-				MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		CompatibilityUtils.setShowAsAction(
 				menu.add(0, MENU_HIERARCHY_VIEW, 0, R.string.view_hierarchy)
 						.setIcon(R.drawable.ic_menu_goto),
-				MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		CompatibilityUtils.setShowAsAction(
 				menu.add(0, MENU_LANGUAGES, 0, R.string.change_language)
@@ -602,7 +603,11 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		CompatibilityUtils.setShowAsAction(
 				menu.add(0, MENU_PREFERENCES, 0, R.string.general_preferences)
 						.setIcon(R.drawable.ic_menu_preferences),
-				MenuItem.SHOW_AS_ACTION_NEVER);
+				MenuItem.SHOW_AS_ACTION_NEVER);*/
+
+		MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.form_entry, menu);
+
 		return true;
 	}
 
@@ -617,12 +622,12 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 /*		useability = mAdminPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_SAVE_MID, true);*/
 
-		menu.findItem(MENU_SAVE).setVisible(useability).setEnabled(useability);
+//		menu.findItem(MENU_SAVE).setVisible(useability).setEnabled(useability);
 
 /*		useability = mAdminPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_JUMP_TO, true);*/
 
-		menu.findItem(MENU_HIERARCHY_VIEW).setVisible(useability)
+/*		menu.findItem(MENU_HIERARCHY_VIEW).setVisible(useability)
 				.setEnabled(useability);
 
 		useability = (formController != null)
@@ -630,15 +635,15 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 				&& formController.getLanguages().length > 1;
 
 		menu.findItem(MENU_LANGUAGES).setVisible(useability)
-				.setEnabled(useability);
+				.setEnabled(useability);*/
 
 /*		useability = mAdminPreferences.getBoolean(
 				AdminPreferencesActivity.KEY_ACCESS_SETTINGS, true);*/
 
 		useability = true;
 
-		menu.findItem(MENU_PREFERENCES).setVisible(useability)
-				.setEnabled(useability);
+/*		menu.findItem(MENU_PREFERENCES).setVisible(useability)
+				.setEnabled(useability);*/
 		return true;
 	}
 
@@ -654,7 +659,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 							"MENU_LANGUAGES");
 			createLanguageDialog();
 			return true;
-		case MENU_SAVE:
+		case R.id.save_form_menu_item:
 			Collect.getInstance()
 					.getActivityLogger()
 					.logInstanceAction(this, "onOptionsItemSelected",
@@ -662,7 +667,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 			// don't exit
 			saveDataToDisk(DO_NOT_EXIT, isInstanceComplete(false), null);
 			return true;
-		case MENU_HIERARCHY_VIEW:
+		case R.id.goto_form_menu_item:
 			Collect.getInstance()
 					.getActivityLogger()
 					.logInstanceAction(this, "onOptionsItemSelected",
@@ -673,7 +678,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 			Intent i = new Intent(this, FormHierarchyActivity.class);
 			startActivityForResult(i, HIERARCHY_ACTIVITY);
 			return true;
-		case MENU_PREFERENCES:
+		case R.id.settings_form_menu_item:
 			Collect.getInstance()
 					.getActivityLogger()
 					.logInstanceAction(this, "onOptionsItemSelected",
@@ -1509,24 +1514,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 			temp.delete();
 		}
 
-		String selection = InstanceColumns.INSTANCE_FILE_PATH + "=?";
-		String[] selectionArgs = { formController.getInstancePath()
-				.getAbsolutePath() };
-
-		boolean erase = false;
-		{
-			Cursor c = null;
-			try {
-				c = getContentResolver().query(InstanceColumns.CONTENT_URI,
-						null, selection, selectionArgs, null);
-				erase = (c.getCount() < 1);
-			} finally {
-				if (c != null) {
-					c.close();
-				}
-			}
-		}
-
+		boolean erase = true;
 		// if it's not already saved, erase everything
 		if (erase) {
 			// delete media first
@@ -1981,35 +1969,7 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 		Collect.getInstance().setFormController(formController);
 		CompatibilityUtils.invalidateOptionsMenu(this);
 
-		// Set the language if one has already been set in the past
-		String[] languageTest = formController.getLanguages();
-		if (languageTest != null) {
-			String defaultLanguage = formController.getLanguage();
-			String newLanguage = "";
-			String selection = FormsColumns.FORM_FILE_PATH + "=?";
-			String selectArgs[] = { mFormPath };
-			Cursor c = null;
-			try {
-				c = getContentResolver().query(FormsColumns.CONTENT_URI, null,
-						selection, selectArgs, null);
-				if (c.getCount() == 1) {
-					c.moveToFirst();
-					newLanguage = c.getString(c
-							.getColumnIndex(FormsColumns.LANGUAGE));
-				}
-			} finally {
-				if (c != null) {
-					c.close();
-				}
-			}
-
-			// if somehow we end up with a bad language, set it to the default
-			try {
-				formController.setLanguage(newLanguage);
-			} catch (Exception e) {
-				formController.setLanguage(defaultLanguage);
-			}
-		}
+		formController.setLanguage(formController.getLanguage());
 
 		if (pendingActivityResult) {
 			// set the current view to whatever group we were at...

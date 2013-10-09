@@ -288,7 +288,7 @@
     <string name="downloading_data">Connecting to Server</string>
     <string name="do_not_change">Cancel</string>
     <string name="do_not_exit">Cancel</string>
-    <string name="do_not_save">Ignore Changes</string>
+    <string name="do_not_save">Clear Form</string>
     <string name="entering_repeat">Add Group</string>
     <string name="entering_repeat_ask">Add New Group?</string>
     <string name="enter_data">Fill Blank Form</string>
@@ -364,7 +364,7 @@
     <string name="url_error">Sorry, invalid URL!</string>
     <string name="username">Username</string>
     <string name="view_hierarchy">Go To Prompt</string>
-    <string name="general_preferences">General Settings</string>
+    <string name="general_preferences">Settings</string>
     <string name="click_to_web">Tap to visit http://opendatakit.org</string>
     <string name="client">User Interface</string>
     <string name="show_splash">Show splash screen</string>
