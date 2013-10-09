@@ -100,7 +100,8 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     public void onResume() {
         super.onResume();
         if (martusCrypto.hasKeyPair()) {
-            if (!confirmServerPublicKey()) {
+	        boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
+            if (!confirmServerPublicKey() || !canUpload) {
                 Intent intent = new Intent(MartusActivity.this, TorIntroActivity.class);
                 startActivity(intent);
                 return;
