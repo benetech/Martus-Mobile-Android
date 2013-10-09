@@ -44,7 +44,6 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 
     private static final long MINUTE_MILLIS = 60000;
 
-
     public static final int EXIT_RESULT_CODE = 10;
     public static final int EXIT_REQUEST_CODE = 10;
 	public static final int CLOSE_FORM_RESULT_CODE = 101;
@@ -54,6 +53,10 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     protected static final String PREFS_DIR = "shared_prefs";
 	private static final String LOGIN_DIALOG_TAG = "dlg_login";
 	static final int MIN_PASSWORD_SIZE = 8;
+
+	public final static String PROXY_HOST = "127.0.0.1"; //test the local device proxy provided by Orbot/Tor
+    public final static int PROXY_HTTP_PORT = 8118; //default for Orbot/Tor
+    public final static int PROXY_SOCKS_PORT = 9050; //default for Orbot/Tor
 
     protected MartusApplication parentApp;
     private String confirmationDialogTitle;

@@ -14,25 +14,6 @@
         android:layout_marginTop="40dip"
         android:layout_marginBottom="40dip"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/use_tor"
-        android:autoLink="web"
-        android:id="@+id/checkBox_use_tor"
-        android:layout_gravity="left|center_vertical"
-        android:onClick="onTorChecked"/>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tor_link"
-        android:id="@+id/textView1"
-        android:autoLink="web"
-        android:layout_gravity="left"
-        android:layout_marginTop="16dip"
-        android:paddingLeft="32dip"
-            />
+    <include layout="@layout/tor_checkbox"/>
 
 </LinearLayout>

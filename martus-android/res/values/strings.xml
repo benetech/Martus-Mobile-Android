@@ -57,6 +57,11 @@
     <string name="error_getting_server_key">Problem connecting to server</string>
     <string name="no_upload_rights">Incorrect magic word</string>
     <string name="create_account_dialog_title">Create new password</string>
+    <string name="create_account_intro">Welcome to Martus! First, you need to create an account.</string>
+    <string name="choose_server_intro">Next, you need to configure the server you will be sending to.</string>
+    <string name="import_hq_intro">Finally, you need to import your Desktop Martus (HQ) account file.</string>
+    <string name="tor_option_intro">Next, you can turn on Tor. Tor may help hide your internet traffic and reach our servers.</string>
+    <string name="goto_server_setup_button">Next</string>
     <string name="quit_menu_title">Logout</string>
     <string name="server_menu_title">Select Server</string>
     <!-- Do Not Translate this line-->
