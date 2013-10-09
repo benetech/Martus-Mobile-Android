@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.martus.android.dialog.LoginDialog;
-import org.martus.android.dialog.MagicWordDialog;
 import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.MartusUtilities;
@@ -38,7 +37,7 @@ import com.actionbarsherlock.view.MenuItem;
  * @author roms
  *         Date: 12/10/12
  */
-public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener, MagicWordDialog.MagicWordDialogListener {
+public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
 
     private static final int MIN_SERVER_CODE = 20;
     private static final int MIN_SERVER_IP = 7;
@@ -99,14 +98,6 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         super.onResume();
 		if (haveVerifiedServerInfo())
             showLoginDialog();
-		else {
-			if (confirmServerPublicKey()) {
-				boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
-	            if (!canUpload) {
-	                showMagicWordDialog();
-	            }
-			}
-		}
     }
 
 	@Override
@@ -267,30 +258,12 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
       return matcher.matches();
 	}
 
-	private void showMagicWordDialog() {
-        MagicWordDialog magicWordDialog = MagicWordDialog.newInstance();
-        magicWordDialog.show(getSupportFragmentManager(), "dlg_magicWord");
-    }
-
-    public void onFinishMagicWordDialog(TextView magicWordText) {
-        String magicWord = magicWordText.getText().toString().trim();
-        if (magicWord.isEmpty()) {
-            Toast.makeText(this, getString(R.string.invalid_magic_word), Toast.LENGTH_SHORT).show();
-            showMagicWordDialog();
-            return;
-        }
-        showProgressDialog(getString(R.string.progress_confirming_magic_word));
-
-        final AsyncTask<Object, Void, NetworkResponse> rightsTask = new UploadRightsTask();
-        rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
-    }
-
     private void processMagicWordResponse(NetworkResponse response) {
         dialog.dismiss();
         try {
              if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
                  Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();
-                 showMagicWordDialog();
+	             textMagicWord.requestFocus();
              } else {
                  Toast.makeText(this, getString(R.string.success_magic_word), Toast.LENGTH_SHORT).show();
                  SharedPreferences.Editor editor = mySettings.edit();
