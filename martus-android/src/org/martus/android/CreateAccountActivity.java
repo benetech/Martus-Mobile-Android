@@ -29,6 +29,7 @@ public class CreateAccountActivity extends BaseActivity implements TextWatcher, 
     private EditText newPasswordText;
     private EditText confirmPasswordText;
     private TextView error;
+	public static final String EMPTY_TEXT = "";
 
 	public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -58,6 +59,9 @@ public class CreateAccountActivity extends BaseActivity implements TextWatcher, 
         if (!Arrays.equals(password, confirmPassword)) {
             Toast.makeText(this,
             R.string.settings_pwd_not_equal, Toast.LENGTH_SHORT).show();
+	        newPasswordText.setText(EMPTY_TEXT);
+	        confirmPasswordText.setText(EMPTY_TEXT);
+	        newPasswordText.requestFocus();
             failed = true;
         }
 
