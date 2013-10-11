@@ -96,6 +96,14 @@
         </replace>
     </target>
 
+    <target name="-post-compile">
+        <tstamp>
+          <format  property="build_date" pattern="yyyy.MM.dd"/>
+        </tstamp>
+        <echo>${build_date}</echo>
+        <replace file="bin/AndroidManifest.xml" token="android:versionName=&quot;0&quot;" value="android:versionName=&quot;${build_date} - 4.3&quot;" />
+      </target>
+
     <import file="custom_rules.xml" optional="true" />
 
     <!-- Import the actual build file.
