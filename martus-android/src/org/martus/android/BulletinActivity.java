@@ -433,7 +433,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
 	        String title = titleText.getText().toString().trim();
 	        String summary = summaryText.getText().toString().trim();
-
+		    String author = mySettings.getString(SettingsActivity.KEY_AUTHOR, getString(R.string.default_author));
 		    /*boolean useZawgyi = mySettings.getBoolean(SettingsActivity.KEY_USE_ZAWGYI, false);
 		    if (useZawgyi)
 		    {
@@ -452,6 +452,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
 	        bulletin.set(Bulletin.TAGTITLE, title);
 	        bulletin.set(Bulletin.TAGSUMMARY, summary);
+		    bulletin.set(Bulletin.TAGAUTHOR, author);
 	    }
 	    bulletin.set(Bulletin.TAGENTRYDATE, MARTUS_FORMAT.format(new Date()));
 	    String enteredAuthor = bulletin.get(Bulletin.TAGAUTHOR);
