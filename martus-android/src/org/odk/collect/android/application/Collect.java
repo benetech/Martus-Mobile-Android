@@ -73,13 +73,7 @@ public class Collect  {
      * @throws RuntimeException if there is no SDCard or the directory exists as a non directory
      */
     public static void createODKDirs() throws RuntimeException {
-        String cardstatus = Environment.getExternalStorageState();
-        if (!cardstatus.equals(Environment.MEDIA_MOUNTED)) {
-            RuntimeException e =
-                    new RuntimeException("ODK reports :: SDCard error: "
-                            + Environment.getExternalStorageState());
-            throw e;
-        }
+
 
         String[] dirs = {
                 ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, MARTUS_TEMPLATE_PATH
