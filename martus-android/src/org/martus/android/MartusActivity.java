@@ -397,24 +397,24 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	}
 
     private void clearPrefsDir() {
-        File prefsDirFile = new File(getCacheDir().getParent(), PREFS_DIR);
+        File prefsDirFile = new File(getAppDir(), PREFS_DIR);
         clearDirectory(prefsDirFile);
     }
 
     private void clearFailedBulletinsDir() {
-            File prefsDirFile = new File(getCacheDir().getParentFile(), UploadBulletinTask.FAILED_BULLETINS_DIR);
+            File prefsDirFile = new File(getAppDir(), UploadBulletinTask.FAILED_BULLETINS_DIR);
             clearDirectory(prefsDirFile);
             prefsDirFile.delete();
         }
 
     private void removePacketsDir() {
-        File packetsDirFile = new File(getCacheDir().getParentFile(), PACKETS_DIR);
+        File packetsDirFile = new File(getAppDir(), PACKETS_DIR);
         clearDirectory(packetsDirFile);
         packetsDirFile.delete();
     }
 
 	private void removeFormsDir() {
-        File formsDirFile = new File(getCacheDir().getParentFile(), Collect.FORMS_DIR_NAME);
+        File formsDirFile = new File(getAppDir(), Collect.FORMS_DIR_NAME);
         clearDirectory(formsDirFile);
 		formsDirFile.delete();
     }
@@ -597,7 +597,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
     private int getNumberOfUnsentBulletins() {
         int pendingBulletins;
-        final File unsentBulletinsDir = getCacheDir().getParentFile();
+        final File unsentBulletinsDir = getAppDir();
         final String[] sendingBulletinNames = unsentBulletinsDir.list(new ZipFileFilter());
         pendingBulletins = sendingBulletinNames.length;
 
@@ -620,7 +620,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         clearPrefsDir();
         clearFailedBulletinsDir();
 	    clearCacheDir();
-        final File unsentBulletinsDir = getCacheDir().getParentFile();
+        final File unsentBulletinsDir = getAppDir();
         final String[] names = unsentBulletinsDir.list(new ZipFileFilter());
         for (String name : names) {
             File zipFile = new File(unsentBulletinsDir, name);

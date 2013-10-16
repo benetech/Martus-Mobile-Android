@@ -36,9 +36,9 @@ public class AppConfig {
 	private MobileClientSideNetworkGateway currentNetworkInterfaceGateway;
 	private static HashMap<String, String> langMap;
 
-    public static void initInstance(File cacheDir, Context context ) {
+    public static void initInstance(Context context ) {
         if (instance == null) {
-            instance = new AppConfig(cacheDir, context);
+            instance = new AppConfig(context);
         }
     }
 
@@ -46,7 +46,7 @@ public class AppConfig {
         return instance;
     }
 
-    private AppConfig(File cacheDir, Context context) {
+    private AppConfig(Context context) {
         // Constructor hidden because this is a singleton
 
 	    this.context = context;
@@ -64,7 +64,7 @@ public class AppConfig {
 
         store = new MobileClientBulletinStore(martusCrypto);
         try {
-            store.doAfterSigninInitialization(cacheDir);
+            store.doAfterSigninInitialization(getAppDir(context));
         } catch (Exception e) {
             Log.e(LOG_LABEL, "unable to initialize store", e);
         }
@@ -108,7 +108,7 @@ public class AppConfig {
     }
 
 	public File getOrchidDirectory() {
-		return new File(context.getCacheDir().getParent(), BaseActivity.PREFS_DIR);
+		return new File(getAppDir(context), BaseActivity.PREFS_DIR);
 	}
 
 	public TorTransportWrapper getTransport() {
@@ -165,6 +165,10 @@ public class AppConfig {
 		if (langMap.isEmpty())
 			return null;
 		return langMap.get(activity);
+	}
+
+	public static File getAppDir(Context myContext) {
+		return myContext.getCacheDir().getParentFile();
 	}
 
 }

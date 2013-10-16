@@ -24,8 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -262,9 +260,14 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     }
 
     protected File getPrefsFile(String fileName) {
-        File prefsDir = new File(getCacheDir().getParent(), PREFS_DIR);
+        File prefsDir = new File(getAppDir(), PREFS_DIR);
         return new File(prefsDir, fileName + ".xml");
     }
+
+	protected File getAppDir() {
+		return getCacheDir().getParentFile();
+	}
+
 
     public static MartusSecurity cloneSecurity(MartusSecurity original) {
         MartusSecurity cryptoCopy = null;
