@@ -1,8 +1,6 @@
 package org.martus.android;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -20,7 +18,6 @@ import org.martus.common.PoolOfReusableChoicesLists;
 import org.martus.common.ReusableChoices;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
-import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
@@ -462,25 +459,6 @@ public class ODKUtils
 		        }
 		    }
 		}
-	}
-
-	public void encryptAndWriteFileAndSignatureFile(File file, File signatureFile,
-			byte[] plainText, MartusSecurity martusCrypto) throws Exception
-	{
-		ByteArrayInputStream encryptedInputStream = new ByteArrayInputStream(plainText);
-		FileOutputStream fileOutputStream = new FileOutputStream(file);
-		martusCrypto.encrypt(encryptedInputStream, fileOutputStream);
-
-		fileOutputStream.close();
-		encryptedInputStream.close();
-
-		FileInputStream in = new FileInputStream(file);
-		byte[] signature = martusCrypto.createSignatureOfStream(in);
-		in.close();
-
-		FileOutputStream out = new FileOutputStream(signatureFile);
-		out.write(signature);
-		out.close();
 	}
 
 }
