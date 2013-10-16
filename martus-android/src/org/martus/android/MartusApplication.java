@@ -1,21 +1,12 @@
 package org.martus.android;
 
-import java.io.File;
-
 import org.martus.common.FieldSpecCollection;
 import org.martus.common.network.TorTransportWrapper;
 import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.database.ActivityLogger;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.logic.PropertyManager;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 /**
  * @author roms
@@ -56,7 +47,7 @@ public class MartusApplication extends Application {
 
     protected void initSingletons()
     {
-        AppConfig.initInstance(this.getCacheDir().getParentFile(), this.getApplicationContext());
+        AppConfig.initInstance(this.getApplicationContext());
 	    Collect.initInstance(this.getApplicationContext());
     }
 
@@ -90,8 +81,7 @@ public class MartusApplication extends Application {
 		        .getInstance());
         String question_font = settings.getString(SettingsActivity.KEY_FONT_SIZE,
 		        MartusApplication.DEFAULT_FONTSIZE);
-        int questionFontsize = Integer.valueOf(question_font);
-        return questionFontsize;
+        return Integer.valueOf(question_font);
     }
 
 }
