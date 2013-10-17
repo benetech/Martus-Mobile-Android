@@ -40,6 +40,8 @@ import android.util.Log;
  * @author mitchellsundt@gmail.com
  * @author Carl Hartung (carlhartung@gmail.com)
  *
+ *  This class modified extensively by Benetech (Rom Srinivasan)
+ *
  */
 public final class ActivityLogger {
 

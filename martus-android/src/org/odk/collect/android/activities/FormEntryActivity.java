@@ -106,6 +106,9 @@ import com.actionbarsherlock.view.MenuItem;
  *
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Thomas Smyth, Sassafras Tech Collective (tom@sassafrastech.com; constraint behavior option)
+ *
+ *  This class modified extensively by Benetech (Rom Srinivasan)
+ *
  */
 public class FormEntryActivity extends BaseActivity implements AnimationListener,
 		FormLoaderListener, FormSavedListener, AdvanceToNextListener,
