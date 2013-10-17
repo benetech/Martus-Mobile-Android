@@ -10,6 +10,9 @@
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
+ *
+ * This class modified extensively by Benetech (Rom Srinivasan)
+ *
  */
 
 package org.odk.collect.android.application;
@@ -141,9 +144,7 @@ public class Collect  {
 
 		createODKDirs();
 		this.context = context;
-		PropertyManager mgr = new PropertyManager(context);
-        mActivityLogger = new ActivityLogger(
-                mgr.getSingularProperty(PropertyManager.DEVICE_ID_PROPERTY));
+        mActivityLogger = new ActivityLogger();
 	}
 
 }

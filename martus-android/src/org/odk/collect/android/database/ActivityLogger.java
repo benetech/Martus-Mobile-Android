@@ -123,7 +123,7 @@ public final class ActivityLogger {
 	// action is logged.
 	private LinkedList<ContentValues> mScrollActions = new LinkedList<ContentValues>();
 
-	public ActivityLogger(String deviceId) {
+	public ActivityLogger() {
 
 	}
 
