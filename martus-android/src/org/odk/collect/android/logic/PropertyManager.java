@@ -10,6 +10,9 @@
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
+ *
+ * This class modified extensively by Benetech (Rom Srinivasan)
+ *
  */
 
 package org.odk.collect.android.logic;
@@ -72,7 +75,11 @@ public class PropertyManager implements IPropertyManager {
         mContext = context;
 
         mProperties = new HashMap<String, String>();
-        mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+	    String deviceId =  null;
+	    String orDeviceId = null;
+	    // The following code, which attempts to get a unique device ID
+	    // has been commented out to reduce the number of app permissions needed
+/*        mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
         String deviceId = mTelephonyManager.getDeviceId();
         String orDeviceId = null;
@@ -85,9 +92,9 @@ public class PropertyManager implements IPropertyManager {
         	} else {
         		orDeviceId = "imei:" + deviceId;
         	}
-        }
+        }*/
 
-        if ( deviceId == null ) {
+/*        if ( deviceId == null ) {
         	// no SIM -- WiFi only
         	// Retrieve WiFiManager
         	WifiManager wifi = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
@@ -98,7 +105,7 @@ public class PropertyManager implements IPropertyManager {
     			deviceId = info.getMacAddress();
     			orDeviceId = "mac:" + deviceId;
     		}
-        }
+        }*/
 
         // if it is still null, use ANDROID_ID
         if ( deviceId == null ) {
@@ -111,7 +118,7 @@ public class PropertyManager implements IPropertyManager {
         mProperties.put(DEVICE_ID_PROPERTY, deviceId);
         mProperties.put(OR_DEVICE_ID_PROPERTY, orDeviceId);
 
-        String value;
+/*        String value;
 
         value = mTelephonyManager.getSubscriberId();
         if ( value != null ) {
@@ -127,7 +134,7 @@ public class PropertyManager implements IPropertyManager {
         if ( value != null ) {
         	mProperties.put(PHONE_NUMBER_PROPERTY, value);
         	mProperties.put(OR_PHONE_NUMBER_PROPERTY, "tel:" + value);
-        }
+        }*/
 
         // Get the username from the settings
 /*        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
