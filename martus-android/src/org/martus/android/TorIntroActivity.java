@@ -13,7 +13,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
  * @author roms
  *         Date: 10/8/13
  */
-public class TorIntroActivity extends BaseActivity
+public class TorIntroActivity extends BaseActivity implements OrbotHandler
 {
 	private CheckBox torCheckbox;
 
@@ -80,6 +80,16 @@ public class TorIntroActivity extends BaseActivity
             System.clearProperty("socksProxyHost");
             System.clearProperty("socksProxyPort");
         }
+    }
+
+	@Override
+    public void onOrbotInstallCanceled() {
+        torCheckbox.setChecked(false);
+    }
+
+    @Override
+    public void onOrbotStartCanceled() {
+        torCheckbox.setChecked(false);
     }
 
 }
