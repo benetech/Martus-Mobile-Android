@@ -274,6 +274,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             case R.id.ping_server_menu_item:
                 pingServer();
                 return true;
+	        case R.id.resend_menu_item:
+		        resendFailedBulletins();
+	            return true;
             case R.id.view_public_code_menu_item:
                 try {
                     String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
@@ -316,9 +319,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	        case R.id.view_docs_menu_item:
 		        showViewDocs();
 		        return true;
-	        case R.id.load_form_menu_item:
+/*	        case R.id.load_form_menu_item:
                 loadForm();
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -527,14 +530,16 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
 	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
 
-	    if (NetworkUtilities.isNetworkAvailable(this)) {
-	        Intent resendService = new Intent(MartusActivity.this, ResendService.class);
-	        resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
-	        resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
-	        startService(resendService);
-	    }
 
-        Intent intent = getIntent();
+	    //todo:
+	    //show dialog about failed bulletins
+	    int count = getNumberOfUnsentBulletins();
+        if (count != 0) {
+	        Resources res = getResources();
+	        showMessage(this, res.getQuantityString(R.plurals.show_unsent_count, count, count), getString(R.string.show_unsent_title));
+        }
+
+	    Intent intent = getIntent();
         int returnTo = intent.getIntExtra(RETURN_TO, 0);
         if (returnTo == ACTIVITY_BULLETIN) {
             Intent destination = new Intent(MartusActivity.this, BulletinActivity.class);
@@ -545,8 +550,18 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         onResume();
     }
 
+	private void resendFailedBulletins()
+	{
+		if (NetworkUtilities.isNetworkAvailable(this)) {
+		    Intent resendService = new Intent(MartusActivity.this, ResendService.class);
+		    resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
+		    resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
+		    startService(resendService);
+		}
+	}
 
-    private static void clearDirectory(final File dir) {
+
+	private static void clearDirectory(final File dir) {
         if (dir!= null && dir.isDirectory()) {
             try {
                 for (File child:dir.listFiles()) {
