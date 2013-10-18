@@ -101,16 +101,21 @@
     <string name="confirm_reset_install_extra_no_pending"> </string>
     <!--  Do not translate words that start with %, but you may move them around-->
     <plurals name="confirm_reset_install_extra">
-        <item quantity="one">You will lose %1$s failed or currently sending bulletin that would be resent on your next login.</item>
-        <item quantity="other">You will lose %1$s failed or currently sending bulletins that would be resent on your next login.</item>
+        <item quantity="one">You will lose %1$s failed or currently sending bulletin.</item>
+        <item quantity="other">You will lose %1$s failed or currently sending bulletins.</item>
     </plurals>
+    <plurals name="show_unsent_count">
+        <item quantity="one">You have %1$s failed or unsent bulletin. You may go to the Tools menu and resend it.</item>
+        <item quantity="other">You have %1$s failed or unsent bulletins. You may go to the Tools menu and resend them.</item>
+    </plurals>
+    <string name="show_unsent_title">You have unsent bulletins.</string>
     <string name="reset_to_install">Delete My Account</string>
     <string name="server_menu">Servers</string>
     <string name="ping_server_menu_item">Check Server</string>
     <string name="ping_result_ok">Server is up</string>
     <string name="ping_result_down">Server is down</string>
     <string name="no_network_connection">Device has no available network connection!</string>
-    <string name="no_network_create_bulletin_warning">Any bulletins you try to send will fail and be resent next time you log in with network access. (You may have Wi-Fi only checked in Settings)</string>
+    <string name="no_network_create_bulletin_warning">Any bulletin you try to send will fail due to lack of network access. (You may have Wi-Fi only checked in Settings) \n\n But clicking Send will encrypt and save the bulletin, and you may send it later from the Tools menu on the main screen.</string>
     <string name="logout_while_sending_title">Can\'t logout yet</string>
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
@@ -120,6 +125,7 @@
     <string name="view_docs_menu">View Documentation</string>
     <string name="feedback_menu">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
+    <string name="resend_menu_item">Re-send failed bulletins</string>
     <string name="help_menu">Help</string>
     <string name="feedback_dialog_title">Contact Us</string>
     <string name="view_public_code_dialog_title">Public Code</string>
