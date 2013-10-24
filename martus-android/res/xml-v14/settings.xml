@@ -47,7 +47,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
+<!--    <PreferenceCategory
             android:key="@string/client"
             android:title="@string/client" >
 
@@ -70,7 +70,7 @@
             android:key="font_size"
             android:title="@string/font_size" />
 
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 
 </PreferenceScreen>
 

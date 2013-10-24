@@ -121,14 +121,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	            confirmLanguage(useZawgyi);
             } else if (key.equals(KEY_WIFI_ONLY)) {
                 //do nothing
-            } else if (key.equals(KEY_NAVIGATION)) {
+/*            } else if (key.equals(KEY_NAVIGATION)) {
 	            final String navigationValue = sharedPreferences.getString(key, "?");
 	            final int index = Arrays.asList(navigationValuesArray).indexOf(navigationValue);
 	            preference.setSummary(navigationNamesArray[index]);
             } else if (key.equals(KEY_FONT_SIZE)) {
                 final String sizeValue = sharedPreferences.getString(key, "?");
                 final int index = Arrays.asList(fontSizeValuesArray).indexOf(sizeValue);
-                preference.setSummary(fontSizeNamesArray[index]);
+                preference.setSummary(fontSizeNamesArray[index]);*/
             } else {
                 // Set summary to be the selected value
                 preference.setSummary(sharedPreferences.getString(key, ""));
