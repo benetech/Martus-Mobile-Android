@@ -110,7 +110,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
                 return;
             }
 
-
             OrbotHelper oc = new OrbotHelper(this);
 	        try
 	        {
@@ -121,6 +120,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	        {
 		        torCheckbox.setChecked(false);
 	        }
+
 	        verifySetupInfo();
         } else {
             if (isAccountCreated()) {
@@ -552,12 +552,20 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
 	private void resendFailedBulletins()
 	{
-		if (NetworkUtilities.isNetworkAvailable(this)) {
-		    Intent resendService = new Intent(MartusActivity.this, ResendService.class);
-		    resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
-		    resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
-		    startService(resendService);
+		int count = getNumberOfUnsentBulletins();
+		if (count < 1) {
+			Toast.makeText(this, "You have no unsent bulletins.", Toast.LENGTH_LONG).show();
+			return;
 		}
+		if (!NetworkUtilities.isNetworkAvailable(this)) {
+			Toast.makeText(this, "You don't have network access, or have Wifi only turned on.", Toast.LENGTH_LONG).show();
+			return;
+		}
+		Toast.makeText(this, "Re-sending!", Toast.LENGTH_LONG).show();
+	    Intent resendService = new Intent(MartusActivity.this, ResendService.class);
+	    resendService.putExtra(SettingsActivity.KEY_SERVER_IP, serverIP);
+	    resendService.putExtra(SettingsActivity.KEY_SERVER_PUBLIC_KEY, serverPublicKey);
+	    startService(resendService);
 	}
 
 

@@ -12,7 +12,7 @@
 <!--     as grammatically appropriate.-->
 
 <resources>
-    <!-- Do Not Translate this line-->
+    <!-- Do Not Translate next line-->
     <string name="app_name">Martus</string>
     <string name="create_sample_bulletin">Create Bulletin</string>
     <string name="error_message">Error</string>
@@ -26,7 +26,7 @@
     <string name="summary_author_preference">Author</string>
     <string name="dialog_title_author_preference">Author</string>
     <string name="title_language_preference">Bulletin language</string>
-    <string name="summary_language_preference">Bulletin language</string>
+    <string name="summary_language_preference">Please select language you will enter bulletin data in</string>
     <string name="dialog_title_language_preference">Bulletin language</string>
     <string name="settings_title">Settings</string>
     <string name="retry_server">Re-enter</string>
@@ -35,11 +35,11 @@
     <string name="summary_timeout_preference">In minutes</string>
     <string name="dialog_title_timeout_preference">Time out duration</string>
     <string name="title_zawgyi_preference">Use Zawgyi Font</string>
-    <string name="zawgyi_preference_on">Using Zawgyi for UI and input</string>
+    <string name="zawgyi_preference_on">Using Zawgyi font for UI and input</string>
     <string name="zawgyi_preference_off">Using phone default language</string>
     <string name="title_wifi_only_preference">Use Wi-Fi only</string>
-    <string name="wifi_only_preference_on">Use only Wi-Fi</string>
-    <string name="wifi_only_preference_off">Use Wi-Fi or mobile data</string>
+    <string name="wifi_only_preference_on">Only send data when Wi-Fi is available</string>
+    <string name="wifi_only_preference_off">Only send data when Wi-Fi is available</string>
 
     <!-- ============================== -->
     <!--  main screen  -->
@@ -57,10 +57,10 @@
     <string name="error_getting_server_key">Problem connecting to server</string>
     <string name="no_upload_rights">Incorrect magic word</string>
     <string name="create_account_dialog_title">Create new password</string>
-    <string name="create_account_intro">Welcome to Martus! First, you need to create an account.</string>
-    <string name="choose_server_intro">Next, you need to configure the server you will be sending to.</string>
-    <string name="import_hq_intro">Finally, you need to import your Desktop Martus (HQ) account file.</string>
-    <string name="tor_option_intro">Next, you can turn on Tor. Tor may help hide your internet traffic and reach our servers.</string>
+    <string name="create_account_intro">Welcome to Martus! First, you need to create a new Mobile Martus account.</string>
+    <string name="choose_server_intro">Next, you need to configure a connection to the Martus server you will be sending bulletins to.</string>
+    <string name="import_hq_intro">Finally, you need to enter information about the Martus account that you are sending your Mobile Martus bulletins to.  You must have a Martus Public Account ID file (ending with “.mpi”) and public code from the Martus Desktop account that you want to receive your Mobile Martus bulletins to complete this step.</string>
+    <string name="tor_option_intro">Next, you can turn on Tor if desired.</string>
     <string name="goto_server_setup_button">Next</string>
     <string name="quit_menu_title">Logout</string>
     <string name="server_menu_title">Select Server</string>
@@ -82,7 +82,7 @@
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
         running. Would you like to start it?</string>
     <!-- Do Not Translate the URL that starts with https://-->
-    <string formatted="false" name="use_tor"><b>Use Tor</b> ( May improve security but slows sending of bulletins )</string>
+    <string formatted="false" name="use_tor"><b>Use Tor</b> (May help hide that you are connecting to a Martus server, and may help reach the Martus servers if they are blocked from your location, but will slow sending of bulletins )</string>
     <string name="create_password_hint">New password</string>
     <string name="confirm_password_hint">Repeat password</string>
     <string name="enter_password_hint">Enter password</string>
@@ -91,8 +91,9 @@
     <string name="settings_pwd_not_equal">Passwords don\'t match!</string>
     <string name="invalid_password">Password must be at least 8 characters</string>
     <string name="invalid_magic_word">Invalid Magic Word</string>
-    <string name="success_magic_word">Success - you can now upload bulletins!</string>
+    <string name="success_magic_word">You have successfully setup a connection to the Martus server!</string>
     <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
+    <string name="success_import_hq_key">You have successfully configured a Martus Desktop account to receive your Mobile Martus bulletins. Mobile Martus setup is complete!</string>
     <string name="tor_explanation">Improves security but slows sending of bulletins.</string>
     <!-- Do Not Translate this line-->
     <string formatted="false" name="tor_link">https://www.torproject.org</string>
@@ -101,8 +102,8 @@
     <string name="confirm_reset_install_extra_no_pending"> </string>
     <!--  Do not translate words that start with %, but you may move them around-->
     <plurals name="confirm_reset_install_extra">
-        <item quantity="one">You will lose %1$s failed or currently sending bulletin.</item>
-        <item quantity="other">You will lose %1$s failed or currently sending bulletins.</item>
+        <item quantity="one">You will lose %1$s failed or currently sending bulletin that would be resent on your next login.</item>
+        <item quantity="other">You will lose %1$s failed or currently sending bulletins that would be resent on your next login.</item>
     </plurals>
     <plurals name="show_unsent_count">
         <item quantity="one">You have %1$s failed or unsent bulletin. You may go to the Tools menu and resend it.</item>
@@ -119,9 +120,9 @@
     <string name="logout_while_sending_title">Can\'t logout yet</string>
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
-    <string name="confirm_tamper_reset_title">Your setup information may have been tampered with</string>
+    <string name="confirm_tamper_reset_title">Setup Error</string>
     <!-- Do Not Translate the word Martus-->
-    <string name="confirm_tamper_reset_message">In the interest of security, please delete your account. Pressing the Yes button will start this process. Martus will not work with a corrupted settings file, so pressing No will exit.</string>
+    <string name="confirm_tamper_reset_message">There has been an error with your setup files. In the interest of security, please delete your account. Pressing the Yes button will start this process. Martus will not work with a corrupted settings file, so pressing No will exit Martus.</string>
     <string name="view_docs_menu">View Documentation</string>
     <string name="feedback_menu">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
@@ -134,7 +135,7 @@
     <string name="tools_menu">Tools</string>
     <string name="export_public_account_id_menu_item">Export Public Account ID</string>
     <string name="load_form_menu_item">Import Custom Form</string>
-    <string name="export_public_account_id_dialog_title">Export Public Account Error</string>
+    <string name="export_public_account_id_dialog_title">Export Public Account ID Error</string>
     <string name="export_public_account_id_dialog_error">Unable to export Account ID</string>
     <!--  Do not translate words that start with %, but you may move them around-->
     <string name="export_public_account_id_success">Exported to %1$s</string>
@@ -149,6 +150,9 @@
     <string name="send_dialog_title">Send Via</string>
     <string name="exported_account_id_file_confirmation">Exported To</string>
     <string name="progress_creating_account">Creating Account</string>
+    <string name="resending">Re-sending!</string>
+    <string name="resending_no_bulletins">You have no unsent bulletins.</string>
+    <string name="resending_no_network">You don't have network access, or have Wifi only turned on.</string>
 
     <!-- ============================== -->
     <!--  bulletin screen  -->
@@ -193,12 +197,12 @@
     <!-- ============================== -->
     <!--  desktop key screen  -->
     <!-- ============================== -->
-    <string name="desktop_sync_public_code">Then enter desktop Public Code:</string>
-    <string name="desktop_sync_title">Import Desktop Account</string>
-    <string name="desktop_sync_choose_file">Choose a Desktop Account file</string>
-    <string name="desktop_public_code_hint">Desktop Account Public Code</string>
-    <string name="invalid_public_account_file">Invalid Desktop Account file</string>
-    <string name="valid_public_account_file">Valid Desktop Account file</string>
+    <string name="desktop_sync_public_code">Then enter Martus Desktop account Public Code:</string>
+    <string name="desktop_sync_title">Enter Martus Desktop account information</string>
+    <string name="desktop_sync_choose_file">Choose Martus Desktop account (.mpi) file</string>
+    <string name="desktop_public_code_hint">Desktop account Public Code</string>
+    <string name="invalid_public_account_file">Invalid Desktop account file</string>
+    <string name="valid_public_account_file">Valid Desktop account file</string>
     <string name="invalid_public_code">Public Code doesn\'t match file</string>
     <string name="public_code_validation_empty">Public Code can\'t be empty</string>
     <string name="select_file_picker">Select a file explorer</string>
