@@ -52,13 +52,14 @@ public class CreateAccountActivity extends BaseActivity implements TextWatcher, 
         char[] password = newPasswordText.getText().toString().trim().toCharArray();
         char[] confirmPassword = confirmPasswordText.getText().toString().trim().toCharArray();
         if (password.length < MIN_PASSWORD_SIZE) {
-            Toast.makeText(this,
-		            R.string.invalid_password, Toast.LENGTH_SHORT).show();
+	        showMessage(this, getString(R.string.invalid_password), getString(R.string.error_create_account));
+	        newPasswordText.setText(EMPTY_TEXT);
+            confirmPasswordText.setText(EMPTY_TEXT);
+            newPasswordText.requestFocus();
             failed = true;
         }
         if (!Arrays.equals(password, confirmPassword)) {
-            Toast.makeText(this,
-            R.string.settings_pwd_not_equal, Toast.LENGTH_SHORT).show();
+	        showMessage(this, getString(R.string.settings_pwd_not_equal), getString(R.string.error_create_account));
 	        newPasswordText.setText(EMPTY_TEXT);
 	        confirmPasswordText.setText(EMPTY_TEXT);
 	        newPasswordText.requestFocus();
