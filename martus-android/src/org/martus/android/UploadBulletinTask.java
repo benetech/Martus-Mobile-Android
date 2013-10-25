@@ -113,6 +113,9 @@ public class UploadBulletinTask extends AsyncTask<Object, Integer, String> imple
     @Override
     protected void onPostExecute(String s) {
         mNotificationHelper.completed(s);
+	    if (s == null) {
+            s = myApplication.getString(R.string.send_failed_cant_reach_server);
+        }
         if (null != sender) {
             sender.onSent(s);
         }

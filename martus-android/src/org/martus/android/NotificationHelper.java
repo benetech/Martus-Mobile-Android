@@ -77,7 +77,7 @@ public class NotificationHelper {
                 icon = android.R.drawable.stat_notify_error;
             }
         } else {
-            resultMsg = mContext.getString(R.string.failure_send_notification);
+            resultMsg = mContext.getString(R.string.send_failed_cant_reach_server);
             icon = android.R.drawable.stat_notify_error;
         }
         String message = BulletinActivity.getResultMessage(resultMsg, mContext);
