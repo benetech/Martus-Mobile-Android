@@ -37,7 +37,7 @@
     <string name="title_zawgyi_preference">Use Zawgyi Font</string>
     <string name="zawgyi_preference_on">Using Zawgyi font for UI and input</string>
     <string name="zawgyi_preference_off">Using phone default language</string>
-    <string name="title_wifi_only_preference">Use Wi-Fi only</string>
+    <string name="title_wifi_only_preference">Use Wi-Fi Only</string>
     <string name="wifi_only_preference_on">Only send data when Wi-Fi is available</string>
     <string name="wifi_only_preference_off">Only send data when Wi-Fi is available</string>
 
@@ -79,8 +79,7 @@
     <!-- Do Not Translate the word Orbot-->
     <string name="start_orbot_">Start Orbot</string>
     <!-- Do Not Translate the word Orbot-->
-    <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not
-        running. Would you like to start it?</string>
+    <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not running. Would you like to start it?</string>
     <!-- Do Not Translate the URL that starts with https://-->
     <string formatted="false" name="use_tor"><b>Use Tor</b> (May help hide that you are connecting to a Martus server, and may help reach the Martus servers if they are blocked from your location, but will slow sending of bulletins )</string>
     <string name="create_password_hint">New password</string>
@@ -91,7 +90,7 @@
     <string name="settings_pwd_not_equal">Passwords don\'t match!</string>
     <string name="invalid_password">Password must be at least 8 characters</string>
     <string name="invalid_magic_word">Invalid Magic Word</string>
-    <string name="success_magic_word">You have successfully setup a connection to the Martus server!</string>
+    <string name="success_magic_word">You have successfully set up a connection to the Martus server!</string>
     <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
     <string name="success_import_hq_key">You have successfully configured a Martus Desktop account to receive your Mobile Martus bulletins. Mobile Martus setup is complete!</string>
     <string name="tor_explanation">Improves security but slows sending of bulletins.</string>
@@ -102,12 +101,12 @@
     <string name="confirm_reset_install_extra_no_pending"> </string>
     <!--  Do not translate words that start with %, but you may move them around-->
     <plurals name="confirm_reset_install_extra">
-        <item quantity="one">You will lose %1$s failed or currently sending bulletin that would be resent on your next login.</item>
-        <item quantity="other">You will lose %1$s failed or currently sending bulletins that would be resent on your next login.</item>
+        <item quantity="one">You will lose %1$s unsent or currently sending bulletin.</item>
+        <item quantity="other">You will lose %1$s unsent or currently sending bulletins.</item>
     </plurals>
     <plurals name="show_unsent_count">
-        <item quantity="one">You have %1$s failed or unsent bulletin. You may go to the Tools menu and resend it.</item>
-        <item quantity="other">You have %1$s failed or unsent bulletins. You may go to the Tools menu and resend them.</item>
+        <item quantity="one">You have %1$s unsent bulletin. You may go to the Tools menu and resend it.</item>
+        <item quantity="other">You have %1$s unsent bulletins. You may go to the Tools menu and resend them.</item>
     </plurals>
     <string name="show_unsent_title">You have unsent bulletins.</string>
     <string name="reset_to_install">Delete My Account</string>
@@ -115,8 +114,8 @@
     <string name="ping_server_menu_item">Check Server</string>
     <string name="ping_result_ok">Server is up</string>
     <string name="ping_result_down">Server is down</string>
-    <string name="no_network_connection">Device has no available network connection!</string>
-    <string name="no_network_create_bulletin_warning">Any bulletin you try to send will fail due to lack of network access. (You may have Wi-Fi only checked in Settings) \n\n But clicking Send will encrypt and save the bulletin, and you may send it later from the Tools menu on the main screen.</string>
+    <string name="no_network_connection">Device has no connectivity!</string>
+    <string name="no_network_create_bulletin_warning">Any bulletin you try to send will fail due to lack of connectivity. (You may have Wi-Fi Only checked in Settings.) \n\n But clicking Send will encrypt and save the bulletin, and when you have connectivity, you may re-send it from the Tools menu.</string>
     <string name="logout_while_sending_title">Can\'t logout yet</string>
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
@@ -126,7 +125,10 @@
     <string name="view_docs_menu">View Documentation</string>
     <string name="feedback_menu">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
-    <string name="resend_menu_item">Re-send failed bulletins</string>
+    <string name="resend_menu_item">Re-send unsent bulletins</string>
+    <string name="resending">Re-sending!</string>
+    <string name="resending_no_bulletins">You have no unsent bulletins.</string> 
+    <string name="resending_no_network">You don't have connectivity, or have Wi-Fi Only turned on.</string>
     <string name="help_menu">Help</string>
     <string name="feedback_dialog_title">Contact Us</string>
     <string name="view_public_code_dialog_title">Public Code</string>
@@ -150,9 +152,6 @@
     <string name="send_dialog_title">Send Via</string>
     <string name="exported_account_id_file_confirmation">Exported To</string>
     <string name="progress_creating_account">Creating Account</string>
-    <string name="resending">Re-sending!</string>
-    <string name="resending_no_bulletins">You have no unsent bulletins.</string>
-    <string name="resending_no_network">You don't have network access, or have Wifi only turned on.</string>
 
     <!-- ============================== -->
     <!--  bulletin screen  -->
