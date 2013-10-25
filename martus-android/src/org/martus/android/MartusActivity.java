@@ -530,9 +530,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
 	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
 
-
-	    //todo:
-	    //show dialog about failed bulletins
 	    int count = getNumberOfUnsentBulletins();
         if (count != 0) {
 	        Resources res = getResources();
