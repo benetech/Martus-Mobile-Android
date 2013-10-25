@@ -158,6 +158,7 @@
     <!-- ============================== -->
     <string name="gingerbread_extra_help_text">(Press the Menu button to Add attachments or Send)</string>
     <string name="send_bulletin">Send</string>
+    <string name="send_failed_cant_reach_server">Can\'t reach server</string>
     <string name="add_attachment">Add attachment</string>
     <string name="enter_summary">Optional Summary</string>
     <string name="default_author">Unknown Author</string>
@@ -223,7 +224,7 @@
     <!-- ============================== -->
     <string name="successful_send_notification">Bulletin sent!</string>
     <!--  Do not translate words that start with %, but you may move them around-->
-    <string name="failed_send_notification">Send failed due to: %1$s . Will be retried on next login.</string>
+    <string name="failed_send_notification">Send failed due to: %1$s . Try re-sending later.</string>
     <string name="failure_send_notification">Sending bulletin failed</string>
     <string name="starting_send_notification">Sending …</string>
     <!-- Do Not Translate this line-->
