@@ -128,7 +128,7 @@
     <string name="resend_menu_item">Re-send unsent bulletins</string>
     <string name="resending">Re-sending!</string>
     <string name="resending_no_bulletins">You have no unsent bulletins.</string> 
-    <string name="resending_no_network">You don't have connectivity, or have Wi-Fi Only turned on.</string>
+    <string name="resending_no_network">You don\'t have connectivity, or have Wi-Fi Only turned on.</string>
     <string name="help_menu">Help</string>
     <string name="feedback_dialog_title">Contact Us</string>
     <string name="view_public_code_dialog_title">Public Code</string>
