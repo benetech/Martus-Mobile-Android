@@ -265,7 +265,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
                  Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();
 	             textMagicWord.requestFocus();
              } else {
-                 Toast.makeText(this, getString(R.string.success_magic_word), Toast.LENGTH_SHORT).show();
+                 Toast.makeText(this, getString(R.string.success_magic_word), Toast.LENGTH_LONG).show();
                  SharedPreferences.Editor editor = mySettings.edit();
                  editor.putBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, true);
                  editor.commit();
@@ -277,7 +277,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         }
     }
 
-	private class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
+	class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
 	        @Override
 	        protected NetworkResponse doInBackground(Object... params) {
 

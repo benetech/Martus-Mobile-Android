@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author roms
@@ -149,7 +150,7 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
 
         File desktopKeyFile = getPrefsFile(PREFS_DESKTOP_KEY);
         MartusUtilities.createSignatureFileFromFile(desktopKeyFile, getSecurity());
-
+	    Toast.makeText(this, getString(R.string.success_import_hq_key), Toast.LENGTH_LONG).show();
         finish();
     }
 
