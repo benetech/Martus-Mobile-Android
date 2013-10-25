@@ -154,6 +154,10 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
     private void processResult(Vector serverInformation) {
         dialog.dismiss();
+	    if (! NetworkUtilities.isNetworkAvailable(this)) {
+            showErrorMessage(getString(R.string.no_network_connection), getString(R.string.error_message));
+            return;
+        }
         try {
             if (null == serverInformation || serverInformation.isEmpty()) {
                 showErrorMessage(getString(R.string.invalid_server_info), getString(R.string.error_message));
