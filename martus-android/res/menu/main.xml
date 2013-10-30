@@ -36,8 +36,8 @@
             <item android:id="@+id/export_mpi_menu_item"
                 android:title="@string/export_public_account_id_menu_item" />
 
-<!--            <item android:id="@+id/load_form_menu_item"
-                android:title="@string/load_form_menu_item" />-->
+           <item android:id="@+id/load_form_menu_item"
+                android:title="@string/load_form_menu_item" />
 
             <item android:id="@+id/reset_install_menu_item"
                 android:title="@string/reset_to_install" />

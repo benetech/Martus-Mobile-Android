@@ -318,9 +318,9 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         } else if (id == R.id.view_docs_menu_item) {
             showViewDocs();
             return true;
-/*        } else if (id == R.id.load_form_menu_item) {
+        } else if (id == R.id.load_form_menu_item) {
             loadForm();
-            return true;*/
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
