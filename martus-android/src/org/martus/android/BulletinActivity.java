@@ -339,23 +339,22 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // app icon in action bar clicked; go home
-	            showConfirmationDialog();
-                return true;
-            case R.id.send_bulletin_menu_item:
-                addAttachmentsAndSendBulletin();
-                return true;
-            case R.id.cancel_bulletin_menu_item:
-                showConfirmationDialog();
-                return true;
-            case R.id.add_attachment_menu_item:
-                chooseAttachment();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+	    int id = item.getItemId();
+        if (id == android.R.id.home) {
+            showConfirmationDialog();
+            return true;
+        } else if (id == R.id.send_bulletin_menu_item) {
+            addAttachmentsAndSendBulletin();
+            return true;
+        } else if (id == R.id.cancel_bulletin_menu_item) {
+            showConfirmationDialog();
+            return true;
+        } else if (id == R.id.add_attachment_menu_item) {
+            chooseAttachment();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 

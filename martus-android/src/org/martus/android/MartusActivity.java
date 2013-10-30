@@ -250,81 +250,79 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
+	    Intent intent;
 
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.settings_menu_item:
-                intent = new Intent(MartusActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.quit_menu_item:
-                if (!MartusApplication.isIgnoreInactivity()) {
-                    logout();
-                    finish();
-                } else {
-                    showMessage(this, getString(R.string.logout_while_sending_message),
-		                    getString(R.string.logout_while_sending_title));
-                }
-                return true;
-            case R.id.server_menu_item:
-                intent = new Intent(MartusActivity.this, ServerActivity.class);
-                startActivityForResult(intent, EXIT_REQUEST_CODE);
-                return true;
-            case R.id.ping_server_menu_item:
-                pingServer();
-                return true;
-	        case R.id.resend_menu_item:
-		        resendFailedBulletins();
-	            return true;
-            case R.id.view_public_code_menu_item:
-                try {
-                    String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
-                    showMessage(this, publicCode, getString(R.string.view_public_code_dialog_title));
-                } catch (Exception e) {
-                    Log.e(AppConfig.LOG_LABEL, "couldn't get public code", e);
-                    showMessage(this, getString(R.string.view_public_code_dialog_error),
-		                    getString(R.string.view_public_code_dialog_title));
-                }
-                return true;
-            case R.id.reset_install_menu_item:
-                if (!MartusApplication.isIgnoreInactivity()) {
-                    showConfirmationDialog();
-                } else {
-                    showMessage(this, getString(R.string.logout_while_sending_message),
-		                    getString(R.string.reset_while_sending_title));
-                }
-                return true;
-	        case R.id.show_version_menu_item:
-		        PackageInfo pInfo;
-		        String version;
-		        try {
-			        pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-			        version = pInfo.versionName;
-		        } catch (PackageManager.NameNotFoundException e) {
-			        version = "?";
-		        }
-		        Toast.makeText(this, version, Toast.LENGTH_LONG).show();
-		        return true;
-	        case R.id.export_mpi_menu_item:
-				File mpiFile = getMpiFile();
-		        showMessage(this, mpiFile.getAbsolutePath(), getString(R.string.exported_account_id_file_confirmation));
-		         return true;
-	        case R.id.email_mpi_menu_item:
-		        showHowToSendDialog(this, getString(R.string.send_dialog_title));
-		        return true;
-	        case R.id.feedback_menu_item:
-		        showContactUs();
-		        return true;
-	        case R.id.view_docs_menu_item:
-		        showViewDocs();
-		        return true;
-/*	        case R.id.load_form_menu_item:
-                loadForm();
-                return true;*/
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.settings_menu_item) {
+	        intent = new Intent(MartusActivity.this, SettingsActivity.class);
+            startActivity(intent);
+	        return true;
+        } else if (id == R.id.quit_menu_item) {
+            if (!MartusApplication.isIgnoreInactivity()) {
+                logout();
+                finish();
+            } else {
+                showMessage(this, getString(R.string.logout_while_sending_message),
+                    getString(R.string.logout_while_sending_title));
+            }
+            return true;
+        } else if (id == R.id.server_menu_item) {
+            intent = new Intent(MartusActivity.this, ServerActivity.class);
+            startActivityForResult(intent, EXIT_REQUEST_CODE);
+            return true;
+        } else if (id == R.id.ping_server_menu_item) {
+            pingServer();
+            return true;
+        } else if (id == R.id.resend_menu_item) {
+	        resendFailedBulletins();
+            return true;
+        } else if (id == R.id.view_public_code_menu_item) {
+	        try {
+	            String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
+	            showMessage(this, publicCode, getString(R.string.view_public_code_dialog_title));
+	        } catch (Exception e) {
+	            Log.e(AppConfig.LOG_LABEL, "couldn't get public code", e);
+	            showMessage(this, getString(R.string.view_public_code_dialog_error),
+	                    getString(R.string.view_public_code_dialog_title));
+	        }
+	        return true;
+	    } else if (id == R.id.reset_install_menu_item) {
+	        if (!MartusApplication.isIgnoreInactivity()) {
+	            showConfirmationDialog();
+	        } else {
+	            showMessage(this, getString(R.string.logout_while_sending_message),
+	                    getString(R.string.reset_while_sending_title));
+	        }
+	        return true;
+	    } else if (id == R.id.show_version_menu_item) {
+            PackageInfo pInfo;
+            String version;
+            try {
+                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                version = pInfo.versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                version = "?";
+            }
+            Toast.makeText(this, version, Toast.LENGTH_LONG).show();
+            return true;
+        } else if (id == R.id.export_mpi_menu_item) {
+            File mpiFile = getMpiFile();
+            showMessage(this, mpiFile.getAbsolutePath(), getString(R.string.exported_account_id_file_confirmation));
+             return true;
+        } else if (id == R.id.email_mpi_menu_item) {
+            showHowToSendDialog(this, getString(R.string.send_dialog_title));
+            return true;
+        } else if (id == R.id.feedback_menu_item) {
+            showContactUs();
+            return true;
+        } else if (id == R.id.view_docs_menu_item) {
+            showViewDocs();
+            return true;
+/*        } else if (id == R.id.load_form_menu_item) {
+            loadForm();
+            return true;*/
         }
+        return super.onOptionsItemSelected(item);
     }
 
 	private void showContactUs()
