@@ -1,6 +1,10 @@
 package org.martus.android;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,6 +45,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
     private static final int MIN_SERVER_CODE = 20;
     private static final int MIN_SERVER_IP = 7;
+	public static final String SERVER_INFO_FILENAME = "Server.mmsi";
 
     private EditText textIp;
     private EditText textCode;
@@ -94,10 +99,38 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
 	@Override
-    public void onResume() {
+	public void onResume() {
         super.onResume();
-		if (haveVerifiedServerInfo())
+
+		if (haveVerifiedServerInfo()) {
             showLoginDialog();
+		} else {
+			try {
+				InputStream inputStream = getAssets().open(SERVER_INFO_FILENAME);
+				BufferedReader f = new BufferedReader(new InputStreamReader(inputStream));
+				String line = f.readLine();
+				int lineNumber = 0;
+		        while (line != null) {
+			        switch (lineNumber) {
+	                    case 0:
+		                    textIp.setText(line);
+		                    break;
+				        case 1:
+					        textCode.setText(line);
+					        break;
+				        case 2:
+					        textMagicWord.setText(line);
+					        break;
+			        }
+			        lineNumber++;
+			        line = f.readLine();
+	            }
+				confirmServer(textIp);
+			} catch (IOException e) {
+	            Log.w(AppConfig.LOG_LABEL, "couldn't read server info");
+			}
+		}
+
     }
 
 	@Override

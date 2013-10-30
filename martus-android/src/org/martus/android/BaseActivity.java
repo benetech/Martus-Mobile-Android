@@ -2,7 +2,11 @@ package org.martus.android;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.martus.android.dialog.ConfirmationDialog;
@@ -60,6 +64,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     private String confirmationDialogTitle;
     protected ProgressDialog dialog;
     SharedPreferences mySettings;
+	private static List<String> assetsList;
 
     private static Handler inactivityHandler;
     private LogOutProcess inactivityCallback;
@@ -333,4 +338,38 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
         return true;
     }
+
+	private static boolean assetsContains(String assetName, Context context) {
+	    if (assetsList == null) {
+	        try {
+		        assetsList = Arrays.asList(context.getAssets().list(""));
+	        } catch (IOException e) {
+		        return false;
+	        }
+	    }
+	    return assetsList.contains(assetName);
+	}
+
+	protected static File getFileFromAssets(String assetFileName, File outputFile, Context context) {
+		Log.i(AppConfig.LOG_LABEL, "start getFileFromAssets  assetFileName = " + assetFileName + " outputFile = " + outputFile.getAbsolutePath());
+	    try {
+		    if (!assetsContains(assetFileName, context))
+			    return null;
+
+		    Log.i(AppConfig.LOG_LABEL, " assets contains " + assetFileName);
+		    InputStream is = context.getAssets().open(assetFileName);
+		    int size = is.available();
+		    byte[] buffer = new byte[size];
+		    is.read(buffer);
+		    is.close();
+
+		    FileOutputStream fos = new FileOutputStream(outputFile);
+		    fos.write(buffer);
+		    fos.close();
+			return outputFile;
+		  } catch (Exception e) {
+			  Log.e(AppConfig.LOG_LABEL, "problem getting asset " + assetFileName, e);
+		  }
+		return null;
+	}
 }

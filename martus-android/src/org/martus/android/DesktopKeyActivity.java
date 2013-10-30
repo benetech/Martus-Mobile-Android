@@ -30,6 +30,7 @@ import android.widget.Toast;
 public class DesktopKeyActivity extends BaseActivity implements TextView.OnEditorActionListener {
 
     final int ACTIVITY_CHOOSE_FILE = 1;
+	public static final String ACCOUNT_ID_FILENAME = "HQ_Public_Account_ID.mpi";
 
     private EditText editTextPublicCode;
 	private Button chooseFileButton;
@@ -70,15 +71,15 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
         switch(requestCode) {
             case ACTIVITY_CHOOSE_FILE: {
                 if (resultCode == RESULT_OK){
-	                extractedPublicKey = null;
+                    extractedPublicKey = null;
                     Uri uri = data.getData();
-	                String path = uri.getPath();
-	                try {
-	                    extractedPublicKey = extractPublicInfo(new File(path));
-		                accountFileStatusImage.setVisibility(View.VISIBLE);
-	                } catch (Exception e) {
-		                displayInvalidAccountFile();
-	                }
+                    String path = uri.getPath();
+                    try {
+                        extractedPublicKey = extractPublicInfo(new File(path));
+                        accountFileStatusImage.setVisibility(View.VISIBLE);
+                    } catch (Exception e) {
+                        displayInvalidAccountFile();
+                    }
                 } else if (resultCode == RESULT_CANCELED) {
                     shouldShowInstallExplorer = true;
                 }
@@ -97,6 +98,20 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
 	@Override
     public void onResume() {
         super.onResume();
+
+		File prefsDir = new File(getAppDir(), PREFS_DIR);
+		File mpiFile = new File(prefsDir, "account.mpi");
+		File accountIDFile =  getFileFromAssets(ACCOUNT_ID_FILENAME, mpiFile, this);
+		if (accountIDFile != null && accountIDFile.exists()) {
+			try {
+				extractedPublicKey = extractPublicInfo(accountIDFile);
+				storePublicKey();
+		        finish();
+			} catch (Exception e) {
+				Log.e(AppConfig.LOG_LABEL, "Problem reading hq public key ", e);
+			}
+		}
+
         if (shouldShowInstallExplorer) {
             showInstallExplorerDialog();
             shouldShowInstallExplorer = false;
@@ -153,6 +168,19 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
 	    Toast.makeText(this, getString(R.string.success_import_hq_key), Toast.LENGTH_LONG).show();
         finish();
     }
+
+	private void storePublicKey() throws IOException, MartusCrypto.MartusSignatureException
+	{
+		SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
+		SharedPreferences.Editor editor = HQSettings.edit();
+
+		editor.putString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, extractedPublicKey);
+		editor.commit();
+
+
+		File desktopKeyFile = getPrefsFile(PREFS_DESKTOP_KEY);
+		MartusUtilities.createSignatureFileFromFile(desktopKeyFile, getSecurity());
+	}
 
     public String extractPublicInfo(File file) throws
             IOException,
