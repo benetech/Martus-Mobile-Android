@@ -237,6 +237,7 @@
     <string name="label_location">Location</string>
     <string name="label_keywords">Keywords</string>
     <string name="label_entrydate">Entry Date</string>
+    <string name="label_eventdate">Event Date</string>
     <string name="label_summary">Summary</string>
     <string name="label_publicinfo">Public Info</string>
     <string name="date_validation_min">Date must be on or after %1$s .</string>
@@ -244,7 +245,9 @@
     <string name="boolean_true">Yes</string>
     <string name="boolean_false">No</string>
     <string name="end_form_button">Add Attachments and Send</string>
-
+    <!-- Only translate the words inside the parenthesis in the following two lines -->
+    <string name="date_range_start">&#160;(start)</string>
+    <string name="date_range_end">&#160;(end)</string>
 
     <!-- odk -->
     <string name="accept_location">Record Location</string>
