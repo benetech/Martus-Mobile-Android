@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,6 +24,9 @@ import org.martus.common.fieldspec.CustomDropDownFieldSpec;
 import org.martus.common.fieldspec.DateFieldSpec;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldType;
+import org.martus.common.fieldspec.FieldTypeDate;
+import org.martus.common.utilities.MartusFlexidate;
+import org.martus.util.MultiCalendar;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.logic.FormController;
 import org.xmlpull.v1.XmlSerializer;
@@ -75,6 +79,8 @@ public class ODKUtils
 	public static final String MARTUS_CUSTOM_ODK_INSTANCE = "instance.xml";
 	public static final String MARTUS_CUSTOM_ODK_INSTANCE_SIG = "instance.sig";
 	public static final String MARTUS_CUSTOM_TEMPLATE = "martus.mct";
+	public static final String DATE_RANGE_START_POSTFIX = "mm_daterange_start";
+	public static final String DATE_RANGE_END_POSTFIX = "mm_daterange_end";
 
 	private static boolean isBodyCompatibleField(FieldSpec field) {
 		FieldType type = field.getType();
@@ -135,6 +141,9 @@ public class ODKUtils
 		if (tag.equals(BulletinConstants.TAGENTRYDATE)) {
 			return context.getString(R.string.label_entrydate);
 		}
+		if (tag.equals(BulletinConstants.TAGEVENTDATE)) {
+			return context.getString(R.string.label_eventdate);
+		}
 		if (tag.equals(BulletinConstants.TAGSUMMARY)) {
 			return context.getString(R.string.label_summary);
 		}
@@ -145,14 +154,62 @@ public class ODKUtils
 		return "";
 	}
 
-	public static void writeXml(Context context, FieldSpecCollection specCollection){
+	private static FieldSpecCollection filterSpecs(Context context, FieldSpecCollection originalSpecs) {
+		FieldSpecCollection displayableSpecs = new FieldSpecCollection();
+		FieldSpec[] fields = originalSpecs.asArray();
+		for (FieldSpec field: fields){
+			if (isBodyCompatibleField(field)) {
+				Log.w(AppConfig.LOG_LABEL, "adding displayable field of type " + field.getType().getTypeName() + " with label = " + field.getLabel() + " and tag= " + field.getTag());
+				displayableSpecs.add(field);
+			} else if(field.getType().isDateRange()) {
+				FieldTypeDate emptyDateCreator = new FieldTypeDate();
+				DateFieldSpec dateStart = (DateFieldSpec)emptyDateCreator.createEmptyFieldSpec();
+				dateStart.setLabel(field.getLabel() + context.getString(R.string.date_range_start));
+				dateStart.setTag(field.getTag() + DATE_RANGE_START_POSTFIX);
+
+				DateFieldSpec dateEnd = (DateFieldSpec)emptyDateCreator.createEmptyFieldSpec();
+				dateEnd.setLabel(field.getLabel() + context.getString(R.string.date_range_end));
+				dateEnd.setTag(field.getTag() + DATE_RANGE_END_POSTFIX);
+
+				if (field.isRequiredField()) {
+					dateStart.setRequired();
+					dateEnd.setRequired();
+				}
+
+				//todo: need to set min and max date
+
+				displayableSpecs.add(dateStart);
+				displayableSpecs.add(dateEnd);
+			}
+		}
+
+		FieldSpecCollection filteredOutEmptyGroups = new FieldSpecCollection();
+		fields = displayableSpecs.asArray();
+		int length = fields.length;
+		for(int i = 0; i < length; i++) {
+	         FieldSpec field = fields[i];
+			 if (i < length - 1) {
+				 if (!(field.getType().isSectionStart() && fields[i+1].getType().isSectionStart())) {
+					 Log.w(AppConfig.LOG_LABEL, "adding filtered field of type " + field.getType().getTypeName() + " with label = " + field.getLabel() + " and tag= " + field.getTag());
+					 filteredOutEmptyGroups.add(field);
+				 }
+			 } else if(!field.getType().isSectionStart()) {
+				filteredOutEmptyGroups.add(field);
+			 }
+	      }
+		filteredOutEmptyGroups.addAllReusableChoicesLists(originalSpecs.getAllReusableChoiceLists());
+		return filteredOutEmptyGroups;
+	}
+
+	public static void writeXml(Context context, FieldSpecCollection initialSpecs){
 
 		// delete cached ODK form file
 		File dir = new File(Collect.FORMS_PATH);
 		File file = new File(dir, MARTUS_CUSTOM_ODK_FORM);
 		file.delete();
 
-		addStandardLabels(context, specCollection);
+		addStandardLabels(context, initialSpecs);
+		FieldSpecCollection specCollection = filterSpecs(context, initialSpecs);
 	    XmlSerializer serializer = Xml.newSerializer();
 	    StringWriter writer = new StringWriter();
 		FieldSpec[] fields = specCollection.asArray();
@@ -434,6 +491,8 @@ public class ODKUtils
 		formController.jumpToIndex(FormIndex.createBeginningOfFormIndex());
 
 		int event;
+		MultiCalendar beginDate = null;
+		MultiCalendar endDate = null;
 		while ((event =
 		        formController.stepToNextEvent(FormController.STEP_INTO_GROUP)) != FormEntryController.EVENT_END_OF_FORM) {
 		    if (event != FormEntryController.EVENT_QUESTION) {
@@ -442,12 +501,26 @@ public class ODKUtils
 		        IAnswerData answer = formController.getQuestionPrompt().getAnswerValue();
 			    FormEntryPrompt questionPrompt = formController.getQuestionPrompt();
 		        String questionID = formController.getQuestionPrompt().getQuestion().getTextID();
+			    Log.w(AppConfig.LOG_LABEL, " questionID = " + questionID);
 			    int dataType = questionPrompt.getDataType();
 		        if (answer != null) {
 			        String tag =  questionID.substring(6, questionID.length() - 6);
 			        String value = answer.getDisplayText();
 			        if (dataType == Constants.DATATYPE_DATE) {
-				        value = DateUtils.format((Date) answer.getValue(), DATE_FORMAT_MARTUS);
+				        Date date = (Date)answer.getValue();
+				        value = DateUtils.format(date, DATE_FORMAT_MARTUS);
+				        Calendar cal = Calendar.getInstance();
+			            cal.setTime(date);
+				        cal.set(Calendar.HOUR_OF_DAY,12);
+				        if (tag.endsWith(DATE_RANGE_START_POSTFIX)) {
+					        beginDate = MultiCalendar.createFromGregorianYearMonthDay(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+					        Log.w(AppConfig.LOG_LABEL, " beginDate is " + date);
+					        Log.w(AppConfig.LOG_LABEL, " beginDate MultiCalendarDate is " + beginDate);
+				        } else if (tag.endsWith(DATE_RANGE_END_POSTFIX)) {
+					        endDate = MultiCalendar.createFromGregorianYearMonthDay(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+					        Log.w(AppConfig.LOG_LABEL, " endDate is " + date);
+					        Log.w(AppConfig.LOG_LABEL, " endDate MultiCalendarDate is " + endDate);
+				        }
 			        } else if (dataType == Constants.DATATYPE_CHOICE) {
 				        if (value.equals(ODKUtils.STRING_TRUE)) {
 					        value = FieldSpec.TRUESTRING;
@@ -455,7 +528,20 @@ public class ODKUtils
 					        value = FieldSpec.FALSESTRING;
 				        }
 			        }
-			        bulletin.set(tag, value);
+			        if (beginDate == null && endDate == null) {
+				        Log.w(AppConfig.LOG_LABEL, "setting normal bulletin field, with tag = " + tag);
+			            bulletin.set(tag, value);
+			        } else if (beginDate != null && endDate != null) {
+				        //set daterange
+				        tag = tag.substring(0, tag.length() - DATE_RANGE_END_POSTFIX.length());
+				        String myValue = MartusFlexidate.toBulletinFlexidateFormat(beginDate, endDate);
+				        Log.w(AppConfig.LOG_LABEL, " DateRange tag is " + tag + " with value of " + myValue);
+				        Log.w(AppConfig.LOG_LABEL, "beginDate is " + beginDate);
+				        Log.w(AppConfig.LOG_LABEL, "endDate is " + endDate);
+				        bulletin.set(tag, myValue);
+				        beginDate = null;
+				        endDate = null;
+			        }
 		        }
 		    }
 		}
