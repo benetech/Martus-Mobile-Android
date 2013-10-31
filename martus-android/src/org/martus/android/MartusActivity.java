@@ -57,6 +57,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         OrbotHandler {
 
 	public static final String ACCOUNT_ID_FILENAME = "Mobile_Public_Account_ID.mpi";
+	public static final String CUSTOM_TEMPLATE_FILENAME = "Custom_Template.mct";
 
     private static final String PACKETS_DIR = "packets";
     private static final String SERVER_COMMAND_PREFIX = "MartusServer.";
@@ -141,47 +142,52 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             AppConfig.getInstance().getCrypto().clearKeyPair();
             finish();
         }  else if (requestCode == ACTIVITY_CHOOSE_FORM) {
-	        if (resultCode == RESULT_OK){
-		        SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
-                HeadquartersKey hqKey = new HeadquartersKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
-
-                Uri uri = data.getData();
-                String filePath = uri.getPath();
-
-                try {
-	                CustomFieldTemplate template = new CustomFieldTemplate();
-	                Vector authorizedKeys = new Vector<String>();
-                    authorizedKeys.add(hqKey.getPublicKey());
-	                File customTemplate = new File(filePath);
-	                if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
-                    {
-	                    String topSectionXML = template.getImportedTopSectionText();
-	                    String bottomSectionXML = template.getImportedBottomSectionText();
-
-                        FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
-                        FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
-                        MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
-                        MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
-
-	                    FieldSpecCollection allFields = mergeIntoOneSpecCollection(topFields, bottomFields);
-
-                        ODKUtils.writeXml(this, allFields);
-                        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
-                        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
-                        startActivity(intent);
-                    }
-
-	                deleteExistingTemplate();
-	                copyFile(customTemplate, new File(Collect.MARTUS_TEMPLATE_PATH, ODKUtils.MARTUS_CUSTOM_TEMPLATE));
-                } catch (Exception e) {
-                    showMessage(this, "Invalid form file", getString(R.string.error_message));
-                    Log.e(AppConfig.LOG_LABEL, "problem getting form file", e);
-                }
+	        if (resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            String filePath = uri.getPath();
+            File customTemplate = new File(filePath);
+            loadCustomTemplate(customTemplate);
             } else if (resultCode == RESULT_CANCELED) {
                 //shouldShowInstallExplorer = true;
             }
         }
     }
+
+	private void loadCustomTemplate(File customTemplate)
+	{
+		SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
+		HeadquartersKey hqKey = new HeadquartersKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
+		try {
+			CustomFieldTemplate template = new CustomFieldTemplate();
+			Vector authorizedKeys = new Vector<String>();
+		    authorizedKeys.add(hqKey.getPublicKey());
+			if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
+		    {
+			    String topSectionXML = template.getImportedTopSectionText();
+			    String bottomSectionXML = template.getImportedBottomSectionText();
+
+		        FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
+		        FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
+		        MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
+		        MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
+
+			    FieldSpecCollection allFields = mergeIntoOneSpecCollection(topFields, bottomFields);
+
+		        ODKUtils.writeXml(this, allFields);
+		        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
+		        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
+		        startActivity(intent);
+		    } else {
+				Log.e(AppConfig.LOG_LABEL, "couldn't load custom template! Likely using wrong hq public key");
+			}
+
+			deleteExistingTemplate();
+			copyFile(customTemplate, new File(Collect.MARTUS_TEMPLATE_PATH, ODKUtils.MARTUS_CUSTOM_TEMPLATE));
+		} catch (Exception e) {
+		    showMessage(this, "Invalid form file", getString(R.string.error_message));
+		    Log.e(AppConfig.LOG_LABEL, "problem getting form file", e);
+		}
+	}
 
 	private FieldSpecCollection mergeIntoOneSpecCollection(FieldSpecCollection topFields, FieldSpecCollection bottomFields)
 	{
@@ -224,8 +230,16 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
             startActivity(intent);
 	    } else {
-	        Intent intent = new Intent(MartusActivity.this, BulletinActivity.class);
-	        startActivityForResult(intent, EXIT_REQUEST_CODE) ;
+		    // really is temp file so okay that its in the cache dir
+		    File destinationFile = new File(getCacheDir(), "custom.mct");
+            File templateFIle =  getFileFromAssets(CUSTOM_TEMPLATE_FILENAME, destinationFile, this);
+            if (templateFIle != null && templateFIle.exists()) {
+                Log.i(AppConfig.LOG_LABEL, "should load custom template");
+                loadCustomTemplate(templateFIle);
+            } else {
+                Intent intent = new Intent(MartusActivity.this, BulletinActivity.class);
+                startActivityForResult(intent, EXIT_REQUEST_CODE) ;
+            }
 	    }
     }
 
