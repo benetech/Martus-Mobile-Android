@@ -84,13 +84,13 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
     }
 
 	private void initInactivityHandler() {
+		int timeoutSetting = Integer.valueOf(mySettings.getString(SettingsActivity.KEY_TIMEOUT_MINUTES, SettingsActivity.DEFAULT_TIMEOUT_MINUTES));
+	        setTimeout(timeoutSetting);
 		if (inactivityHandler == null)
 			inactivityHandler = new EmptyHandler();
 		if (inactivityCallback == null) {
 			inactivityCallback = new LogOutProcess(this);
 		}
-		int timeoutSetting = Integer.valueOf(mySettings.getString(SettingsActivity.KEY_TIMEOUT_MINUTES, SettingsActivity.DEFAULT_TIMEOUT_MINUTES));
-        setTimeout(timeoutSetting);
 	}
 
     public void resetInactivityTimer(){
