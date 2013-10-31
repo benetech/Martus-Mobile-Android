@@ -657,7 +657,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 		setContentView(R.layout.send_bulletin_linear);
 	}
 
-    private class PicasaImageTask extends AsyncTask<Uri, Void, File> {
+    class PicasaImageTask extends AsyncTask<Uri, Void, File> {
         @Override
         protected File doInBackground(Uri... uris) {
 
