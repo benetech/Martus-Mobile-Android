@@ -254,7 +254,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
                 .show();
     }
 
-    private class RetryButtonHandler implements DialogInterface.OnClickListener {
+    class RetryButtonHandler implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialogInterface, int whichButton) {
             /* Do nothing */
@@ -272,7 +272,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
         return ((serverIP.length() > 1) && canUpload);
     }
 
-    private class CancelButtonHandler implements DialogInterface.OnClickListener {
+    class CancelButtonHandler implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialogInterface, int whichButton) {
 
