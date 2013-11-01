@@ -257,7 +257,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
         	//String instancePath = formController.getInstancePath().getAbsolutePath();
 	        String instancePath = Collect.INSTANCES_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_ODK_INSTANCE;
             exportXmlFile(payload, instancePath);
-	        exportSecureXmlFile(payload, mMartusCrypto);
+	        encryptAndSignXmlFile(payload, mMartusCrypto);
 
         } catch (IOException e) {
             Log.e(t, "Error creating serialized payload");
@@ -316,7 +316,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, Integer> {
 	     * @param martusCrypto
 	     * @return
 	     */
-	    private static boolean exportSecureXmlFile(ByteArrayPayload payload, MartusSecurity martusCrypto) {
+	    private static boolean encryptAndSignXmlFile(ByteArrayPayload payload, MartusSecurity martusCrypto) {
 		    try {
 
 	            InputStream is = payload.getPayloadStream();
