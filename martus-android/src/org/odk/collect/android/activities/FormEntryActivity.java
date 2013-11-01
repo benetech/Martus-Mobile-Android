@@ -912,6 +912,8 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 					.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
+							//temp save so no data is lost before bulletin starts sending
+							saveDataToDisk(DO_NOT_EXIT, isInstanceComplete(false), null);
 
 							Intent intent = new Intent(FormEntryActivity.this, BulletinActivity.class);
 							intent.putExtra(MartusActivity.HAVE_FORM, true);

@@ -460,8 +460,12 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 		    bulletin.set(Bulletin.TAGAUTHOR, getString(R.string.default_author));
 	    }
 
+	    //turn off user inactivity checking during zipping and encrypting of file
         stopInactivityTimer();
         parentApp.setIgnoreInactivity(true);
+
+	    //remove saved custom form data
+	    clearDirectory(new File(Collect.INSTANCES_PATH));
 
         final AsyncTask<Object, Integer, File> zipTask = new ZipBulletinTask(bulletin, this);
         zipTask.execute(getAppDir(), store);
@@ -600,6 +604,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         switch (confirmationType) {
             case CONFIRMATION_TYPE_CANCEL_BULLETIN :
                 removeCachedUnsentAttachments();
+                clearDirectory(new File(Collect.INSTANCES_PATH));
                 this.finish();
                 break;
             case CONFIRMATION_TYPE_DELETE_ATTACHMENT :

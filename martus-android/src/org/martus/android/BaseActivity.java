@@ -367,4 +367,20 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 		  }
 		return null;
 	}
+
+	protected static void clearDirectory(final File dir) {
+        if (dir!= null && dir.isDirectory()) {
+            try {
+                for (File child:dir.listFiles()) {
+                    if (child.isDirectory()) {
+                        clearDirectory(child);
+                    }
+                    child.delete();
+                }
+            }
+            catch(Exception e) {
+                Log.e(AppConfig.LOG_LABEL, String.format("Failed to clean the cache, error %s", e.getMessage()));
+            }
+        }
+    }
 }
