@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
+import org.martus.android.dialog.LoginDialog;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.FieldCollection;
 import org.martus.common.FieldSpecCollection;
@@ -66,7 +67,7 @@ import com.ipaulpro.afilechooser.utils.FileUtils;
  */
 public class BulletinActivity extends BaseActivity implements BulletinSender,
         ConfirmationDialog.ConfirmationDialogListener, IndeterminateProgressDialog.IndeterminateProgressDialogListener,
-        DeterminateProgressDialog.DeterminateProgressDialogListener, AdapterView.OnItemLongClickListener {
+        DeterminateProgressDialog.DeterminateProgressDialogListener, AdapterView.OnItemLongClickListener, LoginDialog.LoginDialogListener {
 
     final int ACTIVITY_CHOOSE_ATTACHMENT = 2;
     public static final String EXTRA_ATTACHMENT = "org.martus.android.filePath";
@@ -110,7 +111,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         if (!martusCrypto.hasKeyPair()) {
-            showLoginRequiredDialog();
+            showLoginDialog();
         }
 
         SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
@@ -167,7 +168,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
         try {
 
             if (!AppConfig.getInstance().getCrypto().hasKeyPair()) {
-                showLoginRequiredDialog();
+                showLoginDialog();
                 return;
             }
 
@@ -657,7 +658,18 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 		setContentView(R.layout.send_bulletin_linear);
 	}
 
-    class PicasaImageTask extends AsyncTask<Uri, Void, File> {
+	@Override
+	public void onFinishPasswordDialog(TextView passwordText)
+	{
+		char[] password = passwordText.getText().toString().trim().toCharArray();
+        boolean confirmed = (password.length >= MIN_PASSWORD_SIZE) && confirmAccount(password);
+        if (!confirmed) {
+            Toast.makeText(this, getString(R.string.incorrect_password), Toast.LENGTH_SHORT).show();
+            showLoginDialog();
+        }
+	}
+
+	class PicasaImageTask extends AsyncTask<Uri, Void, File> {
         @Override
         protected File doInBackground(Uri... uris) {
 

@@ -107,12 +107,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         inactivityHandler.removeCallbacksAndMessages(null);
     }
 
-    public void showLoginRequiredDialog() {
-        LoginRequiredDialog loginRequiredDialog = LoginRequiredDialog.newInstance();
-        loginRequiredDialog.show(getSupportFragmentManager(), "dlg_login");
-    }
-
-	void showLoginDialog() {
+    void showLoginDialog() {
         DialogFragment dialogFragment = (DialogFragment)getSupportFragmentManager().findFragmentByTag(LOGIN_DIALOG_TAG);
         if (dialogFragment != null) {
             dialogFragment.dismiss();

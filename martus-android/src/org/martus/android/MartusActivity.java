@@ -548,14 +548,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 	        showMessage(this, res.getQuantityString(R.plurals.show_unsent_count, count, count), getString(R.string.show_unsent_title));
         }
 
-	    Intent intent = getIntent();
-        int returnTo = intent.getIntExtra(RETURN_TO, 0);
-        if (returnTo == ACTIVITY_BULLETIN) {
-            Intent destination = new Intent(MartusActivity.this, BulletinActivity.class);
-            destination.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            destination.putExtras(intent);
-            startActivity(destination);
-        }
         onResume();
     }
 
