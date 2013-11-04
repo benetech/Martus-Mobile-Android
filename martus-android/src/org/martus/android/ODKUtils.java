@@ -150,6 +150,9 @@ public class ODKUtils
 		if (tag.equals(BulletinConstants.TAGPUBLICINFO)) {
 			return context.getString(R.string.label_publicinfo);
 		}
+		if (tag.equals(BulletinConstants.TAGPRIVATEINFO)) {
+			return context.getString(R.string.label_privateinfo);
+		}
 
 		return "";
 	}
