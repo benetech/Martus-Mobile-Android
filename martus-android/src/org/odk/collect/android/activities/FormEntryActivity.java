@@ -654,42 +654,42 @@ public class FormEntryActivity extends BaseActivity implements AnimationListener
 	public boolean onOptionsItemSelected(MenuItem item) {
 		FormController formController = Collect.getInstance()
 				.getFormController();
-		switch (item.getItemId()) {
-		case MENU_LANGUAGES:
-			Collect.getInstance()
-					.getActivityLogger()
-					.logInstanceAction(this, "onOptionsItemSelected",
-							"MENU_LANGUAGES");
-			createLanguageDialog();
-			return true;
-		case R.id.save_form_menu_item:
-			Collect.getInstance()
-					.getActivityLogger()
-					.logInstanceAction(this, "onOptionsItemSelected",
-							"MENU_SAVE");
-			// don't exit
-			saveDataToDisk(DO_NOT_EXIT, isInstanceComplete(false), null);
-			return true;
-		case R.id.goto_form_menu_item:
-			Collect.getInstance()
-					.getActivityLogger()
-					.logInstanceAction(this, "onOptionsItemSelected",
-							"MENU_HIERARCHY_VIEW");
-			if (formController.currentPromptIsQuestion()) {
-				saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
-			}
-			Intent i = new Intent(this, FormHierarchyActivity.class);
-			startActivityForResult(i, HIERARCHY_ACTIVITY);
-			return true;
-		case R.id.settings_form_menu_item:
-			Collect.getInstance()
-					.getActivityLogger()
-					.logInstanceAction(this, "onOptionsItemSelected",
-							"MENU_PREFERENCES");
-			Intent pref = new Intent(this, SettingsActivity.class);
-			startActivity(pref);
-			return true;
-		}
+		int id = item.getItemId();
+        if (id == MENU_LANGUAGES) {
+	        Collect.getInstance()
+                    .getActivityLogger()
+                    .logInstanceAction(this, "onOptionsItemSelected",
+		                    "MENU_LANGUAGES");
+            createLanguageDialog();
+            return true;    
+    } else if (id == R.id.save_form_menu_item) {
+	        Collect.getInstance()
+                    .getActivityLogger()
+                    .logInstanceAction(this, "onOptionsItemSelected",
+		                    "MENU_SAVE");
+            // don't exit
+            saveDataToDisk(DO_NOT_EXIT, isInstanceComplete(false), null);
+            return true;
+        } else if (id == R.id.goto_form_menu_item) {
+	        Collect.getInstance()
+                    .getActivityLogger()
+                    .logInstanceAction(this, "onOptionsItemSelected",
+		                    "MENU_HIERARCHY_VIEW");
+            if (formController.currentPromptIsQuestion()) {
+                saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
+            }
+            Intent i = new Intent(this, FormHierarchyActivity.class);
+            startActivityForResult(i, HIERARCHY_ACTIVITY);
+            return true;
+        } else if (id == R.id.settings_form_menu_item) {
+	        Collect.getInstance()
+                    .getActivityLogger()
+                    .logInstanceAction(this, "onOptionsItemSelected",
+		                    "MENU_PREFERENCES");
+            Intent pref = new Intent(this, SettingsActivity.class);
+            startActivity(pref);
+            return true;
+        }
 		return super.onOptionsItemSelected(item);
 	}
 
