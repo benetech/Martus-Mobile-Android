@@ -29,7 +29,6 @@ import org.odk.collect.android.activities.FormEntryActivity;
 import org.odk.collect.android.application.Collect;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -324,8 +323,11 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             showMessage(this, mpiFile.getAbsolutePath(), getString(R.string.exported_account_id_file_confirmation));
              return true;
         } else if (id == R.id.email_mpi_menu_item) {
-            showHowToSendDialog(this, getString(R.string.send_dialog_title));
+	        sendAccountIDAsEmail();
             return true;
+        } else if (id == R.id.send_mpi_menu_item_via_bulletin) {
+	        sendAccountIDAsBulletin();
+	        return true;
         } else if (id == R.id.feedback_menu_item) {
             showContactUs();
             return true;
@@ -659,38 +661,24 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 
-	protected void showHowToSendDialog(Context context, String title) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setIcon(android.R.drawable.ic_dialog_info)
-             .setTitle(title)
-             .setPositiveButton(R.string.send_dialog_email, new SendEmailButtonListener())
-             .setNegativeButton(R.string.password_dialog_cancel, new CancelSendButtonListener())
-             .setNeutralButton(R.string.send_dialog_bulletin, new SendBulletinButtonListener())
-             .show();
-    }
+	private void sendAccountIDAsEmail()
+	{
+		File mpiFile = getMpiFile();
+		Intent emailIntent = new Intent(Intent.ACTION_SEND);
+		emailIntent.setType("text/plain");
+		Uri uri = Uri.parse("file://" + mpiFile.getAbsolutePath());
+		emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+		startActivity(Intent.createChooser(emailIntent, "Send email..."));
+	}
 
-    public class SendEmailButtonListener implements DialogInterface.OnClickListener {
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-	        File mpiFile = getMpiFile();
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("text/plain");
-            Uri uri = Uri.parse("file://" + mpiFile.getAbsolutePath());
-            emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            startActivity(Intent.createChooser(emailIntent, "Send email..."));
-        }
-    }
-
-	public class SendBulletinButtonListener implements DialogInterface.OnClickListener {
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-	        File mpiFile = getMpiFile();
-            String filePath = mpiFile.getPath();
-            Intent bulletinIntent = new Intent(MartusActivity.this, BulletinActivity.class);
-            bulletinIntent.putExtra(BulletinActivity.EXTRA_ATTACHMENT, filePath);
-            startActivity(bulletinIntent);
-        }
-    }
+	private void sendAccountIDAsBulletin()
+	{
+		File mpiFile = getMpiFile();
+		String filePath = mpiFile.getPath();
+		Intent bulletinIntent = new Intent(this, BulletinActivity.class);
+		bulletinIntent.putExtra(BulletinActivity.EXTRA_ATTACHMENT, filePath);
+		startActivity(bulletinIntent);
+	}
 
 	public class CancelSendButtonListener implements DialogInterface.OnClickListener {
         @Override

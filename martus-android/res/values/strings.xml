@@ -133,7 +133,8 @@
     <string name="feedback_dialog_title">Contact Us</string>
     <string name="view_public_code_dialog_title">Public Code</string>
     <string name="view_public_code_dialog_error">Unable to show Public Code</string>
-    <string name="send_public_account_id_menu_item">Send Public Account ID</string>
+    <string name="send_public_account_id_menu_item">Email Public Account ID</string>
+    <string name="send_public_account_id_menu_item_via_bulletin">Send Public Account ID in Bulletin</string>
     <string name="tools_menu">Tools</string>
     <string name="export_public_account_id_menu_item">Export Public Account ID</string>
     <string name="load_form_menu_item">Import Custom Form</string>
