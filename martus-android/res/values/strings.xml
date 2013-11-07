@@ -241,7 +241,6 @@
     <string name="date_range_end">&#160;(end)</string>
 
     <!-- odk -->
-    <string name="accept_location">Record Location</string>
     <string name="activity_not_found">No activity found to handle: %s</string>
     <string name="add_another">Add Group</string>
     <string name="add_another_repeat">Add another \"%s\" group?</string>
@@ -299,7 +298,6 @@
     <string name="play_audio">Play Sound</string>
     <string name="play_video">Play Video</string>
     <string name="please_wait">Please wait a few moments.</string>
-    <string name="please_wait_long">Please wait. This could take a few minutes.</string>
     <string name="quit_application">Exit %s</string>
     <string name="quit_entry">Save Form and Exit</string>
     <string name="replace_barcode">Replace Barcode</string>
@@ -314,7 +312,6 @@
     <string name="general_preferences">Settings</string>
     <string name="show_splash">Show splash screen</string>
     <string name="keep_changes">Save Changes</string>
-    <string name="go_to_location">Go to Location</string>
     <string name="font_size">Text font size</string>
     <string name="xform_parse_error">XForm parse error. %1$s is missing element %2$s</string>
     <string name="choose_sound">Choose Sound</string>
