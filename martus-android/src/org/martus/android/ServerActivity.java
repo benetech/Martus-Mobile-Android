@@ -226,12 +226,10 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
 
             } else {
                 showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
-                return;
             }
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL,"problem processing server IP", e);
             showErrorMessage(getString(R.string.error_computing_public_code), getString(R.string.error_message));
-            return;
         }
 
 

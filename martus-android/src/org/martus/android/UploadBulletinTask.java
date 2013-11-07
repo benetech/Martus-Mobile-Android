@@ -2,19 +2,14 @@ package org.martus.android;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkGateway;
-import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
-import org.martus.common.network.PartialUploadStatus;
 import org.martus.common.packet.UniversalId;
 import org.martus.util.StreamableBase64;
 
