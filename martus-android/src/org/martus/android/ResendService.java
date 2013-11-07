@@ -2,7 +2,6 @@ package org.martus.android;
 
 import java.io.File;
 
-import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpc;
 import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinZipImporter;
