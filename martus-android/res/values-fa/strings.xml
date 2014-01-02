@@ -19,7 +19,7 @@
   <string name="retry_server">دوباره وارد کنید</string>
   <string name="cancel_server">لغو </string>
   <string name="title_timeout_preference">وقفه</string>
-  <string name="summary_timeout_preference">در عرض چند دقیقه</string>
+  <string name="summary_timeout_preference">در دقیقه</string>
   <string name="dialog_title_timeout_preference">مدت زمان وقفه</string>
   <string name="title_wifi_only_preference">تنها از وای فای استفاده کن</string>
   <string name="wifi_only_preference_on">تنها در صورت فراهم بودن Wi-Fi اطلاعات ارسال شود</string>
@@ -63,7 +63,7 @@
   <!--Do Not Translate the word Orbot-->
   <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot فعال نیست، آیا مایل هستید آنرا فعال کنید؟</string>
   <!--Do Not Translate the URL that starts with https://-->
-  <string formatted="false" name="use_tor"><b> استفاده از Tor </b> ( ممکن است کمک کند تا ارتباط شما با سرور Martus پنهان بماند و همینطور ممکن است در صورتی که  سرور های Martus در محل شما مسدود باشد، دسترسی به آنها را فراهم نماید، اما سرعت ارسال بولتن ها را کاهش خواهد داد)</string>
+  <string formatted="false" name="use_tor"><b> استفاده از Tor </b> (ممکن است کمک کند تا ارتباط شما با سرور Martus پنهان بماند و همینطور ممکن است در صورتی که  سرور های Martus در محل شما مسدود باشد، دسترسی به آنها را فراهم نماید، اما سرعت ارسال بولتن ها را کاهش خواهد داد)</string>
   <string name="create_password_hint">رمز عبود جدید</string>
   <string name="confirm_password_hint">رمز عبور را  تکرار کنید</string>
   <string name="enter_password_hint">رمزعبور را وارد کنید</string>
