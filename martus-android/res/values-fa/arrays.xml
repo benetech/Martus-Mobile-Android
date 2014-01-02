@@ -107,17 +107,17 @@
     <item>vi</item>
   </string-array>
   <string-array name="entries_timeout_preference">
-    <item>دقیقه 10</item>
-    <item>دقیقه 7</item>
-    <item>دقیقه 5</item>
-    <item>دقیقه 3</item>
-    <item>دقیقه 1</item>
+    <item>١٠ دقیقه</item>
+    <item>٧ دقیقه</item>
+    <item>٥ دقیقه</item>
+    <item>٣ دقیقه</item>
+    <item>١ دقیقه</item>
   </string-array>
   <string-array name="values_timeout_preference">
-    <item>10</item>
-    <item>7</item>
-    <item>5</item>
-    <item>3</item>
-    <item>1</item>
+    <item>١٠</item>
+    <item>٧</item>
+    <item>٥</item>
+    <item>٣</item>
+    <item>١</item>
   </string-array>
 </resources>
