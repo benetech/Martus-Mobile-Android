@@ -17,7 +17,7 @@
   <string name="dialog_title_language_preference">زبان بولتن</string>
   <string name="settings_title">تنظیمات</string>
   <string name="retry_server">دوباره وارد کنید</string>
-  <string name="cancel_server">لغو </string>
+  <string name="cancel_server">لغو</string>
   <string name="title_timeout_preference">وقفه</string>
   <string name="summary_timeout_preference">در دقیقه</string>
   <string name="dialog_title_timeout_preference">مدت زمان وقفه</string>
@@ -49,7 +49,7 @@
   <!--Do Not Translate this line-->
   <string name="market_orbot">market://search?q=pname:org.torproject.android</string>
   <!--Do Not Translate the word Orbot-->
-  <string name="install_orbot_">نصب Orbot </string>
+  <string name="install_orbot_">نصب Orbot</string>
   <!--Do Not Translate the word Orbot-->
   <string name="you_must_have_orbot">شما باید Orbot را نصب کرده باشید</string>
   <string name="yes">بله</string>
@@ -63,7 +63,7 @@
   <!--Do Not Translate the word Orbot-->
   <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot فعال نیست، آیا مایل هستید آنرا فعال کنید؟</string>
   <!--Do Not Translate the URL that starts with https://-->
-  <string formatted="false" name="use_tor"><b> استفاده از Tor </b> (ممکن است کمک کند تا ارتباط شما با سرور Martus پنهان بماند و همینطور ممکن است در صورتی که  سرور های Martus در محل شما مسدود باشد، دسترسی به آنها را فراهم نماید، اما سرعت ارسال بولتن ها را کاهش خواهد داد)</string>
+  <string formatted="false" name="use_tor"><b>استفاده از Tor</b> (ممکن است کمک کند تا ارتباط شما با سرور Martus پنهان بماند و همینطور ممکن است در صورتی که  سرور های Martus در محل شما مسدود باشد، دسترسی به آنها را فراهم نماید، اما سرعت ارسال بولتن ها را کاهش خواهد داد)</string>
   <string name="create_password_hint">رمز عبود جدید</string>
   <string name="confirm_password_hint">رمز عبور را  تکرار کنید</string>
   <string name="enter_password_hint">رمزعبور را وارد کنید</string>
@@ -126,7 +126,7 @@
   <string formatted="false" name="view_docs_info">https://www.martus.org/mobile/docs </string>
   <string name="show_version">نمایش نسخه </string>
   <!--Do Not Translate the word Martus-->
-  <string name="exported_account_id_file_confirmation">استخراج به </string>
+  <string name="exported_account_id_file_confirmation">استخراج به</string>
   <string name="progress_creating_account">در حال ایجاد حساب کاربری</string>
   <!--==============================-->
   <!--bulletin screen-->
@@ -180,7 +180,7 @@
   <string name="select_file_picker">یک جستجوگر فایل انتخاب کنید</string>
   <string name="attachments_add_label">پیوست ها (برای انتخاب روی کلیپس کلیک کنید)</string>
   <string name="attachments_added_label">پیوست ها ( برای حذف، فشار دهید و نگه دارید)</string>
-  <string name="server_ip_label">آدرس IP سرور: </string>
+  <string name="server_ip_label">آدرس IP سرور:</string>
   <string name="server_ip_hint">آدرس IP سرور را وارد نمایید</string>
   <string name="server_public_code_label">کد عمومی سرور:</string>
   <string name="server_public_code_hint">کد عمومی سرور را وارد نمایید</string>
@@ -218,7 +218,7 @@
   <string name="boolean_false">خیر</string>
   <string name="end_form_button">فایل های پیوست را افزوده و ارسال کنید</string>
   <!--Only translate the words inside the parenthesis in the following two lines-->
-  <string name="date_range_start">( آغاز) </string>
+  <string name="date_range_start">(آغاز)</string>
   <string name="date_range_end">(پایان)</string>
   <!--odk - definitely used-->
   <string name="client">محیط کاربر</string>
