@@ -283,7 +283,8 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
       return matcher.matches();
 	}
 
-    private void processMagicWordResponse(NetworkResponse response) {
+    @Override
+    protected void processMagicWordResponse(NetworkResponse response) {
         dialog.dismiss();
         try {
              if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
@@ -301,32 +302,6 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
              Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
         }
     }
-
-	class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
-	        @Override
-	        protected NetworkResponse doInBackground(Object... params) {
-
-	            final MobileClientSideNetworkGateway gateway = (MobileClientSideNetworkGateway)params[0];
-	            final MartusSecurity signer = (MartusSecurity)params[1];
-	            final String magicWord = (String)params[2];
-
-	            NetworkResponse result = null;
-
-	            try {
-	                result = gateway.getUploadRights(signer, magicWord);
-	            } catch (MartusCrypto.MartusSignatureException e) {
-	                Log.e(AppConfig.LOG_LABEL, "problem getting upload rights", e);
-	            }
-
-	            return result;
-	        }
-
-	        @Override
-	        protected void onPostExecute(NetworkResponse result) {
-	            super.onPostExecute(result);
-	            processMagicWordResponse(result);
-	        }
-	    }
 
     class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
         @Override
