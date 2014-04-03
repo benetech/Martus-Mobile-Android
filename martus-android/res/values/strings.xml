@@ -45,6 +45,9 @@
     <string name="alert_dialog_confirm_password">Confirm Password:</string>
     <string name="alert_dialog_magic_word">Magic Word:</string>
     <string name="password_dialog_title">Login</string>
+    <string name="use_default_server">Use default server</string>
+    <string name="choose_connection_title">Choose Connection Type</string>
+    <string name="advanced_server_options">Advanced server options</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="password_dialog_cancel">Cancel</string>
     <string name="create_account_dialog_cancel">Exit</string>
