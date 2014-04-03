@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.martus.android"
     android:installLocation="auto"
-    android:versionCode="5"
+    android:versionCode="4"
     android:versionName="0" >
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17" />
@@ -99,6 +99,10 @@
         <activity
             android:name="org.odk.collect.android.activities.FormHierarchyActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name="org.martus.android.ChooseConnectionActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
+            android:label="@string/choose_connection_title"/>
 
         <service android:name="org.martus.android.ResendService"/>
     </application>

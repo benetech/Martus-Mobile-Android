@@ -86,6 +86,11 @@
             android:name="org.odk.collect.android.activities.FormHierarchyActivity"
             android:label="@string/app_name" />
 
+        <activity
+            android:name="org.martus.android.ChooseConnectionActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
+            android:label="@string/choose_connection_title"/>
+
         <service android:name="org.martus.android.ResendService"/>
     </application>
 </manifest>

@@ -24,7 +24,7 @@ public class TorIntroActivity extends BaseActivity implements OrbotHandler
 	}
 
 	public void nextScreen(View view) {
-		Intent intent = new Intent(TorIntroActivity.this, ServerActivity.class);
+		Intent intent = new Intent(TorIntroActivity.this, ChooseConnectionActivity.class);
         startActivityForResult(intent, EXIT_REQUEST_CODE);
 		finish();
 	}

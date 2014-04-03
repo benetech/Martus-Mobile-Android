@@ -43,7 +43,7 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
 
-    private static final int MIN_SERVER_CODE = 20;
+    public static final int MIN_SERVER_CODE = 20;
     private static final int MIN_SERVER_IP = 7;
 	public static final String SERVER_INFO_FILENAME = "Server.mmsi";
 
@@ -54,7 +54,7 @@ public class ServerActivity extends BaseActivity implements TextView.OnEditorAct
     private String serverIP;
     private String serverCode;
 
-	private static final String IP_ADDRESS_PATTERN =
+	public static final String IP_ADDRESS_PATTERN =
 	        "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
