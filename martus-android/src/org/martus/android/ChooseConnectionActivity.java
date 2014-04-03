@@ -20,7 +20,6 @@ import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.util.StreamableBase64;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +49,7 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
         }
 
         String serverCode = getServerPublicCode();
-        if (serverCode.length() < ServerActivity.MIN_SERVER_CODE) {
+        if (serverCode.length() < AbstractServerActivity.MIN_SERVER_CODE) {
             System.out.println(R.string.invalid_server_code);
             return;
         }
@@ -79,7 +78,7 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
     }
 
     public static boolean validate(final String ip) {
-        Pattern pattern = Pattern.compile(ServerActivity.IP_ADDRESS_PATTERN);
+        Pattern pattern = Pattern.compile(AbstractServerActivity.IP_ADDRESS_PATTERN);
         Matcher matcher = pattern.matcher(ip);
         return matcher.matches();
     }
