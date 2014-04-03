@@ -41,7 +41,7 @@ import com.actionbarsherlock.view.MenuItem;
  * @author roms
  *         Date: 12/10/12
  */
-public class ServerActivity extends BaseActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
+public class ServerActivity extends AbstractServerActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
 
     public static final int MIN_SERVER_CODE = 20;
     private static final int MIN_SERVER_IP = 7;

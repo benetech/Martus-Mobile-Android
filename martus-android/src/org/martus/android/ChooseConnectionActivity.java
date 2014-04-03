@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 /**
  * Created by nimaa on 3/31/14.
  */
-public class ChooseConnectionActivity extends BaseActivity {
+public class ChooseConnectionActivity extends AbstractServerActivity {
 
     private Button useDefaultServer;
 
