@@ -43,22 +43,12 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class ServerActivity extends AbstractServerActivity implements TextView.OnEditorActionListener, LoginDialog.LoginDialogListener {
 
-    public static final int MIN_SERVER_CODE = 20;
-    private static final int MIN_SERVER_IP = 7;
-	public static final String SERVER_INFO_FILENAME = "Server.mmsi";
-
     private EditText textIp;
     private EditText textCode;
 	private EditText textMagicWord;
     private Activity myActivity;
     private String serverIP;
     private String serverCode;
-
-	public static final String IP_ADDRESS_PATTERN =
-	        "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-	        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
