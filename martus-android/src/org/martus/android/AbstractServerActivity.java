@@ -7,6 +7,9 @@ import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.network.NetworkResponse;
+import org.martus.common.network.NonSSLNetworkAPI;
+
+import java.util.Vector;
 
 /**
  * Created by nimaa on 4/3/14.
@@ -23,6 +26,8 @@ abstract public class AbstractServerActivity extends BaseActivity{
 
 
     abstract protected void processMagicWordResponse(NetworkResponse result);
+
+    abstract protected void processResult(Vector result);
 
     protected class UploadRightsTask extends AsyncTask<Object, Void, NetworkResponse> {
         @Override
@@ -49,4 +54,25 @@ abstract public class AbstractServerActivity extends BaseActivity{
             processMagicWordResponse(result);
         }
     }
+
+    protected class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
+        @Override
+        protected Vector doInBackground(Object... params) {
+
+            final NonSSLNetworkAPI server = (NonSSLNetworkAPI)params[0];
+            final MartusSecurity security = (MartusSecurity)params[1];
+            Vector result = null;
+
+            result = server.getServerInformation();
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Vector result) {
+            super.onPostExecute(result);
+            processResult(result);
+        }
+    }
+
 }

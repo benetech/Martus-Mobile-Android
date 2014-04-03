@@ -27,7 +27,8 @@ import java.util.regex.Pattern;
 /**
  * Created by nimaa on 3/31/14.
  */
-public class ChooseConnectionActivity extends AbstractServerActivity {
+public class ChooseConnectionActivity
+        extends AbstractServerActivity {
 
     private Button useDefaultServer;
 
@@ -98,7 +99,8 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
         return "23364357724534822212";
     }
 
-    private void processResult(Vector serverInformation) {
+    @Override
+    protected void processResult(Vector serverInformation) {
         dialog.dismiss();
         if (! NetworkUtilities.isNetworkAvailable(this)) {
             System.out.println(getString(R.string.no_network_connection));
@@ -185,25 +187,4 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
             Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
         }
     }
-
-    private class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
-        @Override
-        protected Vector doInBackground(Object... params) {
-
-            final NonSSLNetworkAPI server = (NonSSLNetworkAPI)params[0];
-            final MartusSecurity security = (MartusSecurity)params[1];
-            Vector result = null;
-
-            result = server.getServerInformation();
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Vector result) {
-            super.onPostExecute(result);
-            processResult(result);
-        }
-    }
-
 }
