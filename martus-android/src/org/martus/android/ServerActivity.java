@@ -175,7 +175,8 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
         keyTask.execute(server, martusCrypto);
     }
 
-    private void processResult(Vector serverInformation) {
+    @Override
+    protected void processResult(Vector serverInformation) {
         dialog.dismiss();
 	    if (! NetworkUtilities.isNetworkAvailable(this)) {
             showErrorMessage(getString(R.string.no_network_connection), getString(R.string.error_message));
@@ -300,26 +301,6 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
         } catch (Exception e) {
              Log.e(AppConfig.LOG_LABEL, "Problem verifying upload rights", e);
              Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    class PublicKeyTask extends AsyncTask<Object, Void, Vector> {
-        @Override
-        protected Vector doInBackground(Object... params) {
-
-            final NonSSLNetworkAPI server = (NonSSLNetworkAPI)params[0];
-            final MartusSecurity security = (MartusSecurity)params[1];
-            Vector result = null;
-
-            result = server.getServerInformation();
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Vector result) {
-            super.onPostExecute(result);
-            processResult(result);
         }
     }
 }
