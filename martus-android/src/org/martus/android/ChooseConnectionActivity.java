@@ -101,7 +101,7 @@ public class ChooseConnectionActivity
 
     @Override
     protected void processResult(Vector serverInformation) {
-        dialog.dismiss();
+        dismissProgressDialog();
         if (! NetworkUtilities.isNetworkAvailable(this)) {
             System.out.println(getString(R.string.no_network_connection));
             System.out.println(getString(R.string.error_message));
@@ -171,7 +171,7 @@ public class ChooseConnectionActivity
     }
 
     protected void processMagicWordResponse(NetworkResponse response) {
-        dialog.dismiss();
+        dismissProgressDialog();
         try {
             if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
                 Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();

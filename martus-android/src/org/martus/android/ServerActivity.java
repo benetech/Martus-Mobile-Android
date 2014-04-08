@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.martus.android.dialog.LoginDialog;
-import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
@@ -138,21 +137,21 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 	    serverIP = serverIP.replace("*", ".");
         serverIP = serverIP.replace("#", ".");
         if ((serverIP.length() < MIN_SERVER_IP) || (! validate(serverIP))) {
-            showErrorMessage(getString(R.string.invalid_server_ip), getString(R.string.error_message));
+            showErrorMessageWithRetry(getString(R.string.invalid_server_ip), getString(R.string.error_message));
 	        textIp.requestFocus();
             return;
         }
 
         serverCode = textCode.getText().toString().trim();
         if (serverCode.length() < MIN_SERVER_CODE) {
-            showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
+            showErrorMessageWithRetry(getString(R.string.invalid_server_code), getString(R.string.error_message));
 	        textCode.requestFocus();
             return;
         }
 
 	    String magicWord = textMagicWord.getText().toString().trim();
         if (magicWord.isEmpty()) {
-	        showErrorMessage(getString(R.string.invalid_magic_word), getString(R.string.error_message));
+	        showErrorMessageWithRetry(getString(R.string.invalid_magic_word), getString(R.string.error_message));
             textMagicWord.requestFocus();
             return;
         }
@@ -166,7 +165,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 	    } catch (Exception e)
 	    {
 		    Log.e(AppConfig.LOG_LABEL, "problem creating client side network handler using xml for non ssl", e);
-		    showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
+		    showErrorMessageWithRetry(getString(R.string.error_getting_server_key), getString(R.string.error_message));
 		    return;
 	    }
 	    MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
@@ -177,19 +176,19 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
     @Override
     protected void processResult(Vector serverInformation) {
-        dialog.dismiss();
+        dismissProgressDialog();
 	    if (! NetworkUtilities.isNetworkAvailable(this)) {
-            showErrorMessage(getString(R.string.no_network_connection), getString(R.string.error_message));
+            showErrorMessageWithRetry(getString(R.string.no_network_connection), getString(R.string.error_message));
             return;
         }
         try {
             if (null == serverInformation || serverInformation.isEmpty()) {
-                showErrorMessage(getString(R.string.invalid_server_info), getString(R.string.error_message));
+                showErrorMessageWithRetry(getString(R.string.invalid_server_info), getString(R.string.error_message));
                 return;
             }
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Problem getting server public key", e);
-            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
+            showErrorMessageWithRetry(getString(R.string.error_getting_server_key), getString(R.string.error_message));
             return;
         }
 
@@ -216,11 +215,11 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
                 rightsTask.execute(getNetworkGateway(), martusCrypto, magicWord);
 
             } else {
-                showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
+                showErrorMessageWithRetry(getString(R.string.invalid_server_code), getString(R.string.error_message));
             }
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL,"problem processing server IP", e);
-            showErrorMessage(getString(R.string.error_computing_public_code), getString(R.string.error_message));
+            showErrorMessageWithRetry(getString(R.string.error_computing_public_code), getString(R.string.error_message));
         }
 
 
@@ -233,7 +232,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
         return normalizedPublicCode.equals(computedCode);
     }
 
-    private void showErrorMessage(String msg, String title){
+    private void showErrorMessageWithRetry(String msg, String title){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(title)
@@ -286,7 +285,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
     @Override
     protected void processMagicWordResponse(NetworkResponse response) {
-        dialog.dismiss();
+        dismissProgressDialog();
         try {
              if (!response.getResultCode().equals(NetworkInterfaceConstants.OK)) {
                  Toast.makeText(this, getString(R.string.no_upload_rights), Toast.LENGTH_SHORT).show();

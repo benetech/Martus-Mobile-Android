@@ -667,7 +667,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     }
 
     private void processPingResult(String result) {
-        dialog.dismiss();
+        dismissProgressDialog();
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 

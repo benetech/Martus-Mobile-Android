@@ -62,7 +62,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 
     protected MartusApplication parentApp;
     private String confirmationDialogTitle;
-    protected ProgressDialog dialog;
+    private ProgressDialog dialog;
     SharedPreferences mySettings;
 	private static List<String> assetsList;
 
