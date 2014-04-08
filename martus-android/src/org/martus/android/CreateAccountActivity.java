@@ -141,7 +141,7 @@ public class CreateAccountActivity extends BaseActivity implements TextWatcher, 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-	        dialog.dismiss();
+	        dismissProgressDialog();
             finish();
         }
     }
