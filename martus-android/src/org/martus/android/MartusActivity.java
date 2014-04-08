@@ -14,6 +14,7 @@ import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.martus.android.dialog.AddContactActivity;
 import org.martus.android.dialog.LoginDialog;
 import org.martus.android.dialog.ModalConfirmationDialog;
 import org.martus.common.FieldCollection;
@@ -25,6 +26,7 @@ import org.martus.common.fieldspec.CustomFieldTemplate;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.util.StreamableBase64;
+import org.martus.util.inputstreamwithseek.FileInputStreamWithSeek;
 import org.odk.collect.android.activities.FormEntryActivity;
 import org.odk.collect.android.application.Collect;
 
@@ -160,8 +162,12 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 			CustomFieldTemplate template = new CustomFieldTemplate();
 			Vector authorizedKeys = new Vector<String>();
 		    authorizedKeys.add(hqKey.getPublicKey());
-			if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
-		    {
+
+            FileInputStreamWithSeek inputStream = new FileInputStreamWithSeek(customTemplate);
+            try
+            {
+                if(template.importTemplate(martusCrypto, inputStream))
+                {
 			    String topSectionXML = template.getImportedTopSectionText();
 			    String bottomSectionXML = template.getImportedBottomSectionText();
 
@@ -179,6 +185,10 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 		    } else {
 				Log.e(AppConfig.LOG_LABEL, "couldn't load custom template! Likely using wrong hq public key");
 			}
+            }
+            finally{
+                inputStream.close();
+            }
 
 			deleteExistingTemplate();
 			copyFile(customTemplate, new File(Collect.MARTUS_TEMPLATE_PATH, ODKUtils.MARTUS_CUSTOM_TEMPLATE));
@@ -509,7 +519,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         String desktopPublicKeyString = HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, "");
 
         if (desktopPublicKeyString.length() < 1) {
-            Intent intent = new Intent(MartusActivity.this, DesktopKeyActivity.class);
+            Intent intent = new Intent(MartusActivity.this, AddContactActivity.class);
             startActivityForResult(intent, ACTIVITY_DESKTOP_KEY);
             return false;
         }

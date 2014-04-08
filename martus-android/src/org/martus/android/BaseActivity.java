@@ -291,6 +291,10 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         dialog.show();
     }
 
+    protected void dismissProgressDialog(){
+        dialog.dismiss();
+    }
+
 	public long getInactivityTimeout()
 	{
 		return inactivityTimeout;
@@ -382,5 +386,13 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
                 Log.e(AppConfig.LOG_LABEL, String.format("Failed to clean the cache, error %s", e.getMessage()));
             }
         }
+    }
+
+    protected void showErrorMessage(String msg, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setIcon(android.R.drawable.ic_dialog_alert);
+        alert.setTitle(title);
+        alert.setMessage(msg);
+        alert.show();
     }
 }

@@ -104,6 +104,11 @@
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
             android:label="@string/choose_connection_title"/>
 
+        <activity
+            android:name="org.martus.android.dialog.AddContactActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
+            android:label="@string/add_contact_from_server"/>
+
         <service android:name="org.martus.android.ResendService"/>
     </application>
 

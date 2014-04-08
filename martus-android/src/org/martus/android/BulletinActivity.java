@@ -1,43 +1,5 @@
 package org.martus.android;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
-
-
-import org.martus.android.dialog.ConfirmationDialog;
-import org.martus.android.dialog.DeterminateProgressDialog;
-import org.martus.android.dialog.IndeterminateProgressDialog;
-import org.martus.android.dialog.LoginDialog;
-import org.martus.client.bulletinstore.MobileClientBulletinStore;
-import org.martus.common.FieldCollection;
-import org.martus.common.FieldSpecCollection;
-import org.martus.common.HeadquartersKey;
-import org.martus.common.HeadquartersKeys;
-import org.martus.common.bulletin.AttachmentProxy;
-import org.martus.common.bulletin.Bulletin;
-import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.crypto.MartusSecurity;
-import org.martus.common.fieldspec.CustomFieldTemplate;
-import org.martus.common.network.NetworkInterfaceConstants;
-import org.martus.common.packet.UniversalId;
-import org.martus.common.utilities.BurmeseUtilities;
-import org.martus.util.StreamCopier;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.FormController;
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -55,11 +17,49 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.ipaulpro.afilechooser.utils.FileUtils;
+
+import org.martus.android.dialog.ConfirmationDialog;
+import org.martus.android.dialog.DeterminateProgressDialog;
+import org.martus.android.dialog.IndeterminateProgressDialog;
+import org.martus.android.dialog.LoginDialog;
+import org.martus.client.bulletinstore.MobileClientBulletinStore;
+import org.martus.common.FieldCollection;
+import org.martus.common.FieldSpecCollection;
+import org.martus.common.HeadquartersKey;
+import org.martus.common.HeadquartersKeys;
+import org.martus.common.bulletin.AttachmentProxy;
+import org.martus.common.bulletin.Bulletin;
+import org.martus.common.crypto.MartusCrypto;
+import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.fieldspec.CustomFieldTemplate;
+import org.martus.common.network.NetworkInterfaceConstants;
+import org.martus.common.packet.UniversalId;
+import org.martus.util.StreamCopier;
+import org.martus.util.inputstreamwithseek.FileInputStreamWithSeek;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.logic.FormController;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author roms
@@ -481,16 +481,24 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
                 Vector authorizedKeys = new Vector<String>();
                 authorizedKeys.add(hqKey.getPublicKey());
                 File customTemplate = new File(Collect.MARTUS_TEMPLATE_PATH + File.separator + ODKUtils.MARTUS_CUSTOM_TEMPLATE);
-                if(template.importTemplate(martusCrypto, customTemplate, authorizedKeys))
+
+                FileInputStreamWithSeek inputStream = new FileInputStreamWithSeek(customTemplate);
+                try
                 {
-                    String topSectionXML = template.getImportedTopSectionText();
-	                String bottomSectionXML = template.getImportedBottomSectionText();
+                    if(template.importTemplate(martusCrypto, inputStream))
+                    {
+                        String topSectionXML = template.getImportedTopSectionText();
+                        String bottomSectionXML = template.getImportedBottomSectionText();
 
-                    FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
-                    MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
-	                FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
-	                MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
-
+                        FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
+                        MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
+                        FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
+                        MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
+                    }
+                }
+                finally
+                {
+                    inputStream.close();
                 }
 		    }
 			b = store.createEmptyBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs(), MartusApplication.getInstance().getCustomBottomSectionSpecs());
