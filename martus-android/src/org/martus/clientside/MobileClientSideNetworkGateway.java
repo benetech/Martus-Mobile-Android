@@ -33,7 +33,7 @@ import org.martus.common.network.TorTransportWrapper;
 
 public class MobileClientSideNetworkGateway extends ClientSideNetworkGateway
 {
-	public MobileClientSideNetworkGateway(NetworkInterface serverToUse)
+	public MobileClientSideNetworkGateway(ClientSideNetworkInterface serverToUse)
 	{
 		super(serverToUse);
 	}
@@ -41,7 +41,7 @@ public class MobileClientSideNetworkGateway extends ClientSideNetworkGateway
 
 	static public MobileClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
 	{
-		NetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
+        ClientSideNetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
 		if(server == null)
 			return null;
 
