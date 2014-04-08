@@ -16,7 +16,6 @@ import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.common.Exceptions;
 import org.martus.common.MartusAccountAccessToken;
 import org.martus.common.MartusUtilities;
-import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
@@ -30,6 +29,7 @@ import java.util.Vector;
 public class AddContactActivity extends BaseActivity {
 
     private EditText accessTokenTextField;
+    private String accountId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,9 +79,8 @@ public class AddContactActivity extends BaseActivity {
                 Log.e(AppConfig.LOG_LABEL, "Server response was empty");
             }
 
-            String accountId = singleAccountId.get(0);
-            setPublicKey(accountId);
-
+            accountId = singleAccountId.get(0);
+            showConfirmationDialog();
         } catch (Exceptions.ServerNotAvailableException e) {
             Log.e(AppConfig.LOG_LABEL, "Server Not Available", e);
             showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
@@ -96,6 +95,32 @@ public class AddContactActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public String getConfirmationMessage() {
+        try {
+            MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
+            String formattedPublicCode = martusCrypto.computeFormattedPublicCode40(accountId);
+
+            return String.format(getString(R.string.verify_public_code), formattedPublicCode);
+        }
+        catch (Exception e){
+            Log.e(AppConfig.LOG_LABEL, "Error while computing formatted public code");
+            return "";
+        }
+    }
+
+    @Override
+    public void onConfirmationAccepted() {
+        super.onConfirmationAccepted();
+
+        try {
+            setPublicKey(accountId);
+            finish();
+        } catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "Error while saving public key");
+        }
+    }
+
     private void setPublicKey(String publicKey) throws Exception {
         SharedPreferences HQSettings = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
         SharedPreferences.Editor editor = HQSettings.edit();
@@ -106,7 +131,6 @@ public class AddContactActivity extends BaseActivity {
         File desktopKeyFile = getPrefsFile(PREFS_DESKTOP_KEY);
         MartusUtilities.createSignatureFileFromFile(desktopKeyFile, getSecurity());
         Toast.makeText(this, getString(R.string.success_import_hq_key), Toast.LENGTH_LONG).show();
-        finish();
     }
 
     protected class RetrieveAccountTask extends AsyncTask<Object, Void, NetworkResponse> {
