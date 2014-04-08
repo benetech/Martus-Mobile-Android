@@ -56,7 +56,7 @@ public class AddContactActivity extends BaseActivity {
 
     public String getPublicKeyFromServer(String code) {
 
-        final AsyncTask <Object, Void, NetworkResponse> keyTask = new RetrieveAccountTask();
+        final AsyncTask <Object, Void, NetworkResponse> keyTask = new RetrieveContactTask();
         keyTask.execute(code);
 
         return null;
@@ -133,7 +133,7 @@ public class AddContactActivity extends BaseActivity {
         Toast.makeText(this, getString(R.string.success_import_hq_key), Toast.LENGTH_LONG).show();
     }
 
-    protected class RetrieveAccountTask extends AsyncTask<Object, Void, NetworkResponse> {
+    private class RetrieveContactTask extends AsyncTask<Object, Void, NetworkResponse> {
         @Override
         protected NetworkResponse doInBackground(Object... params) {
 
