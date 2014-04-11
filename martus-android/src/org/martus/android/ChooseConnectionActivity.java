@@ -9,15 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.martus.clientside.MobileClientSideNetworkGateway;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.common.MartusUtilities;
-import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
-import org.martus.util.StreamableBase64;
 
 import java.io.File;
 import java.util.Vector;
@@ -27,8 +24,7 @@ import java.util.regex.Pattern;
 /**
  * Created by nimaa on 3/31/14.
  */
-public class ChooseConnectionActivity
-        extends AbstractServerActivity {
+public class ChooseConnectionActivity extends AbstractServerActivity {
 
     private Button useDefaultServer;
 
@@ -46,18 +42,6 @@ public class ChooseConnectionActivity
     public void useDefaultServer(View view) throws Exception {
         if ((getServerIp().length() < 7) || (! validate(getServerIp()))) {
             System.out.println(R.string.invalid_server_ip);
-            return;
-        }
-
-        String serverCode = getServerPublicCode();
-        if (serverCode.length() < AbstractServerActivity.MIN_SERVER_CODE) {
-            System.out.println(R.string.invalid_server_code);
-            return;
-        }
-
-        if (getMagicWord().isEmpty()) {
-            System.out.println(R.string.error_message);
-            System.out.println(R.string.invalid_magic_word);
             return;
         }
 
@@ -92,11 +76,11 @@ public class ChooseConnectionActivity
     }
 
     private String getServerIp(){
-        return "54.213.152.140";
+        return IP_FOR_SL1_IE;
     }
 
-    private String getServerPublicCode() {
-        return "23364357724534822212";
+    private String getServerPublicKey() {
+        return PUBLIC_KEY_FOR_SL1_IE;
     }
 
     @Override
@@ -123,7 +107,7 @@ public class ChooseConnectionActivity
 
         String serverPublicKey = (String)serverInformation.get(1);
         try {
-            if (confirmServerPublicKey(getServerPublicCode(), serverPublicKey)) {
+            if (getServerPublicKey().equals(serverPublicKey)) {
                 SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
                 SharedPreferences.Editor editor = serverSettings.edit();
                 editor.putString(SettingsActivity.KEY_SERVER_IP, getServerIp());
@@ -155,21 +139,6 @@ public class ChooseConnectionActivity
         return "martus";
     }
 
-    private boolean confirmServerPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception {
-        final String normalizedPublicCode = MartusCrypto.removeNonDigits(serverCode);
-        final String computedCode;
-        computedCode = MartusCrypto.computePublicCode(serverPublicKey);
-        return normalizedPublicCode.equals(computedCode);
-    }
-
-    private void saveServerConnectionData() {
-        SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
-        SharedPreferences.Editor editor = serverSettings.edit();
-        editor.putString(SettingsActivity.KEY_SERVER_IP, getServerIp());
-        editor.putString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, getServerPublicCode());
-        editor.commit();
-    }
-
     protected void processMagicWordResponse(NetworkResponse response) {
         dismissProgressDialog();
         try {
@@ -187,4 +156,17 @@ public class ChooseConnectionActivity
             Toast.makeText(this, getString(R.string.problem_confirming_magic_word), Toast.LENGTH_SHORT).show();
         }
     }
+
+    private static final String IP_FOR_SL1_IE = "54.72.26.74";
+    private static final String PUBLIC_KEY_FOR_SL1_IE =
+                    "MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAgzYTaocXQARAW5df4"
+                    + "nvUYc6Sk2v9pQlMTB1v6/dc0nNamZAUaI5Z3ImPjnxCH/oATverq/Dsm8Gl"
+                    + "MFOloHpXJwlPJyp3YUQ+wR9+MhhzG9qUsTNl6Iu8+f/GH6v6Sv1SXmUmS9E"
+                    + "1jALpQqvCyBAbX+USyWo3P1uFmCYzlESPNoI8DUFCZ0XwTqQ3RmRrXYtVM9"
+                    + "gIncknrcFwt14uf1UnVe0mIGyRUORGG3Pbl0hrMOopF2Ur/Z+bIFE535yF6"
+                    + "Vpc+nFw+2nxBOpVgTvpt7LAtbxnxCzSO1KgAvUczBaQa4hXQ3dIlW//E9vK"
+                    + "akQ85USbqXsxzr0scfkOxC7K+ZvYm0Porggn1W2b8dCGCUPNQAQRBFE7Czg"
+                    + "b5EnmeumeJoLFon8El2idXRYcUBpY/FzHU4FM16guj85DWx7LEZ1LPFZXJv"
+                    + "0u+DVd7KZfG4ovudn+ETKcskN4o6x/O6+KutVtTtIwmoIAam+lU/y8lZ+VC"
+                    + "EqVxMiKkn2dp9nmvp780FOvAgMBAAE=";
 }
