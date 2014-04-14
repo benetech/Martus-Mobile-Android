@@ -41,7 +41,7 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
 
     public void useDefaultServer(View view) throws Exception {
         if ((getServerIp().length() < 7) || (! validate(getServerIp()))) {
-            System.out.println(R.string.invalid_server_ip);
+            showErrorMessage(getString(R.string.invalid_server_ip), getString(R.string.error_message));
             return;
         }
 
@@ -87,20 +87,17 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
     protected void processResult(Vector serverInformation) {
         dismissProgressDialog();
         if (! NetworkUtilities.isNetworkAvailable(this)) {
-            System.out.println(getString(R.string.no_network_connection));
-            System.out.println(getString(R.string.error_message));
+            showErrorMessage(getString(R.string.no_network_connection), getString(R.string.error_message));
             return;
         }
         try {
             if (null == serverInformation || serverInformation.isEmpty()) {
-                System.out.println(getString(R.string.invalid_server_info));
-                System.out.println(getString(R.string.error_message));
+                showErrorMessage(getString(R.string.invalid_server_info), getString(R.string.error_message));
                 return;
             }
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Problem getting server public key", e);
-            System.out.println(getString(R.string.error_getting_server_key));
-            System.out.println(getString(R.string.error_message));
+            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
 
             return;
         }
@@ -127,8 +124,7 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
                 rightsTask.execute(getNetworkGateway(), martusCrypto, getMagicWord());
 
             } else {
-                System.out.println(getString(R.string.invalid_server_code));
-                System.out.println(getString(R.string.error_message));
+                showErrorMessage(getString(R.string.invalid_server_code), getString(R.string.error_message));
             }
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL,"problem processing server IP", e);
