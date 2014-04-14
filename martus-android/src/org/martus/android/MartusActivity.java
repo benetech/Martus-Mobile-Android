@@ -519,7 +519,7 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
         String desktopPublicKeyString = HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, "");
 
         if (desktopPublicKeyString.length() < 1) {
-            Intent intent = new Intent(MartusActivity.this, AddContactActivity.class);
+            Intent intent = new Intent(MartusActivity.this, ContactImportChoiceActivity.class);
             startActivityForResult(intent, ACTIVITY_DESKTOP_KEY);
             return false;
         }

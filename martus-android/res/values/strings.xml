@@ -63,6 +63,8 @@
     <string name="goto_server_setup_button">Next</string>
     <string name="quit_menu_title">Logout</string>
     <string name="server_menu_title">Select Server</string>
+    <string name="add_contact_using_access_token">Add Contact Using Access Token</string>
+    <string name="add_contact_from_file">Add Contact From File</string>
     <!-- Do Not Translate this line-->
     <string name="market_orbot">market://search?q=pname:org.torproject.android</string>
     <!-- Do Not Translate the word Orbot-->
@@ -212,6 +214,7 @@
     <string name="error_retrieving_contact">Error retrieving contact</string>
     <string name="access_token">Access Token:</string>
     <string name="verify_public_code">Verify public code:\n %1$s</string>
+    <string name="choose_import_contact_method">Import Contact</string>
     <!-- Do Not Translate the word Martus-->
     <string name="choose_file">Martus File Explorer</string>
     <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
