@@ -111,6 +111,7 @@
     <string name="show_unsent_title">You have unsent bulletins.</string>
     <string name="reset_to_install">Delete My Account</string>
     <string name="server_menu">Servers</string>
+    <string name="replace_contact_menu_item">Replace Contact</string>
     <string name="ping_server_menu_item">Check Server</string>
     <string name="ping_result_ok">Server is up</string>
     <string name="ping_result_down">Server is down</string>
