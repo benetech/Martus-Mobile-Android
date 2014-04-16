@@ -19,6 +19,9 @@ import android.preference.PreferenceCategory;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
+
+import org.martus.common.crypto.MartusCrypto;
+import org.martus.util.StreamableBase64;
 //import com.bugsense.trace.BugSenseHandler;
 
 /**
@@ -89,12 +92,26 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         addPreferencesFromResource(R.xml.settings);
         SharedPreferences mySettings = getPreferenceScreen().getSharedPreferences();
 
+        setReplaceContactSummaryValue();
+
         Map<String, ?> allPrefs = mySettings.getAll();
 
         //Initialize summaries of previously set settings
         Set<String> prefKeys = allPrefs.keySet();
         for (String key : prefKeys) {
             setPreferenceSummary(mySettings, key);
+        }
+    }
+
+    private void setReplaceContactSummaryValue() {
+        try {
+            Preference replaceContactPreference = findPreference("replace_contact_preference_key");
+            MartusCrypto martusCrypto = AppConfig.getInstance().getCrypto();
+            String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
+
+            replaceContactPreference.setSummary(publicCode);
+        }catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, e.getMessage());
         }
     }
 

@@ -44,6 +44,7 @@ public class ContactImportChoiceActivity extends BaseActivity {
         public void onClick(View view) {
             Intent intent = new Intent(ContactImportChoiceActivity.this, DesktopKeyActivity.class);
             startActivityForResult(intent, EXIT_REQUEST_CODE);
+            finish();
         }
     }
 }
