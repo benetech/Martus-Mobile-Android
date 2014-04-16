@@ -45,17 +45,21 @@
                 android:summaryOn="@string/zawgyi_preference_on"
         />-->
 
-
         <Preference
             android:title="@string/replace_contact_menu_item"
             android:key="replace_contact_preference_key">
             <intent
                 android:targetPackage="org.martus.android"
-                android:targetClass="org.martus.android.ContactImportChoiceActivity"
-                android:action="org.martus.android.Contact" />
+                android:targetClass="org.martus.android.ContactImportChoiceActivity"/>
         </Preference>
 
-
+        <Preference
+            android:title="@string/choose_connection_title"
+            android:key="choose_connection_preference_key">
+            <intent
+                android:targetPackage="org.martus.android"
+                android:targetClass="org.martus.android.ChooseConnectionActivity"/>
+            </Preference>
 
     </PreferenceCategory>
 

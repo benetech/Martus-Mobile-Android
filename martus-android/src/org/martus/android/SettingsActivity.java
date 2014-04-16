@@ -93,6 +93,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         SharedPreferences mySettings = getPreferenceScreen().getSharedPreferences();
 
         setReplaceContactSummaryValue();
+        setChooseConnectionSummaryValue();
 
         Map<String, ?> allPrefs = mySettings.getAll();
 
@@ -101,6 +102,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         for (String key : prefKeys) {
             setPreferenceSummary(mySettings, key);
         }
+    }
+
+    private void setChooseConnectionSummaryValue() {
+        Preference chooseConnectionPreference = findPreference("choose_connection_preference_key");
+        SharedPreferences serverSettings = getSharedPreferences(BaseActivity.PREFS_SERVER_IP, MODE_PRIVATE);
+        String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
+        chooseConnectionPreference.setSummary(serverIP);
     }
 
     private void setReplaceContactSummaryValue() {
