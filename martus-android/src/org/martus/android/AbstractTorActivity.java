@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 
-import org.martus.android.BaseActivity;
-
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 /**
@@ -13,7 +11,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
  */
 abstract public class AbstractTorActivity extends BaseActivity{
 
-    private CompoundButton torCheckbox;
+    private CompoundButton torToggleButton;
 
     abstract protected int getLayoutName();
 
@@ -23,12 +21,12 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
         setContentView(getLayoutName());
 
-        torCheckbox = (CompoundButton) findViewById(R.id.checkBox_use_tor);
-        torCheckbox.setOnCheckedChangeListener(new TorToggleChangeHandler());
+        torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
+        torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
     }
 
     protected void turnOffTorToggle() {
-        torCheckbox.setChecked(false);
+        torToggleButton.setChecked(false);
     }
 
     private void torToggleStateChanged(boolean isChecked) {
@@ -54,7 +52,7 @@ abstract public class AbstractTorActivity extends BaseActivity{
             } catch (Exception e) {
                 Log.e(AppConfig.LOG_LABEL, "Tor check failed", e);
                 showMessage(this, getString(R.string.invalid_orbot_message), getString(R.string.invalid_orbot_title));
-                torCheckbox.setChecked(false);
+                torToggleButton.setChecked(false);
             }
 
         } else {
