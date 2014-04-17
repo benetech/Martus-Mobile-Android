@@ -20,10 +20,10 @@ public class ContactImportChoiceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.contact_import_choice);
-        TextView textView = (TextView) findViewById(R.id.addContactFromFileLink);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        makeTextViewHyperlink(textView);
-        textView.setOnClickListener(new TextViewClickHandler());
+        TextView addContactFromFileLinkTextView = (TextView) findViewById(R.id.addContactFromFileLink);
+        addContactFromFileLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        makeTextViewHyperlink(addContactFromFileLinkTextView);
+        addContactFromFileLinkTextView.setOnClickListener(new TextViewClickHandler());
     }
 
     public void addContactUsingAccessToken(View view){
