@@ -391,5 +391,7 @@
     <string name="launch_printer">Initiate Printing</string>
     <string name="no_printer">The requested printer is not installed. Please install the printer.</string>
     <string name="constraint_behavior">Constraint processing behavior</string>
+    <string name="on_switch_label">On</string>
+    <string name="off_switch_label">Off</string>
 
 </resources>

@@ -1,35 +1,5 @@
 package org.martus.android;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.SignatureException;
-import java.util.Vector;
-
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.client.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.martus.android.dialog.AddContactActivity;
-import org.martus.android.dialog.LoginDialog;
-import org.martus.android.dialog.ModalConfirmationDialog;
-import org.martus.common.FieldCollection;
-import org.martus.common.FieldSpecCollection;
-import org.martus.common.HeadquartersKey;
-import org.martus.common.MartusUtilities;
-import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.fieldspec.CustomFieldTemplate;
-import org.martus.common.fieldspec.FieldSpec;
-import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
-import org.martus.util.StreamableBase64;
-import org.martus.util.inputstreamwithseek.FileInputStreamWithSeek;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,15 +16,46 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.martus.android.dialog.LoginDialog;
+import org.martus.android.dialog.ModalConfirmationDialog;
+import org.martus.common.FieldCollection;
+import org.martus.common.FieldSpecCollection;
+import org.martus.common.HeadquartersKey;
+import org.martus.common.MartusUtilities;
+import org.martus.common.crypto.MartusCrypto;
+import org.martus.common.fieldspec.CustomFieldTemplate;
+import org.martus.common.fieldspec.FieldSpec;
+import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
+import org.martus.util.StreamableBase64;
+import org.martus.util.inputstreamwithseek.FileInputStreamWithSeek;
+import org.odk.collect.android.activities.FormEntryActivity;
+import org.odk.collect.android.application.Collect;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.SignatureException;
+import java.util.Vector;
+
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
-public class MartusActivity extends BaseActivity implements LoginDialog.LoginDialogListener,
+public class MartusActivity extends AbstractTorActivity implements LoginDialog.LoginDialogListener,
         OrbotHandler {
 
 	public static final String ACCOUNT_ID_FILENAME = "Mobile_Public_Account_ID.mpi";
@@ -70,7 +71,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
 
     private String serverIP;
     private int invalidLogins;
-    private CheckBox torCheckbox;
 
     static final int ACTIVITY_DESKTOP_KEY = 2;
     public static final int ACTIVITY_BULLETIN = 3;
@@ -84,13 +84,14 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
 
-
-        torCheckbox = (CheckBox)findViewById(R.id.checkBox_use_tor);
         updateSettings();
         confirmationType = CONFIRMATION_TYPE_RESET;
+    }
 
+    @Override
+    protected int getLayoutName() {
+        return R.layout.main;
     }
 
     protected void onStart() {
@@ -458,43 +459,6 @@ public class MartusActivity extends BaseActivity implements LoginDialog.LoginDia
             Intent bulletinIntent = new Intent(MartusActivity.this, BulletinActivity.class);
             bulletinIntent.putExtra(BulletinActivity.EXTRA_ATTACHMENT, filePath);
             startActivity(bulletinIntent);
-        }
-    }
-
-    public void onTorChecked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-
-        if  (checked) {
-            System.setProperty("proxyHost", PROXY_HOST);
-            System.setProperty("proxyPort", String.valueOf(PROXY_HTTP_PORT));
-
-            System.setProperty("socksProxyHost", PROXY_HOST);
-            System.setProperty("socksProxyPort", String.valueOf(PROXY_SOCKS_PORT));
-
-            try {
-
-                OrbotHelper oc = new OrbotHelper(this);
-
-                if (!oc.isOrbotInstalled())
-                {
-                    oc.promptToInstall(this);
-                }
-                else if (!oc.isOrbotRunning())
-                {
-                    oc.requestOrbotStart(this);
-                }
-            } catch (Exception e) {
-                Log.e(AppConfig.LOG_LABEL, "Tor check failed", e);
-	            showMessage(this, getString(R.string.invalid_orbot_message), getString(R.string.invalid_orbot_title));
-	            torCheckbox.setChecked(false);
-            }
-
-        } else {
-            System.clearProperty("proxyHost");
-            System.clearProperty("proxyPort");
-
-            System.clearProperty("socksProxyHost");
-            System.clearProperty("socksProxyPort");
         }
     }
 
