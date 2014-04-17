@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
@@ -31,6 +32,9 @@ public class ChooseConnectionActivity extends AbstractServerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_connection);
+
+        TextView advancedServerOptionsTextView = (TextView) findViewById(R.id.useAdvancedServerOptions);
+        makeTextViewClickableHyperlink(advancedServerOptionsTextView);
     }
 
     public void useAdvancedServerOptions(View view) {
