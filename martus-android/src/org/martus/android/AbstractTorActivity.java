@@ -13,7 +13,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
  */
 abstract public class AbstractTorActivity extends BaseActivity{
 
-    protected CompoundButton torCheckbox;
+    private CompoundButton torCheckbox;
 
     abstract protected int getLayoutName();
 
@@ -25,6 +25,10 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
         torCheckbox = (CompoundButton) findViewById(R.id.checkBox_use_tor);
         torCheckbox.setOnCheckedChangeListener(new TorToggleChangeHandler());
+    }
+
+    protected void turnOffTorToggle() {
+        torCheckbox.setChecked(false);
     }
 
     private void torToggleStateChanged(boolean isChecked) {
