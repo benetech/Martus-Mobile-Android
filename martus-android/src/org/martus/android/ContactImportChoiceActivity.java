@@ -22,7 +22,7 @@ public class ContactImportChoiceActivity extends BaseActivity {
         setContentView(R.layout.contact_import_choice);
         TextView addContactFromFileLinkTextView = (TextView) findViewById(R.id.addContactFromFileLink);
         addContactFromFileLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        makeTextViewHyperlink(addContactFromFileLinkTextView);
+        makeTextViewClickableHyperlink(addContactFromFileLinkTextView);
         addContactFromFileLinkTextView.setOnClickListener(new TextViewClickHandler());
     }
 
@@ -32,11 +32,12 @@ public class ContactImportChoiceActivity extends BaseActivity {
         finish();
     }
 
-    private void makeTextViewHyperlink(TextView textView) {
-        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-        stringBuilder.append(textView.getText());
-        stringBuilder.setSpan(new URLSpan("#"), 0, stringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+    private void makeTextViewClickableHyperlink(TextView textView) {
+        SpannableStringBuilder hyperLinkStringBuilder = new SpannableStringBuilder();
+        hyperLinkStringBuilder.append(textView.getText());
+        URLSpan textUsedAsUrl = new URLSpan(textView.getText().toString());
+        hyperLinkStringBuilder.setSpan(textUsedAsUrl, 0, hyperLinkStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(hyperLinkStringBuilder, TextView.BufferType.SPANNABLE);
     }
 
     private class TextViewClickHandler implements View.OnClickListener {
