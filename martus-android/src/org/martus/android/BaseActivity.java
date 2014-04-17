@@ -32,8 +32,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.TextView;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 //import com.bugsense.trace.BugSenseHandler;
 
@@ -395,4 +400,13 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         alert.setMessage(msg);
         alert.show();
     }
+
+    public static void makeTextViewClickableHyperlink(TextView textView) {
+        SpannableStringBuilder hyperLinkStringBuilder = new SpannableStringBuilder();
+        hyperLinkStringBuilder.append(textView.getText());
+        URLSpan textUsedAsUrl = new URLSpan(textView.getText().toString());
+        hyperLinkStringBuilder.setSpan(textUsedAsUrl, 0, hyperLinkStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(hyperLinkStringBuilder, TextView.BufferType.SPANNABLE);
+    }
+
 }

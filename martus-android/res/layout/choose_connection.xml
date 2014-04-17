@@ -15,7 +15,7 @@
         android:contentDescription="@string/use_default_server"
         android:id="@+id/useDefaultServer"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
@@ -24,7 +24,10 @@
         android:onClick="useAdvancedServerOptions"
         android:text="@string/advanced_server_options"
         android:contentDescription="@string/advanced_server_options"
-        android:id="@+id/useAdvancedServerOptions"/>
+        android:id="@+id/useAdvancedServerOptions"
+        android:linksClickable="true"
+        android:autoLink="all"
+        android:clickable="true"/>
 
 
 </LinearLayout>

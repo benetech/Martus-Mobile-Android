@@ -32,14 +32,6 @@ public class ContactImportChoiceActivity extends BaseActivity {
         finish();
     }
 
-    private void makeTextViewClickableHyperlink(TextView textView) {
-        SpannableStringBuilder hyperLinkStringBuilder = new SpannableStringBuilder();
-        hyperLinkStringBuilder.append(textView.getText());
-        URLSpan textUsedAsUrl = new URLSpan(textView.getText().toString());
-        hyperLinkStringBuilder.setSpan(textUsedAsUrl, 0, hyperLinkStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(hyperLinkStringBuilder, TextView.BufferType.SPANNABLE);
-    }
-
     private class TextViewClickHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
