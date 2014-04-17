@@ -34,22 +34,22 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
         try
         {
 	        if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
-	            torCheckbox.setChecked(false);
-	        }
+                turnOffTorToggle();
+            }
         } catch (SignatureException e)
         {
-	        torCheckbox.setChecked(false);
+            turnOffTorToggle();
         }
 	}
 
     @Override
     public void onOrbotInstallCanceled() {
-        torCheckbox.setChecked(false);
+        turnOffTorToggle();
     }
 
     @Override
     public void onOrbotStartCanceled() {
-        torCheckbox.setChecked(false);
+        turnOffTorToggle();
     }
 
 }
