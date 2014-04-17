@@ -14,6 +14,6 @@
         android:layout_marginTop="40dip"
         android:layout_marginBottom="40dip"/>
 
-    <include layout="@layout/tor_checkbox"/>
+    <include layout="@layout/tor_main"/>
 
 </LinearLayout>

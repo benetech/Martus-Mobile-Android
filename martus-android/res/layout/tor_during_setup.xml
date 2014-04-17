@@ -23,7 +23,7 @@
             android:gravity="left"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <include layout="@layout/tor_checkbox" android:layout_height="207dp"/>
+        <include layout="@layout/tor_main" android:layout_height="207dp"/>
 
         <Button
             android:id="@+id/gotoServerSetup"
