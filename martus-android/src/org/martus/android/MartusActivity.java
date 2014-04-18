@@ -279,6 +279,7 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
         inflater.inflate(R.menu.main, menu);
         Switch torSwitch = (Switch)  menu.findItem(R.id.tor_button).getActionView();
         torSwitch.setOnCheckedChangeListener(new TorToggleChangeHandler());
+        torSwitch.setText(R.string.tor_label);
 
         return true;
     }
