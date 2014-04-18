@@ -12,14 +12,17 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.SwitchPreference;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -51,6 +54,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
+import java.util.Properties;
 import java.util.Vector;
 
 import info.guardianproject.onionkit.ui.OrbotHelper;
@@ -102,6 +106,8 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
     @Override
     public void onResume() {
         super.onResume();
+
+        invalidateOptionsMenu();
         if (martusCrypto.hasKeyPair()) {
 	        boolean canUpload = mySettings.getBoolean(SettingsActivity.KEY_HAVE_UPLOAD_RIGHTS, false);
             if (!confirmServerPublicKey() || !canUpload) {
@@ -267,9 +273,36 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        Switch torSwitch = (Switch)  menu.findItem(R.id.tor_button).getActionView();
+        torSwitch.setOnCheckedChangeListener(new TorToggleChangeHandler());
+
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        System.out.println("BHERERE");
+//        MenuItemWrapper torToggleButton = (MenuItemWrapper) menu.findItem(R.id.tor_button).getActionView();
+//        Switch torSwitch = (Switch) torToggleButton.getActionView();
+//        torSwitch.setOnCheckedChangeListener(new TorToggleChangeHandler());
+
+        Switch torSwitch = (Switch)  menu.findItem(R.id.tor_button).getActionView();
+//        torSwitch.setChecked(AppConfig.getInstance().);
+        System.out.println("-----------------------------------------------");
+
+        System.out.println("Proxy Host = " + System.getProperty("proxyHost"));
+        System.out.println("Proxy Host = " + System.getProperty("proxyPort"));
+
+        System.out.println("Proxy Host = " + System.getProperty("socksProxyHost"));
+        System.out.println("Proxy Host = " + System.getProperty("socksProxyPort"));
+
+        return super.onPrepareOptionsMenu(menu);
+
     }
 
     @Override
