@@ -284,28 +284,6 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        System.out.println("BHERERE");
-//        MenuItemWrapper torToggleButton = (MenuItemWrapper) menu.findItem(R.id.tor_button).getActionView();
-//        Switch torSwitch = (Switch) torToggleButton.getActionView();
-//        torSwitch.setOnCheckedChangeListener(new TorToggleChangeHandler());
-
-        Switch torSwitch = (Switch)  menu.findItem(R.id.tor_button).getActionView();
-//        torSwitch.setChecked(AppConfig.getInstance().);
-        System.out.println("-----------------------------------------------");
-
-        System.out.println("Proxy Host = " + System.getProperty("proxyHost"));
-        System.out.println("Proxy Host = " + System.getProperty("proxyPort"));
-
-        System.out.println("Proxy Host = " + System.getProperty("socksProxyHost"));
-        System.out.println("Proxy Host = " + System.getProperty("socksProxyPort"));
-
-        return super.onPrepareOptionsMenu(menu);
-
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	    Intent intent;
 
