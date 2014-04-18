@@ -1,6 +1,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
@@ -8,8 +8,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="@string/use_tor"
             android:autoLink="web"
             android:id="@+id/checkBox_use_tor"
             android:layout_gravity="left|center_vertical"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/use_tor"/>
 </LinearLayout>

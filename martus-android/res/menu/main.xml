@@ -2,6 +2,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/tor_button"
+        android:title="@string/tor_label"
+        android:showAsAction="always"
+        android:actionViewClass="android.widget.Switch"
+        android:actionLayout="@layout/tor_toggle_without_text"/>
+
     <item android:id="@+id/quit_menu_item"
         android:showAsAction="ifRoom|withText"
         android:title="@string/quit_menu_title" />

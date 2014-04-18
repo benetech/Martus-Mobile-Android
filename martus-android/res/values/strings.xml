@@ -83,6 +83,7 @@
     <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot is not running. Would you like to start it?</string>
     <!-- Do Not Translate the URL that starts with https://-->
     <string formatted="false" name="use_tor"><b>Use Tor</b> (May help hide that you are connecting to a Martus server, and may help reach the Martus servers if they are blocked from your location, but will slow sending of bulletins )</string>
+    <string name="tor_label">Tor</string>
     <string name="create_password_hint">New password</string>
     <string name="confirm_password_hint">Repeat password</string>
     <string name="enter_password_hint">Enter password</string>
