@@ -30,10 +30,45 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
         torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
         torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
+        synchronizeTorSwitchWithCurrentSystemProperties();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        synchronizeTorSwitchWithCurrentSystemProperties();
+    }
+
+    private void synchronizeTorSwitchWithCurrentSystemProperties() {
+        final boolean shouldTurnTorSwitchOn = shouldTurnTorSwitchOn();
+        if (shouldTurnTorSwitchOn) {
+            turnOnTorToggle();
+        }
+    }
+
+    private boolean shouldTurnTorSwitchOn() {
+        if (!PROXY_HOST.equals(System.getProperty(PROXY_HOST_PROPERTY_NAME)))
+            return false;
+
+        if (!String.valueOf(PROXY_HTTP_PORT).equals(System.getProperty(PROXY_PORT_PROPERTY_NAME)))
+            return false;
+
+        if (!PROXY_HOST.equals(System.getProperty(SOCKS_PROXY_HOST_PROPERTY_NAME)))
+            return false;
+
+        if (!String.valueOf(PROXY_SOCKS_PORT).equals(System.getProperty(SOCKS_PROXY_PORT_PROPERTY_NAME)))
+            return false;
+
+        return true;
     }
 
     protected void turnOffTorToggle() {
         torToggleButton.setChecked(false);
+    }
+
+    protected void turnOnTorToggle() {
+        torToggleButton.setChecked(true);
     }
 
     private void torToggleStateChanged(boolean isChecked) {
