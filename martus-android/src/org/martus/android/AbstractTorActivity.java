@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 
+import java.util.Properties;
+
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 /**
@@ -12,6 +14,11 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
 abstract public class AbstractTorActivity extends BaseActivity{
 
     private CompoundButton torToggleButton;
+
+    private static final String PROXY_HOST_PROPERTY_NAME = "proxyHost";
+    private static final String PROXY_PORT_PROPERTY_NAME = "proxyPort";
+    private static final String SOCKS_PROXY_PORT_PROPERTY_NAME = "socksProxyPort";
+    private static final String SOCKS_PROXY_HOST_PROPERTY_NAME = "socksProxyHost";
 
     abstract protected int getLayoutName();
 
@@ -31,11 +38,11 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
     private void torToggleStateChanged(boolean isChecked) {
         if  (isChecked) {
-            System.setProperty("proxyHost", PROXY_HOST);
-            System.setProperty("proxyPort", String.valueOf(PROXY_HTTP_PORT));
+            System.setProperty(PROXY_HOST_PROPERTY_NAME, PROXY_HOST);
+            System.setProperty(PROXY_PORT_PROPERTY_NAME, String.valueOf(PROXY_HTTP_PORT));
 
-            System.setProperty("socksProxyHost", PROXY_HOST);
-            System.setProperty("socksProxyPort", String.valueOf(PROXY_SOCKS_PORT));
+            System.setProperty(SOCKS_PROXY_HOST_PROPERTY_NAME, PROXY_HOST);
+            System.setProperty(SOCKS_PROXY_PORT_PROPERTY_NAME, String.valueOf(PROXY_SOCKS_PORT));
 
             try {
 
@@ -56,15 +63,15 @@ abstract public class AbstractTorActivity extends BaseActivity{
             }
 
         } else {
-            System.clearProperty("proxyHost");
-            System.clearProperty("proxyPort");
+            System.clearProperty(PROXY_HOST_PROPERTY_NAME);
+            System.clearProperty(PROXY_PORT_PROPERTY_NAME);
 
-            System.clearProperty("socksProxyHost");
-            System.clearProperty("socksProxyPort");
+            System.clearProperty(SOCKS_PROXY_HOST_PROPERTY_NAME);
+            System.clearProperty(SOCKS_PROXY_PORT_PROPERTY_NAME);
         }
     }
 
-    private class TorToggleChangeHandler implements CompoundButton.OnCheckedChangeListener{
+    protected class TorToggleChangeHandler implements CompoundButton.OnCheckedChangeListener{
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             torToggleStateChanged(isChecked);
         }
