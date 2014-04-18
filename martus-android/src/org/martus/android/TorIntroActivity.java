@@ -1,11 +1,9 @@
 package org.martus.android;
 
-import java.security.SignatureException;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
+
+import java.security.SignatureException;
 
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
