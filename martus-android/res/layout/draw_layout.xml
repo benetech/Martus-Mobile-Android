@@ -20,25 +20,29 @@
         <Button
             android:id="@+id/btnSelectColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Widget.Button"/>
 
         <Button
             android:id="@+id/btnFinishDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_and_close" />
+            android:text="@string/save_and_close"
+            style="@style/Widget.Button"/>
 
         <Button
             android:id="@+id/btnResetDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/reset_image" />
+            android:text="@string/reset_image"
+            style="@style/Widget.Button"/>
 
         <Button
             android:id="@+id/btnCancelDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            style="@style/Widget.Button"/>
     </LinearLayout>
 
 </RelativeLayout>

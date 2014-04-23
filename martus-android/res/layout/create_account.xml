@@ -34,7 +34,8 @@
             android:onClick="onFinishNewAccountEntry"
             android:text="@string/alert_dialog_ok"
             android:contentDescription="@string/alert_dialog_ok"
-            android:id="@+id/passwordConfirmEnter"/>
+            android:id="@+id/passwordConfirmEnter"
+            style="@style/Widget.Button"/>
 
     </LinearLayout>
 </ScrollView>

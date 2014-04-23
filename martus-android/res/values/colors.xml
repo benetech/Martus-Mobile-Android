@@ -18,5 +18,10 @@ the License.
 
     <drawable name="white">#ffffffff</drawable>
     <drawable name="black">#ff000000</drawable>
+    <color name="button_gradient_start_color">#35536b</color>
+    <color name="button_gradient_end_color">#597489</color>
+    <color name="button_stroke_color">#597489</color>
+    <color name="main_screen_background">#e6e7e9</color>
+    <color name="button_pressed_color">#797769</color>
 
 </resources>

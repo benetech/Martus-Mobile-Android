@@ -33,7 +33,8 @@
             android:text="@string/goto_server_setup_button"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dip"
-            android:layout_marginBottom="40dip"/>
+            android:layout_marginBottom="40dip"
+            style="@style/Widget.Button"/>
 
     </LinearLayout>
 

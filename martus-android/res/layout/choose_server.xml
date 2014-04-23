@@ -100,7 +100,8 @@
                 android:onClick="confirmServer"
                 android:text="@string/alert_dialog_ok"
                 android:contentDescription="@string/alert_dialog_ok"
-                android:id="@+id/serverCodeEnter"/>
+                android:id="@+id/serverCodeEnter"
+                style="@style/Widget.Button"/>
     </LinearLayout>
 
 </ScrollView>

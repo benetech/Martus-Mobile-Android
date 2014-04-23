@@ -38,7 +38,8 @@
                 android:text="@string/desktop_sync_choose_file"
                 android:contentDescription="@string/desktop_sync_choose_file"
                 android:onClick="chooseKeyFile"
-                android:id="@+id/desktopKeyChooseFile"/>
+                android:id="@+id/desktopKeyChooseFile"
+                style="@style/Widget.Button"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -86,7 +87,8 @@
                 android:contentDescription="@string/alert_dialog_ok"
                 android:id="@+id/publicCodeEnter"
                 android:layout_gravity="right"
-                android:layout_marginLeft="20dip"/>
+                android:layout_marginLeft="20dip"
+                style="@style/Widget.Button"/>
     </LinearLayout>
 
 </ScrollView>
