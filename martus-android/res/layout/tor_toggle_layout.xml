@@ -4,13 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
-    <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:autoLink="web"
-            android:id="@+id/checkBox_use_tor"
-            android:layout_gravity="left|center_vertical"/>
+    <include layout="@layout/tor_toggle_without_text"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
