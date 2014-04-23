@@ -13,7 +13,8 @@
         android:onClick="useDefaultServer"
         android:text="@string/use_default_server"
         android:contentDescription="@string/use_default_server"
-        android:id="@+id/useDefaultServer"/>
+        android:id="@+id/useDefaultServer"
+        style="@style/Widget.Button"/>
 
     <TextView
         android:layout_width="wrap_content"

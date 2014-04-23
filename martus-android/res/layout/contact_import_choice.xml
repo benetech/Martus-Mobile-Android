@@ -14,7 +14,8 @@
         android:layout_gravity="right"
         android:onClick="addContactUsingAccessToken"
         android:text="@string/add_contact_using_access_token"
-        android:id="@+id/addContactUsingAccessTokenButton"/>
+        android:id="@+id/addContactUsingAccessTokenButton"
+        style="@style/Widget.Button"/>
 
     <TextView
         android:layout_width="wrap_content"
