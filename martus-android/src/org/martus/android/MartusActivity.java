@@ -12,17 +12,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.SwitchPreference;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -54,7 +51,6 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.SignatureException;
-import java.util.Properties;
 import java.util.Vector;
 
 import info.guardianproject.onionkit.ui.OrbotHelper;
@@ -277,7 +273,7 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
 
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        Switch torSwitch = (Switch)  menu.findItem(R.id.tor_button).getActionView();
+        CompoundButton torSwitch = (CompoundButton)  menu.findItem(R.id.tor_button).getActionView();
         torSwitch.setOnCheckedChangeListener(new TorToggleChangeHandler());
         torSwitch.setText(R.string.tor_label);
 

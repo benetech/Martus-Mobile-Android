@@ -5,7 +5,7 @@
     <item android:id="@+id/tor_button"
         android:title="@string/tor_label"
         android:showAsAction="always"
-        android:actionViewClass="android.widget.CheckBox"
+        android:actionViewClass="android.widget.Switch"
         android:actionLayout="@layout/tor_toggle_without_text"/>
 
     <item android:id="@+id/quit_menu_item"
@@ -17,13 +17,13 @@
 
     <item android:id="@+id/server_menu"
         android:title="@string/server_menu" >
-       <menu>
+        <menu>
             <item android:id="@+id/ping_server_menu_item"
                 android:title="@string/ping_server_menu_item" />
 
             <item android:id="@+id/server_menu_item"
                 android:title="@string/server_menu_title" />
-       </menu>
+        </menu>
     </item>
 
     <item android:id="@+id/tools_menu"
@@ -44,7 +44,7 @@
             <item android:id="@+id/export_mpi_menu_item"
                 android:title="@string/export_public_account_id_menu_item" />
 
-           <item android:id="@+id/load_form_menu_item"
+            <item android:id="@+id/load_form_menu_item"
                 android:title="@string/load_form_menu_item" />
 
             <item android:id="@+id/reset_install_menu_item"
