@@ -13,7 +13,6 @@
         android:title="@string/quit_menu_title" />
 
     <item android:id="@+id/settings_menu_item"
-          android:showAsAction="ifRoom"
         android:title="@string/settings_title" />
 
     <item android:id="@+id/server_menu"
