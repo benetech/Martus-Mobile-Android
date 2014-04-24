@@ -54,7 +54,7 @@
         </Preference>
 
         <Preference
-            android:title="@string/choose_connection_title"
+            android:title="@string/server_menu_title"
             android:key="choose_connection_preference_key">
             <intent
                 android:targetPackage="org.martus.android"

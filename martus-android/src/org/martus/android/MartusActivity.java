@@ -298,10 +298,6 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
                     getString(R.string.logout_while_sending_title));
             }
             return true;
-        } else if (id == R.id.server_menu_item) {
-            intent = new Intent(MartusActivity.this, ServerActivity.class);
-            startActivityForResult(intent, EXIT_REQUEST_CODE);
-            return true;
         } else if (id == R.id.ping_server_menu_item) {
             pingServer();
             return true;

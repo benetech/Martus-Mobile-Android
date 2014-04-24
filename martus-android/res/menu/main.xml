@@ -8,29 +8,12 @@
         android:actionViewClass="android.widget.CheckBox"
         android:actionLayout="@layout/tor_toggle_without_text"/>
 
-    <item android:id="@+id/quit_menu_item"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/quit_menu_title" />
-
-    <item android:id="@+id/settings_menu_item"
-        android:title="@string/settings_title" />
-
-    <item android:id="@+id/server_menu"
-        android:title="@string/server_menu" >
-       <menu>
-            <item android:id="@+id/ping_server_menu_item"
-                android:title="@string/ping_server_menu_item" />
-
-            <item android:id="@+id/server_menu_item"
-                android:title="@string/server_menu_title" />
-       </menu>
-    </item>
-
-    <item android:id="@+id/tools_menu"
-        android:title="@string/tools_menu" >
+    <item android:id="@+id/manage_my_account_menu"
+        android:title="@string/manage_my_account_menu" >
         <menu>
-            <item android:id="@+id/resend_menu_item"
-                android:title="@string/resend_menu_item" />
+
+            <item android:id="@+id/reset_install_menu_item"
+                android:title="@string/reset_to_install" />
 
             <item android:id="@+id/view_public_code_menu_item"
                 android:title="@string/view_public_code_menu_item" />
@@ -44,11 +27,20 @@
             <item android:id="@+id/export_mpi_menu_item"
                 android:title="@string/export_public_account_id_menu_item" />
 
-           <item android:id="@+id/load_form_menu_item"
+            <item android:id="@+id/load_form_menu_item"
                 android:title="@string/load_form_menu_item" />
+        </menu>
+    </item>
 
-            <item android:id="@+id/reset_install_menu_item"
-                android:title="@string/reset_to_install" />
+    <item android:id="@+id/settings_menu_item"
+        android:title="@string/settings_title" />
+
+    <item android:id="@+id/manage_bulletins_menu"
+        android:title="@string/manage_bulletins_menu">
+        <menu>
+            <item android:id="@+id/resend_menu_item"
+                android:title="@string/resend_menu_item" />
+
         </menu>
     </item>
 
@@ -61,11 +53,17 @@
 
             <item android:id="@+id/feedback_menu_item"
                 android:title="@string/feedback_menu" />
-
-            <item android:id="@+id/show_version_menu_item"
-                android:title="@string/show_version" />
         </menu>
     </item>
+
+    <item android:id="@+id/show_version_menu_item"
+        android:title="@string/show_version" />
+
+    <item android:id="@+id/ping_server_menu_item"
+        android:title="@string/ping_server_menu_item" />
+
+    <item android:id="@+id/quit_menu_item"
+        android:title="@string/quit_menu_title" />
 
 </menu>
 
