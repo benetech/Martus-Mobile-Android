@@ -138,6 +138,8 @@
     <string name="send_public_account_id_menu_item">Email Public Account ID</string>
     <string name="send_public_account_id_menu_item_via_bulletin">Send Public Account ID in Bulletin</string>
     <string name="tools_menu">Tools</string>
+    <string name="manage_my_account_menu">Manage My Account</string>
+    <string name="manage_bulletins_menu">Manage Bulletins</string>
     <string name="export_public_account_id_menu_item">Export Public Account ID</string>
     <string name="load_form_menu_item">Import Custom Form</string>
     <string name="export_public_account_id_dialog_title">Export Public Account ID Error</string>
