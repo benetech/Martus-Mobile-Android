@@ -6,8 +6,4 @@
 
     <include layout="@layout/tor_toggle_without_text"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/use_tor"/>
 </LinearLayout>
