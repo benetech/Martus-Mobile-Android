@@ -50,6 +50,9 @@
 
             <item android:id="@+id/feedback_menu_item"
                 android:title="@string/feedback_menu" />
+
+            <item android:id="@+id/view_tor_message_menu_item"
+                android:title="@string/about_tor_label"/>
         </menu>
     </item>
 

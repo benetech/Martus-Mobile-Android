@@ -349,11 +349,25 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
         } else if (id == R.id.view_docs_menu_item) {
             showViewDocs();
             return true;
+        } else if (id == R.id.view_tor_message_menu_item) {
+            showTorMessage();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-	private void showContactUs()
+    private void showTorMessage() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.view_tor_help_message, null);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setIcon(android.R.drawable.ic_dialog_info)
+                .setTitle(R.string.tor_label)
+                .setView(view)
+                .setPositiveButton(R.string.alert_dialog_ok, new SimpleOkayButtonListener())
+                .show();
+    }
+
+    private void showContactUs()
 	{
 		LayoutInflater li = LayoutInflater.from(this);
 		View view = li.inflate(R.layout.contact_us, null);
