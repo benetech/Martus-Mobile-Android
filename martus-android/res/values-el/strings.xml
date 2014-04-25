@@ -74,7 +74,7 @@
   <string name="confirm_tamper_reset_title">Σφάλμα εγκατάστασης</string>
   <!--Do Not Translate the word Martus-->
   <string name="view_docs_menu">Προβολή Τεκμηρίωσης</string>
-  <string name="feedback_menu">Επικοινωνήστε</string>
+  <string name="contact_us_menu_item">Επικοινωνήστε</string>
   <string name="help_menu">Βοήθεια</string>
   <string name="feedback_dialog_title">Επικοινωνήστε</string>
   <string name="tools_menu">Εργαλεία</string>

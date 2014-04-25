@@ -73,7 +73,7 @@
   <string name="logout_while_sending_message">សូម​រង់ចាំ​រហូត​ដល់​ព្រឹត្តិបត្រ​បាន​បញ្ចប់​ការ​ផ្ញើ។</string>
   <string name="reset_while_sending_title">មិន​អាច​កំណត់​ឡើង​វិញ</string>
   <!--Do Not Translate the word Martus-->
-  <string name="feedback_menu">ទាក់ទង​ពួក​យើង</string>
+  <string name="contact_us_menu_item">ទាក់ទង​ពួក​យើង</string>
   <string name="view_public_code_menu_item">មើល​កូដ​ជា​សាធារណៈ</string>
   <string name="help_menu">ជំនួយ</string>
   <string name="feedback_dialog_title">ទាក់ទង​ពួក​យើង</string>

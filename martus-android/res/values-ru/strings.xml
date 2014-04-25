@@ -106,7 +106,7 @@
     <!--Do Not Translate the word Martus-->
     <string name="confirm_tamper_reset_message"> С файлами установки произошла ошибка. В интересах обеспечения безопасности удалите свою учетную запись. Нажатие на кнопку Да запустит этот процесс. Martus не будет работать с повреждённым файлом настроек, поэтому нажатие Нет завершит работу Martus.</string>
     <string name="view_docs_menu">Просмотр документации</string>
-    <string name="feedback_menu">Контакты</string>
+    <string name="contact_us_menu_item">Контакты</string>
     <string name="view_public_code_menu_item">Прсмотр Общего Кода</string>
     <string name="resend_menu_item">Повторно передать неотправленные сводки</string>
     <string name="resending">Повторно отправить!</string>
