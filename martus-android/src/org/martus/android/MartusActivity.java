@@ -349,9 +349,6 @@ public class MartusActivity extends AbstractTorActivity implements LoginDialog.L
         } else if (id == R.id.view_docs_menu_item) {
             showViewDocs();
             return true;
-        } else if (id == R.id.load_form_menu_item) {
-            loadForm();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
