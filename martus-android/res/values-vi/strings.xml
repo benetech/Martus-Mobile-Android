@@ -102,7 +102,7 @@
   <!--Do Not Translate the word Martus-->
   <string name="confirm_tamper_reset_message">Có lỗi với các tập tin thiết đặt. Vì lý do an ninh, hãy xóa tài khoản của bạn. Nhấn nút Có sẽ bắt đầu tiến trình này. Martus sẽ không chạy được với một tập tin thiết đặt bị hỏng, do đó nhấn nút Không sẽ rời khỏi Martus.</string>
   <string name="view_docs_menu">Xem Tài Liệu</string>
-  <string name="feedback_menu">Liên lạc chúng tôi</string>
+  <string name="contact_us_menu_item">Liên lạc chúng tôi</string>
   <string name="view_public_code_menu_item">Xem Mã Số Công</string>
   <string name="resend_menu_item">Gửi lại các Bản Tin Chưa Gửi</string>
   <string name="resending">Đang gửi lại!</string>

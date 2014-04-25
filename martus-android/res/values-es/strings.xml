@@ -104,7 +104,7 @@
     <!--Do Not Translate the word Martus-->
     <string name="confirm_tamper_reset_message">Ha habido un error con sus archivos de configuración. En interés de la seguridad, por favor borre su cuenta. Pulsando el botón Sí iniciará este proceso. Martus no funcionará con un archivo de configuración corrupto, así que pulsando No saldrá de Martus.</string>
     <string name="view_docs_menu">Ver documentación</string>
-    <string name="feedback_menu">Contacte con nosotros</string>
+    <string name="contact_us_menu_item">Contacte con nosotros</string>
     <string name="view_public_code_menu_item">Ver código público</string>
     <string name="resend_menu_item">Reenviar boletines no enviados</string>
     <string name="resending">¡Reenviando!</string>

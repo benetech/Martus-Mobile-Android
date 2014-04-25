@@ -104,7 +104,7 @@
   <!--Do Not Translate the word Martus-->
   <string name="confirm_tamper_reset_message">Il y a eu une erreur avec vos fichiers de configuration. Par mesure de sécurité, merci de supprimer votre compte. Cliquer sur le bouton Oui démarrera ce processus. Martus ne fonctionne pas avec un fichier de configuration corrompu, c\'est pourquoi cliquer sur Non fermera Martus.</string>
   <string name="view_docs_menu">Voir la documentation</string>
-  <string name="feedback_menu">Nous contacter</string>
+  <string name="contact_us_menu_item">Nous contacter</string>
   <string name="view_public_code_menu_item">Voir le code public</string>
   <string name="resend_menu_item">Ré-envois des bulletins non envoyés</string>
   <string name="resending">Renvoi!</string>

@@ -72,7 +72,7 @@
   <string name="no_network_connection">设备无网络连接！</string>
   <!--Do Not Translate the word Martus-->
   <string name="view_docs_menu">查看文档</string>
-  <string name="feedback_menu">联系我们</string>
+  <string name="contact_us_menu_item">联系我们</string>
   <string name="help_menu">帮助</string>
   <string name="feedback_dialog_title">联系我们</string>
   <string name="tools_menu">工具</string>

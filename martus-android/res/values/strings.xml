@@ -126,7 +126,7 @@
     <!-- Do Not Translate the word Martus-->
     <string name="confirm_tamper_reset_message">There has been an error with your setup files. In the interest of security, please delete your account. Pressing the Yes button will start this process. Martus will not work with a corrupted settings file, so pressing No will exit Martus.</string>
     <string name="view_docs_menu">View Documentation</string>
-    <string name="feedback_menu">Contact Us</string>
+    <string name="contact_us_menu_item">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
     <string name="resend_menu_item">Re-send Unsent Bulletins</string>
     <string name="resending">Re-sending!</string>
