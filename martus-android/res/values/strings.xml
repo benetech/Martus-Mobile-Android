@@ -12,11 +12,9 @@
 <!--     as grammatically appropriate.-->
 
 <resources>
-    <!-- Do Not Translate next line-->
-    <string name="app_name" translate="false">Martus</string>
-    <string name="create_sample_bulletin" translate="false">Create Bulletin</string>
-    <string name="error_message" translate="false">Error</string>
-    <string name="confirm_default" translate="false">Are you sure?</string>
+    <string name="create_sample_bulletin">Create Bulletin</string>
+    <string name="error_message">Error</string>
+    <string name="confirm_default">Are you sure?</string>
 
     <!-- ============================== -->
     <!--  settings screen  -->
@@ -65,8 +63,6 @@
     <string name="server_menu_title">Select Server</string>
     <string name="add_contact_using_access_token">Add Contact Using Access Token</string>
     <string name="add_contact_from_file">Add Contact From File</string>
-    <!-- Do Not Translate this line-->
-    <string name="market_orbot" translate="false">market://search?q=pname:org.torproject.android</string>
     <!-- Do Not Translate the word Orbot-->
     <string name="install_orbot_">Install Orbot</string>
     <!-- Do Not Translate the word Orbot-->
@@ -96,8 +92,6 @@
     <string name="success_magic_word">You have successfully set up a connection to the Martus server!</string>
     <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
     <string name="success_import_hq_key">You have successfully configured a Martus Desktop account to receive your Mobile Martus bulletins. Mobile Martus setup is complete!</string>
-    <!-- Do Not Translate this line-->
-    <string formatted="false" name="tor_link" translate="false">https://www.torproject.org</string>
     <string name="progress_confirming_magic_word">Confirming Magic Word</string>
     <string name="confirm_reset_install">Are you sure you want to delete?</string>
     <string name="confirm_reset_install_extra_no_pending"> </string>
@@ -222,8 +216,6 @@
     <!-- Do Not Translate the word Martus-->
     <string name="choose_file">Martus File Explorer</string>
     <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
-    <!-- Do Not Translate this line-->
-    <string formatted="false" name="file_explorer_store_link" translate="false">play.google.com/store/search?q=%22open+source%22+file+manager+explorer</string>
 
     <!-- ============================== -->
     <!--  notification bar  -->
@@ -232,8 +224,6 @@
     <!--  Do not translate words that start with %, but you may move them around-->
     <string name="failed_send_notification">Send failed due to: %1$s . Try re-sending later.</string>
     <string name="starting_send_notification">Sending …</string>
-    <!-- Do Not Translate this line-->
-    <string name="notification_title" translate="false">Martus - %1$s</string>
 
     <!-- form labels -->
     <string name="label_author">Author</string>
