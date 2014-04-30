@@ -2,6 +2,7 @@ package org.martus.android;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import java.security.SignatureException;
 
@@ -24,7 +25,14 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
 		finish();
 	}
 
-	@Override
+    @Override
+    protected void initializeTorToggleButton() {
+        torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
+        torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
+        synchronizeTorSwitchWithCurrentSystemProperties();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
