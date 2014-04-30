@@ -13,7 +13,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
  */
 abstract public class AbstractTorActivity extends BaseActivity{
 
-    private CompoundButton torToggleButton;
+    protected CompoundButton torToggleButton;
 
     private static final String PROXY_HOST_PROPERTY_NAME = "proxyHost";
     private static final String PROXY_PORT_PROPERTY_NAME = "proxyPort";
@@ -28,9 +28,10 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
         setContentView(getLayoutName());
 
-        torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
-        torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
-        synchronizeTorSwitchWithCurrentSystemProperties();
+        initializeTorToggleButton();
+    }
+
+    protected void initializeTorToggleButton() {
     }
 
     @Override
@@ -40,7 +41,7 @@ abstract public class AbstractTorActivity extends BaseActivity{
         synchronizeTorSwitchWithCurrentSystemProperties();
     }
 
-    private void synchronizeTorSwitchWithCurrentSystemProperties() {
+    protected void synchronizeTorSwitchWithCurrentSystemProperties() {
         final boolean shouldTurnTorSwitchOn = shouldTurnTorSwitchOn();
         if (shouldTurnTorSwitchOn) {
             turnOnTorToggle();

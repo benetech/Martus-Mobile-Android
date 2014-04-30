@@ -65,7 +65,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author roms
  *         Date: 10/25/12
  */
-public class BulletinActivity extends BaseActivity implements BulletinSender,
+public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler implements BulletinSender,
         ConfirmationDialog.ConfirmationDialogListener, IndeterminateProgressDialog.IndeterminateProgressDialogListener,
         DeterminateProgressDialog.DeterminateProgressDialogListener, AdapterView.OnItemLongClickListener, LoginDialog.LoginDialogListener {
 
@@ -103,9 +103,13 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
 	boolean haveFormInfo = false;
 
     @Override
+    protected int getLayoutName() {
+        return R.layout.send_bulletin_linear;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.send_bulletin_linear);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -334,7 +338,7 @@ public class BulletinActivity extends BaseActivity implements BulletinSender,
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.send_bulletin, menu);
+        inflater.inflate(R.menu.main, menu);
         return true;
     }
 
