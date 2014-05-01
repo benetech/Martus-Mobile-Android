@@ -119,7 +119,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
             replaceContactPreference.setSummary(publicCode);
         }catch (Exception e) {
-            Log.e(AppConfig.LOG_LABEL, e.getMessage());
+            Log.e(AppConfig.LOG_LABEL, "Could not format public code", e);
         }
     }
 
