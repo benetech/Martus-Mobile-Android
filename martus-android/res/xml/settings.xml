@@ -39,6 +39,22 @@
                 android:summaryOff="@string/wifi_only_preference_off"
         />
 
+        <Preference
+            android:title="@string/replace_contact_menu_item"
+            android:key="replace_contact_preference_key">
+            <intent
+                android:targetPackage="org.martus.android"
+                android:targetClass="org.martus.android.ContactImportChoiceActivity"/>
+        </Preference>
+
+        <Preference
+            android:title="@string/server_menu_title"
+            android:key="choose_connection_preference_key">
+            <intent
+                android:targetPackage="org.martus.android"
+                android:targetClass="org.martus.android.ChooseConnectionActivity"/>
+        </Preference>
+
 <!--        <CheckBoxPreference
                 android:key="zawgyi_preference"
                 android:defaultValue="false"
