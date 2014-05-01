@@ -27,18 +27,6 @@ abstract public class AbstractTorActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutName());
-
-        initializeTorToggleButton();
-    }
-
-    protected void initializeTorToggleButton() {
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        synchronizeTorSwitchWithCurrentSystemProperties();
     }
 
     protected void synchronizeTorSwitchWithCurrentSystemProperties() {
@@ -49,6 +37,10 @@ abstract public class AbstractTorActivity extends BaseActivity{
     }
 
     private boolean shouldTurnTorSwitchOn() {
+
+        if (torToggleButton == null)
+            return false;
+
         if (!PROXY_HOST.equals(System.getProperty(PROXY_HOST_PROPERTY_NAME)))
             return false;
 
