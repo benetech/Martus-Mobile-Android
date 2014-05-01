@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,13 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     public static final int MAX_LOGIN_ATTEMPTS = 3;
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        synchronizeTorSwitchWithCurrentSystemProperties();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
@@ -55,6 +63,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         torToggleButton = (CompoundButton)  menu.findItem(R.id.tor_button).getActionView();
         torToggleButton.setOnCheckedChangeListener(new AbstractTorActivity.TorToggleChangeHandler());
         torToggleButton.setText(R.string.tor_label);
+        synchronizeTorSwitchWithCurrentSystemProperties();
 
         return true;
     }

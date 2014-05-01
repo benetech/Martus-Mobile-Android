@@ -1,6 +1,7 @@
 package org.martus.android;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -15,6 +16,13 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
 public class TorIntroActivity extends AbstractTorActivity implements OrbotHandler
 {
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initializeTorToggleButton();
+    }
+
+    @Override
     protected int getLayoutName() {
         return R.layout.tor_during_setup;
     }
@@ -25,8 +33,7 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
 		finish();
 	}
 
-    @Override
-    protected void initializeTorToggleButton() {
+    private void initializeTorToggleButton() {
         torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
         torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
         synchronizeTorSwitchWithCurrentSystemProperties();
@@ -36,6 +43,7 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
     public void onResume() {
         super.onResume();
 
+        synchronizeTorSwitchWithCurrentSystemProperties();
 		OrbotHelper oc = new OrbotHelper(this);
         try
         {

@@ -336,13 +336,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
 	    int id = item.getItemId();
