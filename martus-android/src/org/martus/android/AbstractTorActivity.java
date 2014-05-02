@@ -11,7 +11,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
 /**
  * Created by nimaa on 4/17/14.
  */
-abstract public class AbstractTorActivity extends BaseActivity{
+abstract public class AbstractTorActivity extends BaseActivity  implements OrbotHandler {
 
     private CompoundButton torToggleButton;
 
@@ -105,6 +105,16 @@ abstract public class AbstractTorActivity extends BaseActivity{
 
     public CompoundButton getTorToggleButton() {
         return torToggleButton;
+    }
+
+    @Override
+    public void onOrbotInstallCanceled() {
+        turnOffTorToggle();
+    }
+
+    @Override
+    public void onOrbotStartCanceled() {
+        turnOffTorToggle();
     }
 
     protected class TorToggleChangeHandler implements CompoundButton.OnCheckedChangeListener{
