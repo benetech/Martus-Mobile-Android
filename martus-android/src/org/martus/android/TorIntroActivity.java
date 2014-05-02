@@ -13,7 +13,7 @@ import info.guardianproject.onionkit.ui.OrbotHelper;
  * @author roms
  *         Date: 10/8/13
  */
-public class TorIntroActivity extends AbstractTorActivity implements OrbotHandler
+public class TorIntroActivity extends AbstractTorActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,15 +55,4 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
             turnOffTorToggle();
         }
 	}
-
-    @Override
-    public void onOrbotInstallCanceled() {
-        turnOffTorToggle();
-    }
-
-    @Override
-    public void onOrbotStartCanceled() {
-        turnOffTorToggle();
-    }
-
 }
