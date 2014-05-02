@@ -45,8 +45,6 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     protected String serverPublicKey;
     protected String serverIP;
 
-    public static final int MAX_LOGIN_ATTEMPTS = 3;
-
     @Override
     public void onResume() {
         super.onResume();
