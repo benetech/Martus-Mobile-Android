@@ -154,7 +154,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         }
     }
 
-    private void chooseAttachment() {
+    public void addAttachment(View view) {
         shouldShowInstallExplorer = false;
         try {
 	        Intent intent = new Intent();
@@ -347,9 +347,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             return true;
         } else if (id == R.id.cancel_bulletin_menu_item) {
             showConfirmationDialog();
-            return true;
-        } else if (id == R.id.add_attachment_menu_item) {
-            chooseAttachment();
             return true;
         }
         return super.onOptionsItemSelected(item);
