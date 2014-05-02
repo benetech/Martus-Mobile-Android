@@ -230,18 +230,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 	    }
     }
 
-	public void loadForm() {
-		try {
-            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-            chooseFile.setType("file/*");
-            Intent intent = Intent.createChooser(chooseFile, getString(R.string.select_file_picker));
-            startActivityForResult(intent, ACTIVITY_CHOOSE_FORM);
-        } catch (Exception e) {
-            Log.e(AppConfig.LOG_LABEL, "Failed choosing file", e);
-            e.printStackTrace();
-        }
-	}
-
 	private void clearCacheDir() {
 		clearDirectory(getCacheDir());
 	}
