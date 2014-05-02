@@ -58,9 +58,9 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        torToggleButton = (CompoundButton)  menu.findItem(R.id.tor_button).getActionView();
-        torToggleButton.setOnCheckedChangeListener(new AbstractTorActivity.TorToggleChangeHandler());
-        torToggleButton.setText(R.string.tor_label);
+        setTorToggleButton((CompoundButton)  menu.findItem(R.id.tor_button).getActionView());
+        getTorToggleButton().setOnCheckedChangeListener(new AbstractTorActivity.TorToggleChangeHandler());
+        getTorToggleButton().setText(R.string.tor_label);
         synchronizeTorSwitchWithCurrentSystemProperties();
 
         return true;
@@ -177,8 +177,6 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         mpiFile = new File(externalDir, ACCOUNT_ID_FILENAME);
         try {
             exportPublicInfo(mpiFile);
-
-
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "couldn't export public id", e);
             showMessage(this, getString(R.string.export_public_account_id_dialog_error),
@@ -292,7 +290,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         }
     }
 
-    class PingTask extends AsyncTask<XmlRpcClient, Void, String> {
+    private class PingTask extends AsyncTask<XmlRpcClient, Void, String> {
         @Override
         protected String doInBackground(XmlRpcClient... clients) {
 

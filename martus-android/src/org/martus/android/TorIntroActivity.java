@@ -34,8 +34,8 @@ public class TorIntroActivity extends AbstractTorActivity implements OrbotHandle
 	}
 
     private void initializeTorToggleButton() {
-        torToggleButton = (CompoundButton) findViewById(R.id.checkBox_use_tor);
-        torToggleButton.setOnCheckedChangeListener(new TorToggleChangeHandler());
+        setTorToggleButton((CompoundButton) findViewById(R.id.checkBox_use_tor));
+        getTorToggleButton().setOnCheckedChangeListener(new TorToggleChangeHandler());
         synchronizeTorSwitchWithCurrentSystemProperties();
     }
 
