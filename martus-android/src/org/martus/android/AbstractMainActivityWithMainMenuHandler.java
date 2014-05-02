@@ -109,15 +109,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             }
             return true;
         } else if (id == R.id.show_version_menu_item) {
-            PackageInfo pInfo;
-            String version;
-            try {
-                pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                version = pInfo.versionName;
-            } catch (PackageManager.NameNotFoundException e) {
-                version = "?";
-            }
-            Toast.makeText(this, version, Toast.LENGTH_LONG).show();
+            showVersionNumberAsToast();
             return true;
         } else if (id == R.id.export_mpi_menu_item) {
             File mpiFile = getMpiFile();
@@ -140,6 +132,18 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showVersionNumberAsToast() {
+        PackageInfo pInfo;
+        String version;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            version = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            version = "?";
+        }
+        Toast.makeText(this, version, Toast.LENGTH_LONG).show();
     }
 
     public static void logout() {
