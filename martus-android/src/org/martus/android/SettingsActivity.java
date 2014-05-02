@@ -40,6 +40,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String KEY_KEY_PAIR = "key_pair";
 	public static final String KEY_USE_ZAWGYI = "zawgyi_preference";
 	public static final String KEY_FONT_SIZE = "font_size";
+    private static final String KEY_CHOOSE_CONNECTION = "choose_connection_preference_key";
+    private static final String KEY_REPLACE_CONTACT = "replace_contact_preference_key";
     public static final String DEFAULT_TIMEOUT_MINUTES = "7";
 	public static final String ZAWGYI_LANGUAGE_CODE = "my";
 
@@ -105,7 +107,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private void setChooseConnectionSummaryValue() {
-        Preference chooseConnectionPreference = findPreference("choose_connection_preference_key");
+        Preference chooseConnectionPreference = findPreference(KEY_CHOOSE_CONNECTION);
         SharedPreferences serverSettings = getSharedPreferences(BaseActivity.PREFS_SERVER_IP, MODE_PRIVATE);
         String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
         chooseConnectionPreference.setSummary(serverIP);
@@ -113,7 +115,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     private void setReplaceContactSummaryValue() {
         try {
-            Preference replaceContactPreference = findPreference("replace_contact_preference_key");
+            Preference replaceContactPreference = findPreference(KEY_REPLACE_CONTACT);
             MartusCrypto martusCrypto = AppConfig.getInstance().getCrypto();
             String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
 
