@@ -128,8 +128,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
             String filePath = uri.getPath();
             File customTemplate = new File(filePath);
             loadCustomTemplate(customTemplate);
-            } else if (resultCode == RESULT_CANCELED) {
-                //shouldShowInstallExplorer = true;
             }
         }
     }
