@@ -146,23 +146,23 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
             {
                 if(template.importTemplate(martusCrypto, inputStream))
                 {
-			    String topSectionXML = template.getImportedTopSectionText();
-			    String bottomSectionXML = template.getImportedBottomSectionText();
+                    String topSectionXML = template.getImportedTopSectionText();
+                    String bottomSectionXML = template.getImportedBottomSectionText();
 
-		        FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
-		        FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
-		        MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
-		        MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
+                    FieldSpecCollection topFields = FieldCollection.parseXml(topSectionXML);
+                    FieldSpecCollection bottomFields = FieldCollection.parseXml(bottomSectionXML);
+                    MartusApplication.getInstance().setCustomTopSectionSpecs(topFields);
+                    MartusApplication.getInstance().setCustomBottomSectionSpecs(bottomFields);
 
-			    FieldSpecCollection allFields = mergeIntoOneSpecCollection(topFields, bottomFields);
+                    FieldSpecCollection allFields = mergeIntoOneSpecCollection(topFields, bottomFields);
 
-		        ODKUtils.writeXml(this, allFields);
-		        Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
-		        intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
-		        startActivity(intent);
-		    } else {
-				Log.e(AppConfig.LOG_LABEL, "couldn't load custom template! Likely using wrong hq public key");
-			}
+                    ODKUtils.writeXml(this, allFields);
+                    Intent intent = new Intent(MartusActivity.this, FormEntryActivity.class);
+                    intent.putExtra(MartusActivity.FORM_NAME, ODKUtils.MARTUS_CUSTOM_ODK_FORM);
+                    startActivity(intent);
+                } else {
+                    Log.e(AppConfig.LOG_LABEL, "couldn't load custom template! Likely using wrong hq public key");
+                }
             }
             finally{
                 inputStream.close();
