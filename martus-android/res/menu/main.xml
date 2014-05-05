@@ -21,6 +21,9 @@
             <item android:id="@+id/email_mpi_menu_item"
                 android:title="@string/send_public_account_id_menu_item" />
 
+            <item android:id="@+id/view_access_token_menu_item"
+                android:title="@string/view_access_token_menu_item"/>
+
             <item android:id="@+id/send_mpi_menu_item_via_bulletin"
                 android:title="@string/send_public_account_id_menu_item_via_bulletin" />
 
