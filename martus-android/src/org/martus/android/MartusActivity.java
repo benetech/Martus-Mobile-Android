@@ -331,6 +331,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         }
 
         onResume();
+        password = null;
     }
 
     @Override

@@ -130,6 +130,8 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
             Toast.makeText(this, getString(R.string.incorrect_password), Toast.LENGTH_SHORT).show();
             showLoginDialog();
         }
+
+        password = null;
 	}
 
     public void confirmServer(View view) {
