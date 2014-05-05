@@ -3,11 +3,11 @@ package org.martus.android;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -100,6 +100,10 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
                         getString(R.string.view_public_code_dialog_title));
             }
             return true;
+        } else if (id == R.id.view_access_token_menu_item) {
+            SharedPreferences sharedPreferences = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
+            String accessToken = sharedPreferences.getString(SettingsActivity.KEY_ACCESS_TOKEN, "");
+            showMessage(this, accessToken, getString(R.string.access_token));
         } else if (id == R.id.reset_install_menu_item) {
             if (!MartusApplication.isIgnoreInactivity()) {
                 showConfirmationDialog();

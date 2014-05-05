@@ -42,7 +42,8 @@ public class AddContactActivity extends BaseActivity {
 
     public void addContactFromServer(View view){
 
-        String code = accessTokenTextField.getText().toString().trim();
+
+        String code = getUserEnteredAccessToken();
         if (code.isEmpty()) {
             accessTokenTextField.requestFocus();
             showMessage(this, getString(R.string.public_code_validation_empty), getString(R.string.error_message));
@@ -126,11 +127,16 @@ public class AddContactActivity extends BaseActivity {
         SharedPreferences.Editor editor = HQSettings.edit();
 
         editor.putString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, publicKey);
+        editor.putString(SettingsActivity.KEY_ACCESS_TOKEN, getUserEnteredAccessToken());
         editor.commit();
 
         File desktopKeyFile = getPrefsFile(PREFS_DESKTOP_KEY);
         MartusUtilities.createSignatureFileFromFile(desktopKeyFile, getSecurity());
         Toast.makeText(this, getString(R.string.success_import_hq_key), Toast.LENGTH_LONG).show();
+    }
+
+    private String getUserEnteredAccessToken() {
+        return accessTokenTextField.getText().toString().trim();
     }
 
     private class RetrieveContactTask extends AsyncTask<Object, Void, NetworkResponse> {
@@ -139,7 +145,7 @@ public class AddContactActivity extends BaseActivity {
 
             try
             {
-                String userEnteredAccessToken = accessTokenTextField.getText().toString().trim();
+                String userEnteredAccessToken = getUserEnteredAccessToken();
                 SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
                 String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
                 MobileClientSideNetworkGateway gateway = getNetworkGateway();
