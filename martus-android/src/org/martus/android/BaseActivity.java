@@ -409,4 +409,9 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
         textView.setText(hyperLinkStringBuilder, TextView.BufferType.SPANNABLE);
     }
 
+    protected void invalidateAllElements(char[] arrayToInvalidate) {
+        for (int index = 0; index < arrayToInvalidate.length; ++index) {
+            arrayToInvalidate[index] = ' ';
+        }
+    }
 }
