@@ -131,6 +131,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
             showLoginDialog();
         }
 
+        invalidateAllElements(password);
         password = null;
 	}
 

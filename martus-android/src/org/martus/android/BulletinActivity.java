@@ -675,10 +675,11 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             showLoginDialog();
         }
 
+        invalidateAllElements(password);
         password = null;
 	}
 
-	class PicasaImageTask extends AsyncTask<Uri, Void, File> {
+    class PicasaImageTask extends AsyncTask<Uri, Void, File> {
         @Override
         protected File doInBackground(Uri... uris) {
 
