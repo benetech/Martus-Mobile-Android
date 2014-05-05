@@ -674,6 +674,8 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             Toast.makeText(this, getString(R.string.incorrect_password), Toast.LENGTH_SHORT).show();
             showLoginDialog();
         }
+
+        password = null;
 	}
 
 	class PicasaImageTask extends AsyncTask<Uri, Void, File> {
