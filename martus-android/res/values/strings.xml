@@ -155,8 +155,11 @@
     <string name="send_failed_cant_reach_server">Can\'t reach server</string>
     <string name="add_attachment">Add attachment</string>
     <string name="enter_summary">Optional Summary</string>
+    <string name="title_summary">Summary</string>
+    <string name="summary_optional_label">Optional</string>
     <string name="default_author">Unknown Author</string>
     <string name="title_hint">Title</string>
+    <string name="title_title">Title</string>
     <string name="bulletin_cancel">Cancel</string>
     <string name="problem_creating_bulletin">Couldn\'t create new bulletin</string>
     <string name="problem_adding_attachment">Problem adding attachment to bulletin</string>

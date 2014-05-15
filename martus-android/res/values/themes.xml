@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ThemeSelector" parent="@android:style/Theme.Light" />
+    <style name="MartusTheme" parent="Theme.Sherlock.Light">
+        <item name="actionBarStyle">@style/MartusActionBar</item>
+    </style>
 
     <style name="Widget.Button" parent="android:Widget">
         <item name="android:background">@drawable/custom_button</item>
+    </style>
+
+    <style name="MartusActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/top_bar_background_color</item>
+    </style>
+
+    <style name="MartusTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_blue</item>
+    </style>
+
+    <style name="MartusHeading1" parent="android:Widget.TextView">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_blue</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
