@@ -23,5 +23,7 @@ the License.
     <color name="button_stroke_color">#597489</color>
     <color name="main_screen_background">#e6e7e9</color>
     <color name="button_pressed_color">#797769</color>
+    <color name="top_bar_background_color">#4c5e70</color>
+    <color name="text_blue">#4c5e70</color>
 
 </resources>

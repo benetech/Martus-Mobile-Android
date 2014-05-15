@@ -13,28 +13,44 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_title"
+            android:id="@+id/title_heading_id"
+            style="@style/MartusHeading1"/>
+
         <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/createBulletinTitle"
-                android:hint="@string/title_hint"
                 android:singleLine="false"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:layout_marginTop="4dip"
                 android:layout_marginBottom="4dip"
-                android:textSize="18sp"/>
+            style="@style/MartusTextViewStyle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_summary"
+            android:id="@+id/summary_heading_id"
+            android:layout_weight="1"
+            style="@style/MartusHeading1"/>
 
         <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="100dip"
                 android:id="@+id/bulletinSummary"
+                android:hint="@string/summary_optional_label"
                 android:inputType="textMultiLine"
-                android:hint="@string/enter_summary"
                 android:layout_gravity="left|right"
                 android:gravity="left|top"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp"/>
+                style="@style/MartusTextViewStyle"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -44,6 +60,7 @@
                 android:layout_marginTop="4dip"
                 android:textSize="18sp"
                 android:visibility="gone"
+                style="@style/MartusTextViewStyle"
                 />
     </LinearLayout>
 
@@ -59,7 +76,7 @@
             android:text="@string/attachments_add_label"
             android:id="@+id/attachments_help_text"
             android:layout_marginTop="4dip"
-            android:textSize="16sp"
+            style="@style/MartusTextViewStyle"
             />
     <ImageButton
         android:layout_width="wrap_content"

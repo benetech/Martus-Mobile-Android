@@ -28,7 +28,8 @@
         android:id="@+id/useAdvancedServerOptions"
         android:linksClickable="true"
         android:autoLink="all"
-        android:clickable="true"/>
+        android:clickable="true"
+        style="@style/MartusTextViewStyle"/>
 
 
 </LinearLayout>
