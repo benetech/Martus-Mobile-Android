@@ -21,7 +21,7 @@
             android:layout_marginRight="20dip"
             android:text="@string/create_account_intro"
             android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            style="@style/MartusHeading1" />
 
         <include layout="@layout/create_account_fields"/>
 
