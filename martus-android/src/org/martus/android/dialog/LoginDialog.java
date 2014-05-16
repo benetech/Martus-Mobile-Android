@@ -51,13 +51,10 @@ public class LoginDialog extends DialogFragment implements DialogInterface.OnCli
         passwordText = (EditText) passwordEntryView.findViewById(R.id.password_edit);
         passwordText.setOnEditorActionListener(this);
 
-        return new AlertDialog.Builder(getActivity())
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setTitle(R.string.password_dialog_title)
-            .setView(passwordEntryView)
-            .setPositiveButton(R.string.alert_dialog_ok, this)
-            .setNegativeButton(R.string.password_dialog_cancel, this)
-            .create();
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setView(passwordEntryView);
+
+        return alertDialog.create();
     }
 
     @Override

@@ -9,6 +9,7 @@
     <style name="Widget.Button" parent="android:Widget">
         <item name="android:background">@drawable/custom_button</item>
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/button_stroke_color</item>
     </style>
 
     <style name="MartusTextViewStyle" parent="android:Widget.TextView">
@@ -26,4 +27,15 @@
     <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar">
         <item name="background">@color/top_bar_background_color</item>
     </style>
+
+    <style name="PopupDialogStyle" parent="MartusTheme">
+        <item name="android:windowTitleBackgroundStyle">@style/PopupDialogTitleBackgroundColor</item>
+        <item name="android:background">@color/text_blue</item>
+        <item name="android:textAppearance">@style/DialogTitle</item>
+    </style>
+
+    <style name="PopupDialogTitleBackgroundColor">
+        <item name="android:background">@color/text_blue</item>
+    </style>
+
 </resources>
