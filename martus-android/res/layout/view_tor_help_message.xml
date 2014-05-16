@@ -13,7 +13,8 @@
         android:id="@+id/tor_message_text_view_id"
         android:padding="8dip"
         android:layout_marginTop="10dip"
-        android:paddingTop="12dip"/>
+        android:paddingTop="12dip"
+        style="@style/MartusTextViewStyle"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -23,5 +24,6 @@
         android:autoLink="web"
         android:layout_gravity="left"
         android:layout_marginTop="16dip"
-        android:paddingLeft="32dip"/>
+        android:paddingLeft="32dip"
+        style="@style/MartusTextViewStyle"/>
 </LinearLayout>
