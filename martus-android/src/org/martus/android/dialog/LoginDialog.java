@@ -1,29 +1,28 @@
 package org.martus.android.dialog;
 
-import org.martus.android.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.martus.android.R;
 
 /**
  * @author roms
  *         Date: 12/22/12
  */
-public class LoginDialog extends DialogFragment implements DialogInterface.OnClickListener, TextView.OnEditorActionListener {
+public class LoginDialog extends DialogFragment implements TextView.OnEditorActionListener {
 
     private EditText passwordText;
-
-
 
     public interface LoginDialogListener {
         void onFinishPasswordDialog(TextView inputText);
@@ -54,7 +53,14 @@ public class LoginDialog extends DialogFragment implements DialogInterface.OnCli
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setView(passwordEntryView);
 
-        return alertDialog.create();
+        final AlertDialog alertDialog1 = alertDialog.create();
+        Button okButton= (Button) passwordEntryView.findViewById(R.id.ok_button);
+        okButton.setOnClickListener(new OkButtonClickHandler());
+
+        Button cancelButton = (Button) passwordEntryView.findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(new CancelButtonClickHandler());
+
+        return alertDialog1;
     }
 
     @Override
@@ -67,13 +73,20 @@ public class LoginDialog extends DialogFragment implements DialogInterface.OnCli
         return false;
     }
 
-    public void onClick(DialogInterface dialog, int whichButton) {
-        switch (whichButton) {
-            case -1:    ((LoginDialogListener) getActivity()).onFinishPasswordDialog(passwordText);
-                        break;
-            case -2:    ((LoginDialogListener) getActivity()).onCancelPasswordDialog();
-                        break;
+    private class CancelButtonClickHandler implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View view) {
+            ((LoginDialogListener) getActivity()).onCancelPasswordDialog();
         }
     }
 
+    public class OkButtonClickHandler implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View view) {
+                ((LoginDialogListener) getActivity()).onFinishPasswordDialog(passwordText);
+                dismiss();
+        }
+    }
 }
