@@ -9,7 +9,7 @@
     <style name="Widget.Button" parent="android:Widget">
         <item name="android:background">@drawable/custom_button</item>
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/button_stroke_color</item>
+        <item name="android:textColor">@color/Button_text_white</item>
     </style>
 
     <style name="MartusTextViewStyle" parent="android:Widget.TextView">
