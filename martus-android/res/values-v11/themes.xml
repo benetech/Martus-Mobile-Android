@@ -3,6 +3,7 @@
     <style name="MartusTheme" parent="Theme.Sherlock.Light">
         <item name="actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionBarStyle">@style/MartusActionBar</item>
+        <item name="android:actionMenuTextColor">@color/button_text_white</item>
     </style>
 
     <style name="Widget.Button" parent="android:Widget">
