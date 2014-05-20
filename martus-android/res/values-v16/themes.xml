@@ -4,6 +4,7 @@
         <item name="android:fontFamily">San-serif-light</item>
         <item name="actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionBarStyle">@style/MartusActionBar</item>
+        <item name="android:actionMenuTextColor">@color/button_text_white</item>
     </style>
 
     <style name="Widget.Button" parent="android:Widget">
@@ -36,6 +37,11 @@
 
     <style name="PopupDialogTitleBackgroundColor">
         <item name="android:background">@color/text_blue</item>
+    </style>
+
+    <style name="MartusActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/top_bar_background_color</item>
+        <item name="android:titleTextStyle">@style/DialogTitle</item>
     </style>
 
 </resources>
