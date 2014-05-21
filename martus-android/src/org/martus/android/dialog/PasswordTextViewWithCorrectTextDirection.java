@@ -35,14 +35,14 @@ public class PasswordTextViewWithCorrectTextDirection extends EditText {
         setGravity(getGravityDirectionBasedOnLocale());
     }
 
-    private int getGravityDirectionBasedOnLocale() {
+    public static int getGravityDirectionBasedOnLocale() {
         if(isRightToLeftLocale())
             return Gravity.RIGHT;
 
         return Gravity.LEFT;
     }
 
-    private boolean isRightToLeftLocale() {
+    private static boolean isRightToLeftLocale() {
         Locale locale = Locale.getDefault();
         final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
         if (directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT)

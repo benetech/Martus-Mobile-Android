@@ -10,7 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.android.dialog.LoginDialog;
+import org.martus.android.dialog.PasswordTextViewWithCorrectTextDirection;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.FieldCollection;
 import org.martus.common.FieldSpecCollection;
@@ -93,7 +96,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     private EditText summaryText;
 	private TextView attachmentsHelpText;
 	private TextView customFormHelp;
-    private ArrayAdapter<String> attachmentAdapter;
+    private RowAdapterWithCorrectRightToLeftTextView attachmentAdapter;
     private boolean shouldShowInstallExplorer = false;
     private IndeterminateProgressDialog indeterminateDialog;
     private DeterminateProgressDialog determinateDialog;
@@ -126,7 +129,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	    customFormHelp = (TextView)findViewById(R.id.custom_form_transition);
 
         if (null == bulletin) {
-            attachmentAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+            attachmentAdapter = new RowAdapterWithCorrectRightToLeftTextView(this);
             createEmptyBulletinAndClearFields();
         }
 
@@ -721,6 +724,26 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             is.close();
 
             return file;
+        }
+    }
+
+    private class RowAdapterWithCorrectRightToLeftTextView extends ArrayAdapter<String> {
+
+        protected LayoutInflater inflater;
+
+        public RowAdapterWithCorrectRightToLeftTextView(final Context context) {
+            super(context, 0);
+
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View rowView = inflater.inflate(R.layout.custom_listview_row, parent, false);
+            TextView textView = (TextView) rowView.findViewById(R.id.text_field);
+            textView.setGravity(PasswordTextViewWithCorrectTextDirection.getGravityDirectionBasedOnLocale());
+            textView.setText(getItem(position));
+
+            return rowView;
         }
     }
 }
