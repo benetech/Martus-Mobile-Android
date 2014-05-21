@@ -740,7 +740,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         public View getView(int position, View convertView, ViewGroup parent) {
             View rowView = inflater.inflate(R.layout.custom_listview_row, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.text_field);
-            textView.setGravity(TextViewWithCorrectTextDirection.getGravityDirectionBasedOnLocale());
             textView.setText(getItem(position));
 
             return rowView;

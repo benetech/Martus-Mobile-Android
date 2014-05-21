@@ -35,7 +35,7 @@ public class TextViewWithCorrectTextDirection extends EditText {
         setGravity(getGravityDirectionBasedOnLocale());
     }
 
-    public static int getGravityDirectionBasedOnLocale() {
+    private static int getGravityDirectionBasedOnLocale() {
         if(isRightToLeftLocale())
             return Gravity.RIGHT;
 
