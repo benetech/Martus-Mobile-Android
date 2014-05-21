@@ -14,7 +14,7 @@
         android:gravity="left"
         style="@style/MartusTextViewStyle" />
 
-    <EditText
+    <org.martus.android.dialog.PasswordTextViewWithCorrectTextDirection
         android:id="@+id/new_password_field"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:gravity="left"
         style="@style/MartusTextViewStyle" />
 
-    <EditText
+    <org.martus.android.dialog.PasswordTextViewWithCorrectTextDirection
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/confirm_password_field"

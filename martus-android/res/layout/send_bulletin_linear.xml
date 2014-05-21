@@ -47,8 +47,6 @@
                 android:id="@+id/bulletinSummary"
                 android:hint="@string/summary_optional_label"
                 android:inputType="textMultiLine"
-                android:layout_gravity="left|right"
-                android:gravity="left|top"
                 android:layout_marginBottom="8dp"
                 style="@style/MartusTextViewStyle"/>
 
