@@ -11,6 +11,7 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/MartusTheme"
+            android:supportsRtl="true"
             android:name="org.martus.android.MyApplication" >
         <activity
             android:name="org.martus.android.MartusActivity"
