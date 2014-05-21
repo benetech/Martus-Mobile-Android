@@ -10,22 +10,22 @@ import java.util.Locale;
 /**
  * Created by nimaa on 5/21/14.
  */
-public class PasswordTextViewWithCorrectTextDirection extends EditText {
+public class TextViewWithCorrectTextDirection extends EditText {
 
-    public PasswordTextViewWithCorrectTextDirection(Context context) {
+    public TextViewWithCorrectTextDirection(Context context) {
         super(context);
 
         setPasswordTextFieldGravityToMatchLanguageDirection();
     }
 
-    public PasswordTextViewWithCorrectTextDirection(android.content.Context context, android.util.AttributeSet attrs) {
+    public TextViewWithCorrectTextDirection(android.content.Context context, android.util.AttributeSet attrs) {
         super(context, attrs);
 
         setPasswordTextFieldGravityToMatchLanguageDirection();
     }
 
 
-    public PasswordTextViewWithCorrectTextDirection(android.content.Context context, android.util.AttributeSet attrs, int defStyle) {
+    public TextViewWithCorrectTextDirection(android.content.Context context, android.util.AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         setPasswordTextFieldGravityToMatchLanguageDirection();

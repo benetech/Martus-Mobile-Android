@@ -28,7 +28,7 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.android.dialog.LoginDialog;
-import org.martus.android.dialog.PasswordTextViewWithCorrectTextDirection;
+import org.martus.android.dialog.TextViewWithCorrectTextDirection;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.FieldCollection;
 import org.martus.common.FieldSpecCollection;
@@ -740,7 +740,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         public View getView(int position, View convertView, ViewGroup parent) {
             View rowView = inflater.inflate(R.layout.custom_listview_row, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.text_field);
-            textView.setGravity(PasswordTextViewWithCorrectTextDirection.getGravityDirectionBasedOnLocale());
+            textView.setGravity(TextViewWithCorrectTextDirection.getGravityDirectionBasedOnLocale());
             textView.setText(getItem(position));
 
             return rowView;
