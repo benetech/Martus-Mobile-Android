@@ -15,7 +15,8 @@
         android:onClick="addContactUsingAccessToken"
         android:text="@string/add_contact_using_access_token"
         android:id="@+id/addContactUsingAccessTokenButton"
-        style="@style/Widget.Button"/>
+        style="@style/Widget.Button"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
         android:linksClickable="true"
         android:autoLink="all"
         android:clickable="true"
-        style="@style/MartusTextViewStyle"/>
+        style="@style/MartusTextViewStyle"
+        />
 
 </LinearLayout>
