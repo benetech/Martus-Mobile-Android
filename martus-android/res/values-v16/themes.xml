@@ -5,6 +5,8 @@
         <item name="actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionMenuTextColor">@color/button_text_white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_blue</item>
     </style>
 
     <style name="Widget.Button" parent="android:Widget">
@@ -27,16 +29,7 @@
 
     <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar">
         <item name="background">@color/top_bar_background_color</item>
-    </style>
-
-    <style name="PopupDialogStyle" parent="MartusTheme">
-        <item name="android:windowTitleBackgroundStyle">@style/PopupDialogTitleBackgroundColor</item>
-        <item name="android:background">@color/text_blue</item>
-        <item name="android:textAppearance">@style/DialogTitle</item>
-    </style>
-
-    <style name="PopupDialogTitleBackgroundColor">
-        <item name="android:background">@color/text_blue</item>
+        <item name="android:textColor">@color/button_text_white</item>
     </style>
 
     <style name="MartusActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
