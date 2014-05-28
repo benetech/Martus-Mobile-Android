@@ -102,6 +102,8 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 	        }
 
 	        verifySetupInfo();
+            Intent bulletinIntent = new Intent(this, BulletinActivity.class);
+            startActivity(bulletinIntent);
         } else {
             if (isAccountCreated()) {
                 showLoginDialog();
@@ -112,9 +114,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
             }
         }
         updateSettings();
-
-        Intent bulletinIntent = new Intent(MartusActivity.this, BulletinActivity.class);
-        startActivity(bulletinIntent);
     }
 
     @Override
