@@ -151,14 +151,16 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
     private void showVersionNumberAsToast() {
         PackageInfo pInfo;
-        String version;
+        String versionLabel;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            version = pInfo.versionName;
+            String versionNameLabel = getString(R.string.version_name_label, pInfo.versionName);
+            String versionCodeLabel = getString(R.string.version_code_label, pInfo.versionCode);
+            versionLabel = versionNameLabel + "\n" + versionCodeLabel;
         } catch (PackageManager.NameNotFoundException e) {
-            version = "?";
+            versionLabel = "?";
         }
-        Toast.makeText(this, version, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, versionLabel, Toast.LENGTH_LONG).show();
     }
 
     public static void logout() {
