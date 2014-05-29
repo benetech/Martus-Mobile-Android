@@ -133,8 +133,14 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
     private void showPublicKeyDialog() {
         try {
+            String publicCode40Digit = MartusCrypto.computeFormattedPublicCode40(martusCrypto.getPublicKeyString());
             String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
-            showMessage(this, publicCode, getString(R.string.view_public_code_dialog_title));
+
+            String newPublicCodeMessageSection = getString(R.string.view_new_public_code_message, publicCode40Digit);
+            String oldPublicCodeMessageSection = getString(R.string.view_old_public_code_message, publicCode);
+            String entireMessage = newPublicCodeMessageSection + "\n\n" + oldPublicCodeMessageSection;
+
+            showMessage(this, entireMessage, getString(R.string.view_public_code_dialog_title));
         } catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "couldn't get public code", e);
             showMessage(this, getString(R.string.view_public_code_dialog_error), getString(R.string.view_public_code_dialog_title));
