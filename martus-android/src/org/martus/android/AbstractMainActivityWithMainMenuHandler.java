@@ -91,14 +91,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             resendFailedBulletins();
             return true;
         } else if (id == R.id.view_public_code_menu_item) {
-            try {
-                String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
-                showMessage(this, publicCode, getString(R.string.view_public_code_dialog_title));
-            } catch (Exception e) {
-                Log.e(AppConfig.LOG_LABEL, "couldn't get public code", e);
-                showMessage(this, getString(R.string.view_public_code_dialog_error),
-                        getString(R.string.view_public_code_dialog_title));
-            }
+            showPublicKeyDialog();
             return true;
         } else if (id == R.id.view_access_token_menu_item) {
             SharedPreferences sharedPreferences = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
@@ -136,6 +129,16 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showPublicKeyDialog() {
+        try {
+            String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
+            showMessage(this, publicCode, getString(R.string.view_public_code_dialog_title));
+        } catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "couldn't get public code", e);
+            showMessage(this, getString(R.string.view_public_code_dialog_error), getString(R.string.view_public_code_dialog_title));
+        }
     }
 
     private void showVersionNumberAsToast() {
