@@ -116,10 +116,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     private void setReplaceContactSummaryValue() {
         try {
+            SharedPreferences HQSettings = getSharedPreferences(MartusActivity.PREFS_DESKTOP_KEY, MODE_PRIVATE);
+            String desktopPublicKeyString = HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, "");
+            String publicCode = MartusCrypto.computeFormattedPublicCode40(desktopPublicKeyString);
             Preference replaceContactPreference = findPreference(KEY_REPLACE_CONTACT);
-            MartusCrypto martusCrypto = AppConfig.getInstance().getCrypto();
-            String publicCode = MartusCrypto.getFormattedPublicCode(martusCrypto.getPublicKeyString());
-
             replaceContactPreference.setSummary(publicCode);
         }catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Could not format public code", e);
