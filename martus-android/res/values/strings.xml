@@ -129,6 +129,8 @@
     <string name="help_menu">Help</string>
     <string name="feedback_dialog_title">Contact Us</string>
     <string name="view_public_code_dialog_title">Public Code</string>
+    <string name="view_new_public_code_message">Public Code (New):\n%1$s</string>
+    <string name="view_old_public_code_message">Public Code (Old):\n%1$s</string>
     <string name="view_public_code_dialog_error">Unable to show Public Code</string>
     <string name="send_public_account_id_menu_item">Email Public Account ID</string>
     <string name="send_public_account_id_menu_item_via_bulletin">Send Public Account ID in Bulletin</string>
