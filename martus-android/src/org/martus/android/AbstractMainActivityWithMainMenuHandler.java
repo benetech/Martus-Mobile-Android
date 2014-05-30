@@ -76,13 +76,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             startActivity(intent);
             return true;
         } else if (id == R.id.quit_menu_item) {
-            if (!MartusApplication.isIgnoreInactivity()) {
-                logout();
-                finish();
-            } else {
-                showMessage(this, getString(R.string.logout_while_sending_message),
-                        getString(R.string.logout_while_sending_title));
-            }
+            quit();
             return true;
         } else if (id == R.id.ping_server_menu_item) {
             pingServer();
@@ -127,6 +121,16 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void quit() {
+        if (!MartusApplication.isIgnoreInactivity()) {
+            logout();
+            finish();
+        } else {
+            showMessage(this, getString(R.string.logout_while_sending_message),
+                    getString(R.string.logout_while_sending_title));
+        }
     }
 
     private void showAccessToken() {
