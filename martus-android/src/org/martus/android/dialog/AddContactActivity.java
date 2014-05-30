@@ -127,7 +127,6 @@ public class AddContactActivity extends BaseActivity {
         SharedPreferences.Editor editor = HQSettings.edit();
 
         editor.putString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, publicKey);
-        editor.putString(SettingsActivity.KEY_ACCESS_TOKEN, getUserEnteredAccessToken());
         editor.commit();
 
         File desktopKeyFile = getPrefsFile(PREFS_DESKTOP_KEY);
