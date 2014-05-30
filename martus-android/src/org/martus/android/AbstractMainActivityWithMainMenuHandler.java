@@ -72,8 +72,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
         int id = item.getItemId();
         if (id == R.id.settings_menu_item) {
-            intent = new Intent(AbstractMainActivityWithMainMenuHandler.this, SettingsActivity.class);
-            startActivity(intent);
+            startSettingsActivity();
             return true;
         } else if (id == R.id.quit_menu_item) {
             quit();
@@ -121,6 +120,12 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startSettingsActivity() {
+        Intent intent;
+        intent = new Intent(AbstractMainActivityWithMainMenuHandler.this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void quit() {
