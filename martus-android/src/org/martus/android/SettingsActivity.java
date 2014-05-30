@@ -35,7 +35,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String KEY_SERVER_IP = "server_ip_preference";
     public static final String KEY_AUTHOR = "author_preference";
     public static final String KEY_WIFI_ONLY = "wifi_only_preference";
-    public static final String KEY_ACCESS_TOKEN = "access_token_keystring";
     public static final String KEY_DESKTOP_PUBLIC_KEY = "desktop_public_keystring";
     public static final String KEY_SERVER_PUBLIC_KEY = "server_public_keystring";
     public static final String KEY_KEY_PAIR = "key_pair";

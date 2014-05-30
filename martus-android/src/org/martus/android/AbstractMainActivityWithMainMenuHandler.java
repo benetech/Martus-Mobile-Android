@@ -22,9 +22,15 @@ import com.actionbarsherlock.view.MenuItem;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.martus.clientside.MobileClientSideNetworkGateway;
+import org.martus.common.Exceptions;
+import org.martus.common.MartusAccountAccessToken;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
+import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
+import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
 
 import java.io.File;
@@ -143,9 +149,9 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     private void showAccessToken() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString(SettingsActivity.KEY_ACCESS_TOKEN, "");
-        showMessage(this, accessToken, getString(R.string.access_token));
+        showProgressDialog(getString(R.string.progress_connecting_to_server));
+        final AsyncTask <Object, Void, NetworkResponse> keyTask = new RetrieveAccessTokenTask();
+        keyTask.execute();
     }
 
     private void showPublicKeyDialog() {
@@ -317,6 +323,39 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 
+    private void processResult(NetworkResponse response) {
+        try
+        {
+            dismissProgressDialog();
+            if(!response.getResultCode().equals(NetworkInterfaceConstants.OK))
+            {
+                if(response.getResultCode().equals(NetworkInterfaceConstants.NO_TOKEN_AVAILABLE))
+                    throw new MartusAccountAccessToken.TokenNotFoundException();
+
+                throw new Exceptions.ServerNotAvailableException();
+            }
+
+            Vector<String> resultVector = response.getResultVector();
+            if (resultVector == null || resultVector.isEmpty()){
+                Log.e(AppConfig.LOG_LABEL, "Server response was empty");
+            }
+
+            String accessToken = resultVector.get(0);
+            showMessage(this, getString(R.string.account_accees_token_label, accessToken), "");
+        } catch (Exceptions.ServerNotAvailableException e) {
+            Log.e(AppConfig.LOG_LABEL, "Server Not Available", e);
+            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
+        }
+        catch (MartusAccountAccessToken.TokenNotFoundException e){
+            Log.e(AppConfig.LOG_LABEL, "Access Token not found.", e);
+            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
+        }
+        catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "Exception retrieving account", e);
+            showErrorMessage(getString(R.string.error_retrieving_contact), getString(R.string.error_message));
+        }
+    }
+
     public class CancelSendButtonListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
@@ -344,6 +383,32 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             processPingResult(result);
+        }
+    }
+
+    private class RetrieveAccessTokenTask extends AsyncTask<Object, Void, NetworkResponse> {
+        @Override
+        protected NetworkResponse doInBackground(Object... params) {
+
+            try
+            {
+                MobileClientSideNetworkGateway gateway = getNetworkGateway();
+                MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
+                NetworkResponse response = gateway.getMartusAccountAccessToken(martusCrypto);
+
+                return response;
+            }
+            catch (Exception e){
+                Log.e(AppConfig.LOG_LABEL, "Server connection failed!", e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(NetworkResponse result) {
+            super.onPostExecute(result);
+
+            processResult(result);
         }
     }
 }
