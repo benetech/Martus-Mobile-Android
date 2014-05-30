@@ -89,12 +89,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         } else if (id == R.id.view_access_token_menu_item) {
             showAccessToken();
         } else if (id == R.id.reset_install_menu_item) {
-            if (!MartusApplication.isIgnoreInactivity()) {
-                showConfirmationDialog();
-            } else {
-                showMessage(this, getString(R.string.logout_while_sending_message),
-                        getString(R.string.reset_while_sending_title));
-            }
+            deleteUserAccount();
             return true;
         } else if (id == R.id.show_version_menu_item) {
             showVersionNumberAsToast();
@@ -120,6 +115,15 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteUserAccount() {
+        if (!MartusApplication.isIgnoreInactivity()) {
+            showConfirmationDialog();
+        } else {
+            showMessage(this, getString(R.string.logout_while_sending_message),
+                    getString(R.string.reset_while_sending_title));
+        }
     }
 
     private void startSettingsActivity() {
