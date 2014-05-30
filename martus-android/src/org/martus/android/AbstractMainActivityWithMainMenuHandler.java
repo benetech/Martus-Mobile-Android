@@ -94,9 +94,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             showPublicKeyDialog();
             return true;
         } else if (id == R.id.view_access_token_menu_item) {
-            SharedPreferences sharedPreferences = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
-            String accessToken = sharedPreferences.getString(SettingsActivity.KEY_ACCESS_TOKEN, "");
-            showMessage(this, accessToken, getString(R.string.access_token));
+            showAccessToken();
         } else if (id == R.id.reset_install_menu_item) {
             if (!MartusApplication.isIgnoreInactivity()) {
                 showConfirmationDialog();
@@ -129,6 +127,12 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAccessToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString(SettingsActivity.KEY_ACCESS_TOKEN, "");
+        showMessage(this, accessToken, getString(R.string.access_token));
     }
 
     private void showPublicKeyDialog() {
