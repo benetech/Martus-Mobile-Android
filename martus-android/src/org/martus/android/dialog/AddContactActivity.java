@@ -145,8 +145,6 @@ public class AddContactActivity extends BaseActivity {
             try
             {
                 String userEnteredAccessToken = getUserEnteredAccessToken();
-                SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
-                String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
                 MobileClientSideNetworkGateway gateway = getNetworkGateway();
                 MartusSecurity martusCrypto = AppConfig.getInstance().getCrypto();
                 MartusAccountAccessToken accessToken = new MartusAccountAccessToken(userEnteredAccessToken);
