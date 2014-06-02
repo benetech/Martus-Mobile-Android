@@ -273,6 +273,8 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         }
         showProgressDialog(getString(R.string.progress_connecting_to_server));
         try {
+            SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
+            serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
             String pingUrl = "http://" + serverIP + pingPath;
             XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
             config.setServerURL(new URL(pingUrl));
