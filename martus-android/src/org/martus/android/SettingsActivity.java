@@ -1,10 +1,5 @@
 package org.martus.android;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,16 +7,17 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 
 import org.martus.common.crypto.MartusCrypto;
-import org.martus.util.StreamableBase64;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 //import com.bugsense.trace.BugSenseHandler;
 
 /**

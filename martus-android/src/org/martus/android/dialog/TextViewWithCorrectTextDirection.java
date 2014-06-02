@@ -3,7 +3,6 @@ package org.martus.android.dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.Locale;
 
