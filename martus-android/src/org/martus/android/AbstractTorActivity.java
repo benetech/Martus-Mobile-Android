@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 
-import java.util.Properties;
-
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 /**
