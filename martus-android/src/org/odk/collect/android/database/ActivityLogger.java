@@ -14,21 +14,16 @@
 
 package org.odk.collect.android.database;
 
-import java.io.File;
-import java.util.Calendar;
-import java.util.LinkedList;
-
-import org.javarosa.core.model.FormIndex;
-import org.martus.android.AppConfig;
-import org.odk.collect.android.logic.FormController;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.util.Log;
+
+import org.javarosa.core.model.FormIndex;
+import org.martus.android.AppConfig;
+
+import java.util.LinkedList;
 
 /**
  * Log all user interface activity into a SQLite database. Logging is disabled by default.
