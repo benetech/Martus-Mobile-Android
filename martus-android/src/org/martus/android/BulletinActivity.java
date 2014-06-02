@@ -393,12 +393,18 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	@Override
 	public void onBackPressed()
 	{
-		if (!haveFormInfo)
+        if (!haveFormInfo)
             showConfirmationDialog();
-		super.onBackPressed();
 	}
 
-	@Override
+    private void goToHomeScreen() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
+
+    @Override
     public String getIndeterminateDialogMessage() {
         return getString(R.string.bulletin_packaging_progress);
     }
@@ -609,6 +615,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 removeCachedUnsentAttachments();
                 clearDirectory(new File(Collect.INSTANCES_PATH));
                 this.finish();
+                goToHomeScreen();
                 break;
             case CONFIRMATION_TYPE_DELETE_ATTACHMENT :
                 String fileName = attachmentAdapter.getItem(attachmentToRemoveIndex);
