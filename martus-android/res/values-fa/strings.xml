@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <!--Do Not Translate next line-->
+    <string name="app_name">Martus</string>
+    <string name="create_sample_bulletin">ایجاد بولتن</string>
+    <string name="error_message">خطا</string>
+    <string name="confirm_default">آیا شما مطمئن هستید؟</string>
+    <!--==============================-->
+    <!--settings screen-->
+    <!--==============================-->
+    <string name="user_preferences">تنظیمات کاربر</string>
+    <string name="title_author_preference">مولف</string>
+    <string name="summary_author_preference">مولف</string>
+    <string name="dialog_title_author_preference">مولف</string>
+    <string name="title_language_preference">زبان بولتن</string>
+    <string name="summary_language_preference">لطفا زبان مورد نظر برای درج اطلاعات در بولتن را انتخاب کنید</string>
+    <string name="dialog_title_language_preference">زبان بولتن</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="retry_server">دوباره وارد کنید</string>
+    <string name="cancel_server">لغو</string>
+    <string name="title_timeout_preference">وقفه</string>
+    <string name="summary_timeout_preference">در دقیقه</string>
+    <string name="dialog_title_timeout_preference">مدت زمان وقفه</string>
+    <string name="title_wifi_only_preference">تنها از وای فای استفاده کن</string>
+    <string name="wifi_only_preference_on">تنها در صورت فراهم بودن Wi-Fi اطلاعات ارسال شود</string>
+    <string name="wifi_only_preference_off">تنها در صورت فراهم بودن Wi-Fi اطلاعات ارسال شود</string>
+    <!--==============================-->
+    <!--main screen-->
+    <!--==============================-->
+    <string name="alert_dialog_password">رمز عبور</string>
+    <string name="alert_dialog_confirm_password">رمز عبور را مجدد تکرار کنید</string>
+    <string name="alert_dialog_magic_word">کلمه جادویی</string>
+    <string name="password_dialog_title">ورود</string>
+    <string name="alert_dialog_ok">تایید</string>
+    <string name="password_dialog_cancel">لغو</string>
+    <string name="create_account_dialog_cancel">خروج</string>
+    <string name="incorrect_password">رمز عبور اشتباه است</string>
+    <string name="error_create_account">مشکل در روند ایجاد حساب کاربری</string>
+    <string name="error_getting_server_key">مشکل در روند اتصال به سرور</string>
+    <string name="no_upload_rights">کلمه جادویی اشتباه است</string>
+    <string name="create_account_dialog_title">ایجاد رمز عبور جدید</string>
+    <string name="create_account_intro">به Martus خوش آمدید! در ابتدا شما باید یک حساب کاربری موبایل Martus ایجاد نمایید.</string>
+    <string name="choose_server_intro">سپس، شما باید تنظیمات مربوط به ارتباط با سرور Martus که اطلاعات شما به آن ارسال خواهد شد را انجام دهید.</string>
+    <string name="import_hq_intro">و در آخر، باید اطلاعات مروبط به حساب کاربری Martus را که دریافت کننده بولتن های ارسالی از موبایل Martus شما خواهد بود را وارد نمایید.\n\nشما باید فایل  شناسه عمومی حساب کاربری Martus ( که با \"mpi.\" ختم میشود ) و همچنین کدعمومی حساب کاربری نسخه رایانه ای Martus را که دریافت کننده بولتن های ارسالی توسط شما از طریق موبایل Martus خواهد بود را داشته باشید.</string>
+    <string name="tor_option_intro">سپس، در صورت  تمایل میتوانید Tor را فعال کنید.</string>
+    <string name="goto_server_setup_button">بعد</string>
+    <string name="quit_menu_title">خروج از برنامه</string>
+    <string name="server_menu_title">انتخاب سرور</string>
+    <!--Do Not Translate this line-->
+    <string name="market_orbot">market://search?q=pname:org.torproject.android</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="install_orbot_">نصب Orbot</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="you_must_have_orbot">شما باید Orbot را نصب کرده باشید</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="invalid_orbot_message">لطفا مجدد Orbot را از طریق فروشگاه گوگل نصب کنید</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="invalid_orbot_title">نصب و راه اندازی مروبط به  Orbot نامعتبر است</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="start_orbot_">اجرای Orbot</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot فعال نیست، آیا مایل هستید آنرا فعال کنید؟</string>
+    <!--Do Not Translate the URL that starts with https://-->
+    <string formatted="false" name="use_tor"><b>استفاده از Tor</b> (ممکن است کمک کند تا ارتباط شما با سرور Martus پنهان بماند و همینطور ممکن است در صورتی که  سرور های Martus در محل شما مسدود باشد، دسترسی به آنها را فراهم نماید، اما سرعت ارسال بولتن ها را کاهش خواهد داد)</string>
+    <string name="create_password_hint">رمز عبود جدید</string>
+    <string name="confirm_password_hint">رمز عبور را  تکرار کنید</string>
+    <string name="enter_password_hint">رمزعبور را وارد کنید</string>
+    <string name="enter_magic_word_hint">کلمه جادویی را وارد نمایید</string>
+    <string name="settings_pwd_equal">رمزهای عبور تطابق دارند</string>
+    <string name="settings_pwd_not_equal">رمزهای عبور وارد شده تطابق ندارند!</string>
+    <string name="invalid_password">رمز عبور باید حداقل 8 کاراکتر باشد</string>
+    <string name="invalid_magic_word">کلمه جادویی معتبر نیست</string>
+    <string name="success_magic_word">تنظیمات ارتباط شما با سرور Martus با موفقیت انجام شد! </string>
+    <string name="problem_confirming_magic_word">در روند تایید کلمه جادویی، خطایی رخ داده است</string>
+    <string name="success_import_hq_key">شما با موفقیت تنظیمات حساب کاربری نسخه رایانه Martus را که دریافت کننده بولتن های شما زا موبایل Martus خواهد بود را انجام دادید. راه اندازی و نصب موبایل Martus انجام شد! </string>
+    <!--Do Not Translate this line-->
+    <string formatted="false" name="tor_link">https://www.torproject.org</string>
+    <string name="progress_confirming_magic_word">در حال تایید کلمه جادویی</string>
+    <string name="confirm_reset_install">آیا شما مطمئن هستید که می خواهید حذف کنید؟</string>
+    <string name="confirm_reset_install_extra_no_pending"> </string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <plurals name="confirm_reset_install_extra">
+        <item quantity="other">شما %1$s از بولتن های در حال ارسال یا ارسال نشده را از دست خواهید داد.</item>
+    </plurals>
+    <plurals name="show_unsent_count">
+        <item quantity="other">تعداد %1$s عدد از بولتن های شما ارسال نشده است. شما میتوانید به جعبه ابزارها رفته و آنها را مجدد ارسال نمایید.</item>
+    </plurals>
+    <string name="show_unsent_title">شما بولتن های ارسال نشده دارید.</string>
+    <string name="reset_to_install">حذف حساب کاربری من</string>
+    <string name="server_menu">سرورها</string>
+    <string name="ping_server_menu_item">بررسی سرور</string>
+    <string name="ping_result_ok">سرور در دسترس است</string>
+    <string name="ping_result_down">سرور در دسترس نمیباشد</string>
+    <string name="no_network_connection">دستگاه شما به اینترنت متصل نیست!</string>
+    <string name="no_network_create_bulletin_warning">هر بولتنی که شما اقدام به ارسال کنید به علت عدم اتصال به شبکه دیتا، موفقیت آمیز نخواهد بود. ( ممکن است شما گزینه استفاده تنها از وای فای را در تنظیمات فعال کرده باشید)\n\nاما با کلیک کردن بر روی گزینه ارسال، بولتن های شما رمزگذاری و ذخیره خواهد شد شد و پس از دسترسی شما به شبکه دیتا، شما میتوانید آنها را مجدد از طریق جعبه ابزارها، ارسال کنید.</string>
+    <string name="logout_while_sending_title">خروج در حال حاضر ممکن نیست</string>
+    <string name="logout_while_sending_message">لطفا تا زمانی که ارسال بولتن به پایان برسد منتظر بمانید.</string>
+    <string name="reset_while_sending_title">امکان تنظیم مجدد در حال حاضر وجود ندارد</string>
+    <string name="confirm_tamper_reset_title">خطا در نصب</string>
+    <!--Do Not Translate the word Martus-->
+    <string name="confirm_tamper_reset_message">در فایل نصب خطایی وجود دارد. به خاطر موارد امنیتی، لطفا حساب کاربری خود را حذف کنید. با فشار دادن گزینه بله، مراحل حذف آغاز میشود. Martus با یک فایل نصب معیوب کار نخواهد کرد، لذا فشار دادن گزینه خیر،  باعث خارج شدن از Martus خواهد شد.</string>
+    <string name="view_docs_menu">نمایش اسناد</string>
+    <string name="feedback_menu">تماس با ما</string>
+    <string name="view_public_code_menu_item">مشاهده کد عمومی</string>
+    <string name="resend_menu_item">ارسال مجدد بولتن های ارسال نشده</string>
+    <string name="resending">در حال ارسال مجدد!</string>
+    <string name="resending_no_bulletins">شما بولتن ارسال نشده ندارید.</string>
+    <string name="resending_no_network">شما با شبکه دیتا ارتباط نداشته یا اینکه گزینه استفاده تنها از وای فای را فعال کرده اید.</string>
+    <string name="help_menu">راهنما</string>
+    <string name="feedback_dialog_title">تماس با ما</string>
+    <string name="view_public_code_dialog_title">کد عمومی</string>
+    <string name="view_public_code_dialog_error">امکان نمایش کد عمومی وجود ندارد</string>
+    <string name="send_public_account_id_menu_item">ارسال شناسه عمومی حساب کاربری از طریق پست الکترونیکی</string>
+    <string name="send_public_account_id_menu_item_via_bulletin">ارسال شناسه عمومی حساب کاربری در یک بولتن</string>
+    <string name="tools_menu">ابزارها</string>
+    <string name="export_public_account_id_menu_item">استخراج شناسه عمومی حساب کاربری</string>
+    <string name="load_form_menu_item">وارد کردن یک فرم سفارشی </string>
+    <string name="export_public_account_id_dialog_title">خطا در استخراج شناسه عمومی حساب کاربری</string>
+    <string name="export_public_account_id_dialog_error">در حال حاضر امکان استخراج شناسه حساب کاربری وجود ندارد</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <!--Do Not Translate the word Martus or the email address-->
+    <string formatted="false" name="contact_us_info">در صورتی که پرسشی دارید یا میخواهید نظرات خود را در مورد Martus در میان بگذارید، میتوانید با پست الکترونیکی : info@martus.org با ما در تماس باشید.</string>
+    <!--Do Not Translate this line-->
+    <string formatted="false" name="view_docs_info">https://www.martus.org/mobile/docs </string>
+    <string name="show_version">نمایش نسخه </string>
+    <!--Do Not Translate the word Martus-->
+    <string name="exported_account_id_file_confirmation">استخراج به</string>
+    <string name="progress_creating_account">در حال ایجاد حساب کاربری</string>
+    <!--==============================-->
+    <!--bulletin screen-->
+    <!--==============================-->
+    <string name="send_bulletin">ارسال</string>
+    <string name="send_failed_cant_reach_server">امکان دسترسی به سرور موجود نمیباشد</string>
+    <string name="add_attachment">افزودن پیوست</string>
+    <string name="enter_summary">توضیحات اختیاری</string>
+    <string name="default_author">مولف ناشناس</string>
+    <string name="title_hint">عنوان</string>
+    <string name="bulletin_cancel">لغو</string>
+    <string name="problem_creating_bulletin">بولتن جدید ساخته نشد</string>
+    <string name="problem_adding_attachment">هنگام پیوست فایل ها به بولتن خطایی رخ داد</string>
+    <string name="bulletin_sending_progress">در حال ارسال...</string>
+    <string name="bulletin_packaging_progress">در حال رمزگذاری و فشرده سازی...</string>
+    <string name="failure_zipping_bulletin">فشرده سازی بولتن با خطا مواجه شد</string>
+    <string name="failure_choosing_file">انتخاب فایل موفق آمیز نبود</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="attachment_no_longer_exists">به خاطر اینکه فایل پیوست شده  %1$s از روی دستگاه حذف شده است، ارسال موفقیت آمیز نبود</string>
+    <string name="confirm_cancel_bulletin">لغو این بولتن؟</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="confirm_remove_attachment">حذف %1$s؟</string>
+    <string name="must_login_first_title">هشدار!</string>
+    <string name="must_login_first_message">قبل از ارسال این بولتن، شما ابتدا باید وارد برنامه شوید</string>
+    <string name="install_file_explorer">جستجو گر دیگری را امتحان کنید</string>
+    <!--Do Not Translate the word Picasa-->
+    <string name="fetching_picasa_image">در حال دریافت تصویر از Picasa</string>
+    <!--Do Not Translate the word Picasa-->
+    <string name="fetched_picasa_image">تصور از Picasa دریافت شد</string>
+    <string name="custom_form_transition">در اینجا فرصت اضافه کردن پیوست ها فراهم است یا اینکه با انتخاب گزینه بازگشت به ویرایش فرم بپردازید.</string>
+    <!--==============================-->
+    <!--choose server screen-->
+    <!--==============================-->
+    <string name="invalid_server_ip">IP سرور نامعتبر است</string>
+    <string name="invalid_server_code">کد عمومی سرور نامعتبر است</string>
+    <string name="invalid_server_info">اطلاعات وارد شده برای سرور، نا معتبر است</string>
+    <string name="successful_server_choice">ارتباط با سرور با موفقیت انجام شد!</string>
+    <string name="error_computing_public_code">در حین ذخیره تنظیمات سرور، مشکلی رخ داده است</string>
+    <string name="progress_connecting_to_server">در حال ارتباط با سرور</string>
+    <!--==============================-->
+    <!--desktop key screen-->
+    <!--==============================-->
+    <string name="desktop_sync_public_code">سپس کد عمومی حساب کاربری نسخه رایانه ای Martus را وارد نمایید:</string>
+    <string name="desktop_sync_title">اطلاعات حساب کاربری نسخه رایانه ای Martus</string>
+    <string name="desktop_sync_choose_file">فایل حساب کاربری Martus  مربوط به نسخه رایانه ای  (mpi.)  را انتخاب کنید</string>
+    <string name="desktop_public_code_hint">کد عمومی حساب کاربری نسخه رایانه ای</string>
+    <string name="invalid_public_account_file">فایل مربوط به حساب کاربری نسخه رایانه ای نامعتبر است</string>
+    <string name="valid_public_account_file">فایل مربوط به حساب کاربری نسخه رایانه ای معتبر است</string>
+    <string name="invalid_public_code">کد عمومی با فایل تطابق ندارد</string>
+    <string name="public_code_validation_empty">کد عمومی نمیتواند خالی باشد</string>
+    <string name="select_file_picker">یک جستجوگر فایل انتخاب کنید</string>
+    <string name="attachments_add_label">پیوست ها (برای انتخاب روی کلیپس کلیک کنید)</string>
+    <string name="attachments_added_label">پیوست ها ( برای حذف، فشار دهید و نگه دارید)</string>
+    <string name="server_ip_label">آدرس IP سرور:</string>
+    <string name="server_ip_hint">آدرس IP سرور را وارد نمایید</string>
+    <string name="server_public_code_label">کد عمومی سرور:</string>
+    <string name="server_public_code_hint">کد عمومی سرور را وارد نمایید</string>
+    <string name="choose_server_title">انتخاب سرور</string>
+    <!--Do Not Translate the word Martus-->
+    <string name="choose_file">جستجوگر فایل Martus</string>
+    <string name="install_explorer_text">اگر نمیتوانید فایل مورد نظر خود را پیدا کنید، نصب یک جستجوگر فایل پیشرفته را امتحان کنید. </string>
+    <!--Do Not Translate this line-->
+    <string formatted="false" name="file_explorer_store_link">play.google.com/store/search?q=%22open+source%22+file+manager+explorer</string>
+    <!--==============================-->
+    <!--notification bar-->
+    <!--==============================-->
+    <string name="successful_send_notification">بولتن ارسال شد!</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="failed_send_notification">ارسال به دلیل %1$s  ناموفق بود. سعی کنید دوباره ارسال کنید. </string>
+    <string name="starting_send_notification">در حال ارسال...</string>
+    <!--Do Not Translate this line-->
+    <string name="notification_title">Martus - %1$s</string>
+    <!--form labels-->
+    <string name="label_author">مولف</string>
+    <string name="label_organization">نام سازمان</string>
+    <string name="label_title">عنوان\n</string>
+    <string name="label_location">موقعیت</string>
+    <string name="label_keywords">واژه های کلیدی</string>
+    <string name="label_entrydate">تاریح ثبت</string>
+    <string name="label_eventdate">تاریخ رویداد</string>
+    <string name="label_summary">توضیحات</string>
+    <string name="label_publicinfo">اطلاعات عمومی</string>
+    <string name="label_privateinfo">اطلاعات محرمانه</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="date_validation_min">تاریخ باید در یا بعد از %1$s باشد.</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="date_validation_min_max">تاریخ باید در یا بعد از %1$s باشد یا در یا قبل از %2$s.</string>
+    <string name="boolean_true">بله</string>
+    <string name="boolean_false">خیر</string>
+    <string name="end_form_button">فایل های پیوست را افزوده و ارسال کنید</string>
+    <!--Only translate the words inside the parenthesis in the following two lines-->
+    <string name="date_range_start">(آغاز)</string>
+    <string name="date_range_end">(پایان)</string>
+    <!--odk - definitely used-->
+    <string name="client">محیط کاربر</string>
+    <string name="font_size">اندازه فونت متن</string>
+    <string name="change_font_size">اندازه فونت متن</string>
+    <string name="font_size_extra_large">بسیار بزرگ</string>
+    <string name="font_size_large">بزرگ</string>
+    <string name="font_size_medium">متوسط</string>
+    <string name="font_size_small">کوچک</string>
+    <string name="font_size_extra_small">بسیار کوجک</string>
+    <string name="navigation">هدایت</string>
+    <string name="swipe_navigation">استفاده از لمس افقی</string>
+    <string name="buttons_navigation">استفاده از دکمه های به جلو/به عقب</string>
+    <string name="swipe_buttons_navigation">استفاده از لمس و دکمه ها</string>
+    <string name="swipe_instructions">شما در حال شروع %s هستید. صفحه نمایش خود را به صورتی که در پایین نمایش داده شده است لمس کنید تا به عقب و جلو بروید. </string>
+    <string name="buttons_instructions">شما در حال شروع %s هستید. با  لمس کردن دکمه های فلش، به عقب و جلو بروید.</string>
+    <string name="swipe_buttons_instructions">شما در حال شروع %s هستید. صفحه نمایش را طبق روش نشان داده شده لمس کرده یا با لمس کردن دکمه های فلش به عقب و جلو بروید.</string>
+</resources>
