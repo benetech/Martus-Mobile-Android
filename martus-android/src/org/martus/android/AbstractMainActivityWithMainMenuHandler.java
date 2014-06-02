@@ -49,7 +49,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     private final static String RPC2_PATH = "/RPC2";
 
     protected String serverPublicKey;
-    protected String serverIP;
+    private String serverIP;
 
     @Override
     public void onResume() {
