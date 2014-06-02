@@ -1,13 +1,12 @@
 package org.martus.android.dialog;
 
-import org.martus.android.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.widget.TextView;
+
+import org.martus.android.R;
 
 /**
  * @author roms
