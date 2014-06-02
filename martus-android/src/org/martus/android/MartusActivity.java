@@ -300,12 +300,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         return keyPairString.length() > 1;
     }
 
-    private void updateSettings() {
-        SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
-        serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
-        serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
-    }
-
     @Override
     public void onFinishPasswordDialog(TextView passwordText) {
         char[] password = passwordText.getText().toString().trim().toCharArray();

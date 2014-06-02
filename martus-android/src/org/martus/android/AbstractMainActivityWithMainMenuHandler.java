@@ -46,7 +46,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
     public static final String ACCOUNT_ID_FILENAME = "Mobile_Public_Account_ID.mpi";
     private static final String SERVER_COMMAND_PREFIX = "MartusServer.";
-    private final static String pingPath = "/RPC2";
+    private final static String RPC2_PATH = "/RPC2";
 
     protected String serverPublicKey;
     protected String serverIP;
@@ -55,6 +55,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     public void onResume() {
         super.onResume();
 
+        updateSettings();
         synchronizeTorSwitchWithCurrentSystemProperties();
     }
 
@@ -121,6 +122,12 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void updateSettings() {
+        SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
+        serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
+        serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
     }
 
     private void deleteUserAccount() {
@@ -273,9 +280,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         }
         showProgressDialog(getString(R.string.progress_connecting_to_server));
         try {
-            SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
-            serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
-            String pingUrl = "http://" + serverIP + pingPath;
+            String pingUrl = "http://" + serverIP + RPC2_PATH;
             XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
             config.setServerURL(new URL(pingUrl));
             XmlRpcClient client = new XmlRpcClient();
