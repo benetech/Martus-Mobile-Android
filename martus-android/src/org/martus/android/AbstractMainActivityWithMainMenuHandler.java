@@ -351,6 +351,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             Vector<String> resultVector = response.getResultVector();
             if (resultVector == null || resultVector.isEmpty()){
                 Log.e(AppConfig.LOG_LABEL, "Server response was empty");
+                throw new Exception();
             }
 
             String accessToken = resultVector.get(0);
