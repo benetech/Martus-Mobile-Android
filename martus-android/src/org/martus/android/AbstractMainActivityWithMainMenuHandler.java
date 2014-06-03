@@ -349,7 +349,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             }
 
             String accessToken = resultVector.get(0);
-            showMessage(this, getString(R.string.account_accees_token_label, accessToken), "");
+            showMessage(this, getString(R.string.account_access_token_label, accessToken), "");
         } catch (Exceptions.ServerNotAvailableException e) {
             Log.e(AppConfig.LOG_LABEL, "Server Not Available", e);
             showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
