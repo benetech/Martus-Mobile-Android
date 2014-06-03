@@ -146,12 +146,13 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     private void quit() {
-        if (!MartusApplication.isIgnoreInactivity()) {
-            logout();
-            finish();
-        } else {
+        if (MartusApplication.isIgnoreInactivity()) {
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.logout_while_sending_title));
+        } else {
+            logout();
+            finish();
+
         }
     }
 
