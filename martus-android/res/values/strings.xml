@@ -19,7 +19,7 @@
     <!-- ============================== -->
     <!--  settings screen  -->
     <!-- ============================== -->
-    <string name="user_preferences">User Settings</string>
+    <string name="user_preferences">Settings</string>
     <string name="title_author_preference">Author</string>
     <string name="title_language_preference">Bulletin language</string>
     <string name="summary_language_preference">Please select language you will enter bulletin data in</string>
@@ -27,7 +27,7 @@
     <string name="cancel_server">Cancel</string>
     <string name="title_timeout_preference">Timeout</string>
     <string name="summary_timeout_preference">In minutes</string>
-    <string name="dialog_title_timeout_preference">Time out duration</string>
+    <string name="dialog_title_timeout_preference">Timeout duration</string>
     <string name="title_wifi_only_preference">Use Wi-Fi Only</string>
     <string name="wifi_only_preference_on">Only send data when Wi-Fi is available</string>
     <string name="version_name_label">Version name = %1$s</string>
@@ -41,23 +41,23 @@
     <string name="alert_dialog_magic_word">Magic Word:</string>
     <string name="password_dialog_title">Login</string>
     <string name="use_default_server">Use default server</string>
-    <string name="advanced_server_options">Advanced server options</string>
+    <string name="advanced_server_options">Advanced server settings</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="create_account_dialog_cancel">Exit</string>
     <string name="incorrect_password">Incorrect Password</string>
-    <string name="error_create_account">Problem creating account</string>
-    <string name="error_getting_server_key">Problem connecting to server</string>
-    <string name="no_upload_rights">Incorrect magic word</string>
-    <string name="create_account_dialog_title">Create new password</string>
-    <string name="create_account_intro">Welcome to Martus! First, you need to create a new Mobile Martus account.</string>
-    <string name="choose_server_intro">Next, you need to configure a connection to the Martus server you will be sending bulletins to.</string>
-    <string name="import_hq_intro">Finally, you need to enter information about the Martus account that you are sending your Mobile Martus bulletins to.\n\nYou must have a Martus Public Account ID file (ending with “.mpi”) and public code from the Martus Desktop account that you want to receive your Mobile Martus bulletins to complete this step.</string>
-    <string name="tor_option_intro">Next, you can turn on Tor if desired.</string>
+    <string name="error_create_account">Error creating account</string>
+    <string name="error_getting_server_key">Error connecting to server</string>
+    <string name="no_upload_rights">Incorrect Magic Word</string>
+    <string name="create_account_dialog_title">Create a password</string>
+    <string name="create_account_intro">Welcome to Martus! First, create a new Mobile Martus account.</string>
+    <string name="choose_server_intro">Next, configure a connection to the Martus server you will be sending bulletins to.</string>
+    <string name="import_hq_intro">Finally, enter information about the Martus account that you are sending your Mobile Martus bulletins to.\n\nYou must have a Martus Public Account ID file (ending with “.mpi”) and public code from the Martus Desktop account that you want to receive your Mobile Martus bulletins to complete this step.</string>
+    <string name="tor_option_intro">Next, turn on Tor if desired.</string>
     <string name="goto_server_setup_button">Next</string>
     <string name="quit_menu_title">Logout</string>
-    <string name="server_menu_title">Select Server</string>
-    <string name="add_contact_using_access_token">Add Contact Using Access Token</string>
-    <string name="add_contact_from_file">Add Contact From File</string>
+    <string name="server_menu_title">Server Setup</string>
+    <string name="add_contact_using_access_token">Add Contact from Server</string>
+    <string name="add_contact_from_file">Import Contact from File</string>
     <!-- Do Not Translate the word Orbot-->
     <string name="install_orbot_">Install Orbot</string>
     <!-- Do Not Translate the word Orbot-->
@@ -65,7 +65,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- Do Not Translate the word Orbot-->
-    <string name="invalid_orbot_message">Please re-install Orbot from the Google Play Store</string>
+    <string name="invalid_orbot_message">Please reinstall Orbot from the Google Play Store</string>
     <!-- Do Not Translate the word Orbot-->
     <string name="invalid_orbot_title">Invalid Orbot Installation</string>
     <!-- Do Not Translate the word Orbot-->
@@ -79,11 +79,11 @@
     <string name="create_password_hint">New password</string>
     <string name="enter_password_hint">Enter password</string>
     <string name="enter_magic_word_hint">Enter Magic Word</string>
-    <string name="settings_pwd_equal">Passwords match</string>
+    <string name="settings_pwd_equal">Passwords match!</string>
     <string name="settings_pwd_not_equal">Passwords don\'t match!</string>
-    <string name="invalid_password">Password must be at least 8 characters</string>
+    <string name="invalid_password">Password must be at least 8 characters long</string>
     <string name="success_magic_word">You have successfully set up a connection to the Martus server!</string>
-    <string name="problem_confirming_magic_word">Problem confirming Magic Word</string>
+    <string name="problem_confirming_magic_word">Error confirming Magic Word</string>
     <string name="success_import_hq_key">You have successfully configured a Martus Desktop account to receive your Mobile Martus bulletins. Mobile Martus setup is complete!</string>
     <string name="progress_confirming_magic_word">Confirming Magic Word</string>
     <string name="confirm_reset_install">Are you sure you want to delete?</string>
@@ -104,7 +104,7 @@
     <string name="ping_result_ok">Server is up</string>
     <string name="ping_result_down">Server is down</string>
     <string name="no_network_connection">Device has no connectivity!</string>
-    <string name="no_network_create_bulletin_warning">Any bulletin you try to send will fail due to lack of connectivity. (You may have Wi-Fi Only checked in Settings.) \n\n But clicking Send will encrypt and save the bulletin, and when you have connectivity, you may re-send it from the Tools menu.</string>
+    <string name="no_network_create_bulletin_warning">Any bulletin you try to send will fail due to lack of connectivity. (You may have Wi-Fi Only checked in Settings.) \n\n But clicking Send will encrypt and save the bulletin, and when you have connectivity, you may resend it from the Tools menu.</string>
     <string name="logout_while_sending_title">Can\'t logout yet</string>
     <string name="logout_while_sending_message">Please wait until the bulletin has finished sending.</string>
     <string name="reset_while_sending_title">Can\'t reset yet</string>
@@ -114,9 +114,9 @@
     <string name="view_docs_menu">Link to Help Docs</string>
     <string name="contact_us_menu_item">Contact Us</string>
     <string name="view_public_code_menu_item">View Public Code</string>
-    <string name="resend_menu_item">Re-send Unsent Bulletins</string>
-    <string name="resending">Re-sending!</string>
-    <string name="resending_no_bulletins">You have no unsent bulletins.</string> 
+    <string name="resend_menu_item">Resend Unsent Bulletins</string>
+    <string name="resending">Resending!</string>
+    <string name="resending_no_bulletins">You have no unsent bulletins.</string>
     <string name="resending_no_network">You don\'t have connectivity, or have Wi-Fi Only turned on.</string>
     <string name="help_menu">Help</string>
     <string name="view_public_code_dialog_title">Public Code</string>
@@ -150,7 +150,7 @@
     <string name="default_author">Unknown Author</string>
     <string name="title_hint">Title</string>
     <string name="problem_creating_bulletin">Couldn\'t create new bulletin</string>
-    <string name="problem_adding_attachment">Problem adding attachment to bulletin</string>
+    <string name="problem_adding_attachment">Error adding attachment to bulletin</string>
     <string name="bulletin_sending_progress">Sending…</string>
     <string name="bulletin_packaging_progress">Encrypting and zipping…</string>
     <string name="failure_zipping_bulletin">Failed zipping bulletin</string>
@@ -172,11 +172,11 @@
     <!-- ============================== -->
     <!--  choose server screen  -->
     <!-- ============================== -->
-    <string name="invalid_server_ip">Invalid Server IP Address</string>
+    <string name="invalid_server_ip">Invalid IP Address</string>
     <string name="invalid_server_code">Invalid Server Public Code</string>
     <string name="invalid_server_info">Invalid Server Information Entered</string>
     <string name="successful_server_choice">Successfully connected to server!</string>
-    <string name="error_computing_public_code">Problem saving server preferences</string>
+    <string name="error_computing_public_code">Error saving server preferences</string>
     <string name="progress_connecting_to_server">Connecting to server</string>
 
     <!-- ============================== -->
@@ -193,13 +193,13 @@
     <string name="select_file_picker">Select a file explorer</string>
     <string name="attachments_add_label">Attachments:</string>
     <string name="attachments_added_label">Attachments (press and hold to remove) :</string>
-    <string name="server_ip_label">Server IP Address:</string>
-    <string name="server_ip_hint">Enter Server IP Address</string>
+    <string name="server_ip_label">IP Address:</string>
+    <string name="server_ip_hint">Enter IP Address</string>
     <string name="server_public_code_label">Server Public Code:</string>
     <string name="server_public_code_hint">Enter Server Public Code</string>
     <string name="choose_server_title">Select Server</string>
     <string name="contact_access_token">Access Token</string>
-    <string name="account_access_token_label">Access To</string>
+    <string name="account_access_token_label">Access Token</string>
     <string name="view_access_token_menu_item">View Access Token</string>
     <string name="error_retrieving_contact">Error retrieving contact</string>
     <string name="access_token">Access Token:</string>
@@ -213,7 +213,7 @@
     <!-- ============================== -->
     <string name="successful_send_notification">Bulletin sent!</string>
     <!--  Do not translate words that start with %, but you may move them around-->
-    <string name="failed_send_notification">Send failed due to: %1$s . Try re-sending later.</string>
+    <string name="failed_send_notification">Send failed due to: %1$s . Try resending later.</string>
 
     <!-- form labels -->
     <string name="label_author">Author</string>
@@ -374,5 +374,4 @@
     <string name="constraint_behavior">Constraint processing behavior</string>
     <string name="on_switch_label">On</string>
     <string name="off_switch_label">Off</string>
-
 </resources>
