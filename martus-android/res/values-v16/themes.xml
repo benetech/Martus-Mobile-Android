@@ -35,6 +35,7 @@
     <style name="MartusActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/top_bar_background_color</item>
         <item name="android:titleTextStyle">@style/DialogTitle</item>
+        <item name="android:backgroundSplit">@color/top_bar_background_color</item>
     </style>
 
 </resources>
