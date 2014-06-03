@@ -32,7 +32,7 @@
     </item>
 
     <item android:id="@+id/settings_menu_item"
-        android:title="@string/settings_title" />
+        android:title="@string/general_preferences" />
 
     <item android:id="@+id/manage_bulletins_menu"
             android:title="@string/manage_bulletins_menu">
@@ -73,6 +73,6 @@
     <item android:id="@+id/cancel_bulletin_menu_item"
         android:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_cancel"
-        android:title="@string/bulletin_cancel" />
+        android:title="@string/cancel" />
 </menu>
 

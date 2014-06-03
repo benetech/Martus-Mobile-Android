@@ -90,12 +90,12 @@
         <activity
             android:name="org.martus.android.ChooseConnectionActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
-            android:label="@string/choose_connection_title"/>
+            android:label="@string/choose_server_title"/>
 
         <activity
             android:name="org.martus.android.dialog.AddContactActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
-            android:label="@string/add_contact_from_server"/>
+            android:label="@string/add_contact_using_access_token"/>
         
         <activity android:name="org.martus.android.ContactImportChoiceActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"

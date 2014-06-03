@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/title_title"
+            android:text="@string/title_hint"
             android:id="@+id/title_heading_id"
             style="@style/MartusHeading1"/>
 
