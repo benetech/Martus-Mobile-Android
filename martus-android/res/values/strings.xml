@@ -78,6 +78,7 @@
     <string name="about_tor_label">Understanding Tor</string>
     <string name="create_password_hint">New password</string>
     <string name="enter_password_hint">Enter password</string>
+    <string name="confirm_password_hint">Confirm password</string>
     <string name="enter_magic_word_hint">Enter Magic Word</string>
     <string name="settings_pwd_equal">Passwords match!</string>
     <string name="settings_pwd_not_equal">Passwords don\'t match!</string>
