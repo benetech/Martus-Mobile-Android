@@ -350,17 +350,9 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
             String accessToken = resultVector.get(0);
             showMessage(this, getString(R.string.account_access_token_label, accessToken), "");
-        } catch (Exceptions.ServerNotAvailableException e) {
-            Log.e(AppConfig.LOG_LABEL, "Server Not Available", e);
-            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
-        }
-        catch (MartusAccountAccessToken.TokenNotFoundException e){
-            Log.e(AppConfig.LOG_LABEL, "Access Token not found.", e);
-            showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
-        }
-        catch (Exception e) {
-            Log.e(AppConfig.LOG_LABEL, "Exception retrieving account", e);
-            showErrorMessage(getString(R.string.error_retrieving_contact), getString(R.string.error_message));
+        } catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "Exception retrieving access token", e);
+            showErrorMessage(getString(R.string.error_occured), getString(R.string.error_message));
         }
     }
 
