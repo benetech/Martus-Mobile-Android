@@ -99,7 +99,6 @@
     </plurals>
     <string name="show_unsent_title">You have unsent bulletins.</string>
     <string name="reset_to_install">Delete My Account</string>
-    <string name="server_menu">Servers</string>
     <string name="replace_contact_menu_item">Update Contact</string>
     <string name="ping_server_menu_item">Check Server</string>
     <string name="ping_result_ok">Server is up</string>
@@ -126,11 +125,9 @@
     <string name="view_public_code_dialog_error">Unable to show Public Code</string>
     <string name="send_public_account_id_menu_item">Email Public Account ID</string>
     <string name="send_public_account_id_menu_item_via_bulletin">Send Public Account ID in Bulletin</string>
-    <string name="tools_menu">Tools</string>
     <string name="manage_my_account_menu">Manage My Account</string>
     <string name="manage_bulletins_menu">Manage Bulletins</string>
     <string name="export_public_account_id_menu_item">Export Public Account ID</string>
-    <string name="load_form_menu_item">Import Custom Form</string>
     <string name="export_public_account_id_dialog_title">Export Public Account ID Error</string>
     <string name="export_public_account_id_dialog_error">Unable to export Account ID</string>
     <!--  Do not translate words that start with %, but you may move them around-->
@@ -207,7 +204,6 @@
     <string name="error_retrieving_contact">Error retrieving contact</string>
     <string name="access_token">Access Token:</string>
     <string name="verify_public_code">Verify public code:\n %1$s</string>
-    <string name="choose_import_contact_method">Import Contact</string>
     <!-- Do Not Translate the word Martus-->
     <string name="choose_file">Martus File Explorer</string>
     <string name="install_explorer_text">If you can\'t find the file you were thinking of, try installing a more advanced file explorer:</string>
@@ -262,10 +258,8 @@
     <string name="add_another_repeat">Add another \"%s\" group?</string>
     <string name="add_repeat">Add a new \"%s\" group?</string>
     <string name="add_repeat_no">Do Not Add</string>
-    <string name="advance">forward to\nnext\nprompt</string>
     <string name="audio_file_error">No audio file was specified.</string>
     <string name="audio_file_invalid">File: %s is not a valid audio file.</string>
-    <string name="backup">backward to\nprevious\nprompt</string>
     <string name="barcode_scanner_error">Sorry, Barcode Scanner is not installed!</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_loading_form">Cancel</string>
