@@ -334,6 +334,11 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     private void processResult(NetworkResponse response) {
         try
         {
+            if (response == null) {
+                showErrorMessage(getString(R.string.error_occured), getString(R.string.error_message));
+                return;
+            }
+
             dismissProgressDialog();
             if(!response.getResultCode().equals(NetworkInterfaceConstants.OK))
             {
