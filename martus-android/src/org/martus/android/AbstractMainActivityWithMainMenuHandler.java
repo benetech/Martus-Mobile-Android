@@ -131,11 +131,11 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     private void deleteUserAccount() {
-        if (!MartusApplication.isIgnoreInactivity()) {
-            showConfirmationDialog();
-        } else {
+        if (MartusApplication.isIgnoreInactivity()) {
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.reset_while_sending_title));
+        } else {
+            showConfirmationDialog();
         }
     }
 
