@@ -45,7 +45,7 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
             if (!oc.isOrbotInstalled())
                 return true;
 
-            if (!oc.isOrbotRunning())
+            if (oc.isOrbotStopped())
                 return true;
 
             return false;
