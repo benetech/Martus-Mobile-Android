@@ -34,6 +34,9 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
         if (shouldTurnOffTorSwitch) {
             turnOffTorToggle();
         }
+        else {
+            turnOnTorToggle();
+        }
     }
 
     private boolean shouldTurnOffTorSwitch() {
