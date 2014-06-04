@@ -39,7 +39,13 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
     private boolean shouldTurnOffTorSwitch() {
         try {
             OrbotHelper oc = new OrbotHelper(this);
-            return !oc.isOrbotInstalled() || !oc.isOrbotRunning();
+            if (!oc.isOrbotInstalled())
+                return true;
+
+            if (!oc.isOrbotRunning())
+                return true;
+
+            return false;
         }
         catch (SignatureException e)
         {
