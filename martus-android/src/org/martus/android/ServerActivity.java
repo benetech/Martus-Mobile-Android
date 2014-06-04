@@ -62,7 +62,6 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 	    if (haveVerifiedServerInfo()) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-		    textIp.setHint(getServerIP());
         }
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
