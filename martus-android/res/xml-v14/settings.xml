@@ -18,8 +18,8 @@
         <EditTextPreference
                 android:key="author_preference"
                 android:title="@string/title_author_preference"
-                android:summary="@string/summary_author_preference"
-                android:dialogTitle="@string/dialog_title_author_preference" />
+                android:summary="@string/title_author_preference"
+                android:dialogTitle="@string/title_author_preference" />
                 
         <ListPreference
                 android:key="language_preference"
@@ -34,7 +34,7 @@
                 android:defaultValue="false"
                 android:title="@string/title_wifi_only_preference"
                 android:summaryOn="@string/wifi_only_preference_on"
-                android:summaryOff="@string/wifi_only_preference_off"
+                android:summaryOff="@string/wifi_only_preference_on"
         />
 
 <!--        <SwitchPreference
