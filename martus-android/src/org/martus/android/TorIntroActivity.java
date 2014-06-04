@@ -46,17 +46,4 @@ public class TorIntroActivity extends AbstractTorActivity
         synchronizeTorSwitchWithCurrentSystemProperties();
         syncTorToggleToMatchOrbotState();
 	}
-
-    private void syncTorToggleToMatchOrbotState() {
-        OrbotHelper oc = new OrbotHelper(this);
-        try
-        {
-	        if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
-                turnOffTorToggle();
-            }
-        } catch (SignatureException e)
-        {
-            turnOffTorToggle();
-        }
-    }
 }

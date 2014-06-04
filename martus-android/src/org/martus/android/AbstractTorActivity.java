@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 
+import java.security.SignatureException;
+
 import info.guardianproject.onionkit.ui.OrbotHelper;
 
 /**
@@ -25,6 +27,19 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutName());
+    }
+
+    protected void syncTorToggleToMatchOrbotState() {
+        OrbotHelper oc = new OrbotHelper(this);
+        try
+        {
+            if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
+                turnOffTorToggle();
+            }
+        } catch (SignatureException e)
+        {
+            turnOffTorToggle();
+        }
     }
 
     protected void synchronizeTorSwitchWithCurrentSystemProperties() {
