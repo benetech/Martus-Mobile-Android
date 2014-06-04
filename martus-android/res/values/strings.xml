@@ -200,7 +200,7 @@
     <string name="server_public_code_hint">Enter Server Public Code</string>
     <string name="choose_server_title">Select Server</string>
     <string name="contact_access_token">Access Token</string>
-    <string name="account_access_token_label">Access Token</string>
+    <string name="account_access_token_label">Access Token: %1$s</string>
     <string name="view_access_token_menu_item">View Access Token</string>
     <string name="error_retrieving_contact">Error retrieving contact</string>
     <string name="access_token">Access Token:</string>
