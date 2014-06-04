@@ -32,8 +32,7 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
     protected void syncTorToggleToMatchOrbotState() {
         try
         {
-            OrbotHelper oc = new OrbotHelper(this);
-            final boolean shouldTurnOffTorSwitch = !oc.isOrbotInstalled() || !oc.isOrbotRunning();
+            final boolean shouldTurnOffTorSwitch = shouldTurnOffTorSwitch();
             if (shouldTurnOffTorSwitch) {
                 turnOffTorToggle();
             }
@@ -41,6 +40,11 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
         {
             turnOffTorToggle();
         }
+    }
+
+    private boolean shouldTurnOffTorSwitch() throws SignatureException {
+        OrbotHelper oc = new OrbotHelper(this);
+        return !oc.isOrbotInstalled() || !oc.isOrbotRunning();
     }
 
     protected void synchronizeTorSwitchWithCurrentSystemProperties() {
