@@ -107,19 +107,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         updateSettings();
     }
 
-    private void syncTorToggleToMatchOrbotState() {
-        OrbotHelper oc = new OrbotHelper(this);
-        try
-        {
-            if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
-                turnOffTorToggle();
-            }
-        } catch (SignatureException e)
-        {
-            turnOffTorToggle();
-        }
-    }
-
     @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EXIT_REQUEST_CODE && resultCode == EXIT_RESULT_CODE) {
