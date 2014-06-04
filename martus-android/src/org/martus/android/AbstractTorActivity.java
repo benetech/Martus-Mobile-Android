@@ -30,9 +30,9 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
     }
 
     protected void syncTorToggleToMatchOrbotState() {
-        OrbotHelper oc = new OrbotHelper(this);
         try
         {
+            OrbotHelper oc = new OrbotHelper(this);
             if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
                 turnOffTorToggle();
             }
