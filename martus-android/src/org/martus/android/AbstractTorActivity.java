@@ -33,7 +33,8 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
         try
         {
             OrbotHelper oc = new OrbotHelper(this);
-            if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
+            final boolean shouldTurnOffTorSwitch = !oc.isOrbotInstalled() || !oc.isOrbotRunning();
+            if (shouldTurnOffTorSwitch) {
                 turnOffTorToggle();
             }
         } catch (SignatureException e)
