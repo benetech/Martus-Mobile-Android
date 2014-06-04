@@ -1,7 +1,8 @@
 package org.martus.android;
 
-import java.io.File;
-import java.util.HashMap;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpc;
@@ -13,9 +14,8 @@ import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.MobileOrchidProgressMeter;
 import org.martus.common.network.TorTransportWrapper;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
+import java.io.File;
+import java.util.HashMap;
 
 /**
  * @author roms
