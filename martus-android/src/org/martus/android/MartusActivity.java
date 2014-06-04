@@ -90,16 +90,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
                 return;
             }
 
-            OrbotHelper oc = new OrbotHelper(this);
-	        try
-	        {
-		        if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
-		            turnOffTorToggle();
-		        }
-	        } catch (SignatureException e)
-	        {
-                turnOffTorToggle();
-	        }
+            syncTorToggleToMatchOrbotState();
 
 	        verifySetupInfo();
             Intent bulletinIntent = new Intent(this, BulletinActivity.class);
@@ -114,6 +105,19 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
             }
         }
         updateSettings();
+    }
+
+    private void syncTorToggleToMatchOrbotState() {
+        OrbotHelper oc = new OrbotHelper(this);
+        try
+        {
+            if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
+                turnOffTorToggle();
+            }
+        } catch (SignatureException e)
+        {
+            turnOffTorToggle();
+        }
     }
 
     @Override

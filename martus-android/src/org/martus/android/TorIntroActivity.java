@@ -44,7 +44,11 @@ public class TorIntroActivity extends AbstractTorActivity
         super.onResume();
 
         synchronizeTorSwitchWithCurrentSystemProperties();
-		OrbotHelper oc = new OrbotHelper(this);
+        syncTorToggleToMatchOrbotState();
+	}
+
+    private void syncTorToggleToMatchOrbotState() {
+        OrbotHelper oc = new OrbotHelper(this);
         try
         {
 	        if (!oc.isOrbotInstalled() || !oc.isOrbotRunning()) {
@@ -54,5 +58,5 @@ public class TorIntroActivity extends AbstractTorActivity
         {
             turnOffTorToggle();
         }
-	}
+    }
 }
