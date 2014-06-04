@@ -36,6 +36,11 @@ public class OrbotHelper {
         mContext = context;
     }
 
+    public boolean isOrbotStopped()
+    {
+        return !isOrbotRunning();
+    }
+
     public boolean isOrbotRunning()
     {
         int procId = TorServiceUtils.findProcessId(TOR_BIN_PATH);
