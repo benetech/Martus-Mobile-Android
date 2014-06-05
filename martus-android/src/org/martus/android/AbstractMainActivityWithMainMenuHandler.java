@@ -250,7 +250,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         View view = li.inflate(R.layout.contact_us, null);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setIcon(android.R.drawable.ic_dialog_email)
-                .setTitle(R.string.feedback_dialog_title)
+                .setTitle(R.string.contact_us_menu_item)
                 .setView(view)
                 .setPositiveButton(R.string.alert_dialog_ok, new SimpleOkayButtonListener())
                 .show();
