@@ -37,10 +37,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 
 	private static final String CUSTOM_TEMPLATE_FILENAME = "Custom_Template.mct";
 
-    private static final String PACKETS_DIR = "packets";
-    private static final int CONFIRMATION_TYPE_DELETE_ACCOUNT = 0;
-    private static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 1;
-
     private static final int MAX_LOGIN_ATTEMPTS = 3;
 
     private int invalidLogins;
@@ -57,7 +53,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         super.onCreate(savedInstanceState);
 
         updateSettings();
-        setConfirmationType(CONFIRMATION_TYPE_DELETE_ACCOUNT);
     }
 
     @Override
@@ -216,33 +211,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 	    }
     }
 
-	private void clearCacheDir() {
-		clearDirectory(getCacheDir());
-	}
-
-    private void clearPrefsDir() {
-        File prefsDirFile = new File(getAppDir(), PREFS_DIR);
-        clearDirectory(prefsDirFile);
-    }
-
-    private void clearFailedBulletinsDir() {
-            File prefsDirFile = new File(getAppDir(), UploadBulletinTask.FAILED_BULLETINS_DIR);
-            clearDirectory(prefsDirFile);
-            prefsDirFile.delete();
-        }
-
-    private void removePacketsDir() {
-        File packetsDirFile = new File(getAppDir(), PACKETS_DIR);
-        clearDirectory(packetsDirFile);
-        packetsDirFile.delete();
-    }
-
-	private void removeFormsDir() {
-        File formsDirFile = new File(getAppDir(), Collect.FORMS_DIR_NAME);
-        clearDirectory(formsDirFile);
-		formsDirFile.delete();
-    }
-
     @Override
     protected void onNewIntent(Intent intent) {
 
@@ -329,8 +297,9 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
     public String getConfirmationTitle() {
         if (getConfirmationType() == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
             return getString(R.string.confirm_tamper_reset_title);
-        } else
-            return getString(R.string.confirm_reset_install);
+        }
+
+        return super.getConfirmationTitle();
     }
 
     @Override
@@ -346,31 +315,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
                 return res.getQuantityString(R.plurals.confirm_reset_install_extra, count, count);
             }
         }
-    }
-
-    @Override
-    public void onConfirmationAccepted() {
-        removePacketsDir();
-	    removeFormsDir();
-        clearPreferences(mySettings.edit());
-        clearPreferences(getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE).edit());
-        clearPreferences(getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE).edit());
-        logout();
-        clearPrefsDir();
-        clearFailedBulletinsDir();
-	    clearCacheDir();
-        final File unsentBulletinsDir = getAppDir();
-        final String[] names = unsentBulletinsDir.list(new ZipFileFilter());
-        for (String name : names) {
-            File zipFile = new File(unsentBulletinsDir, name);
-            zipFile.delete();
-        }
-        finish();
-    }
-
-    private void clearPreferences(SharedPreferences.Editor editor) {
-        editor.clear();
-        editor.commit();
     }
 
     @Override

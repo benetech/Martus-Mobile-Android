@@ -76,8 +76,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     public static final String EXTRA_LOCAL_ID = "org.martus.android.localId";
     public static final String EXTRA_BULLETIN_TITLE = "org.martus.android.title";
 
-    private static final int CONFIRMATION_TYPE_CANCEL_BULLETIN = 0;
-    private static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 1;
     private static final String PICASA_INDICATOR = "picasa";
 	private static final SimpleDateFormat MARTUS_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 

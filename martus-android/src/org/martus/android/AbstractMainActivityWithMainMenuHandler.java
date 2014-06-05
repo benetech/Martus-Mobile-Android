@@ -32,6 +32,7 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.util.StreamableBase64;
+import org.odk.collect.android.application.Collect;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,11 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     public static final String ACCOUNT_ID_FILENAME = "Mobile_Public_Account_ID.mpi";
     private static final String SERVER_COMMAND_PREFIX = "MartusServer.";
     private final static String RPC2_PATH = "/RPC2";
+    private static final int CONFIRMATION_TYPE_DELETE_ACCOUNT = 0;
+    protected static final int CONFIRMATION_TYPE_CANCEL_BULLETIN = 1;
+    protected static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 2;
+    protected static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 3;
+    private static final String PACKETS_DIR = "packets";
 
     protected String serverPublicKey;
     private String serverIP;
@@ -136,6 +142,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.reset_while_sending_title));
         } else {
+            setConfirmationType(CONFIRMATION_TYPE_DELETE_ACCOUNT);
             showConfirmationDialog();
         }
     }
@@ -362,6 +369,76 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             showErrorMessage(getString(R.string.error_occured), getString(R.string.error_message));
         }
     }
+
+    @Override
+    public String getConfirmationTitle() {
+        if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ACCOUNT) {
+            return getString(R.string.confirm_reset_install);
+        }
+
+        return super.getConfirmationTitle();
+    }
+
+    @Override
+    public void onConfirmationAccepted() {
+        if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ACCOUNT) {
+            deleteAccount();
+        }
+
+        super.onConfirmationAccepted();
+    }
+
+    private void deleteAccount() {
+        removePacketsDir();
+        removeFormsDir();
+        clearPreferences(mySettings.edit());
+        clearPreferences(getSharedPreferences(PREFS_DESKTOP_KEY, MODE_PRIVATE).edit());
+        clearPreferences(getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE).edit());
+        logout();
+        clearPrefsDir();
+        clearFailedBulletinsDir();
+        clearCacheDir();
+        final File unsentBulletinsDir = getAppDir();
+        final String[] names = unsentBulletinsDir.list(new ZipFileFilter());
+        for (String name : names) {
+            File zipFile = new File(unsentBulletinsDir, name);
+            zipFile.delete();
+        }
+        finish();
+    }
+
+    private void clearCacheDir() {
+        clearDirectory(getCacheDir());
+    }
+
+    private void clearPrefsDir() {
+        File prefsDirFile = new File(getAppDir(), PREFS_DIR);
+        clearDirectory(prefsDirFile);
+    }
+
+    private void clearFailedBulletinsDir() {
+        File prefsDirFile = new File(getAppDir(), UploadBulletinTask.FAILED_BULLETINS_DIR);
+        clearDirectory(prefsDirFile);
+        prefsDirFile.delete();
+    }
+
+    private void removePacketsDir() {
+        File packetsDirFile = new File(getAppDir(), PACKETS_DIR);
+        clearDirectory(packetsDirFile);
+        packetsDirFile.delete();
+    }
+
+    private void removeFormsDir() {
+        File formsDirFile = new File(getAppDir(), Collect.FORMS_DIR_NAME);
+        clearDirectory(formsDirFile);
+        formsDirFile.delete();
+    }
+
+    private void clearPreferences(SharedPreferences.Editor editor) {
+        editor.clear();
+        editor.commit();
+    }
+
 
     protected void setConfirmationType(int type) {
         confirmationType = type;
