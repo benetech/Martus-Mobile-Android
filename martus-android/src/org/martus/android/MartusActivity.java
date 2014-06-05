@@ -371,11 +371,6 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         finish();
     }
 
-    private void removePrefsFile(String prefName) {
-        File serverIpFile = getPrefsFile(prefName);
-        serverIpFile.delete();
-    }
-
     private void clearPreferences(SharedPreferences.Editor editor) {
         editor.clear();
         editor.commit();
