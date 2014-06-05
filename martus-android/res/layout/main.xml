@@ -4,18 +4,4 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/main_screen_background">
-
-    <Button
-    	android:id="@+id/createScreen"
-       	android:layout_width="wrap_content"
-      	android:layout_height="wrap_content"
-        android:onClick="sendBulletin"
-      	android:text="@string/create_sample_bulletin"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dip"
-        android:layout_marginBottom="40dip"
-        style="@style/Widget.Button"/>
-
-    <include layout="@layout/tor_main"/>
-
 </LinearLayout>
