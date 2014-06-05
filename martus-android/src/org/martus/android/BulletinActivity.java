@@ -28,7 +28,6 @@ import org.martus.android.dialog.ConfirmationDialog;
 import org.martus.android.dialog.DeterminateProgressDialog;
 import org.martus.android.dialog.IndeterminateProgressDialog;
 import org.martus.android.dialog.LoginDialog;
-import org.martus.android.dialog.TextViewWithCorrectTextDirection;
 import org.martus.client.bulletinstore.MobileClientBulletinStore;
 import org.martus.common.FieldCollection;
 import org.martus.common.FieldSpecCollection;
@@ -341,13 +340,13 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
 	    int id = item.getItemId();
         if (id == android.R.id.home) {
-            showConfirmationDialog();
+            showCancelBulletinConfirmationDialog();
             return true;
         } else if (id == R.id.send_bulletin_menu_item) {
             addAttachmentsAndSendBulletin();
             return true;
         } else if (id == R.id.cancel_bulletin_menu_item) {
-            showConfirmationDialog();
+            showCancelBulletinConfirmationDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -383,18 +382,17 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	    customFormHelp.setVisibility(View.GONE);
     }
 
-	@Override
-	public void showConfirmationDialog()
+	public void showCancelBulletinConfirmationDialog()
 	{
 		setConfirmationType(CONFIRMATION_TYPE_CANCEL_BULLETIN);
-		super.showConfirmationDialog();
+		showConfirmationDialog();
 	}
 
 	@Override
 	public void onBackPressed()
 	{
         if (!haveFormInfo)
-            showConfirmationDialog();
+            showCancelBulletinConfirmationDialog();
 	}
 
     private void goToHomeScreen() {
