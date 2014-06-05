@@ -88,7 +88,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private Bulletin bulletin;
     private Map<String, File> bulletinAttachments;
-    private int confirmationType;
     private int attachmentToRemoveIndex;
     private String attachmentToRemoveName;
     private EditText titleText;
@@ -608,7 +607,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     @Override
     public void onConfirmationAccepted() {
-        switch (confirmationType) {
+        switch (getConfirmationType()) {
             case CONFIRMATION_TYPE_CANCEL_BULLETIN :
                 removeCachedUnsentAttachments();
                 clearDirectory(new File(Collect.INSTANCES_PATH));
@@ -626,13 +625,9 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         }
     }
 
-    private void setConfirmationType(int type) {
-        confirmationType = type;
-    }
-
     @Override
     public String getConfirmationTitle() {
-        if (confirmationType == CONFIRMATION_TYPE_CANCEL_BULLETIN) {
+        if (getConfirmationType() == CONFIRMATION_TYPE_CANCEL_BULLETIN) {
             return getString(R.string.confirm_cancel_bulletin);
         } else {
             return getString(R.string.confirm_remove_attachment, attachmentToRemoveName);

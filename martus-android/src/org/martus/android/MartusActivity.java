@@ -54,14 +54,13 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
     public static final String RETURN_TO = "return_to";
     public static final String FORM_NAME= "formName";
     public static final String HAVE_FORM= "haveForm";
-    private int confirmationType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         updateSettings();
-        confirmationType = CONFIRMATION_TYPE_RESET;
+        setConfirmationType(CONFIRMATION_TYPE_RESET);
     }
 
     @Override
@@ -264,7 +263,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
             verifyServerIPFile();
         } catch (MartusUtilities.FileVerificationException e) {
             Log.e(AppConfig.LOG_LABEL, "Desktop key file corrupted in checkDesktopKey");
-            confirmationType = CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE;
+            setConfirmationType(CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE);
             showModalConfirmationDialog();
         }
     }
@@ -331,7 +330,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 
     @Override
     public String getConfirmationTitle() {
-        if (confirmationType == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
+        if (getConfirmationType() == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
             return getString(R.string.confirm_tamper_reset_title);
         } else
             return getString(R.string.confirm_reset_install);
@@ -339,7 +338,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 
     @Override
     public String getConfirmationMessage() {
-        if (confirmationType == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
+        if (getConfirmationType() == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
             return getString(R.string.confirm_tamper_reset_message);
         } else {
             int count = getNumberOfUnsentBulletins();
@@ -384,7 +383,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 
     @Override
     public void onConfirmationCancelled() {
-        if (confirmationType == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
+        if (getConfirmationType() == CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE) {
             martusCrypto.clearKeyPair();
             finish();
         }

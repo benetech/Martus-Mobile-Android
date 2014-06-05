@@ -50,6 +50,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
     protected String serverPublicKey;
     private String serverIP;
+    private int confirmationType;
 
     @Override
     public void onResume() {
@@ -360,6 +361,14 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             Log.e(AppConfig.LOG_LABEL, "Exception retrieving access token", e);
             showErrorMessage(getString(R.string.error_occured), getString(R.string.error_message));
         }
+    }
+
+    protected void setConfirmationType(int type) {
+        confirmationType = type;
+    }
+
+    protected int getConfirmationType() {
+        return confirmationType;
     }
 
     public class CancelSendButtonListener implements DialogInterface.OnClickListener {
