@@ -30,10 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.SignatureException;
 import java.util.Vector;
-
-import info.guardianproject.onionkit.ui.OrbotHelper;
 
 public class MartusActivity extends AbstractMainActivityWithMainMenuHandler implements LoginDialog.LoginDialogListener,
         OrbotHandler {
@@ -41,7 +38,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
 	private static final String CUSTOM_TEMPLATE_FILENAME = "Custom_Template.mct";
 
     private static final String PACKETS_DIR = "packets";
-    private static final int CONFIRMATION_TYPE_RESET = 0;
+    private static final int CONFIRMATION_TYPE_DELETE_ACCOUNT = 0;
     private static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 1;
 
     private static final int MAX_LOGIN_ATTEMPTS = 3;
@@ -60,7 +57,7 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         super.onCreate(savedInstanceState);
 
         updateSettings();
-        setConfirmationType(CONFIRMATION_TYPE_RESET);
+        setConfirmationType(CONFIRMATION_TYPE_DELETE_ACCOUNT);
     }
 
     @Override
