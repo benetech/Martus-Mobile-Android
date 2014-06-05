@@ -623,15 +623,19 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	            }
                 break;
         }
+
+        super.onConfirmationAccepted();
     }
 
     @Override
     public String getConfirmationTitle() {
         if (getConfirmationType() == CONFIRMATION_TYPE_CANCEL_BULLETIN) {
             return getString(R.string.confirm_cancel_bulletin);
-        } else {
+        } else if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ATTACHMENT ){
             return getString(R.string.confirm_remove_attachment, attachmentToRemoveName);
         }
+
+        return super.getConfirmationTitle();
     }
 
     @Override
