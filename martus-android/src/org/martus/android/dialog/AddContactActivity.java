@@ -31,6 +31,7 @@ import java.util.Vector;
  */
 public class AddContactActivity extends BaseActivity {
 
+    private final int MINIMUM_ACCESS_TOKEN_LENGTH = 6;
     private Button addContactButton;
     private EditText accessTokenTextField;
     private String accountId;
@@ -196,7 +197,7 @@ public class AddContactActivity extends BaseActivity {
         public void afterTextChanged(Editable editable) {
             int currentAccessTokenLength = accessTokenTextField.getText().toString().trim().length();
             disableAddContactButton();
-            if (currentAccessTokenLength > 6)
+            if (currentAccessTokenLength > MINIMUM_ACCESS_TOKEN_LENGTH)
                 enableAddContactButton();
         }
     }
