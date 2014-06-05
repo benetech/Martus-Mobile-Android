@@ -3,8 +3,11 @@ package org.martus.android.dialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import java.util.Vector;
  */
 public class AddContactActivity extends BaseActivity {
 
+    private Button addContactButton;
     private EditText accessTokenTextField;
     private String accountId;
 
@@ -37,7 +41,11 @@ public class AddContactActivity extends BaseActivity {
 
         setContentView(R.layout.add_contact);
 
+        addContactButton = (Button) findViewById(R.id.addContactButton);
+        disableAddContactButton();
+
         accessTokenTextField = (EditText) findViewById(R.id.access_token_text_field);
+        accessTokenTextField.addTextChangedListener(new TextChangeHandler());
     }
 
     public void addContactFromServer(View view){
@@ -138,6 +146,14 @@ public class AddContactActivity extends BaseActivity {
         return accessTokenTextField.getText().toString().trim();
     }
 
+    private void enableAddContactButton() {
+        addContactButton.setEnabled(true);
+    }
+
+    private void disableAddContactButton() {
+        addContactButton.setEnabled(false);
+    }
+
     private class RetrieveContactTask extends AsyncTask<Object, Void, NetworkResponse> {
         @Override
         protected NetworkResponse doInBackground(Object... params) {
@@ -163,6 +179,25 @@ public class AddContactActivity extends BaseActivity {
             super.onPostExecute(result);
 
             processResult(result);
+        }
+    }
+
+    private class TextChangeHandler implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            int currentAccessTokenLength = accessTokenTextField.getText().toString().trim().length();
+            disableAddContactButton();
+            if (currentAccessTokenLength > 6)
+                enableAddContactButton();
         }
     }
 }

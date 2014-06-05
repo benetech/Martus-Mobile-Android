@@ -36,6 +36,7 @@
         android:layout_gravity="right"
         android:onClick="addContactFromServer"
         android:text="@string/add_contact_using_access_token"
+        android:id="@+id/addContactButton"
         style="@style/Widget.Button"/>
 
 </LinearLayout>
