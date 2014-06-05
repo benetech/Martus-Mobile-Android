@@ -382,7 +382,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	    customFormHelp.setVisibility(View.GONE);
     }
 
-	public void showCancelBulletinConfirmationDialog()
+	private void showCancelBulletinConfirmationDialog()
 	{
 		setConfirmationType(CONFIRMATION_TYPE_CANCEL_BULLETIN);
 		showConfirmationDialog();
