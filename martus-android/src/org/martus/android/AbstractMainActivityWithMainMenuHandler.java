@@ -52,6 +52,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     protected static final int CONFIRMATION_TYPE_CANCEL_BULLETIN = 1;
     protected static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 2;
     protected static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 3;
+    protected static final int CONFIRMATION_TYPE_GO_TO_HOME = 4;
     private static final String PACKETS_DIR = "packets";
 
     protected String serverPublicKey;

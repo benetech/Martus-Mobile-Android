@@ -385,11 +385,16 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 		showConfirmationDialog();
 	}
 
+    private void showGoToDeviceHomePageConfirmationDialog() {
+        setConfirmationType(CONFIRMATION_TYPE_GO_TO_HOME);
+        showConfirmationDialog();
+    }
+
 	@Override
 	public void onBackPressed()
 	{
         if (!haveFormInfo)
-            showCancelBulletinConfirmationDialog();
+            showGoToDeviceHomePageConfirmationDialog();
 	}
 
     private void goToHomeScreen() {
@@ -610,7 +615,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 removeCachedUnsentAttachments();
                 clearDirectory(new File(Collect.INSTANCES_PATH));
                 this.finish();
-                goToHomeScreen();
                 break;
             case CONFIRMATION_TYPE_DELETE_ATTACHMENT :
                 String fileName = attachmentAdapter.getItem(attachmentToRemoveIndex);
@@ -619,6 +623,10 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	            if (attachmentAdapter.isEmpty()) {
 		            attachmentsHelpText.setText(R.string.attachments_add_label);
 	            }
+                break;
+            case CONFIRMATION_TYPE_GO_TO_HOME :
+                this.finish();
+                goToHomeScreen();
                 break;
         }
 
@@ -631,6 +639,8 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             return getString(R.string.confirm_cancel_bulletin);
         } else if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ATTACHMENT ){
             return getString(R.string.confirm_remove_attachment, attachmentToRemoveName);
+        } else if (getConfirmationType() == CONFIRMATION_TYPE_GO_TO_HOME) {
+            return getString(R.string.confirm_go_to_device_home);
         }
 
         return super.getConfirmationTitle();
