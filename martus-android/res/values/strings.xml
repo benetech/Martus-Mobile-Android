@@ -99,6 +99,7 @@
         <item quantity="one">You have %1$s unsent bulletin. You may go to the Tools menu and resend it.</item>
         <item quantity="other">You have %1$s unsent bulletins. You may go to the Tools menu and resend them.</item>
     </plurals>
+    <string name="starting_send_notification">Sending …</string>
     <string name="show_unsent_title">You have unsent bulletins.</string>
     <string name="reset_to_install">Delete My Account</string>
     <string name="replace_contact_menu_item">Update Contact</string>
