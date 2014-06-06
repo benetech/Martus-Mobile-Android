@@ -151,13 +151,6 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
             return;
         }
 
-	    String magicWord = textMagicWord.getText().toString().trim();
-        if (magicWord.isEmpty()) {
-	        showErrorMessageWithRetry(getString(R.string.invalid_magic_word), getString(R.string.error_message));
-            textMagicWord.requestFocus();
-            return;
-        }
-
         showProgressDialog(getString(R.string.progress_connecting_to_server));
 
 	    NonSSLNetworkAPI server = null;
