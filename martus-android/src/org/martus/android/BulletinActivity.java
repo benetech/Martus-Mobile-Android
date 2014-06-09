@@ -662,7 +662,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         attachmentToRemoveIndex = i;
         attachmentToRemoveName = item.toString();
         showRemoveDialog();
-        return false;
+        return true;
     }
 
     public void showRemoveDialog() {
