@@ -553,6 +553,12 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         } catch (Exception e) {
             //this is okay as the user may have closed this screen
         }
+        if (zippedFile == null) {
+            Toast.makeText(this, getString(R.string.failure_zipping_bulletin), Toast.LENGTH_SHORT).show();
+            startInactivityTimer();
+            return;
+        }
+
         sendZippedBulletin(zippedFile);
     }
 
@@ -576,6 +582,10 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         MartusSecurity cryptoCopy = cloneSecurity(AppConfig.getInstance().getCrypto());
         uploadTask.execute(bulletin.getUniversalId(), zippedFile, getNetworkGateway(), cryptoCopy);
         createEmptyBulletinAndClearFields();
+        startInactivityTimer();
+    }
+
+    private void startInactivityTimer() {
         parentApp.setIgnoreInactivity(false);
         resetInactivityTimer();
     }
