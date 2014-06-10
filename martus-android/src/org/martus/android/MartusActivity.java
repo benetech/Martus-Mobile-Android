@@ -272,15 +272,15 @@ public class MartusActivity extends AbstractMainActivityWithMainMenuHandler impl
         serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
 	    AppConfig.getInstance().invalidateCurrentHandlerAndGateway();
 
-	    int count = getNumberOfUnsentBulletins();
-        if (count != 0) {
-	        Resources res = getResources();
-	        showMessage(this, res.getQuantityString(R.plurals.show_unsent_count, count, count), getString(R.string.show_unsent_title));
-        }
-
         onResume();
         invalidateAllElements(password);
         password = null;
+
+        int count = getNumberOfUnsentBulletins();
+        if (count != 0) {
+            Resources res = getResources();
+            showMessage(this, res.getQuantityString(R.plurals.show_unsent_count, count, count), getString(R.string.show_unsent_title));
+        }
     }
 
     @Override
