@@ -29,7 +29,7 @@ public class MartusApplication extends Application {
         ignoreInactivity = ignore;
     }
 
-    public static boolean isIgnoreInactivity() {
+    public static boolean isSendInProgress() {
         return ignoreInactivity;
     }
 

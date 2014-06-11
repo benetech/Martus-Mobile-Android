@@ -139,7 +139,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     private void deleteUserAccount() {
-        if (MartusApplication.isIgnoreInactivity()) {
+        if (MartusApplication.isSendInProgress()) {
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.reset_while_sending_title));
         } else {
@@ -155,7 +155,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     private void quit() {
-        if (MartusApplication.isIgnoreInactivity()) {
+        if (MartusApplication.isSendInProgress()) {
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.logout_while_sending_title));
         } else {
