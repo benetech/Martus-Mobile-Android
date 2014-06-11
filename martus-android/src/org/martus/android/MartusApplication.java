@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
  */
 public class MartusApplication extends Application {
 
-    public static boolean ignoreInactivity = false;
+    public static boolean isSendInProgress = false;
 
 	public static final String DEFAULT_FONTSIZE = "21";
 	private FieldSpecCollection customTopSectionSpecs;
@@ -25,12 +25,12 @@ public class MartusApplication extends Application {
         return singleton;
     }
 
-    public void setIgnoreInactivity(boolean ignore) {
-        ignoreInactivity = ignore;
+    public void setIsSendInProgress(boolean ignoreSendingInProgress) {
+        isSendInProgress = ignoreSendingInProgress;
     }
 
     public static boolean isSendInProgress() {
-        return ignoreInactivity;
+        return isSendInProgress;
     }
 
     @Override

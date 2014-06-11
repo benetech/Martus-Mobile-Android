@@ -463,7 +463,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
 	    //turn off user inactivity checking during zipping and encrypting of file
         stopInactivityTimer();
-        parentApp.setIgnoreInactivity(true);
+        parentApp.setIsSendInProgress(true);
 
 	    //remove saved custom form data
 	    clearDirectory(new File(Collect.INSTANCES_PATH));
@@ -586,7 +586,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     }
 
     private void startInactivityTimer() {
-        parentApp.setIgnoreInactivity(false);
+        parentApp.setIsSendInProgress(false);
         resetInactivityTimer();
     }
 
