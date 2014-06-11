@@ -100,7 +100,7 @@ public class BaseActivity extends SherlockFragmentActivity implements Confirmati
 
     public void resetInactivityTimer(){
 	    stopInactivityTimer();
-        if (!MartusApplication.isIgnoreInactivity()) {
+        if (!MartusApplication.isSendInProgress()) {
             inactivityHandler.postDelayed(inactivityCallback, inactivityTimeout);
         } else {
             Log.i(AppConfig.LOG_LABEL, "is ignore in resetInactivityTimer");

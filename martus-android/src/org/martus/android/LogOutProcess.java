@@ -20,7 +20,7 @@ public class LogOutProcess implements Runnable {
 
     @Override
     public void run() {
-        if (MartusApplication.isIgnoreInactivity()) {
+        if (MartusApplication.isSendInProgress()) {
             return;
         }
 
