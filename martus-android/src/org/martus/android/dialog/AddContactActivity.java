@@ -147,10 +147,6 @@ public class AddContactActivity extends BaseActivity {
         return accessTokenTextField.getText().toString().trim();
     }
 
-    private void enableAddContactButton() {
-        addContactButton.setEnabled(true);
-    }
-
     private void disableAddContactButton() {
         addContactButton.setEnabled(false);
     }
@@ -196,9 +192,11 @@ public class AddContactActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             int currentAccessTokenLength = accessTokenTextField.getText().toString().trim().length();
-            disableAddContactButton();
+            boolean isEnabled = false;
             if (MINIMUM_ACCESS_TOKEN_LENGTH <= currentAccessTokenLength)
-                enableAddContactButton();
+                isEnabled = true;
+
+            addContactButton.setEnabled(isEnabled);
         }
     }
 }
