@@ -93,9 +93,7 @@ public class OrbotHelper {
                 activity.getString(R.string.yes), activity.getString(R.string.no), uriMarket);
     }
 
-    private static AlertDialog showDownloadDialog(final Activity activity,
-            CharSequence stringTitle, CharSequence stringMessage, CharSequence stringButtonYes,
-            CharSequence stringButtonNo, final String uriString) {
+    private static AlertDialog showDownloadDialog(final Activity activity, CharSequence stringTitle, CharSequence stringMessage, CharSequence stringButtonYes, CharSequence stringButtonNo, final String uriString) {
         AlertDialog.Builder downloadDialog = new AlertDialog.Builder(activity);
         downloadDialog.setTitle(stringTitle);
         downloadDialog.setMessage(stringMessage);
@@ -116,11 +114,9 @@ public class OrbotHelper {
 
     public void requestOrbotStart(final Activity activity)
     {
-
         AlertDialog.Builder downloadDialog = new AlertDialog.Builder(activity);
         downloadDialog.setTitle(R.string.start_orbot_);
-        downloadDialog
-                .setMessage(R.string.orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_);
+        downloadDialog.setMessage(R.string.orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_);
         downloadDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(URI_ORBOT);
@@ -134,7 +130,6 @@ public class OrbotHelper {
             }
         });
         downloadDialog.show();
-
     }
 
     public void requestHiddenServiceOnPort(Activity activity, int port)
