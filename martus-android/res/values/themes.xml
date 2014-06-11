@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MartusTheme" parent="Theme.Sherlock.Light">
+    <style name="MartusTheme" parent="android:Theme.Sherlock.Light">
         <item name="actionBarStyle">@style/MartusActionBar</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/text_blue</item>

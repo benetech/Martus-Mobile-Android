@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MartusTheme" parent="Theme.Sherlock.Light">
-        <item name="android:fontFamily">San-serif-light</item>
+    <style name="MartusTheme" parent="android:Theme.Sherlock.Light">
         <item name="actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionBarStyle">@style/MartusActionBar</item>
         <item name="android:actionMenuTextColor">@color/button_text_white</item>
@@ -16,7 +15,6 @@
     </style>
 
     <style name="MartusTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/text_blue</item>
     </style>
