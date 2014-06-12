@@ -30,6 +30,9 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
     }
 
     protected void syncTorToggleToMatchOrbotState() {
+        if (torToggleButton == null)
+            return;
+
         final boolean shouldTurnOffTorSwitch = shouldTurnOffTorSwitch();
         if (shouldTurnOffTorSwitch) {
             turnOffTorToggle();
@@ -123,6 +126,20 @@ abstract public class AbstractTorActivity extends BaseActivity  implements Orbot
 
             System.clearProperty(SOCKS_PROXY_HOST_PROPERTY_NAME);
             System.clearProperty(SOCKS_PROXY_PORT_PROPERTY_NAME);
+
+            try {
+            OrbotHelper oc = new OrbotHelper(this);
+
+            if (!oc.isOrbotInstalled()) {
+                oc.promptToInstall(this);
+            } else {
+                oc.requestOrbotStop(this);
+            }
+            } catch (Exception e) {
+                Log.e(AppConfig.LOG_LABEL, "Tor check failed", e);
+                showMessage(this, getString(R.string.invalid_orbot_message), getString(R.string.invalid_orbot_title));
+                torToggleButton.setChecked(false);
+            }
         }
     }
 

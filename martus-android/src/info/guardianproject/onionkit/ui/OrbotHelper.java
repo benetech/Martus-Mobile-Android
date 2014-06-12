@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +24,7 @@ public class OrbotHelper {
     private final static int REQUEST_CODE_STATUS = 100;
 
     public final static String URI_ORBOT = "org.torproject.android";
+    private static final String ORBOT_CLASS_NAME = URI_ORBOT + "." + "Orbot";
     public final static String TOR_BIN_PATH = "/data/data/org.torproject.android/app_bin/tor";
 
     public final static String ACTION_START_TOR = "org.torproject.android.START_TOR";
@@ -122,6 +125,26 @@ public class OrbotHelper {
                 Intent intent = new Intent(URI_ORBOT);
                 intent.setAction(ACTION_START_TOR);
                 activity.startActivity(intent);
+            }
+        });
+        downloadDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ((OrbotHandler)(activity)).onOrbotInstallCanceled();
+            }
+        });
+        downloadDialog.show();
+    }
+
+    public void requestOrbotStop(final Activity activity) {
+        if (isOrbotStopped())
+            return;
+
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(activity);
+        downloadDialog.setTitle(R.string.stop_orbot);
+        downloadDialog.setMessage(R.string.orbot_running_should_stop_message);
+        downloadDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                activity.startActivity(new Intent().setClassName(URI_ORBOT, ORBOT_CLASS_NAME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
         downloadDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
