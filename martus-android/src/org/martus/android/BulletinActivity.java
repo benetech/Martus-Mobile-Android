@@ -377,6 +377,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         }
 	    haveFormInfo = false;
 	    customFormHelp.setVisibility(View.GONE);
+        syncTorToggleToMatchOrbotState();
     }
 
 	private void showCancelBulletinConfirmationDialog()
