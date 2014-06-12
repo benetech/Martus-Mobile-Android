@@ -108,9 +108,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         if (!martusCrypto.hasKeyPair()) {
             showLoginDialog();
         }
