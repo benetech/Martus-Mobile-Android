@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.martus.android.dialog.LoginDialog;
 import org.martus.clientside.MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL;
+import org.martus.common.DammCheckDigitAlgorithm;
 import org.martus.common.MartusUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusSecurity;
@@ -220,11 +221,17 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
     }
 
-    private boolean confirmServerPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception {
-        final String normalizedPublicCode = MartusCrypto.removeNonDigits(serverCode);
-        final String computedCode;
-        computedCode = MartusCrypto.computePublicCode(serverPublicKey);
-        return normalizedPublicCode.equals(computedCode);
+    private boolean confirmServerPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception, DammCheckDigitAlgorithm.CheckDigitInvalidException, MartusCrypto.CreateDigestException {
+        final String normalizedServerPublicCode = MartusCrypto.removeNonDigits(serverCode);
+        final String computedServerPublicCode40 = MartusCrypto.computeFormattedPublicCode40(serverPublicKey);
+        final String normalizedComputedServerPublicCode40 = MartusCrypto.removeNonDigits(computedServerPublicCode40);
+        if (normalizedServerPublicCode.equals(normalizedComputedServerPublicCode40)) {
+            return true;
+        }
+
+        final String computedPublicCode20 = MartusCrypto.computePublicCode(serverPublicKey);
+        final String normalizedComputedPublicCode20 = MartusCrypto.removeNonDigits(computedPublicCode20);
+        return normalizedServerPublicCode.equals(normalizedComputedPublicCode20);
     }
 
     private void showErrorMessageWithRetry(String msg, String title){
