@@ -7,14 +7,14 @@
         <item>آذری</item>
         <item>بلغاری</item>
         <item>بنگالی</item>
-        <item>برمه ای</item>
+        <item> برمه ای </item>
         <item>چینی</item>
         <item>هلندی</item>
         <item>اسپرانتو</item>
         <item>فارسی</item>
         <item>فرانسوی</item>
         <item>آلمانی</item>
-        <item>گجراتی</item>
+        <item> گجراتی </item>
         <item>هوسا</item>
         <item>عبری</item>
         <item>هندی</item>
@@ -107,17 +107,17 @@
         <item>vi</item>
     </string-array>
     <string-array name="entries_timeout_preference">
-        <item>10 دقیقه</item>
-        <item>7 دقیقه</item>
-        <item>5 دقیقه</item>
-        <item>3 دقیقه</item>
-        <item>1 دقیقه</item>
+        <item>١٠ دقیقه</item>
+        <item>٧ دقیقه</item>
+        <item>٥ دقیقه</item>
+        <item>٣ دقیقه</item>
+        <item>١ دقیقه</item>
     </string-array>
     <string-array name="values_timeout_preference">
-        <item>10</item>
-        <item>7</item>
-        <item>5</item>
-        <item>3</item>
-        <item>1</item>
+        <item>١٠</item>
+        <item>٧</item>
+        <item>٥</item>
+        <item>٣</item>
+        <item>١</item>
     </string-array>
 </resources>
