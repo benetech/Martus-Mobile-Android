@@ -55,7 +55,7 @@
     <string name="tor_option_intro">Next, turn on Tor if desired.</string>
     <string name="goto_server_setup_button">Next</string>
     <string name="quit_menu_title">Logout</string>
-    <string name="server_menu_title">Server Setup</string>
+    <string name="server_menu_title">Select Server</string>
     <string name="add_contact_using_access_token">Add Contact from Server</string>
     <string name="add_contact_from_file">Import Contact from File</string>
     <!-- Do Not Translate the word Orbot-->
