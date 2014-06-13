@@ -103,10 +103,18 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private void setChooseConnectionSummaryValue() {
-        Preference chooseConnectionPreference = findPreference(KEY_CHOOSE_CONNECTION);
-        SharedPreferences serverSettings = getSharedPreferences(BaseActivity.PREFS_SERVER_IP, MODE_PRIVATE);
-        String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "");
-        chooseConnectionPreference.setSummary(serverIP);
+        try {
+            Preference chooseConnectionPreference = findPreference(KEY_CHOOSE_CONNECTION);
+            SharedPreferences serverSettings = getSharedPreferences(BaseActivity.PREFS_SERVER_IP, MODE_PRIVATE);
+            String serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
+            String serverPublicCode40 = MartusCrypto.computeFormattedPublicCode40(serverPublicKey);
+            String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "") + "\n" + serverPublicCode40;
+            chooseConnectionPreference.setSummary(serverIP);
+        }
+        catch (Exception e) {
+            Log.e(AppConfig.LOG_LABEL, "Could not format public code", e);
+        }
+
     }
 
     private void setReplaceContactSummaryValue() {
