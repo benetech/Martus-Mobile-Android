@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -86,7 +88,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private Bulletin bulletin;
     private Map<String, File> bulletinAttachments;
-    private int attachmentToRemoveIndex;
     private String attachmentToRemoveName;
     private EditText titleText;
     private EditText summaryText;
@@ -116,10 +117,14 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         hqKey = new HeadquartersKey(HQSettings.getString(SettingsActivity.KEY_DESKTOP_PUBLIC_KEY, ""));
         store = AppConfig.getInstance().getStore();
 
-        titleText = (EditText)findViewById(R.id.createBulletinTitle);
-        summaryText = (EditText)findViewById(R.id.bulletinSummary);
-	    attachmentsHelpText = (TextView)findViewById(R.id.attachments_help_text);
-	    customFormHelp = (TextView)findViewById(R.id.custom_form_transition);
+
+        LayoutInflater inflater = inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout listHeaderView = (LinearLayout)inflater.inflate(R.layout.bulletin_list_header_view, null);
+
+        titleText = (EditText)listHeaderView.findViewById(R.id.createBulletinTitle);
+        summaryText = (EditText)listHeaderView.findViewById(R.id.bulletinSummary);
+        attachmentsHelpText = (TextView)listHeaderView.findViewById(R.id.attachments_help_text);
+        customFormHelp = (TextView)listHeaderView.findViewById(R.id.custom_form_transition);
 
         if (null == bulletin) {
             attachmentAdapter = new RowAdapterWithCorrectRightToLeftTextView(this);
@@ -127,6 +132,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         }
 
         ListView list = (ListView)findViewById(android.R.id.list);
+        list.addHeaderView(listHeaderView);
         list.setTextFilterEnabled(true);
         list.setAdapter(attachmentAdapter);
         list.setLongClickable(true);
@@ -625,9 +631,8 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 this.finish();
                 break;
             case CONFIRMATION_TYPE_DELETE_ATTACHMENT :
-                String fileName = attachmentAdapter.getItem(attachmentToRemoveIndex);
-                bulletinAttachments.remove(fileName);
-                attachmentAdapter.remove(fileName);
+                bulletinAttachments.remove(attachmentToRemoveName);
+                attachmentAdapter.remove(attachmentToRemoveName);
 	            if (attachmentAdapter.isEmpty()) {
 		            attachmentsHelpText.setText(R.string.attachments_add_label);
 	            }
@@ -657,7 +662,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         Object item = adapterView.getItemAtPosition(i);
-        attachmentToRemoveIndex = i;
         attachmentToRemoveName = item.toString();
         showRemoveDialog();
         return true;
