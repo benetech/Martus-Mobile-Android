@@ -53,6 +53,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     protected static final int CONFIRMATION_TYPE_DELETE_ATTACHMENT = 2;
     protected static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 3;
     protected static final int CONFIRMATION_TYPE_GO_TO_HOME = 4;
+    protected static final int CONFIRMATION_TYPE_LOGOUT = 5;
     private static final String PACKETS_DIR = "packets";
 
     protected String serverPublicKey;
@@ -159,9 +160,8 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             showMessage(this, getString(R.string.logout_while_sending_message),
                     getString(R.string.logout_while_sending_title));
         } else {
-            logout();
-            finish();
-
+            setConfirmationType(CONFIRMATION_TYPE_LOGOUT);
+            showConfirmationDialog();
         }
     }
 
@@ -375,6 +375,10 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return getString(R.string.confirm_reset_install);
         }
 
+        if (getConfirmationType() == CONFIRMATION_TYPE_LOGOUT) {
+            return getString(R.string.confirm_logout);
+        }
+
         return super.getConfirmationTitle();
     }
 
@@ -384,7 +388,20 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             deleteAccount();
         }
 
+        if (getConfirmationType() == CONFIRMATION_TYPE_LOGOUT) {
+            logout();
+            finish();
+            goToHomeScreen();
+        }
+
         super.onConfirmationAccepted();
+    }
+
+    protected void goToHomeScreen() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     private void deleteAccount() {

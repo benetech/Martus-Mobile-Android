@@ -401,13 +401,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             showGoToDeviceHomePageConfirmationDialog();
 	}
 
-    private void goToHomeScreen() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
-    }
-
     @Override
     public String getIndeterminateDialogMessage() {
         return getString(R.string.bulletin_packaging_progress);
