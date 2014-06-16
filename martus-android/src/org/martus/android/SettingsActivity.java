@@ -108,8 +108,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             SharedPreferences serverSettings = getSharedPreferences(BaseActivity.PREFS_SERVER_IP, MODE_PRIVATE);
             String serverPublicKey = serverSettings.getString(SettingsActivity.KEY_SERVER_PUBLIC_KEY, "");
             String serverPublicCode40 = MartusCrypto.computeFormattedPublicCode40(serverPublicKey);
-            String serverIP = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "") + "\n" + serverPublicCode40;
-            chooseConnectionPreference.setSummary(serverIP);
+            String serverSummaryLabel = serverSettings.getString(SettingsActivity.KEY_SERVER_IP, "") + "\n" + serverPublicCode40;
+            chooseConnectionPreference.setSummary(serverSummaryLabel);
         }
         catch (Exception e) {
             Log.e(AppConfig.LOG_LABEL, "Could not format public code", e);
