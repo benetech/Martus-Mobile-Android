@@ -30,8 +30,8 @@
     <string name="dialog_title_timeout_preference">Timeout duration</string>
     <string name="title_wifi_only_preference">Use Wi-Fi Only</string>
     <string name="wifi_only_preference_on">Only send data when Wi-Fi is available</string>
-    <string name="version_name_label">Version name = %1$s</string>
-    <string name="version_code_label">Build = %1$s</string>
+    <string name="version_name_label">Version name %1$s</string>
+    <string name="version_code_label">Build %1$s</string>
 
     <!-- ============================== -->
     <!--  main screen  -->
