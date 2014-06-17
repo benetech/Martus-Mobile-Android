@@ -93,6 +93,7 @@
     <string name="confirm_go_to_device_home">Are you sure want to go leave Martus?</string>
     <string name="confirm_logout">Are you sure want to logout?</string>
     <string name="confirm_reset_install_extra_no_pending"> </string>
+    <string name="confirm_data_loss">If you leave this screen now, you will lose any data you have entered. Are you sure you want to leave?</string>
     <!--  Do not translate words that start with %, but you may move them around-->
     <plurals name="confirm_reset_install_extra">
         <item quantity="one">You will lose %1$s unsent or currently sending bulletin.</item>

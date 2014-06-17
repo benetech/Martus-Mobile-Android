@@ -54,6 +54,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     protected static final int CONFIRMATION_TYPE_TAMPERED_DESKTOP_FILE = 3;
     protected static final int CONFIRMATION_TYPE_GO_TO_HOME = 4;
     protected static final int CONFIRMATION_TYPE_LOGOUT = 5;
+    protected static final int CONFIRMATION_TYPE_LOOSE_DATA = 6;
     private static final String PACKETS_DIR = "packets";
 
     protected String serverPublicKey;
@@ -88,7 +89,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
 
         int id = item.getItemId();
         if (id == R.id.settings_menu_item) {
-            startSettingsActivity();
+            confirmStartSettingsActivity();
             return true;
         } else if (id == R.id.quit_menu_item) {
             quit();
@@ -149,7 +150,12 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         }
     }
 
-    private void startSettingsActivity() {
+    private void confirmStartSettingsActivity() {
+        setConfirmationType(CONFIRMATION_TYPE_LOOSE_DATA);
+        showConfirmationDialog();
+    }
+
+    private void startSettingsAtivitys() {
         Intent intent;
         intent = new Intent(AbstractMainActivityWithMainMenuHandler.this, SettingsActivity.class);
         startActivity(intent);
@@ -379,6 +385,10 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             return getString(R.string.confirm_logout);
         }
 
+        if (getConfirmationType() == CONFIRMATION_TYPE_LOOSE_DATA) {
+            return getString(R.string.confirm_data_loss);
+        }
+
         return super.getConfirmationTitle();
     }
 
@@ -392,6 +402,10 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
             logout();
             finish();
             goToHomeScreen();
+        }
+
+        if (getConfirmationType() == CONFIRMATION_TYPE_LOOSE_DATA) {
+            startSettingsAtivitys();
         }
 
         super.onConfirmationAccepted();
