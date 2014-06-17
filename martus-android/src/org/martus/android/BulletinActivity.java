@@ -54,7 +54,6 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -465,6 +464,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 	    //remove saved custom form data
 	    clearDirectory(new File(Collect.INSTANCES_PATH));
 
+        bulletin.set(Bulletin.TAGLANGUAGE, getDefaultLanguageForNewBulletin());
         final AsyncTask<Object, Integer, File> zipTask = new ZipBulletinTask(bulletin, this);
         zipTask.execute(getAppDir(), store);
 
