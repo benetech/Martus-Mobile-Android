@@ -655,9 +655,11 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         Object item = adapterView.getItemAtPosition(i);
-        attachmentToRemoveName = item.toString();
-        showRemoveDialog();
-        return true;
+        if (item != null) {
+            attachmentToRemoveName = item.toString();
+            showRemoveDialog();
+        }
+        return false;
     }
 
     public void showRemoveDialog() {
