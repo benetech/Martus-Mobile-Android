@@ -1,7 +1,7 @@
 package org.martus.android;
 
 import org.martus.common.FieldSpecCollection;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.PassThroughTransportWrapper;
 import org.odk.collect.android.application.Collect;
 
 import android.app.Application;
@@ -51,7 +51,7 @@ public class MartusApplication extends Application {
 	    Collect.initInstance(this.getApplicationContext());
     }
 
-	public TorTransportWrapper getTransport()
+	public PassThroughTransportWrapper getTransport()
 	{
 		return AppConfig.getInstance().getTransport();
 	}

@@ -26,9 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.clientside;
 
-import javax.xml.parsers.SAXParserFactory;
-import java.net.URL;
-import java.util.Vector;
+import android.util.Log;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -37,14 +35,17 @@ import org.apache.xmlrpc.util.SAXParsers;
 import org.martus.android.AppConfig;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.TransportWrapper;
 
-import android.util.Log;
+import java.net.URL;
+import java.util.Vector;
+
+import javax.xml.parsers.SAXParserFactory;
 
 public class MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer
 
 {
-	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse) throws Exception
+	public MobileClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TransportWrapper transportToUse) throws Exception
 	{
 		super(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
 	}

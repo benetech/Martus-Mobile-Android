@@ -29,7 +29,7 @@ package org.martus.clientside;
 import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.PassThroughTransportWrapper;
 
 public class MobileClientSideNetworkGateway extends ClientSideNetworkGateway
 {
@@ -39,7 +39,7 @@ public class MobileClientSideNetworkGateway extends ClientSideNetworkGateway
 	}
 
 
-	static public MobileClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
+	static public MobileClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, PassThroughTransportWrapper transportToUse)
 	{
         ClientSideNetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
 		if(server == null)
@@ -48,7 +48,7 @@ public class MobileClientSideNetworkGateway extends ClientSideNetworkGateway
 		return new MobileClientSideNetworkGateway(server);
 	}
 
-	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey, TorTransportWrapper transport)
+	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey, PassThroughTransportWrapper transport)
 	{
 		if(serverName.length() == 0)
 			return null;
