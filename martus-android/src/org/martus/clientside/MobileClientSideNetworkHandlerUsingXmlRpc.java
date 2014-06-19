@@ -26,24 +26,25 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.clientside;
 
-import javax.xml.parsers.SAXParserFactory;
-import java.net.URL;
-import java.util.Vector;
-
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.apache.xmlrpc.util.SAXParsers;
 import org.martus.common.MartusLogger;
 import org.martus.common.network.NetworkInterfaceConstants;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.PassThroughTransportWrapper;
+
+import java.net.URL;
+import java.util.Vector;
+
+import javax.xml.parsers.SAXParserFactory;
 
 public class MobileClientSideNetworkHandlerUsingXmlRpc
 	extends ClientSideNetworkHandlerUsingXmlRpc
 {
 
 
-	public MobileClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws ClientSideNetworkHandlerUsingXmlRpc.SSLSocketSetupException
+	public MobileClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, PassThroughTransportWrapper transportToUse) throws ClientSideNetworkHandlerUsingXmlRpc.SSLSocketSetupException
 	{
 		super(serverName, portsToUse, transportToUse);
 	}

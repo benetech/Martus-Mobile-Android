@@ -12,7 +12,7 @@ import org.martus.common.crypto.MobileMartusSecurity;
 import org.martus.common.fieldspec.StandardFieldSpecs;
 import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.MobileOrchidProgressMeter;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.PassThroughTransportWrapper;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class AppConfig {
     private MobileClientBulletinStore store;
     private MartusSecurity martusCrypto;
 	private Context context;
-	private TorTransportWrapper transport;
+	private PassThroughTransportWrapper transport;
 	private String serverPublicKey;
     private String serverIP;
 	private ClientSideNetworkInterface currentNetworkInterfaceHandler;
@@ -51,10 +51,9 @@ public class AppConfig {
 
 	    this.context = context;
 
-        transport = TorTransportWrapper.create();
+        transport = new PassThroughTransportWrapper();
         File torDirectory = getOrchidDirectory();
         torDirectory.mkdirs();
-        transport.setTorDataDirectory(torDirectory);
 
         try {
             martusCrypto = new MobileMartusSecurity();
@@ -89,14 +88,6 @@ public class AppConfig {
 		boolean isServerConfigured = (currentNetworkInterfaceHandler != null);
 		if(isServerConfigured)
 			currentNetworkInterfaceHandler.setTimeoutGetServerInfo(newTimeout);
-
-		if(isTorEnabled)
-		{
-			transport.setProgressMeter(new MobileOrchidProgressMeter());
-			transport.startInSameThread();
-		}
-		else
-			transport.stop();
 	}
 
     public MartusSecurity getCrypto() {
@@ -111,7 +102,7 @@ public class AppConfig {
 		return new File(getAppDir(context), BaseActivity.PREFS_DIR);
 	}
 
-	public TorTransportWrapper getTransport() {
+	public PassThroughTransportWrapper getTransport() {
 		return transport;
 	}
 
