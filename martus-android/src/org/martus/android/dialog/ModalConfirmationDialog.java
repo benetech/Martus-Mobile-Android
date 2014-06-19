@@ -25,6 +25,7 @@ public class ModalConfirmationDialog extends ConfirmationDialog {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(((ConfirmationDialogListener) getActivity()).getConfirmationTitle())
+                .setMessage(((ConfirmationDialogListener) getActivity()).getConfirmationMessage())
                 .setPositiveButton(R.string.yes, new PositiveButtonHandler())
                 .setNegativeButton(R.string.no, new NegativeButtonHandler())
                 .create();

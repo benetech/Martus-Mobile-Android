@@ -640,7 +640,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     }
 
     @Override
-    public String getConfirmationTitle() {
+    public String getConfirmationMessage() {
         if (getConfirmationType() == CONFIRMATION_TYPE_CANCEL_BULLETIN) {
             return getString(R.string.confirm_cancel_bulletin);
         } else if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ATTACHMENT ){
@@ -649,7 +649,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             return getString(R.string.confirm_go_to_device_home);
         }
 
-        return super.getConfirmationTitle();
+        return super.getConfirmationMessage();
     }
 
     @Override
