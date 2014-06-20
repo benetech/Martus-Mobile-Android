@@ -190,7 +190,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
 	    String serverPublicKey = (String)serverInformation.get(1);
         try {
-            if (confirmServerPublicKey(serverCode, serverPublicKey)) {
+            if (confirmPublicKey(serverCode, serverPublicKey)) {
                 SharedPreferences serverSettings = getSharedPreferences(PREFS_SERVER_IP, MODE_PRIVATE);
                 SharedPreferences.Editor editor = serverSettings.edit();
                 editor.putString(SettingsActivity.KEY_SERVER_IP, serverIP);
@@ -221,7 +221,7 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
     }
 
-    public static boolean confirmServerPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception, DammCheckDigitAlgorithm.CheckDigitInvalidException, MartusCrypto.CreateDigestException {
+    public static boolean confirmPublicKey(String serverCode, String serverPublicKey) throws StreamableBase64.InvalidBase64Exception, DammCheckDigitAlgorithm.CheckDigitInvalidException, MartusCrypto.CreateDigestException {
         final String normalizedServerPublicCode = MartusCrypto.removeNonDigits(serverCode);
         final String computedServerPublicCode40 = MartusCrypto.computeFormattedPublicCode40(serverPublicKey);
         final String normalizedComputedServerPublicCode40 = MartusCrypto.removeNonDigits(computedServerPublicCode40);

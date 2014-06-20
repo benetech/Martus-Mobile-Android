@@ -148,7 +148,7 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
 	}
 
     public void setPublicKey() throws Exception {
-        if(!ServerActivity.confirmServerPublicKey(editTextPublicCode.getText().toString().trim(), extractedPublicKey)) {
+        if(!ServerActivity.confirmPublicKey(editTextPublicCode.getText().toString().trim(), extractedPublicKey)) {
             showMessage(activity, getString(R.string.invalid_public_code), getString(R.string.error_message));
 	        editTextPublicCode.requestFocus();
             return;
