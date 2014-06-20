@@ -148,9 +148,7 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
 	}
 
     public void setPublicKey() throws Exception {
-
-        String publicCode = MartusCrypto.computePublicCode(extractedPublicKey);
-        if(!confirmPublicCode(publicCode, editTextPublicCode.getText().toString().trim())) {
+        if(!ServerActivity.confirmServerPublicKey(editTextPublicCode.getText().toString().trim(), extractedPublicKey)) {
             showMessage(activity, getString(R.string.invalid_public_code), getString(R.string.error_message));
 	        editTextPublicCode.requestFocus();
             return;
@@ -192,11 +190,5 @@ public class DesktopKeyActivity extends BaseActivity implements TextView.OnEdito
         String signature = (String) importedPublicKeyInfo.get(1);
         MartusUtilities.validatePublicInfo(publicKey, signature, getSecurity());
         return publicKey;
-    }
-
-    boolean confirmPublicCode(String rawPublicCode, String userEnteredPublicCode)
-    {
-        String normalizedPublicCode = MartusCrypto.removeNonDigits(userEnteredPublicCode);
-        return rawPublicCode.equals(normalizedPublicCode);
     }
 }
