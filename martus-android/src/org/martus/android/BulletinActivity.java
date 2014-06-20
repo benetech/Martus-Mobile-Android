@@ -117,7 +117,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         store = AppConfig.getInstance().getStore();
 
 
-        LayoutInflater inflater = inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout listHeaderView = (LinearLayout)inflater.inflate(R.layout.bulletin_list_header_view, null);
 
         titleText = (EditText)listHeaderView.findViewById(R.id.createBulletinTitle);
