@@ -223,8 +223,8 @@ public class ServerActivity extends AbstractServerActivity implements TextView.O
 
     public static boolean confirmPublicKey(String publicCode, String publicKey) throws StreamableBase64.InvalidBase64Exception, DammCheckDigitAlgorithm.CheckDigitInvalidException, MartusCrypto.CreateDigestException {
         final String normalizedPublicCode = MartusCrypto.removeNonDigits(publicCode);
-        final String computedServerPublicCode40 = MartusCrypto.computeFormattedPublicCode40(publicKey);
-        final String normalizedComputedServerPublicCode40 = MartusCrypto.removeNonDigits(computedServerPublicCode40);
+        final String computedPublicCode40 = MartusCrypto.computeFormattedPublicCode40(publicKey);
+        final String normalizedComputedServerPublicCode40 = MartusCrypto.removeNonDigits(computedPublicCode40);
         if (normalizedPublicCode.equals(normalizedComputedServerPublicCode40)) {
             return true;
         }
