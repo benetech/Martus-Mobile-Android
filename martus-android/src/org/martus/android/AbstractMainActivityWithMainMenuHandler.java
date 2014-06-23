@@ -376,7 +376,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
     }
 
     @Override
-    public String getConfirmationTitle() {
+    public String getConfirmationMessage() {
         if (getConfirmationType() == CONFIRMATION_TYPE_DELETE_ACCOUNT) {
             return getString(R.string.confirm_reset_install);
         }
