@@ -544,7 +544,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     }
 
     @Override
-    public void onZipped(File zippedFile) {
+    public void onZipped(Bulletin bulletin, File zippedFile) {
         try {
             indeterminateDialog.dismissAllowingStateLoss();
         } catch (Exception e) {
@@ -556,10 +556,10 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             return;
         }
 
-        sendZippedBulletin(zippedFile);
+        sendZippedBulletin(bulletin, zippedFile);
     }
 
-    private void sendZippedBulletin(File zippedFile) {
+    private void sendZippedBulletin(Bulletin bulletin, File zippedFile) {
         determinateDialog = DeterminateProgressDialog.newInstance();
         try {
             determinateDialog.show(getSupportFragmentManager(), "dlg_sending");

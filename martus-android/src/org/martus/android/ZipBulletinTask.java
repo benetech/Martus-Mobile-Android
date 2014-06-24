@@ -63,7 +63,7 @@ public class ZipBulletinTask extends AsyncTask<Object, Integer, File> {
     @Override
     protected void onPostExecute(File result) {
         if (null != sender) {
-            sender.onZipped(result);
+            sender.onZipped(bulletin, result);
         }
         super.onPostExecute(result);
     }
