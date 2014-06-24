@@ -1,5 +1,7 @@
 package org.martus.android;
 
+import org.martus.common.bulletin.Bulletin;
+
 import java.io.File;
 
 /**
@@ -10,5 +12,5 @@ public interface BulletinSender {
 
     public void onSent(String result);
     public void onProgressUpdate(int progress);
-    public void onZipped(File zippedFile);
+    public void onZipped(Bulletin bulletin, File zippedFile);
 }
