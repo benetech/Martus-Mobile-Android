@@ -569,7 +569,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
         UniversalId bulletinId = bulletin.getUniversalId();
         try {
-            removeCachedUriAttachments();
+            removeCachedUriAttachments(bulletin);
             store.destroyBulletin(bulletin);
         } catch (IOException e) {
             Log.e(AppConfig.LOG_LABEL, "problem destroying bulletin", e);
@@ -587,7 +587,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         resetInactivityTimer();
     }
 
-    private void removeCachedUriAttachments() {
+    private void removeCachedUriAttachments(Bulletin bulletin) {
         AttachmentProxy[] attachmentProxies = bulletin.getPublicAttachments();
         for (AttachmentProxy proxy : attachmentProxies) {
             String label = proxy.getLabel();
