@@ -90,7 +90,7 @@
     <string name="success_import_hq_key">You have successfully configured a Martus Desktop account to receive your Mobile Martus bulletins. Mobile Martus setup is complete!</string>
     <string name="progress_confirming_magic_word">Confirming Magic Word</string>
     <string name="confirm_reset_install">Are you sure you want to delete?</string>
-    <string name="confirm_go_to_device_home">Are you sure want to go leave Martus?</string>
+    <string name="confirm_go_to_device_home">Are you sure you want to leave Martus?</string>
     <string name="confirm_logout">Are you sure want to logout?</string>
     <string name="confirm_reset_install_extra_no_pending"> </string>
     <string name="confirm_data_loss">If you leave this screen now, you will lose any data you have entered. Are you sure you want to leave?</string>
