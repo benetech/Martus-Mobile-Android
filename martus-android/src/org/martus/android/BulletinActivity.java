@@ -167,11 +167,11 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private void addAttachmentsAndSendBulletin() {
         try {
-
             if (!AppConfig.getInstance().getCrypto().hasKeyPair()) {
                 showLoginDialog();
                 return;
             }
+            
             Bulletin bulletin = createBulletin();
             Iterator<Map.Entry<String,File>> iterator = attachmentNameToFileMap.entrySet().iterator();
             while (iterator.hasNext()) {
@@ -180,8 +180,8 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 if (!addAttachmentToBulletin(bulletin, attachmentFile)) {
                     iterator.remove();
                     attachmentAdapter.remove(attachmentFile.getName());
-                    Toast.makeText(this, getString(R.string.attachment_no_longer_exists, attachmentFile.getName()),
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.attachment_no_longer_exists, attachmentFile.getName()), Toast.LENGTH_LONG).show();
+
                     return;
                 }
             }
