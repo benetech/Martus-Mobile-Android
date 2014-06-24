@@ -470,7 +470,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
 	private Bulletin createBulletin() throws Exception
     {
-        Bulletin b;
+        Bulletin bulletin;
 	    if (haveFormInfo) {
 		    if (MartusApplication.getInstance().getCustomTopSectionSpecs() == null || MartusApplication.getInstance().getCustomBottomSectionSpecs() == null) {
 			    CustomFieldTemplate template = new CustomFieldTemplate();
@@ -497,15 +497,15 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                     inputStream.close();
                 }
 		    }
-			b = store.createEmptyBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs(), MartusApplication.getInstance().getCustomBottomSectionSpecs());
+			bulletin = store.createEmptyBulletin(MartusApplication.getInstance().getCustomTopSectionSpecs(), MartusApplication.getInstance().getCustomBottomSectionSpecs());
 	    } else  {
-			b = store.createEmptyBulletin();
+			bulletin = store.createEmptyBulletin();
 	    }
-        b.set(Bulletin.TAGLANGUAGE, getDefaultLanguageForNewBulletin());
-        b.setAuthorizedToReadKeys(new HeadquartersKeys(hqKey));
-        b.setDraft();
-        b.setAllPrivate(true);
-        return b;
+        bulletin.set(Bulletin.TAGLANGUAGE, getDefaultLanguageForNewBulletin());
+        bulletin.setAuthorizedToReadKeys(new HeadquartersKeys(hqKey));
+        bulletin.setDraft();
+        bulletin.setAllPrivate(true);
+        return bulletin;
     }
 
     private String getDefaultLanguageForNewBulletin()
