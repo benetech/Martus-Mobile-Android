@@ -176,11 +176,11 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             Iterator<Map.Entry<String,File>> iterator = attachmentNameToFileMap.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String,File> entry = iterator.next();
-                File file = entry.getValue();
-                if (!addAttachmentToBulletin(bulletin, file)) {
+                File attachmentFile = entry.getValue();
+                if (!addAttachmentToBulletin(bulletin, attachmentFile)) {
                     iterator.remove();
-                    attachmentAdapter.remove(file.getName());
-                    Toast.makeText(this, getString(R.string.attachment_no_longer_exists, file.getName()),
+                    attachmentAdapter.remove(attachmentFile.getName());
+                    Toast.makeText(this, getString(R.string.attachment_no_longer_exists, attachmentFile.getName()),
                             Toast.LENGTH_LONG).show();
                     return;
                 }
