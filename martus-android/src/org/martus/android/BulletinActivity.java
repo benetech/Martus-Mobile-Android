@@ -179,7 +179,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
             while (iterator.hasNext()) {
                 Map.Entry<String,File> entry = iterator.next();
                 File file = entry.getValue();
-                if (!addAttachmentToBulletin(file)) {
+                if (!addAttachmentToBulletin(bulletin, file)) {
                     iterator.remove();
                     attachmentAdapter.remove(file.getName());
                     Toast.makeText(this, getString(R.string.attachment_no_longer_exists, file.getName()),
@@ -220,7 +220,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 			actionBar.setDisplayHomeAsUpEnabled(false);
 	}
 
-	private boolean addAttachmentToBulletin(File attachment) throws IOException, MartusCrypto.EncryptionException {
+	private boolean addAttachmentToBulletin(Bulletin bulletin, File attachment) throws IOException, MartusCrypto.EncryptionException {
         AttachmentProxy attProxy = new AttachmentProxy(attachment);
         if (!attachment.exists()) {
             return false;
