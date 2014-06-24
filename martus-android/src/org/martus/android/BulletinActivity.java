@@ -85,7 +85,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     private HeadquartersKey hqKey;
     private boolean autoLogout;
 
-    private Bulletin bulletin;
     private Map<String, File> bulletinAttachments;
     private String attachmentToRemoveName;
     private EditText titleText;
@@ -125,7 +124,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         attachmentsHelpText = (TextView)listHeaderView.findViewById(R.id.attachments_help_text);
         customFormHelp = (TextView)listHeaderView.findViewById(R.id.custom_form_transition);
 
-        if (null == bulletin) {
+        if (null == bulletinAttachments) {
             attachmentAdapter = new RowAdapterWithCorrectRightToLeftTextView(this);
             createEmptyBulletinAndClearFields();
         }
@@ -142,7 +141,6 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private void createEmptyBulletinAndClearFields() {
         try {
-            bulletin = createBulletin();
             bulletinAttachments = new ConcurrentHashMap<String, File>(2);
             titleText.setText("");
             summaryText.setText("");
@@ -174,7 +172,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 showLoginDialog();
                 return;
             }
-
+            Bulletin bulletin = createBulletin();
             Iterator<Map.Entry<String,File>> iterator = bulletinAttachments.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String,File> entry = iterator.next();
