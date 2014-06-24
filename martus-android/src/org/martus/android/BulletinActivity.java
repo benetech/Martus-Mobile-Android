@@ -85,7 +85,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     private HeadquartersKey hqKey;
     private boolean autoLogout;
 
-    private Map<String, File> bulletinAttachments;
+    private Map<String, File> attachmentNameToFileMap;
     private String attachmentToRemoveName;
     private EditText titleText;
     private EditText summaryText;
@@ -124,7 +124,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         attachmentsHelpText = (TextView)listHeaderView.findViewById(R.id.attachments_help_text);
         customFormHelp = (TextView)listHeaderView.findViewById(R.id.custom_form_transition);
 
-        if (null == bulletinAttachments) {
+        if (null == attachmentNameToFileMap) {
             attachmentAdapter = new RowAdapterWithCorrectRightToLeftTextView(this);
             clearFieldsAndAttachmentsMap();
         }
@@ -141,7 +141,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private void clearFieldsAndAttachmentsMap() {
         try {
-            bulletinAttachments = new ConcurrentHashMap<String, File>(2);
+            attachmentNameToFileMap = new ConcurrentHashMap<String, File>(2);
             titleText.setText("");
             summaryText.setText("");
             attachmentAdapter.clear();
@@ -173,7 +173,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 return;
             }
             Bulletin bulletin = createBulletin();
-            Iterator<Map.Entry<String,File>> iterator = bulletinAttachments.entrySet().iterator();
+            Iterator<Map.Entry<String,File>> iterator = attachmentNameToFileMap.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String,File> entry = iterator.next();
                 File file = entry.getValue();
@@ -231,7 +231,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
     private void addAttachmentToMap(File attachment) {
         attachmentAdapter.add(attachment.getName());
-        bulletinAttachments.put(attachment.getName(), attachment);
+        attachmentNameToFileMap.put(attachment.getName(), attachment);
 	    attachmentsHelpText.setText(R.string.attachments_added_label);
     }
 
@@ -369,7 +369,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 		        titleText.setVisibility(View.GONE);
 		        summaryText.setVisibility(View.GONE);
 		        customFormHelp.setVisibility(View.VISIBLE);
-		        if (bulletinAttachments.isEmpty()) {
+		        if (attachmentNameToFileMap.isEmpty()) {
 		            clearFieldsAndAttachmentsMap();
 		        }
 		        return;
@@ -597,7 +597,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
     }
 
     private void removeCachedUnsentAttachments() {
-        Set<String> filenames = bulletinAttachments.keySet();
+        Set<String> filenames = attachmentNameToFileMap.keySet();
         for (String filename : filenames) {
             File file = new File(getAppDir(), filename);
             if (file.exists()) {
@@ -622,7 +622,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 this.finish();
                 break;
             case CONFIRMATION_TYPE_DELETE_ATTACHMENT :
-                bulletinAttachments.remove(attachmentToRemoveName);
+                attachmentNameToFileMap.remove(attachmentToRemoveName);
                 attachmentAdapter.remove(attachmentToRemoveName);
 	            if (attachmentAdapter.isEmpty()) {
 		            attachmentsHelpText.setText(R.string.attachments_add_label);
