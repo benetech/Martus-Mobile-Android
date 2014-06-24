@@ -126,7 +126,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 
         if (null == bulletinAttachments) {
             attachmentAdapter = new RowAdapterWithCorrectRightToLeftTextView(this);
-            createEmptyBulletinAndClearFields();
+            clearFieldsAndAttachmentsMap();
         }
 
         ListView list = (ListView)findViewById(android.R.id.list);
@@ -139,7 +139,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
         addAttachmentFromIntent();
     }
 
-    private void createEmptyBulletinAndClearFields() {
+    private void clearFieldsAndAttachmentsMap() {
         try {
             bulletinAttachments = new ConcurrentHashMap<String, File>(2);
             titleText.setText("");
@@ -370,7 +370,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
 		        summaryText.setVisibility(View.GONE);
 		        customFormHelp.setVisibility(View.VISIBLE);
 		        if (bulletinAttachments.isEmpty()) {
-		            createEmptyBulletinAndClearFields();
+		            clearFieldsAndAttachmentsMap();
 		        }
 		        return;
 	        }
@@ -576,7 +576,7 @@ public class BulletinActivity extends AbstractMainActivityWithMainMenuHandler im
                 this, bulletinId);
         MartusSecurity cryptoCopy = cloneSecurity(AppConfig.getInstance().getCrypto());
         uploadTask.execute(bulletin.getUniversalId(), zippedFile, getNetworkGateway(), cryptoCopy);
-        createEmptyBulletinAndClearFields();
+        clearFieldsAndAttachmentsMap();
         startInactivityTimer();
     }
 
