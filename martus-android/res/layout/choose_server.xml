@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 style="@style/MartusTextViewStyle"/>
 
-        <EditText
+        <org.martus.android.dialog.TextViewWithCorrectTextDirection
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dip"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 style="@style/MartusTextViewStyle"/>
 
-        <EditText
+        <org.martus.android.dialog.TextViewWithCorrectTextDirection
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="20dip"
@@ -81,7 +81,7 @@
             android:gravity="left"
             style="@style/MartusTextViewStyle"/>
 
-        <EditText
+        <org.martus.android.dialog.TextViewWithCorrectTextDirection
             android:id="@+id/serverMagicText"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
