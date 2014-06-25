@@ -1,5 +1,7 @@
 package org.martus.android.dialog;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,8 +9,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.martus.android.AppConfig;
@@ -90,7 +96,8 @@ public class AddContactActivity extends BaseActivity {
             }
 
             accountId = singleAccountId.get(0);
-            showConfirmationDialog();
+            final CustomDialogClass dialog = new CustomDialogClass(this);
+            dialog.show();
         } catch (Exceptions.ServerNotAvailableException e) {
             Log.e(AppConfig.LOG_LABEL, "Server Not Available", e);
             showErrorMessage(getString(R.string.error_getting_server_key), getString(R.string.error_message));
@@ -197,6 +204,64 @@ public class AddContactActivity extends BaseActivity {
                 isEnabled = true;
 
             addContactButton.setEnabled(isEnabled);
+        }
+    }
+
+    private class CustomDialogClass extends Dialog {
+        private Button yesButton;
+        private Button noButton;
+        private TextView verifyTextView;
+
+        public CustomDialogClass(Activity a) {
+            super(a);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.verify_public_code_dialog);
+
+            ensureLayoutWidthMatchesParentWorkAround();
+
+            verifyTextView = (TextView) findViewById(R.id.verify_text_view_id);
+            verifyTextView.setText(getConfirmationMessage());
+
+            yesButton = (Button) findViewById(R.id.button_yes_id);
+            yesButton.setOnClickListener(new ConfirmHandler());
+
+            noButton = (Button) findViewById(R.id.button_no_id);
+            noButton.setOnClickListener(new CancelHandler(this));
+        }
+
+        private void ensureLayoutWidthMatchesParentWorkAround() {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(getWindow().getAttributes());
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            getWindow().setAttributes(layoutParams);
+        }
+    }
+
+    private class CancelHandler implements android.view.View.OnClickListener {
+
+        private Dialog dialog;
+
+        private CancelHandler(Dialog dialogToUse) {
+            dialog = dialogToUse;
+        }
+
+        @Override
+        public void onClick(View view) {
+            dialog.dismiss();
+        }
+    }
+
+    private class ConfirmHandler implements android.view.View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+             onConfirmationAccepted();
         }
     }
 }
