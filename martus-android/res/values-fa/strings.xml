@@ -39,9 +39,9 @@
     <string name="error_getting_server_key">مشکل در روند اتصال به سرور</string>
     <string name="no_upload_rights">کلمه جادویی اشتباه است</string>
     <string name="create_account_dialog_title">ایجاد رمز عبور جدید</string>
-    <string name="create_account_intro">به Martus خوش آمدید! در ابتدا شما باید یک حساب کاربری موبایل Martus ایجاد نمایید.</string>
-    <string name="choose_server_intro">سپس، شما باید تنظیمات مربوط به ارتباط با سرور Martus که اطلاعات شما به آن ارسال خواهد شد را انجام دهید.</string>
-    <string name="import_hq_intro">و در آخر، باید اطلاعات مروبط به حساب کاربری Martus را که دریافت کننده بولتن های ارسالی از موبایل Martus شما خواهد بود را وارد نمایید.\n\nشما باید فایل  شناسه عمومی حساب کاربری Martus ( که با \"mpi.\" ختم میشود ) و همچنین کدعمومی حساب کاربری نسخه رایانه ای Martus را که دریافت کننده بولتن های ارسالی توسط شما از طریق موبایل Martus خواهد بود را داشته باشید.</string>
+    <string name="create_account_intro">\u200Fبه Martus خوش آمدید! در ابتدا شما باید یک حساب کاربری موبایل Martus ایجاد نمایید.</string>
+    <string name="choose_server_intro">\u200Fسپس، شما باید تنظیمات مربوط به ارتباط با سرور Martus که اطلاعات شما به آن ارسال خواهد شد را انجام دهید.</string>
+    <string name="import_hq_intro">\u200Fو در آخر، باید اطلاعات مروبط به حساب کاربری Martus را که دریافت کننده بولتن های ارسالی از موبایل Martus شما خواهد بود را وارد نمایید.\n\nشما باید فایل  شناسه عمومی حساب کاربری Martus ( که با \"mpi.\" ختم میشود ) و همچنین کدعمومی حساب کاربری نسخه رایانه ای Martus را که دریافت کننده بولتن های ارسالی توسط شما از طریق موبایل Martus خواهد بود را داشته باشید.</string>
     <string name="tor_option_intro">سپس، در صورت  تمایل میتوانید Tor را فعال کنید.</string>
     <string name="goto_server_setup_button">بعد</string>
     <string name="quit_menu_title">خروج از برنامه</string>
