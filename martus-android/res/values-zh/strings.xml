@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--Do Not Translate next line-->
+  <string name="app_name">Martus</string>
+  <string name="create_sample_bulletin">创建公告板</string>
+  <string name="error_message">错误</string>
+  <string name="confirm_default">你确定吗？</string>
+  <!--==============================-->
+  <!--settings screen-->
+  <!--==============================-->
+  <string name="user_preferences">用户设置</string>
+  <string name="title_author_preference">作者</string>
+  <string name="summary_author_preference">作者</string>
+  <string name="dialog_title_author_preference">作者</string>
+  <string name="title_language_preference">公告板语言</string>
+  <string name="dialog_title_language_preference">公告板语言</string>
+  <string name="settings_title">设置</string>
+  <string name="retry_server">再次输入</string>
+  <string name="cancel_server">取消</string>
+  <string name="title_timeout_preference">超时</string>
+  <string name="dialog_title_timeout_preference">超时时间</string>
+  <string name="title_wifi_only_preference">只用 Wi-Fi</string>
+  <string name="wifi_only_preference_on">仅在连接 Wi-Fi 时传输数据</string>
+  <string name="wifi_only_preference_off">仅在连接 Wi-Fi 时传输数据</string>
+  <!--==============================-->
+  <!--main screen-->
+  <!--==============================-->
+  <string name="alert_dialog_password">密码：</string>
+  <string name="alert_dialog_confirm_password">确认密码：</string>
+  <string name="password_dialog_title">登录</string>
+  <string name="alert_dialog_ok">是</string>
+  <string name="password_dialog_cancel">取消</string>
+  <string name="create_account_dialog_cancel">退出</string>
+  <string name="incorrect_password">密码不正确</string>
+  <string name="error_create_account">账户创建出现问题</string>
+  <string name="error_getting_server_key">连接服务器出现问题</string>
+  <string name="create_account_dialog_title">创建新密码</string>
+  <string name="create_account_intro">欢迎使用 Martus！请先创建 Martus 账号。</string>
+  <string name="goto_server_setup_button">下一步</string>
+  <string name="quit_menu_title">注销</string>
+  <string name="server_menu_title">选择服务器</string>
+  <!--Do Not Translate this line-->
+  <!--Do Not Translate the word Orbot-->
+  <string name="install_orbot_">安装 Orbot</string>
+  <!--Do Not Translate the word Orbot-->
+  <string name="you_must_have_orbot">需要先安装 Orbot</string>
+  <string name="yes">是</string>
+  <string name="no">否</string>
+  <!--Do Not Translate the word Orbot-->
+  <string name="invalid_orbot_message">请从谷歌应用市场更新 Orbot</string>
+  <!--Do Not Translate the word Orbot-->
+  <string name="invalid_orbot_title">Orbot 安装无效</string>
+  <!--Do Not Translate the word Orbot-->
+  <string name="start_orbot_">启动 Orbot</string>
+  <!--Do Not Translate the word Orbot-->
+  <!--Do Not Translate the URL that starts with https://-->
+  <string name="create_password_hint">新密码</string>
+  <string name="confirm_password_hint">重复密码</string>
+  <string name="enter_password_hint">输入密码</string>
+  <string name="settings_pwd_equal">密码一致</string>
+  <string name="settings_pwd_not_equal">密码不一致</string>
+  <!--Do Not Translate this line-->
+  <string formatted="false" name="tor_link">https://www.torproject.org</string>
+  <string name="confirm_reset_install">您确认要删除吗?</string>
+  <string name="confirm_reset_install_extra_no_pending"> </string>
+  <!--Do not translate words that start with %, but you may move them around-->
+  <string name="reset_to_install">删除我的帐号</string>
+  <string name="server_menu">服务器</string>
+  <string name="ping_server_menu_item">检查服务器</string>
+  <string name="ping_result_ok">服务器工作正常</string>
+  <string name="ping_result_down">服务器目前无法正常工作</string>
+  <string name="no_network_connection">设备无网络连接！</string>
+  <!--Do Not Translate the word Martus-->
+  <string name="view_docs_menu">查看文档</string>
+  <string name="contact_us_menu_item">联系我们</string>
+  <string name="help_menu">帮助</string>
+  <string name="feedback_dialog_title">联系我们</string>
+  <string name="tools_menu">工具</string>
+  <string name="export_public_account_id_menu_item">导出公共帐号ID</string>
+  <!--Do not translate words that start with %, but you may move them around-->
+  <!--Do Not Translate the word Martus or the email address-->
+  <!--Do Not Translate this line-->
+  <string name="show_version">显示版本</string>
+  <!--Do Not Translate the word Martus-->
+  <string name="exported_account_id_file_confirmation">导出至</string>
+  <string name="progress_creating_account">创建账户</string>
+  <!--==============================-->
+  <!--bulletin screen-->
+  <!--==============================-->
+  <string name="send_bulletin">发送</string>
+  <string name="send_failed_cant_reach_server">无法连接服务器</string>
+  <string name="add_attachment">添加附件</string>
+  <string name="title_hint">标题</string>
+  <string name="bulletin_cancel">取消</string>
+  <string name="bulletin_sending_progress">发送中...</string>
+  <string name="bulletin_packaging_progress">打包并加密中...</string>
+  <!--Do not translate words that start with %, but you may move them around-->
+  <!--Do not translate words that start with %, but you may move them around-->
+  <string name="must_login_first_title">警告！</string>
+  <string name="install_file_explorer">换个文件浏览器试一试</string>
+  <!--Do Not Translate the word Picasa-->
+  <string name="fetching_picasa_image">获取 Picasa 图片</string>
+  <!--Do Not Translate the word Picasa-->
+  <string name="fetched_picasa_image">Picasa 图片已获取</string>
+  <!--==============================-->
+  <!--choose server screen-->
+  <!--==============================-->
+  <string name="invalid_server_ip">无效服务器 IP 地址</string>
+  <string name="progress_connecting_to_server">连接服务器</string>
+  <!--==============================-->
+  <!--desktop key screen-->
+  <!--==============================-->
+  <string name="select_file_picker">选择一个文件浏览器</string>
+  <string name="server_ip_label">服务器 IP 地址：</string>
+  <string name="server_ip_hint">输入服务器 IP 地址</string>
+  <string name="choose_server_title">选择服务器</string>
+  <!--Do Not Translate the word Martus-->
+  <string name="choose_file">Martus 文件浏览器</string>
+  <!--Do Not Translate this line-->
+  <!--==============================-->
+  <!--notification bar-->
+  <!--==============================-->
+  <!--Do not translate words that start with %, but you may move them around-->
+  <!--Do Not Translate this line-->
+  <!--form labels-->
+  <!--Do not translate words that start with %, but you may move them around-->
+  <!--Do not translate words that start with %, but you may move them around-->
+  <string name="boolean_true">是</string>
+  <string name="boolean_false">否</string>
+  <!--Only translate the words inside the parenthesis in the following two lines-->
+  <!--odk - definitely used-->
+</resources>
