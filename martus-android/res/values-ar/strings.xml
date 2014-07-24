@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name="create_sample_bulletin">إنشاء نشرة</string>
+    <string name="error_message">حدثت مشكلة</string>
+    <string name="confirm_default">هل أنت متأكد؟</string>
+    <!--==============================-->
+    <!--settings screen-->
+    <!--==============================-->
+    <string name="user_preferences">الإعدادات</string>
+    <string name="title_author_preference">الكاتب</string>
+    <string name="title_language_preference">لغة النشرة</string>
+    <string name="summary_language_preference">الرجاء الإختيار اللغة التي تريد من خلالها إدخال بيانات النشرة</string>
+    <string name="retry_server">إعادة إدخال</string>
+    <string name="cancel_server"> إلغاء</string>
+    <string name="title_timeout_preference">المهلة</string>
+    <string name="summary_timeout_preference">في دقائق</string>
+    <string name="dialog_title_timeout_preference">مدة المهلة</string>
+    <string name="title_wifi_only_preference">استخدام Wi-Fi فقط</string>
+    <string name="wifi_only_preference_on">أرسل البيانات فقط حينما يكون Wi-Fi متاحا</string>
+    <string name="version_name_label">إصدار %1$s</string>
+    <string name="version_code_label">تحديث الإصدار %1$s</string>
+    <!--==============================-->
+    <!--main screen-->
+    <!--==============================-->
+    <string name="alert_dialog_password">كلمة السر:</string>
+    <string name="alert_dialog_confirm_password">تأكيد كلمة السر:</string>
+    <string name="alert_dialog_magic_word">الكلمة السحرية:</string>
+    <string name="password_dialog_title">تسجيل الدخول</string>
+    <string name="use_default_server">استخدام الخادم الافتراضي</string>
+    <string name="advanced_server_options">إعدادات الخادم المتقدمة</string>
+    <string name="alert_dialog_ok">موافق</string>
+    <string name="create_account_dialog_cancel">خروج</string>
+    <string name="incorrect_password">كلمة السر غير صحيحة</string>
+    <string name="error_create_account">حدث خطأ أثناء إنشاء الحساب</string>
+    <string name="error_getting_server_key">فشل الإتصال بالخادم</string>
+    <string name="no_upload_rights">الكلمة السحرية غير صحيحة</string>
+    <string name="create_account_dialog_title">إنشاء كلمة السر</string>
+    <string name="create_account_intro">مرحباً بك في خدمة Martus! يجب عليك أولاً أن تنشأ حساب Martus للجهاز المحمول.</string>
+    <string name="choose_server_intro">بعد هذا، يجب عليك إعداد وسيلة الاتصال إلى خادم Martus الذي سترسل إليه نشراتك.</string>
+    <string name="import_hq_intro">وأخيرا، تحتاج إلى إدخال المعلومات حول حساب Martus الذي سترسل من خلاله نشراتك إلى برنامج Mobile Martus على جهاز المحمول.\n\nتحتاج إلى هوية الحساب العام ل Martus (ينتهي ب \".mpi\") و الرمز العام من حسابك الثابت Martus الذي يسمح لك بتلقي نشرات Martus على جهاز المحمول لإكمال هذه المرحلة.</string>
+    <string name="tor_option_intro">التالي، يمكنك تشغيل Tor إن أردت.</string>
+    <string name="goto_server_setup_button">القادم</string>
+    <string name="quit_menu_title">تسجيل الخروج</string>
+    <string name="server_menu_title">اختر الخادم</string>
+    <string name="add_contact_using_access_token">أضفْ جهة الاتصال من الخادم</string>
+    <string name="add_contact_from_file">استوردْ جهة الاتصال من ملف</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="install_orbot_">  Orbot  تثبيت</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="you_must_have_orbot">  Orbot  يجب ان تثبيت برنامج</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="invalid_orbot_message">رجاءً أعدْ تثبيت Orbot انطلاقا من متجر Google Play</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="invalid_orbot_title"> تثبيت Orbot غير صحيح</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="start_orbot_">بدء تشغيل Orbot</string>
+    <!--Do Not Translate the word Orbot-->
+    <string name="orbot_doesn_t_appear_to_be_running_would_you_like_to_start_it_up_and_connect_to_tor_">Orbot غير مشغل. هل تريد بدء تشغيله ؟</string>
+    <!--Do Not Translate the URL that starts with https://-->
+    <string formatted="false" name="use_tor"><b></b>تستعمل b&gt;Tor&gt; (قد يساعدك في إخفاء اتصالك بخادم Martus، وكذا إمكانية مساعدتك في الوصول إلى خوادم Martus إن تم منعها من الموقع الذي توجد فيه، لكن هذا الإجراء سيجعل إرسال النشرات بطيئا)</string>
+    <string name="stop_orbot">أوقف Orbot</string>
+    <string name="orbot_running_should_stop_message">Orbot مشغَّل. هل تريد إيقافه؟</string>
+    <string name="tor_label">Tor</string>
+    <string name="about_tor_label">التعرف على Tor</string>
+    <string name="create_password_hint">كلمة السر الجديدة</string>
+    <string name="enter_password_hint">تكتب كلمة السر</string>
+    <string name="confirm_password_hint">أكدْ كلمة السر</string>
+    <string name="enter_magic_word_hint">تكتب الكلمة السحرية</string>
+    <string name="settings_pwd_equal">كلمات السر متطابقة!</string>
+    <string name="settings_pwd_not_equal">كلمات السر ليست المباراة!</string>
+    <string name="invalid_password">يجب أن تتكون كلمة السر من 8 حروف على الأقل</string>
+    <string name="success_magic_word">لقد أعددت الاتصال بنجاح نحو خادم Martus!</string>
+    <string name="problem_confirming_magic_word">خطأ خلال تأكيد الكلمة السحرية</string>
+    <string name="success_import_hq_key">لقد أعددت بنجاح حسابك الثابت لMobile Martus الذي سيتلقى نشراتك من الهاتف الذكي. إنتهت إعدادات تثبيت Mobile Martus!</string>
+    <string name="progress_confirming_magic_word">في طور تأكيد الكلمة السحرية</string>
+    <string name="confirm_reset_install">هل تريد حقّا أن تحذف ؟</string>
+    <string name="confirm_go_to_device_home">هل أنت متأكد من أنك تريد الخروج من Martus؟</string>
+    <string name="confirm_logout">هل أنت متأكد من تسجيل الخروج؟</string>
+    <string name="confirm_reset_install_extra_no_pending"> </string>
+    <string name="confirm_data_loss">إذا تركت الشاشة الآن، فإنك ستضيع كل البيانات التي أدخلتها. هل أنت متأكد من الخروج؟</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <plurals name="confirm_reset_install_extra">
+        <item quantity="zero">سوف تفقد %1$s غير مرسل او نشرات مرسلة حالياً</item>
+        <item quantity="one">سوف تفقد %1$s غير مرسل او نشرة مرسلة حالياً</item>
+        <item quantity="two">سوف تفقد %1$s غير مرسل او نشرتان مرسلة حالياً</item>
+        <item quantity="few">سوف تفقد %1$s غير مرسل او نشرات مرسلة حالياً</item>
+        <item quantity="many">سوف تفقد %1$s غير مرسل او نشرة مرسلة حالياً</item>
+        <item quantity="other">سوف تفقد %1$s غير مرسل او نشرات مرسلة حالياً.</item>
+    </plurals>
+    <plurals name="show_unsent_count">
+        <item quantity="zero">انت لديك %1$s نشرات غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالهم.</item>
+        <item quantity="one">انت لديك %1$s نشرة غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالها.</item>
+        <item quantity="two">انت لديك %1$s نشرتان غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالهما.</item>
+        <item quantity="few">انت لديك %1$s نشرات غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالهم.</item>
+        <item quantity="many">انت لديك %1$s نشرة غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالهم.</item>
+        <item quantity="other">انت لديك %1$s نشرات غير مرسلة. فمن الممكن ان تذهب الى منيوالآدوات و إعادة إرسالهم.</item>
+    </plurals>
+    <string name="starting_send_notification">في طور الإرسال...</string>
+    <string name="show_unsent_title">لديك نشرات غير مرسلة.</string>
+    <string name="reset_to_install">احذف حسابي</string>
+    <string name="replace_contact_menu_item">تحديث جهة الاتصال</string>
+    <string name="ping_server_menu_item">تحقق من الخادم</string>
+    <string name="ping_result_ok">يعمل الخادم</string>
+    <string name="ping_result_down">لا يعمل الخادم</string>
+    <string name="no_network_connection">الجهاز ليس لديك إتصال!</string>
+    <string name="no_network_create_bulletin_warning">إن أي نشرة تريد إرسالها ستفشل لغياب الإتصال. (يمكن أن يكون لديك \"Wi-Fi فقط\" مفعّلة في الإعدادات.)\n\nلكن النقر على الإرسال سيعمي ثم يحفظ النشرة، وإذا كان لديك اتصال، يمكنك إعادة إرساله انطلاقا من قائمة الأدوات.</string>
+    <string name="logout_while_sending_title">لا يمكن إلى تسجيل الخروج الآن</string>
+    <string name="logout_while_sending_message">يرجى الإنتظار حتى يتتهي إرسال النشرة.</string>
+    <string name="reset_while_sending_title">لا يمكن إعادة التصفير الآن</string>
+    <string name="confirm_tamper_reset_title">خطأ في الإعداد</string>
+    <!--Do Not Translate the word Martus-->
+    <string name="confirm_tamper_reset_message">لديك خطأ في ملفات الإعداد. لأسباب أمنية، رجاءً احذف الحساب. الضغط على الزر \"نعم\" سيبدأ العملية. لن يعمل Martus بملفات الإعدادات المتلفة، لذا الضغط على \"لا\" سيغلق Martus.</string>
+    <string name="view_docs_menu">رابط نحو وثائق المساعدة</string>
+    <string name="contact_us_menu_item">اتصل بنا</string>
+    <string name="view_public_code_menu_item">شاهد الرمز العام</string>
+    <string name="resend_menu_item">إعادة إرسال النشرات غير المرسلة</string>
+    <string name="resending">يجري الإرسال !</string>
+    <string name="resending_no_bulletins">ليست لديك اي نشرات غير مرسلة.</string>
+    <string name="resending_no_network">ليس لديك اتصال، أو أنك فعّلت \"Wi-Fi فقط\".</string>
+    <string name="help_menu">المساعدة</string>
+    <string name="view_public_code_dialog_title">الرمز العام</string>
+    <string name="view_new_public_code_message">الرمز العام (الجديد):\n%1$s</string>
+    <string name="view_old_public_code_message">الرمز العام (القديم):\n%1$s</string>
+    <string name="view_public_code_dialog_error">لا يستطيع لعرض الرمز العام</string>
+    <string name="send_public_account_id_menu_item">إرسال رسالة إكترونية مع هوية الحساب العام العام</string>
+    <string name="send_public_account_id_menu_item_via_bulletin">إرسال هوية الحساب العام في النشرة</string>
+    <string name="manage_my_account_menu">إدارة حسابي</string>
+    <string name="manage_bulletins_menu">إدارة النشرات</string>
+    <string name="export_public_account_id_menu_item">تصدير هوية الحساب العام</string>
+    <string name="export_public_account_id_dialog_title">خطأ في تصدير هوية الحساب العام</string>
+    <string name="export_public_account_id_dialog_error">لا يستطيع لتصدير رقم الحساب</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <!--Do Not Translate the word Martus or the email address-->
+    <string formatted="false" name="contact_us_info"> إذا لديك اي سؤال او ملاحظات حول Martus يرجى ان ترسل إلي info@martus.org</string>
+    <!--Do Not Translate this line-->
+    <string name="show_version">شاهد الإصدار</string>
+    <string name="exported_account_id_file_confirmation">تصدير إلى</string>
+    <string name="progress_creating_account">إنشاء الحساب</string>
+    <!--==============================-->
+    <!--bulletin screen-->
+    <!--==============================-->
+    <string name="send_bulletin">إرسال</string>
+    <string name="send_failed_cant_reach_server">تعذّر الوصول إلى الخادم</string>
+    <string name="add_attachment">إضافة مرفق</string>
+    <string name="title_summary">الملخص</string>
+    <string name="summary_optional_label">اختياري</string>
+    <string name="default_author">كاتب مجهول</string>
+    <string name="title_hint">العنوان</string>
+    <string name="problem_creating_bulletin">لا يستطيع لإنشاء نشرة جديدة</string>
+    <string name="problem_adding_attachment">خطأ في إضافة مرفق إلى النشرة</string>
+    <string name="bulletin_sending_progress">  في طور الإرسال...</string>
+    <string name="bulletin_packaging_progress">في طور التعمية والضغط...</string>
+    <string name="failure_zipping_bulletin">فشِل لضغط النشرة</string>
+    <string name="failure_choosing_file">فشِل اختيار الملف</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="attachment_no_longer_exists">تعذّر الإرسال بسبب حذف المرفق التالي، %1$s ، من الجهاز</string>
+    <string name="confirm_cancel_bulletin">إلغاء هذه النشرة ؟</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="confirm_remove_attachment">حذف %1$s ؟</string>
+    <string name="must_login_first_title"> تحذير!</string>
+    <string name="must_login_first_message">يجب ان تكون مستخدم تسجيل الدخول قبل إرسال هذه النشرة</string>
+    <string name="install_file_explorer">استعمل ملف المستكشف الآخر</string>
+    <!--Do Not Translate the word Picasa-->
+    <string name="fetching_picasa_image">جلب صورة Picasa</string>
+    <!--Do Not Translate the word Picasa-->
+    <string name="fetched_picasa_image">حصل على صورة Picasa</string>
+    <string name="custom_form_transition">هذه فرصتك لإضافة اي مرفق او اضغط علي الرجوع للوراء لتحرير إدخال الإستمارة.</string>
+    <!--==============================-->
+    <!--choose server screen-->
+    <!--==============================-->
+    <string name="invalid_server_ip">عنوان IP باطل</string>
+    <string name="invalid_server_code">الرمز العام للخادم غير صحيح</string>
+    <string name="invalid_server_info">معلومات الخادم المدخلة باطلة</string>
+    <string name="successful_server_choice">تم الإتصال بنجاح إلي الخادم!</string>
+    <string name="error_computing_public_code">خطأ في حفظ خيارات الخادم</string>
+    <string name="progress_connecting_to_server">في طور الإتصال بالخادم</string>
+    <!--==============================-->
+    <!--desktop key screen-->
+    <!--==============================-->
+    <string name="desktop_sync_public_code">بعد ذلك أدخل الرمز العام للحساب الثابت ل Martus:</string>
+    <string name="desktop_sync_title">معلومات الحساب الثابت ل Martus</string>
+    <string name="desktop_sync_choose_file">اختر ملف الحساب الثابت ( Martus (.mpi</string>
+    <string name="desktop_public_code_hint">الرمز العام للحساب الثابت</string>
+    <string name="invalid_public_account_file">ملف الحساب الثابت باطل</string>
+    <string name="valid_public_account_file">ملف الحساب الثابت صحيح</string>
+    <string name="invalid_public_code">لا يطابق الرمز العام الملف</string>
+    <string name="public_code_validation_empty">لا يمكن للرمز العام أن يكون فارغا</string>
+    <string name="select_file_picker">اختر ملف المستكشف</string>
+    <string name="attachments_add_label">المرفقات:</string>
+    <string name="attachments_added_label"> المرفقات (اضغط مع الاستمرار للحذف):</string>
+    <string name="server_ip_label">عنوان IP:</string>
+    <string name="server_ip_hint">أدخِلْ عنوان IP</string>
+    <string name="server_public_code_label">الرمز العام للخادم:</string>
+    <string name="server_public_code_hint">أدخل الرمز العام للخادم:</string>
+    <string name="choose_server_title">اختر الخادم</string>
+    <string name="contact_access_token">شارة الوصول جهة الاتصال</string>
+    <string name="account_access_token_label">شارة الوصول: %1$s</string>
+    <string name="view_access_token_menu_item">اعرضْ شارة الوصول</string>
+    <string name="error_retrieving_contact">خطأ خلال جلب جهة الاتصال</string>
+    <string name="access_token">شارة الوصول:</string>
+    <string name="verify_public_code">تحقق من الرمز العام :\n%1$s</string>
+    <!--Do Not Translate the word Martus-->
+    <string name="choose_file">مستكشف الملفات Martus</string>
+    <string name="install_explorer_text">إذا الملف الذي كنت تفكر غير موجود فتحاول ملف المستكسف أكثر تقدما: </string>
+    <!--==============================-->
+    <!--notification bar-->
+    <!--==============================-->
+    <string name="successful_send_notification">  اُرسلت النشرة!</string>
+    <!--Do not translate words that start with %, but you may move them around-->
+    <string name="failed_send_notification">تعذر الإرسال بسبب: %1$s  . أعدْ الإرسال لاحقا.</string>
+    <!--form labels-->
+    <string name="label_author">الكاتب</string>
+    <string name="label_organization">المنظمة</string>
+    <string name="label_title">العنوان</string>
+    <string name="label_location">الموقع</string>
+    <string name="label_keywords">الكلمات الرئيسية</string>
+    <string name="label_entrydate">تاريخ الدخول</string>
+    <string name="label_eventdate">تاريخ الحدث</string>
+    <string name="label_summary">الملخص</string>
+    <string name="label_publicinfo">المعلومات العمومية</string>
+    <string name="label_privateinfo">المعلومات الخاصة</string>
+    <string name="date_validation_min">يجب أن يكون التاريخ داخل أو بعد %1$s.</string>
+    <string name="date_validation_min_max">يجب أن يكون التاريخ داخل أو بعد %1$s وأن يكون داخل أو قبل %2$s.</string>
+    <string name="boolean_true">نعم</string>
+    <string name="boolean_false">لا</string>
+    <string name="end_form_button">أضف المرفقات ثم أرسل</string>
+    <!--Only translate the words inside the parenthesis in the following two lines-->
+    <string name="date_range_start">(البداية)</string>
+    <string name="date_range_end">(النهاية)</string>
+    <!--odk - definitely used-->
+    <string name="client">واجهة المستخدم</string>
+    <string name="font_size">حجم خط النص</string>
+    <string name="change_font_size">حجم خط النص</string>
+    <string name="font_size_extra_large">كبير جداً</string>
+    <string name="font_size_large">كبير</string>
+    <string name="font_size_medium">متوسط</string>
+    <string name="font_size_small">صغير</string>
+    <string name="font_size_extra_small">صغير جداً</string>
+    <string name="navigation">تصفح</string>
+    <string name="swipe_navigation">استعمل المسح الأفقي</string>
+    <string name="buttons_navigation">استعمل أزرار أمام/خلف</string>
+    <string name="swipe_buttons_navigation">استعمل المسح والأزرار</string>
+    <string name="swipe_instructions">أنت في بداية %s. امسح الشاشة كما هو مُشار أدناه للذهاب نحو خلف أو نحو الأمام.</string>
+    <string name="buttons_instructions">أنت في بداية %s. اضغط على أزرار الأسهم في الأسفل للذهاب نحو الخلف أو نحو الأمام.</string>
+    <string name="swipe_buttons_instructions">أنت في بداية %s. امسح الشاشة كما هو مشار أدناه أو اضغط على أزرار الأسهم للذهاب نحو الخلف أو نحو الأمام.</string>
+    <!--odk - may be used-->
+    <string name="activity_not_found">لا يوجد نشاط يمكن إدارته : %s</string>
+    <string name="add_another">إضافة مجموعة</string>
+    <string name="add_another_repeat">إضافة \"%s\" مجموعة أخرى ؟</string>
+    <string name="add_repeat">إضافة \"%s\" مجموعة جديدة ؟</string>
+    <string name="add_repeat_no">لا تُضفْ</string>
+    <string name="audio_file_error">لم يحدد أي ملف صوتي.</string>
+    <string name="audio_file_invalid">الملف : %s ملف صوتي غير صالح.</string>
+    <string name="barcode_scanner_error">آسف، ماسح الرمز الشريطي غير مثبَّت !</string>
+    <string name="cancel"> إلغاء</string>
+    <string name="cancel_loading_form"> إلغاء</string>
+    <string name="cancel_saving_form"> إلغاء</string>
+    <string name="capture_audio">تسجيل صوت</string>
+    <string name="capture_image">أخذ صورة</string>
+    <string name="capture_video">تسجيل فيديو</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="clearanswer_confirm">حذف إجابة \"%s\" ؟</string>
+    <string name="clear_answer">حذف الإجابة</string>
+    <string name="clear_answer_ask">حذف هذه الإجابة ؟</string>
+    <string name="clear_answer_no"> إلغاء</string>
+    <string name="data_saved_error">آسف، تعذر حفظ الاستمارة !</string>
+    <string name="data_saved_ok">تم حفظ الاستمارة بنجاح !</string>
+    <string name="default_completed">Default to finalized</string>
+    <string name="delete_repeat">حذف المجموعة</string>
+    <string name="delete_repeat_ask">حذف المجموعة ؟</string>
+    <string name="delete_repeat_confirm">حذف المجموعة \"%s\" وكل مجموعاتها الفرعية ؟</string>
+    <string name="delete_repeat_no"> إلغاء</string>
+    <string name="discard_answer">حذف الإجابة</string>
+    <string name="discard_group">حذف المجموعة</string>
+    <string name="do_not_change"> إلغاء</string>
+    <string name="do_not_exit"> إلغاء</string>
+    <string name="do_not_save">إفراغ الاستمارة</string>
+    <string name="entering_repeat">إضافة مجموعة</string>
+    <string name="entering_repeat_ask">إضافة مجموعة جديدة ؟</string>
+    <string name="error_occured">حدث خطأ</string>
+    <string name="file_invalid">ملف : %s غير صالح.</string>
+    <string name="file_missing">ملف : %s ناقص.</string>
+    <string name="finished_disk_scan">انتهى المسح. حُمِّلت كل الاستمارات.</string>
+    <string name="get_barcode">احصلْ على الرمز الشريطي</string>
+    <string name="get_forms">احصل على استمارة فارغة</string>
+    <string name="invalid_answer_error">آسف، الإجابة غير صالحة !</string>
+    <string name="jump_to_beginning">اذهبْ إلى البداية</string>
+    <string name="jump_to_end">اذهبْ إلى النهاية</string>
+    <string name="jump_to_previous">توجهْ نحو الأعلى</string>
+    <string name="leave_repeat_yes">لا تُضفْ</string>
+    <string name="leaving_repeat_ask">إضافة مجموعة مرة أخرى ؟</string>
+    <string name="loading_form">تحميل الاستمارة</string>
+    <string name="manage_files">حذف الاستمارة المحفوظة</string>
+    <string name="mark_finished">وسم الاستمارة على أنها منتهية</string>
+    <string name="no_items_display">لا شيء يمكن عرضه.</string>
+    <string name="ok">موافق</string>
+    <string name="parse_error">آسف، تعذر تحليل الاستمارة.</string>
+    <string name="password">كلمة المرور</string>
+    <string name="play_audio">شغّل الصوت</string>
+    <string name="play_video">شغّل الفيديو</string>
+    <string name="please_wait">رجاءً انتظر قليلا.</string>
+    <string name="quit_application">الخروج من %s</string>
+    <string name="quit_entry">حفظ الاستمارة والخروج</string>
+    <string name="replace_barcode">استبدلْ الرمز الشريطي</string>
+    <string name="required_answer_error">آسف، الإجابة مطلوبة !</string>
+    <string name="review_data">حرر الاستمارة المحفوظة</string>
+    <string name="save_all_answers">احفظ الاستمارة</string>
+    <string name="save_enter_data_description">أنت في آخر الاستمارة</string>
+    <string name="saving_form">يجري حفظ الاستمارة</string>
+    <string name="send_data">إرسال الاستمارة المنتهية</string>
+    <string name="trigger">حسنا، رجاءً أكمل.</string>
+    <string name="view_hierarchy">اذهبْ إلى المحث</string>
+    <string name="general_preferences">الإعدادات</string>
+    <string name="show_splash">أظهرْ شاشة البداية</string>
+    <string name="keep_changes">احفظ التغييرات</string>
+    <string name="xform_parse_error">حدث خطأ في XForm. ينقص %1$s العنصر %2$s</string>
+    <string name="choose_sound">اختر صوتا</string>
+    <string name="choose_video">اختر فيديو</string>
+    <string name="choose_image">اختر صورة</string>
+    <string name="selected">محدد :</string>
+    <string name="select_answer">حدد جوابا</string>
+    <string name="save_form_as">سمِّ هذه الاستمارة</string>
+    <string name="edit_prompt">حرّرْ المحث</string>
+    <string name="selected_google_account_text">حساب غوغل</string>
+    <string name="added_on_date_at_time">\'Added on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
+    <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
+    <string name="saved_on_date_at_time">\'Saved on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
+    <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
+    <string name="finalized_on_date_at_time">\'Finalized on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
+    <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
+    <string name="sent_on_date_at_time">\'Sent on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
+    <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
+    <string name="sending_failed_on_date_at_time">\'Sending failed on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
+    <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
+    <string name="version">الإصدار :</string>
+    <string name="launch_app">تشغيل</string>
+    <string name="no_app">The requested application is missing. Please manually enter the reading.</string>
+    <string name="select_one">اختر جوابا واحدا</string>
+    <string name="savepoint_used">تمت استعادة التغييرات غير المحفوظة انطلاقا من مراكز الحفظ !</string>
+    <string name="save_and_close">احفظ وأغلق</string>
+    <string name="sign_button">اجمعْ التوقيع</string>
+    <string name="markup_image">رقّم الصورة</string>
+    <string name="draw_image">خطِّطْ الصورة</string>
+    <string name="reset_image">صفّرْ</string>
+    <string name="set_color">إعداد الألوان</string>
+    <string name="select_drawing_color">حدد لون الرسم</string>
+    <string name="user_access_main_menu">يستطيع المستخدم ولوج عناصر القائمة الرئيسية :</string>
+    <string name="user_access_preferences">يستطيع المستخدم ولوج عناصر تغيير الإعدادات :</string>
+    <string name="change_server">منصة</string>
+    <string name="change_username_default">اسم المستخدم</string>
+    <string name="admin_access_settings">المسْ للوصول إلى الإعدادات الإدارية</string>
+    <string name="user_access_form_entry">يمكن للمستخدم الوصول إلى عناصر مدخلة الاستمارة :</string>
+    <string name="save_mid">احفظ الاستمارة</string>
+    <string name="enter_new_password">ادخل كلمة السر الجديدة</string>
+    <string name="verify_new_password">أعد إدخال كلمة السر الجديدة</string>
+    <string name="admin_password_changed">تم تغيير كلمة سر المدير بنجاح</string>
+    <string name="admin_password_disabled">كلمة سر المدير معطلة</string>
+    <string name="admin_password_mismatch">آسف، كلمات السر غير متطابقة !</string>
+    <string name="found_in_menu">أزل التحديد للإخفاء من القائمة في مدخلات الاستمارة</string>
+    <string name="autosend_wifi">أرسلْ تلقائيا بواسطة Wi-Fi</string>
+    <string name="autosend_network">أرسلْ تلقائيا بواسطة الشبكة</string>
+    <string name="found_in_main">أزل التحديد لإخفاء القائمة الرئيسية</string>
+    <string name="found_in_settings">أزل التحديد لإخفاء الإعدادات العامة</string>
+    <string name="found_at_end">أزل التحديد للإخفاء من آخر مدخلات الاستمارة</string>
+    <string name="form_forward">القادم</string>
+    <string name="form_backward">سابق</string>
+    <string name="change_url_default">مسار المورد المنمط (URL)</string>
+    <string name="launch_printer">حضّرْ الطباعة</string>
+    <string name="no_printer">الطابعة المطلوبة غبر مهيئة. يُرجى تهيئة الطابعة.</string>
+    <string name="constraint_behavior">Constraint processing behavior</string>
+    <string name="on_switch_label">تشغيل</string>
+    <string name="off_switch_label">إيقاف</string>
+</resources>

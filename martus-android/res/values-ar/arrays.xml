@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string-array name="entries_language_preference">
+        <item>الإنجليزية</item>
+        <item>العربية</item>
+        <item>الأرمنية</item>
+        <item>الأذربيجانية</item>
+        <item>البلغارية</item>
+        <item>البنغالية، البنغلا</item>
+        <item>البورمية</item>
+        <item>الصينية</item>
+        <item>الهولندية</item>
+        <item> الاسبرانتو</item>
+        <item>الفارسية/الدارية</item>
+        <item>الفرنسية</item>
+        <item>الألمانية</item>
+        <item>الغوجاراتية</item>
+        <item>الهاوسا (النيجيرية)</item>
+        <item>العبرية</item>
+        <item>الهندية</item>
+        <item>الهنغارية</item>
+        <item>الايطالية</item>
+        <item>اليابانية</item>
+        <item>الجاوية</item>
+        <item>الكناريزية</item>
+        <item>الكازاخية</item>
+        <item>الخميرية</item>
+        <item>القيرغيزية</item>
+        <item>الكورية</item>
+        <item>الكردية</item>
+        <item>المالايالمية</item>
+        <item>الماراثية</item>
+        <item>النيبالية</item>
+        <item>الاوريسية</item>
+        <item>البنجابية</item>
+        <item>البشتو، البوشتو</item>
+        <item>البولندية</item>
+        <item>البرتغالية</item>
+        <item>الرومانية</item>
+        <item>الروسية</item>
+        <item>الصربية</item>
+        <item>السندية</item>
+        <item>السريلانكية</item>
+        <item>الإسبانية</item>
+        <item>التاميلية</item>
+        <item>الطاجيكية</item>
+        <item>التيلوجية</item>
+        <item>التايلاندية</item>
+        <item>التركية</item>
+        <item>التركمانية</item>
+        <item>الأوكرانية</item>
+        <item>الأوردو</item>
+        <item>الأوزبكية</item>
+        <item>الفيتنامية</item>
+    </string-array>
+    <string-array name="values_language_preference">
+        <item>إنجل</item>
+        <item>عر</item>
+        <item>أرمن</item>
+        <item>أذرب</item>
+        <item>بلغار</item>
+        <item>بنغ، بنغلا</item>
+        <item>بورم</item>
+        <item>صين</item>
+        <item>هولند</item>
+        <item> اسبرانتو</item>
+        <item>فارس/دار</item>
+        <item>فرنس</item>
+        <item>مان</item>
+        <item>غوجارات</item>
+        <item>هاوسا (نيجير)</item>
+        <item>عبر</item>
+        <item>هند</item>
+        <item>هنغار</item>
+        <item>ايط</item>
+        <item>يابان</item>
+        <item>جاو</item>
+        <item>كناريز</item>
+        <item>كازاخ</item>
+        <item>خمير</item>
+        <item>قيرغيز</item>
+        <item>كور</item>
+        <item>كرد</item>
+        <item>مايم</item>
+        <item>ماراث</item>
+        <item>نيب</item>
+        <item>اوريس</item>
+        <item>بنجاب</item>
+        <item>بشتو، بوشتو</item>
+        <item>بولند</item>
+        <item>برتغ</item>
+        <item>رومان</item>
+        <item>روس</item>
+        <item>صرب</item>
+        <item>سند</item>
+        <item>سريلانك</item>
+        <item>إسبان</item>
+        <item>تاميل</item>
+        <item>طاجيك</item>
+        <item>تيلوج</item>
+        <item>تايلاند</item>
+        <item>ترك</item>
+        <item>تركمان</item>
+        <item>أوكران</item>
+        <item>أوردو</item>
+        <item>أوزبك</item>
+        <item>فيتنام</item>
+    </string-array>
+    <string-array name="entries_timeout_preference">
+        <item>10 دقائق</item>
+        <item>7 دقائق</item>
+        <item>5 دقائق</item>
+        <item>3 دقائق</item>
+        <item>1 دقيقة</item>
+    </string-array>
+    <string-array name="values_timeout_preference">
+        <item>10</item>
+        <item>7</item>
+        <item>5</item>
+        <item>3</item>
+        <item>1</item>
+    </string-array>
+    <!--DO NOT alter font_size_entry_values - used internally in preferences activity-->
+    <string-array name="font_size_entries">
+        <item>@string/font_size_extra_large</item>
+        <item>@string/font_size_large</item>
+        <item>@string/font_size_medium</item>
+        <item>@string/font_size_small</item>
+        <item>@string/font_size_extra_small</item>
+    </string-array>
+    <!--DO NOT alter navigation_entry_values - used internally in preferences activity-->
+    <string-array name="navigation_entries">
+        <item>@string/swipe_navigation</item>
+        <item>@string/buttons_navigation</item>
+        <item>@string/swipe_buttons_navigation</item>
+    </string-array>
+</resources>
