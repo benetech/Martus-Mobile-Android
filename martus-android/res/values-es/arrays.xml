@@ -107,11 +107,11 @@
         <item>vi</item>
     </string-array>
     <string-array name="entries_timeout_preference">
-        <item>10 minutos</item>
-        <item>7 minutos</item>
-        <item>5 minutos</item>
-        <item>3 minutos</item>
-        <item>1 minuto</item>
+        <item>10 Minutos</item>
+        <item>7 Minutos</item>
+        <item>5 Minutos</item>
+        <item>3 Minutos</item>
+        <item>1 Minuto</item>
     </string-array>
     <string-array name="values_timeout_preference">
         <item>10</item>
