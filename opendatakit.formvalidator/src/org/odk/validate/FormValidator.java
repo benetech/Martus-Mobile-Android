@@ -134,12 +134,12 @@ public class FormValidator //implements ActionListener
             setError(true);
         }
 
-        if ( inError ) {
-            System.err.println("\nResult: Invalid");
-            System.exit(1);
-        } else {
-            System.exit(0);
-        }
+//        if ( inError ) {
+//            System.err.println("\nResult: Invalid");
+//            System.exit(1);
+//        } else {
+//            System.exit(0);
+//        }
     }
 
     private void setError(boolean outcome) {
