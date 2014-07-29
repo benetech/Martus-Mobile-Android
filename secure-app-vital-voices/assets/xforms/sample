@@ -1,0 +1,31 @@
+<h:html xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <h:head>
+        <h:title>Simple Secure App Form</h:title>
+        <model>
+
+            <!-- instance -->
+            <instance>
+                <data id="myform" >
+                    <meta>
+                        <instanceID/>
+                    </meta>
+                    <mystring/>
+                </data>
+            </instance>
+
+            <!-- bindings -->
+            <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:',uuid())" />
+            <bind nodeset="/data/mystring" type="string"/>
+        </model>
+    </h:head>
+
+    <!-- body -->
+    <h:body>
+        <input ref="/data/mystring">
+            <label>This is a string prompt</label>
+            <hint>You don't need a hint, but you can add one</hint>
+        </input>
+    </h:body>
+</h:html>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VitalVoices</string>
+    <string name="survey_loading_reading_form_message">Reading form definition…</string>
 </resources>
