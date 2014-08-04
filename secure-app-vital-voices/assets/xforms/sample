@@ -1,31 +1,79 @@
-<h:html xmlns:h="http://www.w3.org/1999/xhtml"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jr="http://openrosa.org/javarosa"
+    >
     <h:head>
-        <h:title>Simple Secure App Form</h:title>
+        <h:title>Vital Voices Secure App</h:title>
         <model>
+            <itext>
+                <translation lang="English" default="">
+                </translation>
+            </itext>
 
-            <!-- instance -->
             <instance>
-                <data id="myform" >
-                    <meta>
-                        <instanceID/>
-                    </meta>
-                    <mystring/>
-                </data>
+                <nm id="Miramare">
+                    <name />
+                    <nationality/>
+                </nm>
             </instance>
-
-            <!-- bindings -->
-            <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:',uuid())" />
-            <bind nodeset="/data/mystring" type="string"/>
+            <bind nodeset="/nm/name" type="string" />
+            <bind nodeset="/nm/nationality" type="string" />
         </model>
     </h:head>
-
-    <!-- body -->
     <h:body>
-        <input ref="/data/mystring">
-            <label>This is a string prompt</label>
-            <hint>You don't need a hint, but you can add one</hint>
-        </input>
+        <group appearance="field-list">
+            <label>Group One</label>
+            <input ref="name">
+                <label>Please enter your name(s):</label>
+            </input>
+            <input ref="nationality">
+                <label>Please enter your country (or countries) of origin:</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Two</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Three</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Four</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Five</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Six</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
+
+        <group appearance="field-list">
+            <label>Group Seven</label>
+            <input ref="name">
+                <label>Place Holder Field</label>
+            </input>
+        </group>
     </h:body>
 </h:html>
