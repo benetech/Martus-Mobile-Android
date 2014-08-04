@@ -218,7 +218,7 @@ abstract public class AbstractMainActivityWithMainMenuHandler extends AbstractTo
         emailIntent.setType("text/plain");
         Uri uri = Uri.parse("file://" + mpiFile.getAbsolutePath());
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email_title)));
     }
 
     private void sendAccountIDAsBulletin()

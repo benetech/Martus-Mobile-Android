@@ -99,7 +99,7 @@
         
         <activity android:name="org.martus.android.ContactImportChoiceActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden|locale|layoutDirection"
-            android:label="Import contact"/>
+            android:label="@string/import_contact_title"/>
 
         <service android:name="org.martus.android.ResendService"/>
     </application>

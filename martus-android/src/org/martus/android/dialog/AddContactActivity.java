@@ -66,7 +66,7 @@ public class AddContactActivity extends BaseActivity {
             return;
         }
 
-        showProgressDialog("Retrieving contact information.");
+        showProgressDialog(getString(R.string.retrieving_contact_information_label));
         getPublicKeyFromServer(code);
     }
 

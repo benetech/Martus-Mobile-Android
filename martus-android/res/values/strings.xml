@@ -59,6 +59,7 @@
     <string name="server_menu_title">Select Server</string>
     <string name="add_contact_using_access_token">Add Contact from Server</string>
     <string name="add_contact_from_file">Import Contact from File</string>
+    <string name="import_contact_title">Import contact</string>
     <!-- Do Not Translate the word Orbot-->
     <string name="install_orbot_">Install Orbot</string>
     <!-- Do Not Translate the word Orbot-->
@@ -382,4 +383,6 @@
     <string name="constraint_behavior">Constraint processing behavior</string>
     <string name="on_switch_label">On</string>
     <string name="off_switch_label">Off</string>
+    <string name="send_email_title">Send email...</string>
+    <string name="retrieving_contact_information_label">Retrieving contact information.</string>
 </resources>
