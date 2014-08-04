@@ -25,8 +25,6 @@ public class MainActivity extends Activity {
     }
 
     public void startNewForm(View view) {
-        System.out.println("boom");
-
         try {
             Intent intent = new Intent(this, MainFormEntryActivity.class);
             Uri formUri = ContentUris.withAppendedId(FormsProviderAPI.FormsColumns.CONTENT_URI, 1);
