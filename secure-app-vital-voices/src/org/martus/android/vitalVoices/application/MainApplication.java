@@ -50,7 +50,7 @@ public class MainApplication extends Collect {
 
             Cursor cursor = getContentResolver().query(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null, null, null);
 
-            getContentResolver().delete(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null);
+            //getContentResolver().delete(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null);
 
             ContentValues formPathValues = new ContentValues();
             formPathValues.put(FormsProviderAPI.FormsColumns.FORM_FILE_PATH, formPath);
@@ -58,6 +58,14 @@ public class MainApplication extends Collect {
             getContentResolver().insert(FormsProviderAPI.FormsColumns.CONTENT_URI, formPathValues);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Cursor instanceCursor = getContentResolver().query(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null, null, null);
+            System.out.println("------------------------------------" + instanceCursor.getCount());
+            if (instanceCursor.getCount() != 1) {
+                System.out.println("------------------------------------INCORRECT NUMBER IF INSTANCE CURSORS!");
+                return;
+            }
+
             startActivity(intent);
 
         } catch (Exception e) {
