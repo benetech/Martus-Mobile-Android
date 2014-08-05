@@ -19,6 +19,7 @@
     <string name="wifi_only_preference_on">Envia datos sólo cuando el Wi-Fi esté disponible</string>
     <string name="version_name_label">Versión %1$s</string>
     <string name="version_code_label">Versión de compilación %1$s</string>
+    <string name="settings_title">Configuración</string>
     <!--==============================-->
     <!--main screen-->
     <!--==============================-->
@@ -44,6 +45,7 @@
     <string name="server_menu_title">Seleccionar servidor</string>
     <string name="add_contact_using_access_token">Añadir contacto desde el servidor</string>
     <string name="add_contact_from_file">Importar contacto desde archivo</string>
+    <string name="import_contact_title">Importar contacto</string>
     <!--Do Not Translate the word Orbot-->
     <string name="install_orbot_">Instalar Orbot</string>
     <!--Do Not Translate the word Orbot-->
@@ -364,4 +366,6 @@
     <string name="constraint_behavior">Restricción del comportamiento del procesado</string>
     <string name="on_switch_label">Activar</string>
     <string name="off_switch_label">Desactivar</string>
+    <string name="send_email_title">Enviar email...</string>
+    <string name="retrieving_contact_information_label">Obteniendo información de contacto.</string>
 </resources>

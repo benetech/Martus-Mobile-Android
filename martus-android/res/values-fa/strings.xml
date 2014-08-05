@@ -19,6 +19,7 @@
     <string name="wifi_only_preference_on">تنها در صورت فراهم بودن Wi-Fi اطلاعات ارسال شود</string>
     <string name="version_name_label">نسخه %1$s</string>
     <string name="version_code_label">ساخت %1$s</string>
+    <string name="settings_title">تنظیمات</string>
     <!--==============================-->
     <!--main screen-->
     <!--==============================-->
@@ -44,6 +45,7 @@
     <string name="server_menu_title">انتخاب سرور</string>
     <string name="add_contact_using_access_token">افزودن مخاطب از سرور</string>
     <string name="add_contact_from_file">انتقال مخاطب از فایل</string>
+    <string name="import_contact_title">انتقال مخاطب</string>
     <!--Do Not Translate the word Orbot-->
     <string name="install_orbot_">نصب Orbot</string>
     <!--Do Not Translate the word Orbot-->
@@ -362,4 +364,6 @@
     <string name="constraint_behavior">محدودیت رفتار پردازش</string>
     <string name="on_switch_label">روشن</string>
     <string name="off_switch_label">خاموش</string>
+    <string name="send_email_title">فرستادن ایمیل...</string>
+    <string name="retrieving_contact_information_label">بازیابی اطلاعات مخاطب.</string>
 </resources>

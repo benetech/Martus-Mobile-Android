@@ -19,6 +19,7 @@
     <string name="wifi_only_preference_on">Chỉ gửi dữ liệu đi khi có Wi-Fi</string>
     <string name="version_name_label">Phiên bản %1$s</string>
     <string name="version_code_label">Bản thiết kế %1$s</string>
+    <string name="settings_title">Thiết đặt</string>
     <!--==============================-->
     <!--main screen-->
     <!--==============================-->
@@ -44,6 +45,7 @@
     <string name="server_menu_title">Chọn Máy Chủ</string>
     <string name="add_contact_using_access_token">Thêm Liên Hệ từ Máy Chủ</string>
     <string name="add_contact_from_file">Nhập Liên Hệ từ Tập Tin</string>
+    <string name="import_contact_title">Nhập liên hệ</string>
     <!--Do Not Translate the word Orbot-->
     <string name="install_orbot_">Cài đặt Orbot</string>
     <!--Do Not Translate the word Orbot-->
@@ -362,4 +364,6 @@
     <string name="constraint_behavior">Trạng thái xử lý ràng buộc</string>
     <string name="on_switch_label">Mở</string>
     <string name="off_switch_label">Tắt</string>
+    <string name="send_email_title">Gửi email...</string>
+    <string name="retrieving_contact_information_label">Đang lấy về chi tiết liên hệ.</string>
 </resources>
