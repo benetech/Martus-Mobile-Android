@@ -11,6 +11,14 @@
         android:onClick="startNewForm"
         android:id="@+id/button" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_existing_forms" />
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 
 </LinearLayout>

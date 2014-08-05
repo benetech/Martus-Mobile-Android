@@ -1,6 +1,7 @@
 package org.martus.andriod.vitalVoices.activities;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -9,35 +10,96 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import org.martus.andriod.vitalVoices.R;
 import org.martus.android.vitalVoices.application.Constants;
 import org.martus.android.vitalVoices.application.MainApplication;
+import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.provider.FormsProviderAPI;
+import org.odk.collect.android.provider.InstanceProviderAPI;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
+
+        initiliazeExistingFormList();
+    }
+
+    private void initiliazeExistingFormList() {
+        String selection = InstanceProviderAPI.InstanceColumns.STATUS + " != ?";
+        String[] selectionArgs = {InstanceProviderAPI.STATUS_SUBMITTED};
+        String sortOrder = InstanceProviderAPI.InstanceColumns.STATUS + " DESC, " + InstanceProviderAPI.InstanceColumns.DISPLAY_NAME + " ASC";
+        Cursor c = managedQuery(InstanceProviderAPI.InstanceColumns.CONTENT_URI, null, selection, selectionArgs, sortOrder);
+
+        String[] data = new String[] {
+                InstanceProviderAPI.InstanceColumns.DISPLAY_NAME, InstanceProviderAPI.InstanceColumns.DISPLAY_SUBTEXT
+        };
+        int[] view = new int[] {
+                org.odk.collect.android.R.id.text1, org.odk.collect.android.R.id.text2
+        };
+
+        SimpleCursorAdapter instances = new SimpleCursorAdapter(this, org.odk.collect.android.R.layout.two_item, c, data, view);
+
+        setListAdapter(instances);
+    }
+
+    /**
+     * Stores the path of selected instance in the parent class and finishes.
+     */
+    @Override
+    protected void onListItemClick(ListView listView, View view, int position, long id) {
+        Cursor c = (Cursor) getListAdapter().getItem(position);
+        startManagingCursor(c);
+        Uri instanceUri = ContentUris.withAppendedId(InstanceProviderAPI.InstanceColumns.CONTENT_URI, c.getLong(c.getColumnIndex(InstanceProviderAPI.InstanceColumns._ID)));
+
+        Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", instanceUri.toString());
+
+        String action = getIntent().getAction();
+        if (Intent.ACTION_PICK.equals(action)) {
+            // caller is waiting on a picked form
+            setResult(RESULT_OK, new Intent().setData(instanceUri));
+        } else {
+            // the form can be edited if it is incomplete or if, when it was
+            // marked as complete, it was determined that it could be edited
+            // later.
+            String status = c.getString(c.getColumnIndex(InstanceProviderAPI.InstanceColumns.STATUS));
+            String strCanEditWhenComplete = c.getString(c.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
+
+            boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE) || Boolean.parseBoolean(strCanEditWhenComplete);
+            if (!canEdit) {
+                //createErrorDialog(getString(org.odk.collect.android.R.string.cannot_edit_completed_form),
+                  //      DO_NOT_EXIT);
+                return;
+            }
+            // caller wants to view/edit a form, so launch formentryactivity
+            startForm(instanceUri);
+        }
+       // finish();
     }
 
     public void startNewForm(View view) {
         try {
-            Intent intent = new Intent(this, MainFormEntryActivity.class);
             Uri formUri = ContentUris.withAppendedId(FormsProviderAPI.FormsColumns.CONTENT_URI, 1);
-
-            intent.setData(formUri);
-
-            Cursor cursor = getContentResolver().query(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null, null, null);
-            printContentResolver(cursor);
-            startActivity(intent);
+            startForm(formUri);
 
         } catch (Exception e) {
             Log.e(Constants.LOG_LABEL, "problem finding form file", e);
         }
+    }
+
+    private void startForm(Uri formUri) {
+        Intent intent = new Intent(this, MainFormEntryActivity.class);
+        intent.setData(formUri);
+
+        Cursor cursor = getContentResolver().query(FormsProviderAPI.FormsColumns.CONTENT_URI, null, null, null, null);
+        printContentResolver(cursor);
+        startActivity(intent);
     }
 
     private void printContentResolver(Cursor cursor) {
