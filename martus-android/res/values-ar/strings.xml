@@ -19,6 +19,7 @@
     <string name="wifi_only_preference_on">أرسل البيانات فقط حينما يكون Wi-Fi متاحا</string>
     <string name="version_name_label">إصدار %1$s</string>
     <string name="version_code_label">تحديث الإصدار %1$s</string>
+    <string name="settings_title">الاعدادات</string>
     <!--==============================-->
     <!--main screen-->
     <!--==============================-->
@@ -44,6 +45,7 @@
     <string name="server_menu_title">اختر الخادم</string>
     <string name="add_contact_using_access_token">أضفْ جهة الاتصال من الخادم</string>
     <string name="add_contact_from_file">استوردْ جهة الاتصال من ملف</string>
+    <string name="import_contact_title">استوردْ جهة الاتصال</string>
     <!--Do Not Translate the word Orbot-->
     <string name="install_orbot_">  Orbot  تثبيت</string>
     <!--Do Not Translate the word Orbot-->
@@ -198,7 +200,7 @@
     <string name="contact_access_token">شارة الوصول جهة الاتصال</string>
     <string name="account_access_token_label">شارة الوصول: %1$s</string>
     <string name="view_access_token_menu_item">اعرضْ شارة الوصول</string>
-    <string name="error_retrieving_contact">خطأ خلال جلب جهة الاتصال</string>
+    <string name="error_retrieving_contact">خطأ خلال استرجاع جهة الاتصال</string>
     <string name="access_token">شارة الوصول:</string>
     <string name="verify_public_code">تحقق من الرمز العام :\n%1$s</string>
     <!--Do Not Translate the word Martus-->
@@ -372,4 +374,6 @@
     <string name="constraint_behavior">Constraint processing behavior</string>
     <string name="on_switch_label">تشغيل</string>
     <string name="off_switch_label">إيقاف</string>
+    <string name="send_email_title">إرسال رسالة إلكترونية...</string>
+    <string name="retrieving_contact_information_label">استرجاع معلومات جهة الاتصال</string>
 </resources>

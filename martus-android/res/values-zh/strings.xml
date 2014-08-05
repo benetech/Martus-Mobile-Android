@@ -19,6 +19,7 @@
     <string name="wifi_only_preference_on">仅在连接 Wi-Fi 时传输数据</string>
     <string name="version_name_label">版本 %1$s</string>
     <string name="version_code_label">更新版 %1$s</string>
+    <string name="settings_title">设置</string>
     <!--==============================-->
     <!--main screen-->
     <!--==============================-->
@@ -37,13 +38,14 @@
     <string name="create_account_dialog_title">创建密码</string>
     <string name="create_account_intro">欢迎使用 Martus！请先创建一个新的移动Martus账号。</string>
     <string name="choose_server_intro">下一步，配置一个你将要发送公告到的Martus服务器连接。</string>
-    <string name="import_hq_intro">最后，输入你将要发送你的移动Martus公告到的Martus帐户信息。\n\n\n你必须拥有一个Martus公共帐户ID文件(后缀名为“.mpi”)和一个你想要接收移动Martus公告的计算机帐户公共密码，以完成这个步骤。</string>
+    <string name="import_hq_intro">最后，输入你将要发送你的移动Martus公告到的Martus帐户信息。\n\n\n你必须拥有一个Martus公开账户ID文件(后缀名为“.mpi”)和一个你想要接收移动Martus公告的计算机帐户公开密码，以完成这个步骤。</string>
     <string name="tor_option_intro">下一步，如果需要的话，打开Tor工具。</string>
     <string name="goto_server_setup_button">下一步</string>
     <string name="quit_menu_title">注销</string>
     <string name="server_menu_title">选择服务器</string>
     <string name="add_contact_using_access_token">从服务器中添加联系人</string>
     <string name="add_contact_from_file">从文件中导入联系人</string>
+    <string name="import_contact_title">导入联系人</string>
     <!--Do Not Translate the word Orbot-->
     <string name="install_orbot_">安装 Orbot</string>
     <!--Do Not Translate the word Orbot-->
@@ -104,22 +106,22 @@
     <string name="confirm_tamper_reset_message">你的设置文件发现了一个错误。为了你的安全利益，请删除你的帐户。按“是”键将开始删除进程；Martus无法在毁坏的设置文件中运行，因此按“否”键将退出Martus。</string>
     <string name="view_docs_menu">帮助文档链接</string>
     <string name="contact_us_menu_item">联系我们</string>
-    <string name="view_public_code_menu_item">查看公共密码</string>
+    <string name="view_public_code_menu_item">查看公开密码</string>
     <string name="resend_menu_item">重新发送未发送的公告</string>
     <string name="resending">重新发送！</string>
     <string name="resending_no_bulletins">你没有未发送的公告。</string>
     <string name="resending_no_network">应用没有联网，或者设置了仅在Wi-Fi网络下联网。</string>
     <string name="help_menu">帮助</string>
-    <string name="view_public_code_dialog_title">公共密码</string>
-    <string name="view_new_public_code_message">(新)公共密码：\n%1$s</string>
-    <string name="view_old_public_code_message">(旧)公共密码：\n%1$s</string>
-    <string name="view_public_code_dialog_error">无法显示公共密码</string>
-    <string name="send_public_account_id_menu_item">电子邮件公共帐户ID</string>
-    <string name="send_public_account_id_menu_item_via_bulletin">在公告中发送公共帐户ID</string>
+    <string name="view_public_code_dialog_title">公开密码</string>
+    <string name="view_new_public_code_message">(新)公开密码：\n%1$s</string>
+    <string name="view_old_public_code_message">(旧)公开密码：\n%1$s</string>
+    <string name="view_public_code_dialog_error">无法显示公开密码</string>
+    <string name="send_public_account_id_menu_item">电子邮件公开帐户ID</string>
+    <string name="send_public_account_id_menu_item_via_bulletin">在公告中发送公开帐户ID</string>
     <string name="manage_my_account_menu">管理我的帐户</string>
     <string name="manage_bulletins_menu">公告管理</string>
-    <string name="export_public_account_id_menu_item">导出公共账户ID</string>
-    <string name="export_public_account_id_dialog_title">导出公共帐户ID出现错误</string>
+    <string name="export_public_account_id_menu_item">导出公开账户ID</string>
+    <string name="export_public_account_id_dialog_title">导出公开帐户ID出现错误</string>
     <string name="export_public_account_id_dialog_error">无法导出公共帐户ID</string>
     <!--Do not translate words that start with %, but you may move them around-->
     <!--Do Not Translate the word Martus or the email address-->
@@ -161,7 +163,7 @@
     <!--choose server screen-->
     <!--==============================-->
     <string name="invalid_server_ip">无效IP地址</string>
-    <string name="invalid_server_code">服务器公共密码无效</string>
+    <string name="invalid_server_code">服务器公开密码无效</string>
     <string name="invalid_server_info">所输入的服务器信息无效</string>
     <string name="successful_server_choice">成功连接到服务器</string>
     <string name="error_computing_public_code">保存服务器配置出现错误</string>
@@ -169,28 +171,28 @@
     <!--==============================-->
     <!--desktop key screen-->
     <!--==============================-->
-    <string name="desktop_sync_public_code">然后输入Martus计算机帐户公共密码：</string>
+    <string name="desktop_sync_public_code">然后输入Martus计算机帐户公开密码：</string>
     <string name="desktop_sync_title">Martus计算机帐户信息</string>
     <string name="desktop_sync_choose_file">选择Martus计算机帐户(.mpi)文件</string>
-    <string name="desktop_public_code_hint">计算机帐户公共密码</string>
+    <string name="desktop_public_code_hint">计算机帐户公开密码</string>
     <string name="invalid_public_account_file">无效计算机帐户文件</string>
     <string name="valid_public_account_file">无效的计算机帐户文件</string>
-    <string name="invalid_public_code">公共密码与文件不匹配</string>
-    <string name="public_code_validation_empty">公共密码不能为空</string>
+    <string name="invalid_public_code">公开密码与文件不匹配</string>
+    <string name="public_code_validation_empty">公开密码不能为空</string>
     <string name="select_file_picker">选择一个文件浏览器</string>
     <string name="attachments_add_label">附件：</string>
     <string name="attachments_added_label">附件（按住可删除）：</string>
     <string name="server_ip_label">IP地址：</string>
     <string name="server_ip_hint">输入IP地址</string>
-    <string name="server_public_code_label">服务器公共密码：</string>
-    <string name="server_public_code_hint">输入服务器公共密码</string>
+    <string name="server_public_code_label">服务器公开密码：</string>
+    <string name="server_public_code_hint">输入服务器公开密码</string>
     <string name="choose_server_title">选择服务器</string>
     <string name="contact_access_token">联系人访问令牌</string>
     <string name="account_access_token_label">访问令牌: %1$s</string>
     <string name="view_access_token_menu_item">查看访问令牌</string>
     <string name="error_retrieving_contact">取回联系人错误</string>
     <string name="access_token">访问令牌</string>
-    <string name="verify_public_code">验证公共密码：\n%1$s</string>
+    <string name="verify_public_code">验证公开密码：\n%1$s</string>
     <!--Do Not Translate the word Martus-->
     <string name="choose_file">Martus 文件浏览器</string>
     <string name="install_explorer_text">如果你不能找到你想要的文件，尝试安装更高级的文件管理器：</string>
@@ -324,7 +326,7 @@
     <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
     <string name="sending_failed_on_date_at_time">\'Sending failed on\' EEE, MMM dd, yyyy \'at\' HH:mm</string>
     <!--http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html-->
-    <string name="version">Version:</string>
+    <string name="version">版本:</string>
     <string name="launch_app">Launch</string>
     <string name="no_app">The requested application is missing. Please manually enter the reading.</string>
     <string name="select_one">Select One Answer</string>
@@ -362,4 +364,6 @@
     <string name="constraint_behavior">Constraint processing behavior</string>
     <string name="on_switch_label">打开</string>
     <string name="off_switch_label">关闭</string>
+    <string name="send_email_title">发送电子邮件...</string>
+    <string name="retrieving_contact_information_label">取回联系人信息中</string>
 </resources>
