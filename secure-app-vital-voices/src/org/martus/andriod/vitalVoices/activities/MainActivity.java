@@ -35,16 +35,17 @@ public class MainActivity extends ListActivity {
         String selection = InstanceProviderAPI.InstanceColumns.STATUS + " != ?";
         String[] selectionArgs = {InstanceProviderAPI.STATUS_SUBMITTED};
         String sortOrder = InstanceProviderAPI.InstanceColumns.STATUS + " DESC, " + InstanceProviderAPI.InstanceColumns.DISPLAY_NAME + " ASC";
-        Cursor c = managedQuery(InstanceProviderAPI.InstanceColumns.CONTENT_URI, null, selection, selectionArgs, sortOrder);
+        Cursor cursor = managedQuery(InstanceProviderAPI.InstanceColumns.CONTENT_URI, null, selection, selectionArgs, sortOrder);
 
-        String[] data = new String[] {
+        String[] listData = new String[] {
                 InstanceProviderAPI.InstanceColumns.DISPLAY_NAME, InstanceProviderAPI.InstanceColumns.DISPLAY_SUBTEXT
         };
-        int[] view = new int[] {
+
+        int[] listViews = new int[] {
                 org.odk.collect.android.R.id.text1, org.odk.collect.android.R.id.text2
         };
 
-        SimpleCursorAdapter instances = new SimpleCursorAdapter(this, org.odk.collect.android.R.layout.two_item, c, data, view);
+        SimpleCursorAdapter instances = new SimpleCursorAdapter(this, org.odk.collect.android.R.layout.two_item, cursor, listData, listViews);
 
         setListAdapter(instances);
     }
