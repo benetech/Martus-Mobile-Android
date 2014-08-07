@@ -383,6 +383,7 @@ public class FormsProvider extends ContentProvider {
 					selectionArgs, null, null, null);
 			if (c.getCount() > 0) {
 				// already exists
+				/** This error message seems incorrect **/
 				throw new SQLException("FAILED Insert into " + uri
 						+ " -- row already exists for form definition file: "
 						+ filePath);
