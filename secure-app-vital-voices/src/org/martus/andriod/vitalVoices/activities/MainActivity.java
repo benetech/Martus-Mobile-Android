@@ -72,15 +72,10 @@ public class MainActivity extends ListActivity {
             String strCanEditWhenComplete = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
 
             boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE) || Boolean.parseBoolean(strCanEditWhenComplete);
-            if (!canEdit) {
-                //createErrorDialog(getString(org.odk.collect.android.R.string.cannot_edit_completed_form),
-                  //      DO_NOT_EXIT);
-                return;
+            if (canEdit) {
+                startForm(instanceUri);
             }
-            // caller wants to view/edit a form, so launch formentryactivity
-            startForm(instanceUri);
         }
-       // finish();
     }
 
     public void startNewForm(View view) {
