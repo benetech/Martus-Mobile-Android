@@ -69,9 +69,9 @@ public class MainActivity extends ListActivity {
             // marked as complete, it was determined that it could be edited
             // later.
             String status = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.STATUS));
-            String strCanEditWhenComplete = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
+            String canEditWhenCompleteSetting = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
 
-            boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE) || Boolean.parseBoolean(strCanEditWhenComplete);
+            boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE) || Boolean.parseBoolean(canEditWhenCompleteSetting);
             if (canEdit) {
                 startForm(instanceUri);
             }
