@@ -20,8 +20,10 @@ package org.odk.collect.android.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import org.javarosa.core.services.transport.payload.ByteArrayPayload;
 import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.io.SecureFileStorageManager;
 import org.odk.collect.android.listeners.SavePointListener;
 import org.odk.collect.android.logic.FormController;
 
@@ -38,12 +40,14 @@ public class SavePointTask extends AsyncTask<Void, Void, String> {
     private static final Object lock = new Object();
     private static int lastPriorityUsed = 0;
 
+    private final SecureFileStorageManager secureStorage;
     private final SavePointListener listener;
     private int priority;
 
-    public SavePointTask(SavePointListener listener) {
+    public SavePointTask(SecureFileStorageManager secureStorage, SavePointListener listener) {
         this.listener = listener;
         this.priority = ++lastPriorityUsed;
+        this.secureStorage = secureStorage;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class SavePointTask extends AsyncTask<Void, Void, String> {
 
             try {
                 FormController formController = Collect.getInstance().getFormController();
-                File temp = SaveToDiskTask.savepointFile(formController.getInstancePath());
+                //File temp = SaveToDiskTask.savepointFile(formController.getInstancePath());
                 ByteArrayPayload payload = formController.getFilledInFormXml();
 
                 if (priority < lastPriorityUsed) {
@@ -67,10 +71,12 @@ public class SavePointTask extends AsyncTask<Void, Void, String> {
                 }
 
                 // write out xml
-                SaveToDiskTask.exportXmlFile(payload, temp.getAbsolutePath());
-
+                //SaveToDiskTask.exportXmlFile(payload, temp.getAbsolutePath());
+                secureStorage.writeFile(formController.getInstancePath().getAbsolutePath(), 
+                		payload.getPayloadStream());
+                
                 long end = System.currentTimeMillis();
-                Log.i(t, "Savepoint ms: " + Long.toString(end - start) + " to " + temp);
+                Log.i(t, "Savepoint ms: " + Long.toString(end - start) + " to " + formController.getInstancePath().getAbsolutePath());
 
                 return null;
             } catch (Exception e) {

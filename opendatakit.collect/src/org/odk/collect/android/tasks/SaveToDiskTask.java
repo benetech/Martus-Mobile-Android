@@ -25,6 +25,7 @@ import org.javarosa.form.api.FormEntryController;
 import org.odk.collect.android.R;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.exception.EncryptionException;
+import org.odk.collect.android.io.SecureFileStorageManager;
 import org.odk.collect.android.listeners.FormSavedListener;
 import org.odk.collect.android.logic.FormController;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
@@ -54,6 +55,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
     private Boolean mMarkCompleted;
     private Uri mUri;
     private String mInstanceName;
+    private SecureFileStorageManager mSecureStorage;
 
     public static final int SAVED = 500;
     public static final int SAVE_ERROR = 501;
@@ -62,11 +64,12 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
     public static final int SAVED_AND_EXIT = 504;
 
 
-    public SaveToDiskTask(Uri uri, Boolean saveAndExit, Boolean markCompleted, String updatedName) {
+    public SaveToDiskTask(Uri uri, SecureFileStorageManager secureStorage, Boolean saveAndExit, Boolean markCompleted, String updatedName) {
         mUri = uri;
         mSave = saveAndExit;
         mMarkCompleted = markCompleted;
         mInstanceName = updatedName;
+        mSecureStorage = secureStorage;
     }
 
 
@@ -362,7 +365,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
      * @param path
      * @return
      */
-    static void exportXmlFile(ByteArrayPayload payload, String path) throws IOException {
+    private void exportXmlFile(ByteArrayPayload payload, String path) throws IOException {
         File file = new File(path);
         if (file.exists() && !file.delete()) {
             throw new IOException("Cannot overwrite " + path + ". Perhaps the file is locked?");
@@ -373,27 +376,28 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
         int len = (int) payload.getLength();
 
         // read from data stream
-        byte[] data = new byte[len];
-//        try {
-            int read = is.read(data, 0, len);
-            if (read > 0) {
-                // write xml file
-                RandomAccessFile randomAccessFile = null;
-                try {
-                    // String filename = path + File.separator +
-                    // path.substring(path.lastIndexOf(File.separator) + 1) + ".xml";
-                    randomAccessFile = new RandomAccessFile(file, "rws");
-                    randomAccessFile.write(data);
-                } finally {
-                    if (randomAccessFile != null) {
-                        try {
-                            randomAccessFile.close();
-                        } catch (IOException e) {
-                            Log.e(t, "Error closing RandomAccessFile: " + path, e);
-                        }
-                    }
-                }
-            }
+        mSecureStorage.writeFile(path, is);
+//        byte[] data = new byte[len];
+////        try {
+//            int read = is.read(data, 0, len);
+//            if (read > 0) {
+//                // write xml file
+//                RandomAccessFile randomAccessFile = null;
+//                try {
+//                    // String filename = path + File.separator +
+//                    // path.substring(path.lastIndexOf(File.separator) + 1) + ".xml";
+//                    randomAccessFile = new RandomAccessFile(file, "rws");
+//                    randomAccessFile.write(data);
+//                } finally {
+//                    if (randomAccessFile != null) {
+//                        try {
+//                            randomAccessFile.close();
+//                        } catch (IOException e) {
+//                            Log.e(t, "Error closing RandomAccessFile: " + path, e);
+//                        }
+//                    }
+//                }
+//            }
 //        } catch (IOException e) {
 //            Log.e(t, "Error reading from payload data stream");
 //            e.printStackTrace();
