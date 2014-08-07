@@ -54,9 +54,9 @@ public class MainActivity extends ListActivity {
      */
     @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
-        Cursor c = (Cursor) getListAdapter().getItem(position);
-        startManagingCursor(c);
-        Uri instanceUri = ContentUris.withAppendedId(InstanceProviderAPI.InstanceColumns.CONTENT_URI, c.getLong(c.getColumnIndex(InstanceProviderAPI.InstanceColumns._ID)));
+        Cursor cursor = (Cursor) getListAdapter().getItem(position);
+        startManagingCursor(cursor);
+        Uri instanceUri = ContentUris.withAppendedId(InstanceProviderAPI.InstanceColumns.CONTENT_URI, cursor.getLong(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns._ID)));
 
         Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", instanceUri.toString());
 
@@ -68,8 +68,8 @@ public class MainActivity extends ListActivity {
             // the form can be edited if it is incomplete or if, when it was
             // marked as complete, it was determined that it could be edited
             // later.
-            String status = c.getString(c.getColumnIndex(InstanceProviderAPI.InstanceColumns.STATUS));
-            String strCanEditWhenComplete = c.getString(c.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
+            String status = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.STATUS));
+            String strCanEditWhenComplete = cursor.getString(cursor.getColumnIndex(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
 
             boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE) || Boolean.parseBoolean(strCanEditWhenComplete);
             if (!canEdit) {
