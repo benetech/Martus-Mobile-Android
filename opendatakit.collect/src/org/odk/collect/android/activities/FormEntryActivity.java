@@ -30,6 +30,7 @@ import org.javarosa.model.xform.XFormsModule;
 import org.odk.collect.android.R;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.exception.JavaRosaException;
+import org.odk.collect.android.io.SecureFileStorageManager;
 import org.odk.collect.android.listeners.AdvanceToNextListener;
 import org.odk.collect.android.listeners.FormLoaderListener;
 import org.odk.collect.android.listeners.FormSavedListener;
@@ -210,6 +211,8 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	}
 
 	private SharedPreferences mAdminPreferences;
+	
+	private SecureFileStorageManager mSecureStorage;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -517,7 +520,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
      */
     private void nonblockingCreateSavePointData() {
         try {
-            SavePointTask savePointTask = new SavePointTask(this);
+            SavePointTask savePointTask = new SavePointTask(mSecureStorage, this);
             savePointTask.execute();
         } catch (Exception e) {
             Log.e(t, "Could not schedule SavePointTask. Perhaps a lot of swiping is taking place?");
@@ -1717,7 +1720,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		}
 
         synchronized (saveDialogLock) {
-		    mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), exit,
+		    mSaveToDiskTask = new SaveToDiskTask(getIntent().getData(), mSecureStorage, exit,
 				complete, updatedSaveName);
 	    	mSaveToDiskTask.setFormSavedListener(this);
 		    showDialog(SAVING_DIALOG);
@@ -2145,7 +2148,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		mSecureStorage = ((Collect) getApplication()).mountSecureStorage();
         if (mErrorMessage != null) {
             if (mAlertDialog != null && !mAlertDialog.isShowing()) {
                 createErrorDialog(mErrorMessage, EXIT);
@@ -2266,6 +2269,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 			}
 		}
 
+		((Collect)getApplication()).unmountSecureStorage();
 		super.onDestroy();
 
 	}
