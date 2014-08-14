@@ -91,7 +91,7 @@
     </plurals>
     <string name="starting_send_notification">发送中...</string>
     <string name="show_unsent_title">你还有公告未发送。</string>
-    <string name="reset_to_install">删除我的帐号</string>
+    <string name="reset_to_install">删除我的帐户</string>
     <string name="replace_contact_menu_item">更新联系人</string>
     <string name="ping_server_menu_item">检查服务器</string>
     <string name="ping_result_ok">服务器运作良好</string>

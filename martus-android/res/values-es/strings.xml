@@ -38,12 +38,12 @@
     <string name="create_account_dialog_title">Crear una nueva contraseña</string>
     <string name="create_account_intro">¡Bienvenido a Martus! Primero cree una nueva cuenta de Martus Móvil.</string>
     <string name="choose_server_intro">Después, configure una conexión al servidor Martus al que va a estar enviando boletines.</string>
-    <string name="import_hq_intro">Finalmente, introduzca información acerca de la cuenta a la que está enviando sus boletines de Martus Móvil.\n\nPara completar este paso debe tener un archivo de identificación pública de cuenta de Martus (terminado en \".mpi\"), y el código público de la cuenta de Martus de Escritorio en la que quiera recibir sus boletines de Martus Móvil.</string>
+    <string name="import_hq_intro">Finalmente, introduzca información acerca de la cuenta a la que está enviando sus boletines de Martus Móvil.\n\nPara completar este paso debe tener un archivo de identificación (clave) pública de cuenta de Martus (terminado en \".mpi\"), y el código público de la cuenta de Martus de Escritorio en la que quiera recibir sus boletines de Martus Móvil.</string>
     <string name="tor_option_intro">Después, active Tor si lo desea.</string>
     <string name="goto_server_setup_button">Siguiente</string>
     <string name="quit_menu_title">Cerrar sesión</string>
     <string name="server_menu_title">Seleccionar servidor</string>
-    <string name="add_contact_using_access_token">Añadir contacto desde el servidor</string>
+    <string name="add_contact_using_access_token">Añadir contacto desde servidor</string>
     <string name="add_contact_from_file">Importar contacto desde archivo</string>
     <string name="import_contact_title">Importar contacto</string>
     <!--Do Not Translate the word Orbot-->
@@ -118,12 +118,12 @@
     <string name="view_new_public_code_message">Código público (nuevo):\n%1$s</string>
     <string name="view_old_public_code_message">Código público (antiguo):\n%1$s</string>
     <string name="view_public_code_dialog_error">No se pudo mostrar el código público</string>
-    <string name="send_public_account_id_menu_item">Enviar un correo con la identificación pública de cuenta</string>
-    <string name="send_public_account_id_menu_item_via_bulletin">Enviar identificación pública de cuenta en el boletín</string>
+    <string name="send_public_account_id_menu_item">Enviar un correo con la identificación (clave) pública de cuenta</string>
+    <string name="send_public_account_id_menu_item_via_bulletin">Enviar identificación (clave) pública de cuenta en el boletín</string>
     <string name="manage_my_account_menu">Administrar mi cuenta</string>
     <string name="manage_bulletins_menu">Administrar boletines</string>
-    <string name="export_public_account_id_menu_item">Exportar identificación pública de cuenta</string>
-    <string name="export_public_account_id_dialog_title">Error al exportar identificación pública de cuenta</string>
+    <string name="export_public_account_id_menu_item">Exportar identificación (clave) pública de cuenta</string>
+    <string name="export_public_account_id_dialog_title">Error al exportar identificación (clave) pública de cuenta</string>
     <string name="export_public_account_id_dialog_error">No se pudo exportar la identificación de cuenta</string>
     <!--Do not translate words that start with %, but you may move them around-->
     <!--Do Not Translate the word Martus or the email address-->
@@ -175,7 +175,7 @@
     <!--==============================-->
     <string name="desktop_sync_public_code">Luego introduzca el código público de cuenta de Martus de Escritorio:</string>
     <string name="desktop_sync_title">Información de cuenta de Martus de Escritorio</string>
-    <string name="desktop_sync_choose_file">Elija un archivo de cuenta (.mpi) de Martus de Escritorio</string>
+    <string name="desktop_sync_choose_file">Elegir un archivo de cuenta (.mpi) de Martus de Escritorio</string>
     <string name="desktop_public_code_hint">Código público de cuenta de escritorio</string>
     <string name="invalid_public_account_file">Archivo de cuenta de escritorio no válido</string>
     <string name="valid_public_account_file">Archivo de cuenta de escritorio válido</string>
@@ -245,8 +245,8 @@
     <string name="add_another_repeat">¿Añadir otro grupo \"%s\"?</string>
     <string name="add_repeat">¿Añadir un nuevo grupo \"%s\"?</string>
     <string name="add_repeat_no">No añadir</string>
-    <string name="audio_file_error">No se especificó fichero de audio.</string>
-    <string name="audio_file_invalid">Fichero: %s no es un fichero de audio válido.</string>
+    <string name="audio_file_error">No se especificó archivo de audio.</string>
+    <string name="audio_file_invalid">Fichero: %s no es un archivo de audio válido.</string>
     <string name="barcode_scanner_error">¡Lo sentimos, Barcode Scanner (escaneador de código de barras) no está instalado!</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_loading_form">Cancelar</string>

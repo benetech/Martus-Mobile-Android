@@ -3,44 +3,44 @@
     <string-array name="entries_language_preference">
         <item>الإنجليزية</item>
         <item>العربية</item>
-        <item>الأرمنية</item>
+        <item>الأرمينية</item>
         <item>الأذربيجانية</item>
         <item>البلغارية</item>
         <item>البنغالية، البنغلا</item>
         <item>البورمية</item>
         <item>الصينية</item>
         <item>الهولندية</item>
-        <item> الاسبرانتو</item>
+        <item> الإسبرانتو</item>
         <item>الفارسية/الدارية</item>
         <item>الفرنسية</item>
         <item>الألمانية</item>
         <item>الغوجاراتية</item>
-        <item>الهاوسا (النيجيرية)</item>
+        <item>الهوسا</item>
         <item>العبرية</item>
         <item>الهندية</item>
         <item>الهنغارية</item>
-        <item>الايطالية</item>
+        <item>الإيطالية</item>
         <item>اليابانية</item>
         <item>الجاوية</item>
-        <item>الكناريزية</item>
+        <item>الكنادية</item>
         <item>الكازاخية</item>
         <item>الخميرية</item>
         <item>القيرغيزية</item>
         <item>الكورية</item>
         <item>الكردية</item>
-        <item>المالايالمية</item>
+        <item>الماليالامية</item>
         <item>الماراثية</item>
         <item>النيبالية</item>
-        <item>الاوريسية</item>
+        <item>الأوريا</item>
         <item>البنجابية</item>
-        <item>البشتو، البوشتو</item>
+        <item>الباشتو، البوشتو</item>
         <item>البولندية</item>
         <item>البرتغالية</item>
         <item>الرومانية</item>
         <item>الروسية</item>
         <item>الصربية</item>
         <item>السندية</item>
-        <item>السريلانكية</item>
+        <item>السنهالية</item>
         <item>الإسبانية</item>
         <item>التاميلية</item>
         <item>الطاجيكية</item>
@@ -54,64 +54,64 @@
         <item>الفيتنامية</item>
     </string-array>
     <string-array name="values_language_preference">
-        <item>إنجل</item>
-        <item>عر</item>
-        <item>أرمن</item>
-        <item>أذرب</item>
-        <item>بلغار</item>
-        <item>بنغ، بنغلا</item>
-        <item>بورم</item>
-        <item>صين</item>
-        <item>هولند</item>
-        <item> اسبرانتو</item>
-        <item>فارس/دار</item>
-        <item>فرنس</item>
-        <item>مان</item>
-        <item>غوجارات</item>
-        <item>هاوسا (نيجير)</item>
-        <item>عبر</item>
-        <item>هند</item>
-        <item>هنغار</item>
-        <item>ايط</item>
-        <item>يابان</item>
-        <item>جاو</item>
-        <item>كناريز</item>
-        <item>كازاخ</item>
-        <item>خمير</item>
-        <item>قيرغيز</item>
-        <item>كور</item>
-        <item>كرد</item>
-        <item>مايم</item>
-        <item>ماراث</item>
-        <item>نيب</item>
-        <item>اوريس</item>
-        <item>بنجاب</item>
-        <item>بشتو، بوشتو</item>
-        <item>بولند</item>
-        <item>برتغ</item>
-        <item>رومان</item>
-        <item>روس</item>
-        <item>صرب</item>
-        <item>سند</item>
-        <item>سريلانك</item>
-        <item>إسبان</item>
-        <item>تاميل</item>
-        <item>طاجيك</item>
-        <item>تيلوج</item>
-        <item>تايلاند</item>
-        <item>ترك</item>
-        <item>تركمان</item>
-        <item>أوكران</item>
-        <item>أوردو</item>
-        <item>أوزبك</item>
-        <item>فيتنام</item>
+        <item>en</item>
+        <item>ar</item>
+        <item>arm</item>
+        <item>az</item>
+        <item>bg</item>
+        <item>bn</item>
+        <item>bur</item>
+        <item>zh</item>
+        <item>nl</item>
+        <item>eo</item>
+        <item>fa</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>gu</item>
+        <item>ha</item>
+        <item>he</item>
+        <item>hi</item>
+        <item>hu</item>
+        <item>it</item>
+        <item>ja</item>
+        <item>jv</item>
+        <item>kn</item>
+        <item>kk</item>
+        <item>km</item>
+        <item>ky</item>
+        <item>ko</item>
+        <item>ku</item>
+        <item>ml</item>
+        <item>mr</item>
+        <item>ne</item>
+        <item>or</item>
+        <item>pa</item>
+        <item>ps</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>sr</item>
+        <item>sd</item>
+        <item>si</item>
+        <item>es</item>
+        <item>ta</item>
+        <item>tg</item>
+        <item>te</item>
+        <item>th</item>
+        <item>tr</item>
+        <item>tk</item>
+        <item>uk</item>
+        <item>ur</item>
+        <item>uz</item>
+        <item>vi</item>
     </string-array>
     <string-array name="entries_timeout_preference">
         <item>10 دقائق</item>
         <item>7 دقائق</item>
         <item>5 دقائق</item>
         <item>3 دقائق</item>
-        <item>1 دقيقة</item>
+        <item>دقيقة</item>
     </string-array>
     <string-array name="values_timeout_preference">
         <item>10</item>
