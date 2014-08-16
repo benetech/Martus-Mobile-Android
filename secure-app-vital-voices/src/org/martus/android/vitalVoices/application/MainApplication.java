@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import org.martus.andriod.vitalVoices.activities.MainActivity;
+import org.martus.android.vitalVoices.activities.MainActivity;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.provider.FormsProviderAPI;
 import org.odk.validate.FormValidator;

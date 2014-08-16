@@ -1,4 +1,4 @@
-package org.martus.andriod.vitalVoices.activities;
+package org.martus.android.vitalVoices.activities;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import org.martus.andriod.vitalVoices.R;
+import org.martus.android.vitalVoices.R;
 import org.martus.android.vitalVoices.application.Constants;
 import org.martus.android.vitalVoices.application.MainApplication;
 import org.odk.collect.android.application.Collect;
