@@ -198,7 +198,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
     private final Object saveDialogLock = new Object();
 	private int viewCount = 0;
 
-	private FormLoaderTask mFormLoaderTask;
+	protected FormLoaderTask mFormLoaderTask;
 	private SaveToDiskTask mSaveToDiskTask;
 
 	private ImageButton mNextButton;
@@ -320,7 +320,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 					Log.w(t, "Reloading form and restoring state.");
 					// we need to launch the form loader to load the form
 					// controller...
-					mFormLoaderTask = new FormLoaderTask(instancePath,
+					mFormLoaderTask = getFormLoaderTask(instancePath,
 							startingXPath, waitingXPath);
 					Collect.getInstance().getActivityLogger()
 							.logAction(this, "formReloaded", mFormPath);
@@ -504,7 +504,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 					return;
 				}
 
-				mFormLoaderTask = new FormLoaderTask(instancePath, null, null);
+				mFormLoaderTask = getFormLoaderTask(instancePath, null, null);
 				Collect.getInstance().getActivityLogger()
 						.logAction(this, "formLoaded", mFormPath);
 				showDialog(PROGRESS_DIALOG);
@@ -2759,5 +2759,13 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         if (errorMessage != null && errorMessage.trim().length() > 0) {
             Toast.makeText(this, getString(R.string.save_point_error, errorMessage), Toast.LENGTH_LONG).show();
         }
+    }
+    
+    /**
+     * Returns an instance of {@link org.odk.collect.android.tasks.FormLoaderTask}
+     */
+    protected FormLoaderTask getFormLoaderTask(String instancePath, String startingXPath, String waitingXPath) {
+    	return new FormLoaderTask(instancePath,
+				startingXPath, waitingXPath);
     }
 }

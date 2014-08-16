@@ -240,8 +240,10 @@ public class Collect extends Application {
      */
     public SecureFileStorageManager mountSecureStorage() {
     	mSecureStorageHolds++;
-    	mSecureStorage = new SecureFileStorageManager(SECURE_STORAGE_PATH);
-    	mSecureStorage.mountFilesystem(getSecureStorageKey());
+    	if (mSecureStorage == null || !mSecureStorage.isFilesystemMounted()) {
+    		mSecureStorage = new SecureFileStorageManager(SECURE_STORAGE_PATH);
+    		mSecureStorage.mountFilesystem(getSecureStorageKey());
+    	}
     	return mSecureStorage;
     }
     
