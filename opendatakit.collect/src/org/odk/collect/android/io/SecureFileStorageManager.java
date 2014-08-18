@@ -5,13 +5,12 @@ import info.guardianproject.iocipher.FileInputStream;
 import info.guardianproject.iocipher.IOCipherFileChannel;
 import info.guardianproject.iocipher.VirtualFileSystem;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-
-import org.javarosa.core.io.BufferedInputStream;
 
 import android.util.Log;
 
@@ -39,7 +38,7 @@ public class SecureFileStorageManager {
 	 * Mount the secure virtual file system using the given decryption key
 	 */
 	public void mountFilesystem(String password) {
-		if (mVfs.isMounted()) {
+		if (mVfs != null && mVfs.isMounted()) {
 			Log.w(TAG,
 					"mountFilesystem called with filesystem all ready mounted. Ignoring.");
 			return;
@@ -52,7 +51,7 @@ public class SecureFileStorageManager {
 	 * Unmount the secure virtual file system.
 	 */
 	public void unmountFilesystem() {
-		if (!mVfs.isMounted()) {
+		if (mVfs == null || !mVfs.isMounted()) {
 			Log.w(TAG,
 					"unmountFilesystem called without filesystem mounted. Ignoring.");
 			return;
@@ -69,21 +68,23 @@ public class SecureFileStorageManager {
 	 * 
 	 * @param fileName
 	 * @param is
+	 * @throws IOException 
 	 */
-	public void writeFile(String fileName, InputStream is) {
-		try {
-			info.guardianproject.iocipher.FileOutputStream fos = new info.guardianproject.iocipher.FileOutputStream(
-					fileName);
+	public void writeFile(String fileName, InputStream is) throws IOException {
+		info.guardianproject.iocipher.FileOutputStream fos = new info.guardianproject.iocipher.FileOutputStream(
+				fileName);
 
-			ReadableByteChannel sourceFileChannel = Channels.newChannel(is);
-			IOCipherFileChannel destinationFileChannel = fos.getChannel();
-			destinationFileChannel.transferFrom(sourceFileChannel, 0,
-					is.available());
+		ReadableByteChannel sourceFileChannel = Channels.newChannel(is);
+		IOCipherFileChannel destinationFileChannel = fos.getChannel();
+		destinationFileChannel.transferFrom(sourceFileChannel, 0,
+				is.available());
+		
+		// Testing
+//			byte[] writtenFile = readFile(fileName);
+//			TreeElement savedRoot = XFormParser.restoreDataModel(writtenFile, null).getRoot();
 
-		} catch (IOException e) {
-			Log.w(TAG, "Error writing virtual file " + fileName);
-			e.printStackTrace();
-		}
+		Log.i(TAG, "Writing " + fileName);
+		
 	}
 	
 	/**
@@ -93,8 +94,26 @@ public class SecureFileStorageManager {
 	 * @throws FileNotFoundException if fileName does not exist in the virtual
 	 * secure filesystem.
 	 */
-	public BufferedInputStream openFile(String fileName) throws FileNotFoundException {
-		return new BufferedInputStream(new FileInputStream(new File(fileName)));
+	public byte[] readFile(String fileName) throws FileNotFoundException {
+		Log.i(TAG, "Reading " + fileName);
+		FileInputStream fis = openFile(fileName);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int bytesRead;
+		try {
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				bos.write(buffer, 0, bytesRead);
+			}
+			return bos.toByteArray();
+		} catch (IOException e) {
+			Log.w(TAG, "Error reading " + fileName);
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public FileInputStream openFile(String fileName) throws FileNotFoundException {
+		return new FileInputStream(new File(fileName));
 	}
 
 }

@@ -16,7 +16,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ODK Jars" level="project" />
-    <orderEntry type="module" module-name="IOCipher" />
   </component>
 </module>
 
