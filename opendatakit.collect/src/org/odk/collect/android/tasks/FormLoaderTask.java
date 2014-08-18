@@ -62,7 +62,7 @@ import org.odk.collect.android.utilities.ZipUtils;
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FECWrapper> {
-    private final static String t = "FormLoaderTask";
+    protected final static String t = "FormLoaderTask";
     /**
      * Classes needed to serialize objects. Need to put anything from JR in here.
      */
@@ -183,7 +183,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
 
         publishProgress(Collect.getInstance().getString(R.string.survey_loading_reading_form_message));
 
-        if (formBin.exists()) {
+        if (exists(formBin)) {
             // if we have binary, deserialize binary
             Log.i(
                 t,
@@ -264,7 +264,8 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             if (mInstancePath != null) {
             	File instance = new File(mInstancePath);
             	File shadowInstance = SaveToDiskTask.savepointFile(instance);
-            	if ( shadowInstance.exists() &&
+            	// TODO: Allow override of lastModified once shadowInstance is stored in SecureFileStorageManager by subclass
+            	if ( exists(shadowInstance) &&
             		 ( shadowInstance.lastModified() > instance.lastModified()) ) {
             		// the savepoint is newer than the saved value of the instance.
             		// use it.
@@ -272,7 +273,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             		instance = shadowInstance;
            			Log.w(t,"Loading instance from shadow file: " + shadowInstance.getAbsolutePath());
             	}
-            	if ( instance.exists() ) {
+            	if ( exists(instance) ) {
 	                // This order is important. Import data, then initialize.
                     try {
                         importData(instance, fec);
@@ -318,7 +319,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
         // updated
         File csv = new File(formMediaDir.getAbsolutePath() + "/" + ITEMSETS_CSV);
         String csvmd5 = null;
-        if (csv.exists()) {
+        if (exists(csv)) {
             csvmd5 = FileUtils.getMd5Hash(csv);
             boolean readFile = false;
             ItemsetDbAdapter ida = new ItemsetDbAdapter();
@@ -458,7 +459,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
         publishProgress(Collect.getInstance().getString(R.string.survey_loading_reading_data_message));
 
         // convert files into a byte array
-        byte[] fileBytes = FileUtils.getFileAsBytes(instanceFile);
+        byte[] fileBytes = readFileToByteArray(instanceFile);
 
         // get the root of the saved and template instances
         TreeElement savedRoot = XFormParser.restoreDataModel(fileBytes, null).getRoot();
@@ -546,7 +547,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
         File formDef = new File(Collect.CACHE_PATH + File.separator + hash + ".formdef");
 
         // formdef does not exist, create one.
-        if (!formDef.exists()) {
+        if (!exists(formDef)) {
             FileOutputStream fos;
             try {
                 fos = new FileOutputStream(formDef);
@@ -675,5 +676,23 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             ida.close();
         }
     }
+	
+	/**
+	 * Returns the contents of the given File as a byte array.
+	 * Serves as an override point for subclasses with custom
+	 * file storage mechanisms.
+	 */
+	protected byte[] readFileToByteArray(File file) {
+		return FileUtils.getFileAsBytes(file);
+	}
+	
+	/**
+	 * Returns whether the specified File exists. This method
+	 * serves as an override point for subclasses with custom
+	 * file storage mechanisms.
+	 */
+	protected boolean exists(File file) {
+		return file.exists();
+	}
 
 }
